@@ -127,6 +127,20 @@ Check the Actions log and confirm the video actually appears correctly on
 the channel — scene, audio, title, thumbnail — before trusting the
 unattended daily cron.
 
+**Reviewing the first few videos before going fully public:** by default,
+uploads publish as Public immediately (needed for the daily-upload pattern
+to build watch time). If you'd rather sanity-check the first couple of
+videos before anyone can find them, set a repo variable:
+
+`Settings → Secrets and variables → Actions → Variables → New repository
+variable → name: UPLOAD_PRIVACY_STATUS, value: unlisted`
+
+While that's set, every upload publishes as Unlisted (viewable only via
+direct link — check it from YouTube Studio, no need to flip it per video).
+Once you're happy with the output, delete that variable (or set it back to
+`public`) and every upload after that goes straight to Public with no
+further manual step.
+
 ### 6. Let it run
 
 Once you're happy with a manual test run, the cron schedules take over:

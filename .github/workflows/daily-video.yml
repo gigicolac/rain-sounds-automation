@@ -48,6 +48,12 @@ jobs:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          # Repo variable (Settings -> Secrets and variables -> Actions ->
+          # Variables), not a secret — nothing sensitive here. Leave unset
+          # for "public" (fully automated). Set to "unlisted" while
+          # reviewing the first few videos, then remove it (or set back to
+          # "public") once you're happy with the output.
+          UPLOAD_PRIVACY_STATUS: ${{ vars.UPLOAD_PRIVACY_STATUS }}
         run: python scripts/upload_youtube.py
 
       - name: Upload run artifacts for debugging

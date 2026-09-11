@@ -30,6 +30,20 @@ CHUNK_SIZE = 8 * 1024 * 1024
 MAX_RETRIES = 5
 RETRIABLE_STATUS_CODES = {500, 502, 503, 504}
 
+# Defaults to "public" for full automation. Override with the repo variable
+# UPLOAD_PRIVACY_STATUS=unlisted while reviewing the first few videos, then
+# unset it (or set it back to "public") once you're happy with the output.
+VALID_PRIVACY_STATUSES = {"public", "unlisted", "private"}
+# `or "public"` (not just .get(..., "public")) because GitHub Actions sets
+# an unset repo variable to an empty string rather than omitting the env
+# var entirely — an empty string must still fall back to the default.
+PRIVACY_STATUS = (os.environ.get("UPLOAD_PRIVACY_STATUS") or "public").strip().lower()
+if PRIVACY_STATUS not in VALID_PRIVACY_STATUSES:
+    raise ValueError(
+        f"Invalid UPLOAD_PRIVACY_STATUS={PRIVACY_STATUS!r}; "
+        f"must be one of {sorted(VALID_PRIVACY_STATUSES)}"
+    )
+
 
 def get_credentials():
     client_id = os.environ["YT_CLIENT_ID"]
@@ -54,7 +68,7 @@ def upload_video(youtube, assets):
             "categoryId": assets.get("category_id", "10"),
         },
         "status": {
-            "privacyStatus": "public",
+            "privacyStatus": PRIVACY_STATUS,
             "selfDeclaredMadeForKids": False,
         },
     }
@@ -104,6 +118,7 @@ def main():
     creds = get_credentials()
     youtube = build("youtube", "v3", credentials=creds)
 
+    print(f"Uploading with privacyStatus={PRIVACY_STATUS!r}")
     response = upload_video(youtube, assets)
     video_id = response["id"]
     video_url = f"https://www.youtube.com/watch?v={video_id}"
