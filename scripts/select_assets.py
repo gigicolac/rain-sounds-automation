@@ -5,6 +5,12 @@ Deterministic per calendar day (UTC) via seeded RNGs, so the same day always
 picks the same combination if re-run, but consecutive days rotate through
 different scenes/audio/titles/durations. Writes the result to
 run/assets.json for build_video.py and upload_youtube.py to consume.
+
+This rotation isn't just cosmetic variety: YouTube's monetisation policy
+treats channels that post reused, repetitive or duplicative content as
+ineligible for the Partner Program. Deliberately varying scene/audio/title/
+duration every day is what keeps each upload distinct enough to stay
+clear of that.
 """
 import json
 import os

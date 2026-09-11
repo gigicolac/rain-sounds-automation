@@ -11,7 +11,10 @@ Every day, a GitHub Actions cron job runs the pipeline end-to-end:
 1. **`scripts/select_assets.py`** — day-seeded rotation picks a scene search
    term, a Pexels video, a cached audio track, a title template and a target
    duration (60–120 min). Deterministic per calendar day, so it never repeats
-   the exact same combination two days running.
+   the exact same combination two days running. This matters beyond variety:
+   YouTube's monetisation policy treats reused/repetitive/duplicative content
+   as ineligible for the Partner Program, so the rotation is what keeps daily
+   uploads distinct enough to stay clear of that.
 2. **`scripts/build_video.py`** — downloads the Pexels clip, loops it (and
    the audio) to the target duration with FFmpeg, overlays the title for the
    first 12 seconds, and exports the final `mp4`.
