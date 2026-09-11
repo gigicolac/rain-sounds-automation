@@ -1,0 +1,63 @@
+name: Daily Rain Video
+
+on:
+  schedule:
+    # 01:00 UTC daily ~= evening in US timezones (6pm PT / 9pm ET), a good
+    # target window for a "sounds to fall asleep to" audience. Adjust to
+    # taste — cron times are always UTC.
+    - cron: "0 1 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install system dependencies (ffmpeg + font)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Pick today's assets
+        env:
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+        run: python scripts/select_assets.py
+
+      - name: Build video
+        run: python scripts/build_video.py
+
+      - name: Generate thumbnail
+        run: python scripts/make_thumbnail.py
+
+      - name: Upload to YouTube
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+        run: python scripts/upload_youtube.py
+
+      - name: Upload run artifacts for debugging
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: run-debug-${{ github.run_id }}
+          path: |
+            run/assets.json
+            run/upload_result.json
+            run/thumbnail.jpg
+          retention-days: 7
+          if-no-files-found: ignore

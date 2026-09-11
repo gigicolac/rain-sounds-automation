@@ -216,3 +216,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Rain Sounds Automation — pipeline-specific
+run/
+client_secret.json
+credentials.json
+token.json
+*.mp4
+
