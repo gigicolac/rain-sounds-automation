@@ -36,7 +36,7 @@ jobs:
           # to succeed quickly unblocks the daily video job sooner. Can be
           # topped back up to the full target on a later manual run once
           # traffic conditions improve — dedup means re-running is safe.
-          AUDIO_POOL_TARGET: "10"
+          AUDIO_POOL_TARGET: "5"
         run: python scripts/fetch_audio_pool.py
 
       - name: Commit and push if changed
