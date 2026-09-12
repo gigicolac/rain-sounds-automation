@@ -114,9 +114,20 @@ def main():
     pool = load_metadata()
     existing_ids = {track["id"] for track in pool}
 
+    # Per-request timeouts alone don't bound total runtime: if every
+    # candidate in a tag's results systematically fails, that's up to
+    # page_size (15) x download-timeout (25s) per tag before moving on —
+    # over an hour in the worst case across all tags. This wall-clock
+    # budget caps the whole fetch phase regardless of how many individual
+    # attempts fail, so the job always finishes in bounded time.
+    deadline = time.monotonic() + float(os.environ.get("FETCH_BUDGET_SECONDS", "240"))
+
     added = 0
     for tag in SEARCH_TAGS:
         if len(pool) >= POOL_TARGET:
+            break
+        if time.monotonic() > deadline:
+            print("Overall fetch time budget exceeded, stopping.", flush=True)
             break
         print(f"Searching tag {tag!r}...", flush=True)
         try:
@@ -127,6 +138,9 @@ def main():
 
         for sound in results:
             if len(pool) >= POOL_TARGET:
+                break
+            if time.monotonic() > deadline:
+                print("Overall fetch time budget exceeded, stopping.", flush=True)
                 break
             if sound["id"] in existing_ids:
                 continue
