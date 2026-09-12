@@ -59,7 +59,10 @@ def search_tag(tag, api_key):
     headers = {"Authorization": f"Token {api_key}"}
     params = {
         "query": tag,
-        "filter": f'license:"Creative Commons 0" duration:[{MIN_DURATION_S} TO {MAX_DURATION_S}]',
+        # Needs an explicit AND: Freesound's query parser doesn't reliably
+        # imply it between space-separated clauses, and silently returns
+        # zero results instead of erroring on the ambiguous form.
+        "filter": f'duration:[{MIN_DURATION_S} TO {MAX_DURATION_S}] AND (license:"Creative Commons 0")',
         "fields": FIELDS,
         "sort": "rating_desc",
         "page_size": 15,
@@ -132,6 +135,13 @@ def main():
 
     save_metadata(pool)
     print(f"Pool size now {len(pool)} (added {added} new tracks this run)")
+
+    if not pool:
+        raise RuntimeError(
+            "Pool is empty after this run — every Freesound search returned "
+            "zero usable results. Failing loudly instead of leaving the "
+            "daily job to discover an empty cache."
+        )
 
 
 if __name__ == "__main__":
