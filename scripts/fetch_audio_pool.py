@@ -68,8 +68,13 @@ def search_tag(tag, api_key):
         "page_size": 15,
     }
     resp = requests.get(SEARCH_URL, headers=headers, params=params, timeout=30)
+    print(f"DEBUG tag={tag!r} url={resp.url} status={resp.status_code}", file=sys.stderr)
     resp.raise_for_status()
-    return resp.json().get("results", [])
+    body = resp.json()
+    print(f"DEBUG tag={tag!r} count={body.get('count')} raw_keys={list(body.keys())}", file=sys.stderr)
+    if not body.get("results"):
+        print(f"DEBUG tag={tag!r} full_body={body}", file=sys.stderr)
+    return body.get("results", [])
 
 
 def download_preview(sound, dest_path):
