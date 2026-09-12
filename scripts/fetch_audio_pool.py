@@ -62,7 +62,10 @@ def search_tag(tag, api_key):
         "sort": "rating_desc",
         "page_size": 15,
     }
-    resp = requests.get(SEARCH_URL, headers=headers, params=params, timeout=30)
+    # (connect, read) tuple rather than one flat number, so a slow/hanging
+    # connection to a single sound's server fails fast instead of silently
+    # consuming a large chunk of the job's total runtime.
+    resp = requests.get(SEARCH_URL, headers=headers, params=params, timeout=(10, 15))
     resp.raise_for_status()
     return resp.json().get("results", [])
 
@@ -71,7 +74,7 @@ def download_preview(sound, dest_path):
     preview_url = sound.get("previews", {}).get("preview-hq-mp3")
     if not preview_url:
         return False
-    resp = requests.get(preview_url, timeout=60)
+    resp = requests.get(preview_url, timeout=(10, 20))
     resp.raise_for_status()
     dest_path.write_bytes(resp.content)
     return True
@@ -129,6 +132,10 @@ def main():
             existing_ids.add(sound["id"])
             added += 1
             print(f"Added {filename} ({sound.get('name')!r})")
+            # Save after every successful add, not just at the end, so a
+            # slow run that needs to be interrupted doesn't lose progress
+            # already made (each download can itself take a while).
+            save_metadata(pool)
             time.sleep(0.5)  # be polite to the API
 
     save_metadata(pool)
