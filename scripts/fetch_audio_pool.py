@@ -14,11 +14,37 @@ reachable with plain API-key auth, which keeps this fully unattended.
 """
 import json
 import os
+import signal
 import sys
 import time
 from pathlib import Path
 
 import requests
+
+
+class HardTimeout(Exception):
+    pass
+
+
+def _alarm_handler(signum, frame):
+    raise HardTimeout("Hard wall-clock timeout exceeded")
+
+
+def with_hard_timeout(seconds, func, *args, **kwargs):
+    """Force-interrupt func after `seconds` real wall-clock time, no matter
+    what it's blocked on. requests' own timeout parameter only bounds the
+    connect/read phases of an established socket — it does NOT cover DNS
+    resolution, which can hang indefinitely on some hosts and silently
+    defeats a normal timeout= argument. SIGALRM interrupts regardless of
+    where execution is actually stuck.
+    """
+    old_handler = signal.signal(signal.SIGALRM, _alarm_handler)
+    signal.alarm(seconds)
+    try:
+        return func(*args, **kwargs)
+    finally:
+        signal.alarm(0)
+        signal.signal(signal.SIGALRM, old_handler)
 
 ROOT = Path(__file__).resolve().parent.parent
 AUDIO_DIR = ROOT / "audio"
@@ -92,10 +118,11 @@ def main():
     for tag in SEARCH_TAGS:
         if len(pool) >= POOL_TARGET:
             break
+        print(f"Searching tag {tag!r}...", flush=True)
         try:
-            results = search_tag(tag, FREESOUND_API_KEY)
-        except requests.RequestException as exc:
-            print(f"Search for '{tag}' failed, skipping: {exc}", file=sys.stderr)
+            results = with_hard_timeout(20, search_tag, tag, FREESOUND_API_KEY)
+        except (requests.RequestException, HardTimeout) as exc:
+            print(f"Search for '{tag}' failed, skipping: {exc}", file=sys.stderr, flush=True)
             continue
 
         for sound in results:
@@ -111,10 +138,11 @@ def main():
 
             filename = f"{sound['id']}.mp3"
             dest_path = AUDIO_DIR / filename
+            print(f"Downloading sound {sound['id']} ({sound.get('name')!r})...", flush=True)
             try:
-                ok = download_preview(sound, dest_path)
-            except requests.RequestException as exc:
-                print(f"Download failed for sound {sound['id']}: {exc}", file=sys.stderr)
+                ok = with_hard_timeout(25, download_preview, sound, dest_path)
+            except (requests.RequestException, HardTimeout) as exc:
+                print(f"Download failed for sound {sound['id']}: {exc}", file=sys.stderr, flush=True)
                 continue
             if not ok:
                 continue
@@ -131,7 +159,7 @@ def main():
             })
             existing_ids.add(sound["id"])
             added += 1
-            print(f"Added {filename} ({sound.get('name')!r})")
+            print(f"Added {filename} ({sound.get('name')!r})", flush=True)
             # Save after every successful add, not just at the end, so a
             # slow run that needs to be interrupted doesn't lose progress
             # already made (each download can itself take a while).
@@ -139,7 +167,7 @@ def main():
             time.sleep(0.5)  # be polite to the API
 
     save_metadata(pool)
-    print(f"Pool size now {len(pool)} (added {added} new tracks this run)")
+    print(f"Pool size now {len(pool)} (added {added} new tracks this run)", flush=True)
 
     if not pool:
         raise RuntimeError(
@@ -153,5 +181,5 @@ if __name__ == "__main__":
     try:
         main()
     except Exception as exc:  # noqa: BLE001
-        print(f"fetch_audio_pool.py failed: {exc}", file=sys.stderr)
+        print(f"fetch_audio_pool.py failed: {exc}", file=sys.stderr, flush=True)
         sys.exit(1)
