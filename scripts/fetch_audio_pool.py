@@ -37,7 +37,6 @@ POOL_TARGET = int(os.environ.get("AUDIO_POOL_TARGET", "28"))
 MIN_DURATION_S = 45
 MAX_DURATION_S = 900
 FIELDS = "id,name,previews,duration,license,tags,username"
-CC0_LICENSE_URL = "https://creativecommons.org/publicdomain/zero/1.0/"
 
 
 def load_metadata():
@@ -49,10 +48,6 @@ def load_metadata():
 
 def save_metadata(pool):
     METADATA_PATH.write_text(json.dumps(pool, indent=2), encoding="utf-8")
-
-
-def is_cc0(license_value):
-    return license_value == CC0_LICENSE_URL
 
 
 def search_tag(tag, api_key):
@@ -68,13 +63,8 @@ def search_tag(tag, api_key):
         "page_size": 15,
     }
     resp = requests.get(SEARCH_URL, headers=headers, params=params, timeout=30)
-    print(f"DEBUG tag={tag!r} url={resp.url} status={resp.status_code}", file=sys.stderr)
     resp.raise_for_status()
-    body = resp.json()
-    print(f"DEBUG tag={tag!r} count={body.get('count')} raw_keys={list(body.keys())}", file=sys.stderr)
-    if not body.get("results"):
-        print(f"DEBUG tag={tag!r} full_body={body}", file=sys.stderr)
-    return body.get("results", [])
+    return resp.json().get("results", [])
 
 
 def download_preview(sound, dest_path):
@@ -110,8 +100,11 @@ def main():
                 break
             if sound["id"] in existing_ids:
                 continue
-            if not is_cc0(sound.get("license")):
-                continue
+            # No client-side license re-check: the server-side filter above
+            # already restricts to CC0 (the earlier bug was re-checking this
+            # client-side against a hardcoded license URL string that didn't
+            # match Freesound's actual format, silently discarding every
+            # already-correct result).
 
             filename = f"{sound['id']}.mp3"
             dest_path = AUDIO_DIR / filename
