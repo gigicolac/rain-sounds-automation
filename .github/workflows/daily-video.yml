@@ -32,6 +32,14 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
+      - name: Verify YouTube channel
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          EXPECTED_YOUTUBE_CHANNEL_ID: ${{ vars.EXPECTED_YOUTUBE_CHANNEL_ID }}
+        run: python scripts/verify_youtube_channel.py
+
       - name: Pick today's assets
         env:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
