@@ -150,6 +150,17 @@ def main():
             # match Freesound's actual format, silently discarding every
             # already-correct result).
 
+            # A search tag matching means a sound was tagged/associated with
+            # it somewhere, but that doesn't guarantee it actually sounds
+            # like rain (e.g. "rubber boots in mud.wav" carried a "rain"
+            # tag despite being footstep/splash sounds, not ambience). Skip
+            # anything whose own name doesn't mention rain-related weather
+            # at all, as a cheap sanity check against thematic mismatches.
+            name_lower = (sound.get("name") or "").lower()
+            if not any(kw in name_lower for kw in ("rain", "storm", "thunder", "drizzle", "downpour")):
+                print(f"Skipping {sound['id']} ({sound.get('name')!r}): name doesn't mention rain", flush=True)
+                continue
+
             filename = f"{sound['id']}.mp3"
             dest_path = AUDIO_DIR / filename
             print(f"Downloading sound {sound['id']} ({sound.get('name')!r})...", flush=True)

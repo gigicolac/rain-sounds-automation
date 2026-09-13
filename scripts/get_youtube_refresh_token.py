@@ -15,7 +15,12 @@ import json
 
 from google_auth_oauthlib.flow import InstalledAppFlow
 
-SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
+SCOPES = [
+    "https://www.googleapis.com/auth/youtube.upload",
+    # Needed so the daily job can verify it's uploading to the right channel
+    # before publishing (channels().list(mine=True)).
+    "https://www.googleapis.com/auth/youtube.readonly",
+]
 
 
 def main():

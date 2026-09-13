@@ -61,6 +61,20 @@ def day_number(date=None):
     return date.toordinal()
 
 
+# Pexels text search matches loosely (any keyword, not the full phrase), so
+# a term like "stormy sea waves rain" can return generic sunny-beach ocean
+# footage with no rain in it at all. Before accepting a candidate, require
+# its own Pexels URL slug (a human-written description, e.g.
+# "heavy-rain-falling-on-window-1234567") to actually mention rain/weather,
+# as a cheap sanity check against exactly that kind of mismatch.
+RAIN_KEYWORDS = ("rain", "storm", "thunder", "drizzle", "downpour", "shower")
+
+
+def _looks_rain_related(video):
+    slug = video.get("url", "").lower()
+    return any(keyword in slug for keyword in RAIN_KEYWORDS)
+
+
 def pick_scene_video(scene_terms, rng, api_key):
     """Query Pexels for the day's scene term, trying a few fallback terms
     if a search comes back empty, and return the chosen video's metadata."""
@@ -83,7 +97,11 @@ def pick_scene_video(scene_terms, rng, api_key):
         if not results:
             continue
 
-        video = rng.choice(results)
+        # Prefer candidates that actually look rain-related; only fall back
+        # to the unfiltered set if none of them do (better than failing the
+        # whole run over one unlucky term).
+        rain_results = [v for v in results if _looks_rain_related(v)]
+        video = rng.choice(rain_results or results)
         video_files = [
             vf for vf in video.get("video_files", [])
             if vf.get("file_type") == "video/mp4" and vf.get("width")

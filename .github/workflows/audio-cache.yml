@@ -31,12 +31,11 @@ jobs:
       - name: Fetch new CC0 tracks
         env:
           FREESOUND_API_KEY: ${{ secrets.FREESOUND_API_KEY }}
-          # Temporarily lowered from the usual ~28 target: Freesound's
-          # preview CDN has been slow tonight, and getting a smaller pool
-          # to succeed quickly unblocks the daily video job sooner. Can be
-          # topped back up to the full target on a later manual run once
-          # traffic conditions improve — dedup means re-running is safe.
-          AUDIO_POOL_TARGET: "5"
+          # Back to the full target now that the fetch phase is properly
+          # bounded (SIGALRM per-request timeout + overall wall-clock
+          # budget) — it can no longer hang, just possibly fall short of
+          # the target if it runs out of time, which is fine.
+          FETCH_BUDGET_SECONDS: "600"
         run: python scripts/fetch_audio_pool.py
 
       - name: Commit and push if changed

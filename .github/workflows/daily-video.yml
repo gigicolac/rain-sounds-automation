@@ -54,6 +54,11 @@ jobs:
           # reviewing the first few videos, then remove it (or set back to
           # "public") once you're happy with the output.
           UPLOAD_PRIVACY_STATUS: ${{ vars.UPLOAD_PRIVACY_STATUS }}
+          # Repo variable, not a secret — a channel ID is public info (it's
+          # in the channel's URL). Safety check: upload_youtube.py refuses
+          # to publish if the authenticated credentials resolve to a
+          # different channel than this.
+          EXPECTED_YOUTUBE_CHANNEL_ID: ${{ vars.EXPECTED_YOUTUBE_CHANNEL_ID }}
         run: python scripts/upload_youtube.py
 
       - name: Upload run artifacts for debugging

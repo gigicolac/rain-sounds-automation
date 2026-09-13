@@ -38,29 +38,5 @@
     ],
     "username": "TRP",
     "freesound_url": "https://freesound.org/s/717876/"
-  },
-  {
-    "id": 670850,
-    "filename": "670850.mp3",
-    "title": "rubber boots in mud.wav",
-    "duration": 87.6646,
-    "license": "http://creativecommons.org/publicdomain/zero/1.0/",
-    "tags": [
-      "boots",
-      "field",
-      "field-recording",
-      "footsteps",
-      "forest",
-      "marecageous",
-      "mud",
-      "muddy",
-      "rain",
-      "rubber",
-      "soil",
-      "steps",
-      "water"
-    ],
-    "username": "bruno.auzet",
-    "freesound_url": "https://freesound.org/s/670850/"
   }
 ]

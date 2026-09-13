@@ -25,7 +25,11 @@ VIDEO_PATH = RUN_DIR / "output.mp4"
 THUMBNAIL_PATH = RUN_DIR / "thumbnail.jpg"
 RESULT_PATH = RUN_DIR / "upload_result.json"
 
-SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
+SCOPES = [
+    "https://www.googleapis.com/auth/youtube.upload",
+    # Needed for channels().list(mine=True) in verify_target_channel().
+    "https://www.googleapis.com/auth/youtube.readonly",
+]
 CHUNK_SIZE = 8 * 1024 * 1024
 MAX_RETRIES = 5
 RETRIABLE_STATUS_CODES = {500, 502, 503, 504}
@@ -57,6 +61,44 @@ def get_credentials():
         client_secret=client_secret,
         scopes=SCOPES,
     )
+
+
+def verify_target_channel(youtube):
+    """Guard against uploading to the wrong YouTube channel — a real
+    incident: the Google account used for OAuth setup manages multiple
+    channels/brand accounts, and the resulting token defaulted to the
+    wrong one, silently. Requires EXPECTED_YOUTUBE_CHANNEL_ID (the
+    channel ID from the target channel's URL, e.g.
+    youtube.com/channel/<THIS_PART>) and fails loudly before uploading
+    anything if the authenticated credentials resolve to a different
+    channel.
+    """
+    expected_channel_id = os.environ.get("EXPECTED_YOUTUBE_CHANNEL_ID", "").strip()
+    if not expected_channel_id:
+        raise RuntimeError(
+            "EXPECTED_YOUTUBE_CHANNEL_ID is not set. Add it as a repo secret "
+            "(the channel ID from your channel's URL, e.g. "
+            "youtube.com/channel/<THIS_PART>) so uploads can be verified "
+            "against the intended channel before publishing."
+        )
+
+    response = youtube.channels().list(part="id,snippet", mine=True).execute()
+    items = response.get("items", [])
+    if not items:
+        raise RuntimeError("Could not resolve the authenticated channel via channels().list(mine=True)")
+
+    actual_channel_id = items[0]["id"]
+    actual_channel_title = items[0]["snippet"]["title"]
+    if actual_channel_id != expected_channel_id:
+        raise RuntimeError(
+            f"Refusing to upload: authenticated as channel "
+            f"{actual_channel_title!r} ({actual_channel_id}), but "
+            f"EXPECTED_YOUTUBE_CHANNEL_ID is {expected_channel_id!r}. The "
+            "OAuth refresh token was likely generated while signed into the "
+            "wrong Google account/channel — redo the get_youtube_refresh_token.py "
+            "step signed into the correct channel."
+        )
+    print(f"Verified target channel: {actual_channel_title!r} ({actual_channel_id})")
 
 
 def upload_video(youtube, assets):
@@ -117,6 +159,8 @@ def main():
     assets = json.loads(ASSETS_PATH.read_text(encoding="utf-8"))
     creds = get_credentials()
     youtube = build("youtube", "v3", credentials=creds)
+
+    verify_target_channel(youtube)
 
     print(f"Uploading with privacyStatus={PRIVACY_STATUS!r}")
     response = upload_video(youtube, assets)
