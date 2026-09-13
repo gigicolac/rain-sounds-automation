@@ -38,5 +38,89 @@
     ],
     "username": "TRP",
     "freesound_url": "https://freesound.org/s/717876/"
+  },
+  {
+    "id": 592996,
+    "filename": "592996.mp3",
+    "title": "heavy rain on a small tent hq",
+    "duration": 67.0187,
+    "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+    "tags": [
+      "downpour",
+      "droplets",
+      "heavy-rain",
+      "patter",
+      "rain",
+      "raindrop",
+      "raining",
+      "shower",
+      "tarpaulin",
+      "tent"
+    ],
+    "username": "Petrosilia",
+    "freesound_url": "https://freesound.org/s/592996/"
+  },
+  {
+    "id": 844531,
+    "filename": "844531.mp3",
+    "title": "Frogs After Rain - Rural Night Ambience",
+    "duration": 74.7683,
+    "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+    "tags": [
+      "Ambience",
+      "Animal",
+      "Country",
+      "Countryside",
+      "Field",
+      "Free",
+      "Frog",
+      "Nature",
+      "Night",
+      "Public",
+      "Recording",
+      "Toad"
+    ],
+    "username": "EduardoAli",
+    "freesound_url": "https://freesound.org/s/844531/"
+  },
+  {
+    "id": 651189,
+    "filename": "651189.mp3",
+    "title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald",
+    "duration": 59.2917,
+    "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+    "tags": [
+      "Ambient",
+      "Atmosphere",
+      "Forest",
+      "Heavy",
+      "Rain",
+      "Raining",
+      "Regen",
+      "Starkregen",
+      "Wald",
+      "im"
+    ],
+    "username": "Borgory",
+    "freesound_url": "https://freesound.org/s/651189/"
+  },
+  {
+    "id": 788146,
+    "filename": "788146.mp3",
+    "title": "WTHR-MIX_RAIN-Underneath Roof Of Hawaii Capitol With Light Rain And Heavy Droplets from Water Runoff Of the Roof With City Traffic And A Siren_YMLT_NONE_85281923",
+    "duration": 62.8141,
+    "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+    "tags": [
+      "draining",
+      "dripping",
+      "field-recording",
+      "heavy-rain",
+      "metal-drain",
+      "rain",
+      "raindrops",
+      "water"
+    ],
+    "username": "YouMightLikeThis",
+    "freesound_url": "https://freesound.org/s/788146/"
   }
 ]
