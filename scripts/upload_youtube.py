@@ -14,6 +14,7 @@ import time
 from pathlib import Path
 
 from google.oauth2.credentials import Credentials
+from google.auth.exceptions import RefreshError
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload
@@ -76,13 +77,23 @@ def verify_target_channel(youtube):
     expected_channel_id = os.environ.get("EXPECTED_YOUTUBE_CHANNEL_ID", "").strip()
     if not expected_channel_id:
         raise RuntimeError(
-            "EXPECTED_YOUTUBE_CHANNEL_ID is not set. Add it as a repo secret "
+            "EXPECTED_YOUTUBE_CHANNEL_ID is not set. Add it as a repository variable "
             "(the channel ID from your channel's URL, e.g. "
             "youtube.com/channel/<THIS_PART>) so uploads can be verified "
             "against the intended channel before publishing."
         )
 
-    response = youtube.channels().list(part="id,snippet", mine=True).execute()
+    try:
+        response = youtube.channels().list(part="id,snippet", mine=True).execute()
+    except RefreshError as exc:
+        raise RuntimeError(
+            "YouTube authorization could not be refreshed. If the error is invalid_scope, "
+            "the token may predate the required youtube.readonly permission. Run "
+            "scripts/get_youtube_refresh_token.py --client-secrets client_secret.json "
+            "--expected-channel-id " + expected_channel_id + " locally, grant both "
+            "permissions, and replace the three YT_* repository secrets with its output. "
+            "For invalid_grant, also check whether the token expired or was revoked."
+        ) from exc
     items = response.get("items", [])
     if not items:
         raise RuntimeError("Could not resolve the authenticated channel via channels().list(mine=True)")

@@ -87,6 +87,10 @@ quickly.
 | `YT_CLIENT_SECRET` | from the YouTube OAuth setup below |
 | `YT_REFRESH_TOKEN` | from the YouTube OAuth setup below |
 
+Also add the required repository **variable** `EXPECTED_YOUTUBE_CHANNEL_ID`
+with the intended channel identifier (starts with `UC`). The workflow reads
+this from Variables, not Secrets, and refuses to upload to any other channel.
+
 ### 3. Set up YouTube OAuth (one-time, needs a browser)
 
 This step needs to happen on your own machine, not in Actions, because it
@@ -97,7 +101,8 @@ requires an interactive Google sign-in.
 2. **APIs & Services → Library** → enable **YouTube Data API v3**.
 3. **APIs & Services → OAuth consent screen** → External → fill in the
    basics → add your own Google account as a test user → add the scope
-   `https://www.googleapis.com/auth/youtube.upload`.
+   `https://www.googleapis.com/auth/youtube.upload` and
+   `https://www.googleapis.com/auth/youtube.readonly`.
 4. **APIs & Services → Credentials → Create Credentials → OAuth client ID**
    → Application type: **Desktop app** → Create.
 5. Download the resulting JSON file, save it as `client_secret.json` in the
@@ -105,12 +110,23 @@ requires an interactive Google sign-in.
    it).
 6. Locally: `pip install -r requirements.txt`, then run:
    ```
-   python scripts/get_youtube_refresh_token.py --client-secrets client_secret.json
+   python scripts/get_youtube_refresh_token.py --client-secrets client_secret.json --expected-channel-id YOUR_CHANNEL_ID
    ```
 7. A browser window opens — sign in with the Google account that owns the
    `@calmingrainsoundssss` channel and grant access.
-8. The script prints three values — copy them into the GitHub secrets from
+8. The script verifies the selected channel before printing three values — copy them into the GitHub secrets from
    step 2: `YT_CLIENT_ID`, `YT_CLIENT_SECRET`, `YT_REFRESH_TOKEN`.
+
+The helper explicitly requests renewed consent and offline access. Grant both
+permissions. Existing upload-only refresh tokens cannot gain read-only access
+just by changing the scopes in Python; repeat authorization and replace the
+three secrets together. Do not paste these values into chat or commit them.
+
+For unattended use, check the consent screen publishing status: External apps
+left in Testing issue refresh tokens that expire after seven days for these
+permissions. See [Google's token expiration guidance](https://developers.google.com/identity/protocols/oauth2#expiration).
+Separately, YouTube may restrict uploads from unverified projects to private
+viewing; requesting public visibility does not override that restriction.
 
 ### 4. Populate the audio cache (must run before the first daily video)
 
@@ -122,6 +138,15 @@ empty or missing, so this has to run (and succeed) at least once first.
 ### 5. Test the daily pipeline manually
 
 `Actions → Daily Rain Video → Run workflow`
+
+Manual runs default to **verify_only**: leave it checked to validate credentials
+and the target channel without creating or uploading a video. After this passes,
+set `UPLOAD_PRIVACY_STATUS=unlisted`, then run again with **verify_only** unchecked
+to test the full pipeline. Scheduled runs continue to execute the full pipeline.
+
+If verification reports `invalid_scope`, regenerate the token with the helper
+above and grant both permissions. For `invalid_grant`, also check for token
+expiry or revoked access. Never remove the channel check to bypass either error.
 
 Check the Actions log and confirm the video actually appears correctly on
 the channel — scene, audio, title, thumbnail — before trusting the

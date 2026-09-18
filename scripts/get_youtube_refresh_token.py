@@ -8,19 +8,16 @@ Secrets as YT_REFRESH_TOKEN. See README.md for the full Google Cloud
 Console setup steps.
 
 Usage:
-    python scripts/get_youtube_refresh_token.py --client-secrets client_secret.json
+    python scripts/get_youtube_refresh_token.py --client-secrets client_secret.json --expected-channel-id YOUR_CHANNEL_ID
 """
 import argparse
 import json
+import os
 
 from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
 
-SCOPES = [
-    "https://www.googleapis.com/auth/youtube.upload",
-    # Needed so the daily job can verify it's uploading to the right channel
-    # before publishing (channels().list(mine=True)).
-    "https://www.googleapis.com/auth/youtube.readonly",
-]
+from upload_youtube import SCOPES, verify_target_channel
 
 
 def main():
@@ -31,10 +28,23 @@ def main():
         help="Path to the OAuth client JSON downloaded from Google Cloud Console "
              "(Desktop app type). Never commit this file.",
     )
+    parser.add_argument(
+        "--expected-channel-id", required=True,
+        help="Intended YouTube channel identifier (starts with UC).",
+    )
     args = parser.parse_args()
 
     flow = InstalledAppFlow.from_client_secrets_file(args.client_secrets, SCOPES)
-    credentials = flow.run_local_server(port=0)
+    credentials = flow.run_local_server(
+        port=0, access_type="offline", prompt="consent select_account",
+    )
+    if not credentials.refresh_token:
+        raise RuntimeError("Google did not return a refresh token. Repeat sign-in and grant both requested permissions.")
+    granted = credentials.granted_scopes
+    if granted is not None and not set(SCOPES).issubset(granted):
+        raise RuntimeError("Both youtube.upload and youtube.readonly permissions must be granted. Repeat sign-in.")
+    os.environ["EXPECTED_YOUTUBE_CHANNEL_ID"] = args.expected_channel_id
+    verify_target_channel(build("youtube", "v3", credentials=credentials))
 
     with open(args.client_secrets, "r", encoding="utf-8") as f:
         client_config = json.load(f)
