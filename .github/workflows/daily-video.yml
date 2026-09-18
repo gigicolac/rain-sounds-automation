@@ -6,7 +6,16 @@ on:
     # target window for a "sounds to fall asleep to" audience. Adjust to
     # taste — cron times are always UTC.
     - cron: "0 1 * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      verify_only:
+        description: "Verify YouTube credentials and channel without generating or uploading a video"
+        type: boolean
+        default: true
+
+concurrency:
+  group: daily-rain-video
+  cancel-in-progress: false
 
 permissions:
   contents: read
@@ -41,17 +50,21 @@ jobs:
         run: python scripts/verify_youtube_channel.py
 
       - name: Pick today's assets
+        if: ${{ !inputs.verify_only }}
         env:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
         run: python scripts/select_assets.py
 
       - name: Build video
+        if: ${{ !inputs.verify_only }}
         run: python scripts/build_video.py
 
       - name: Generate thumbnail
+        if: ${{ !inputs.verify_only }}
         run: python scripts/make_thumbnail.py
 
       - name: Upload to YouTube
+        if: ${{ !inputs.verify_only }}
         env:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
