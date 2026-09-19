@@ -1,8 +1,12 @@
 # Rain Sounds YouTube Automation
 
-A fully automated daily pipeline that publishes a long-form (1–2 hour)
+A fully automated daily pipeline that publishes a short (5–8 minute)
 rain-sounds ambient video to YouTube, at **$0/month**, for the **Calming
 Rain Sounds** channel (`@calmingrainsoundssss`).
+
+Videos currently run for 5, 6, 7, or 8 minutes to speed up testing. This applies
+to full manual and scheduled runs using this version of the code. Titles and
+descriptions use minutes.
 
 ## How it works
 
@@ -10,7 +14,7 @@ Every day, a GitHub Actions cron job runs the pipeline end-to-end:
 
 1. **`scripts/select_assets.py`** — day-seeded rotation picks a scene search
    term, a Pexels video, a cached audio track, a title template and a target
-   duration (60–120 min). Deterministic per calendar day, so it never repeats
+   duration (5–8 min). Deterministic per calendar day, so it never repeats
    the exact same combination two days running. This matters beyond variety:
    YouTube's monetisation policy treats reused/repetitive/duplicative content
    as ineligible for the Partner Program, so the rotation is what keeps daily

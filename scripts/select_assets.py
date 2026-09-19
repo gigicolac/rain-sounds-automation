@@ -29,8 +29,8 @@ RUN_DIR = ROOT / "run"
 PEXELS_API_KEY = os.environ.get("PEXELS_API_KEY")
 PEXELS_SEARCH_URL = "https://api.pexels.com/videos/search"
 
-# Duration options in minutes, matching the brief's 1-2hr target.
-DURATION_OPTIONS_MIN = [60, 75, 90, 105, 120]
+# Short videos while testing the end-to-end pipeline.
+DURATION_OPTIONS_MIN = [5, 6, 7, 8]
 
 # Distinct large primes to decorrelate the rotation across categories so
 # scene/audio/title/duration don't all cycle in lockstep.
@@ -152,22 +152,16 @@ def pick_audio_track(rng):
     return track
 
 
-def build_description(scene_term, audio_title, duration_hours):
+def build_description(scene_term, audio_title, duration_minutes):
     template = (DATA_DIR / "description_template.txt").read_text(encoding="utf-8")
     return template.format(
-        duration=duration_hours,
+        duration=duration_minutes,
         scene_term=scene_term,
         channel_name=CHANNEL_NAME,
         channel_handle=CHANNEL_HANDLE,
         hashtags=HASHTAGS,
         audio_title=audio_title,
     )
-
-
-def format_duration_hours(minutes):
-    hours = minutes / 60
-    # Show "1" or "1.5" / "2" rather than "1.0" / "1.5" / "2.0".
-    return f"{hours:g}"
 
 
 def main():
@@ -185,11 +179,10 @@ def main():
     video = pick_scene_video(scene_terms, rng_scene, PEXELS_API_KEY)
     audio = pick_audio_track(rng_audio)
     duration_minutes = rng_duration.choice(DURATION_OPTIONS_MIN)
-    duration_hours = format_duration_hours(duration_minutes)
 
     title_template = rng_title.choice(title_templates)
-    title = title_template.format(duration=duration_hours)
-    description = build_description(video["scene_term"], audio.get("title", "rain sounds"), duration_hours)
+    title = title_template.format(duration=duration_minutes)
+    description = build_description(video["scene_term"], audio.get("title", "rain sounds"), duration_minutes)
 
     assets = {
         "date": date.isoformat(),
