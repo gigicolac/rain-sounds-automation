@@ -23,7 +23,12 @@
       "zen"
     ],
     "username": "thinkingfish",
-    "freesound_url": "https://freesound.org/s/695619/"
+    "freesound_url": "https://freesound.org/s/695619/",
+    "review": {
+      "approved": false,
+      "labels": {},
+      "notes": "Pending listening review; title and tags are not verified evidence."
+    }
   },
   {
     "id": 717876,
@@ -37,7 +42,12 @@
       "weather"
     ],
     "username": "TRP",
-    "freesound_url": "https://freesound.org/s/717876/"
+    "freesound_url": "https://freesound.org/s/717876/",
+    "review": {
+      "approved": false,
+      "labels": {},
+      "notes": "Pending listening review; title and tags are not verified evidence."
+    }
   },
   {
     "id": 592996,
@@ -58,7 +68,12 @@
       "tent"
     ],
     "username": "Petrosilia",
-    "freesound_url": "https://freesound.org/s/592996/"
+    "freesound_url": "https://freesound.org/s/592996/",
+    "review": {
+      "approved": false,
+      "labels": {},
+      "notes": "Pending listening review; title and tags are not verified evidence."
+    }
   },
   {
     "id": 844531,
@@ -81,7 +96,12 @@
       "Toad"
     ],
     "username": "EduardoAli",
-    "freesound_url": "https://freesound.org/s/844531/"
+    "freesound_url": "https://freesound.org/s/844531/",
+    "review": {
+      "approved": false,
+      "labels": {},
+      "notes": "Pending listening review; title and tags are not verified evidence."
+    }
   },
   {
     "id": 651189,
@@ -102,7 +122,12 @@
       "im"
     ],
     "username": "Borgory",
-    "freesound_url": "https://freesound.org/s/651189/"
+    "freesound_url": "https://freesound.org/s/651189/",
+    "review": {
+      "approved": false,
+      "labels": {},
+      "notes": "Pending listening review; title and tags are not verified evidence."
+    }
   },
   {
     "id": 788146,
@@ -121,6 +146,11 @@
       "water"
     ],
     "username": "YouMightLikeThis",
-    "freesound_url": "https://freesound.org/s/788146/"
+    "freesound_url": "https://freesound.org/s/788146/",
+    "review": {
+      "approved": false,
+      "labels": {},
+      "notes": "Pending listening review; title and tags are not verified evidence."
+    }
   }
 ]

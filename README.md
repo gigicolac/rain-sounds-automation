@@ -8,17 +8,21 @@ Videos currently run for 5, 6, 7, or 8 minutes to speed up testing. This applies
 to full manual and scheduled runs using this version of the code. Titles and
 descriptions use minutes.
 
+## Review branch controls
+
+See [PIPELINE_ROADMAP.md](PIPELINE_ROADMAP.md) for the six-step roadmap, current
+controls, asset review format, and recovery instructions. This branch replaces
+`verify_only` with a `mode` choice: `verify`, `preview` (default), `publish`, or
+`resume`. The older setup instructions below describe the earlier workflow.
+
 ## How it works
 
 Every day, a GitHub Actions cron job runs the pipeline end-to-end:
 
 1. **`scripts/select_assets.py`** — day-seeded rotation picks a scene search
    term, a Pexels video, a cached audio track, a title template and a target
-   duration (5–8 min). Deterministic per calendar day, so it never repeats
-   the exact same combination two days running. This matters beyond variety:
-   YouTube's monetisation policy treats reused/repetitive/duplicative content
-   as ineligible for the Partner Program, so the rotation is what keeps daily
-   uploads distinct enough to stay clear of that.
+   duration (5–8 min). Date-seeded selection varies the choices, while persistent history blocks
+   duplicate source pairs. Rotation alone does not guarantee monetization eligibility.
 2. **`scripts/build_video.py`** — downloads the Pexels clip, loops it (and
    the audio) to the target duration with FFmpeg, overlays the title for the
    first 12 seconds, and exports the final `mp4`.
