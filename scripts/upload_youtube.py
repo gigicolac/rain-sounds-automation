@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Upload run/output.mp4 to YouTube via the YouTube Data API, using a
-refresh-token OAuth credential (no interactive login needed at run time â€”
+refresh-token OAuth credential (no interactive login needed at run time —
 see scripts/get_youtube_refresh_token.py for the one-time setup that
 produces YT_REFRESH_TOKEN).
 
@@ -42,7 +42,7 @@ RETRIABLE_STATUS_CODES = {500, 502, 503, 504}
 VALID_PRIVACY_STATUSES = {"public", "unlisted", "private"}
 # `or "public"` (not just .get(..., "public")) because GitHub Actions sets
 # an unset repo variable to an empty string rather than omitting the env
-# var entirely â€” an empty string must still fall back to the default.
+# var entirely — an empty string must still fall back to the default.
 PRIVACY_STATUS = (os.environ.get("UPLOAD_PRIVACY_STATUS") or "public").strip().lower()
 if PRIVACY_STATUS not in VALID_PRIVACY_STATUSES:
     raise ValueError(
@@ -66,7 +66,7 @@ def get_credentials():
 
 
 def verify_target_channel(youtube):
-    """Guard against uploading to the wrong YouTube channel â€” a real
+    """Guard against uploading to the wrong YouTube channel — a real
     incident: the Google account used for OAuth setup manages multiple
     channels/brand accounts, and the resulting token defaulted to the
     wrong one, silently. Requires EXPECTED_YOUTUBE_CHANNEL_ID (the
@@ -107,7 +107,7 @@ def verify_target_channel(youtube):
             f"{actual_channel_title!r} ({actual_channel_id}), but "
             f"EXPECTED_YOUTUBE_CHANNEL_ID is {expected_channel_id!r}. The "
             "OAuth refresh token was likely generated while signed into the "
-            "wrong Google account/channel â€” redo the get_youtube_refresh_token.py "
+            "wrong Google account/channel — redo the get_youtube_refresh_token.py "
             "step signed into the correct channel."
         )
     print(f"Verified target channel: {actual_channel_title!r} ({actual_channel_id})")
@@ -220,6 +220,7 @@ def main():
         ledger.save()
         set_thumbnail(youtube, video_id)
         entry.update(state="complete", thumbnail="set")
+        entry.pop("last_error", None)
         save_result(entry)
         ledger.save()
         print(f"Processed successfully: {entry['url']} (visibility: {entry.get('actual_privacy')})")

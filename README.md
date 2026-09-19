@@ -13,7 +13,7 @@ descriptions use minutes.
 See [PIPELINE_ROADMAP.md](PIPELINE_ROADMAP.md) for the six-step roadmap, current
 controls, asset review format, and recovery instructions. This branch replaces
 `verify_only` with a `mode` choice: `verify`, `preview` (default), `publish`, or
-`resume`. The older setup instructions below describe the earlier workflow.
+`resume`. See the guide before choosing publish or resume.
 
 ## How it works
 
@@ -147,10 +147,11 @@ empty or missing, so this has to run (and succeed) at least once first.
 
 `Actions → Daily Rain Video → Run workflow`
 
-Manual runs default to **verify_only**: leave it checked to validate credentials
-and the target channel without creating or uploading a video. After this passes,
-set `UPLOAD_PRIVACY_STATUS=unlisted`, then run again with **verify_only** unchecked
-to test the full pipeline. Scheduled runs continue to execute the full pipeline.
+Manual runs default to **preview**, which renders review artifacts without
+uploading to YouTube. Choose **verify** to check credentials alone. To upload a
+test, set `UPLOAD_PRIVACY_STATUS=unlisted`, choose **publish**, and explicitly
+check **allow_unreviewed** if using assets that have not been approved. Scheduled
+runs publish only reviewed assets. See the roadmap for review and resume steps.
 
 If verification reports `invalid_scope`, regenerate the token with the helper
 above and grant both permissions. For `invalid_grant`, also check for token

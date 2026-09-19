@@ -122,5 +122,32 @@ class UploadRecoveryTests(unittest.TestCase):
                     upload.main()
                 insert.assert_not_called()
 
+class SelectionTests(unittest.TestCase):
+    def test_manual_controls_reach_generated_assets(self):
+        import select_assets as select
+        with tempfile.TemporaryDirectory() as temp, patch.dict(os.environ, {
+            'SCENE_QUERY':'rain window', 'AUDIO_ID':'651189', 'TITLE_OVERRIDE':'My Rain Preview',
+            'DURATION_MINUTES':'2'}, clear=True), patch.object(select,'RUN_DIR',Path(temp)), \
+                patch.object(select,'pick_scene_video',return_value={'pexels_id':123,'scene_term':'rain window'}) as pick, \
+                patch.object(select,'Ledger'):
+            select.main()
+            data=json.loads((Path(temp)/'assets.json').read_text())
+            self.assertEqual(data['duration_seconds'],120)
+            self.assertEqual(data['audio']['freesound_id'],651189)
+            self.assertEqual(data['title'],'My Rain Preview')
+            self.assertFalse(data['review_approved'])
+            self.assertEqual(pick.call_args.args[0],['rain window'])
+
+    def test_resume_restores_original_selection(self):
+        import select_assets as select
+        with tempfile.TemporaryDirectory() as temp, patch.dict(os.environ,{'RESUME_VIDEO_ID':'known'},clear=True), \
+                patch.object(select,'RUN_DIR',Path(temp)), patch.object(select,'Ledger') as ledger, \
+                patch.object(select,'pick_scene_video') as pick:
+            ledger.return_value.find_video.return_value=('key',{'assets':{'title':'original'}})
+            select.main()
+            self.assertEqual(json.loads((Path(temp)/'assets.json').read_text()),{'title':'original'})
+            pick.assert_not_called()
+
+
 if __name__ == '__main__':
     unittest.main()
