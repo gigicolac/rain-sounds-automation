@@ -1,8 +1,19 @@
 # Rain Sounds YouTube Automation
 
-A fully automated daily pipeline that publishes a long-form (1–2 hour)
+A fully automated daily pipeline that publishes a short (5–8 minute)
 rain-sounds ambient video to YouTube, at **$0/month**, for the **Calming
 Rain Sounds** channel (`@calmingrainsoundssss`).
+
+Videos currently run for 5, 6, 7, or 8 minutes to speed up testing. This applies
+to full manual and scheduled runs using this version of the code. Titles and
+descriptions use minutes.
+
+## Review branch controls
+
+See [PIPELINE_ROADMAP.md](PIPELINE_ROADMAP.md) for the six-step roadmap, current
+controls, asset review format, and recovery instructions. This branch replaces
+`verify_only` with a `mode` choice: `verify`, `preview` (default), `publish`, or
+`resume`. See the guide before choosing publish or resume.
 
 ## How it works
 
@@ -10,11 +21,8 @@ Every day, a GitHub Actions cron job runs the pipeline end-to-end:
 
 1. **`scripts/select_assets.py`** — day-seeded rotation picks a scene search
    term, a Pexels video, a cached audio track, a title template and a target
-   duration (60–120 min). Deterministic per calendar day, so it never repeats
-   the exact same combination two days running. This matters beyond variety:
-   YouTube's monetisation policy treats reused/repetitive/duplicative content
-   as ineligible for the Partner Program, so the rotation is what keeps daily
-   uploads distinct enough to stay clear of that.
+   duration (5–8 min). Date-seeded selection varies the choices, while persistent history blocks
+   duplicate source pairs. Rotation alone does not guarantee monetization eligibility.
 2. **`scripts/build_video.py`** — downloads the Pexels clip, loops it (and
    the audio) to the target duration with FFmpeg, overlays the title for the
    first 12 seconds, and exports the final `mp4`.
@@ -139,10 +147,11 @@ empty or missing, so this has to run (and succeed) at least once first.
 
 `Actions → Daily Rain Video → Run workflow`
 
-Manual runs default to **verify_only**: leave it checked to validate credentials
-and the target channel without creating or uploading a video. After this passes,
-set `UPLOAD_PRIVACY_STATUS=unlisted`, then run again with **verify_only** unchecked
-to test the full pipeline. Scheduled runs continue to execute the full pipeline.
+Manual runs default to **preview**, which renders review artifacts without
+uploading to YouTube. Choose **verify** to check credentials alone. To upload a
+test, set `UPLOAD_PRIVACY_STATUS=unlisted`, choose **publish**, and explicitly
+check **allow_unreviewed** if using assets that have not been approved. Scheduled
+runs publish only reviewed assets. See the roadmap for review and resume steps.
 
 If verification reports `invalid_scope`, regenerate the token with the helper
 above and grant both permissions. For `invalid_grant`, also check for token

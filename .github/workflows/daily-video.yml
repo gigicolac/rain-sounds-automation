@@ -1,46 +1,60 @@
 name: Daily Rain Video
-
 on:
   schedule:
-    # 01:00 UTC daily ~= evening in US timezones (6pm PT / 9pm ET), a good
-    # target window for a "sounds to fall asleep to" audience. Adjust to
-    # taste — cron times are always UTC.
     - cron: "0 1 * * *"
   workflow_dispatch:
     inputs:
-      verify_only:
-        description: "Verify YouTube credentials and channel without generating or uploading a video"
+      mode:
+        description: "Verify credentials, preview without uploading, publish, or resume an existing upload"
+        type: choice
+        options: [verify, preview, publish, resume]
+        default: preview
+      scene_query:
+        description: "Optional Pexels search phrase"
+        type: string
+      audio_id:
+        description: "Optional Freesound identifier from audio/metadata.json"
+        type: string
+      title:
+        description: "Optional title (unsupported content claims are rejected)"
+        type: string
+      duration_minutes:
+        description: "Optional whole minutes, 1–8; blank chooses 5–8"
+        type: string
+      allow_unreviewed:
+        description: "Allow unreviewed assets for private/unlisted testing only"
         type: boolean
-        default: true
-
+        default: false
+      resume_video_id:
+        description: "Required in resume mode: existing YouTube video identifier recorded in history"
+        type: string
 concurrency:
   group: daily-rain-video
   cancel-in-progress: false
-
 permissions:
-  contents: read
-
+  contents: write
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 300
+    timeout-minutes: 60
+    env:
+      PIPELINE_MODE: ${{ inputs.mode || 'publish' }}
+      RESUME_VIDEO_ID: ${{ inputs.resume_video_id }}
+      SCENE_QUERY: ${{ inputs.scene_query }}
+      AUDIO_ID: ${{ inputs.audio_id }}
+      TITLE_OVERRIDE: ${{ inputs.title }}
+      DURATION_MINUTES: ${{ inputs.duration_minutes }}
+      ALLOW_UNREVIEWED: ${{ inputs.allow_unreviewed || 'false' }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
-      - name: Install system dependencies (ffmpeg + font)
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
-
       - name: Install Python dependencies
         run: pip install -r requirements.txt
-
+      - name: Validate controls
+        run: |
+          python -c "import os; m=os.environ['PIPELINE_MODE']; r=os.environ['RESUME_VIDEO_ID']; assert (m == 'resume') == bool(r), 'Supply resume_video_id only in resume mode'"
       - name: Verify YouTube channel
         env:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
@@ -48,48 +62,55 @@ jobs:
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
           EXPECTED_YOUTUBE_CHANNEL_ID: ${{ vars.EXPECTED_YOUTUBE_CHANNEL_ID }}
         run: python scripts/verify_youtube_channel.py
-
-      - name: Pick today's assets
-        if: ${{ !inputs.verify_only }}
+      - name: Pick assets and check history
+        if: env.PIPELINE_MODE != 'verify'
         env:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
         run: python scripts/select_assets.py
-
+      - name: Check publishing eligibility
+        if: env.PIPELINE_MODE == 'publish'
+        env:
+          UPLOAD_PRIVACY_STATUS: ${{ vars.UPLOAD_PRIVACY_STATUS }}
+        run: |
+          python -c "import json,os; a=json.load(open('run/assets.json')); p=(os.environ.get('UPLOAD_PRIVACY_STATUS') or 'public').strip().lower(); assert a.get('review_approved') or (os.environ['ALLOW_UNREVIEWED'].lower() == 'true' and p in ('private','unlisted')), 'Review assets first, or explicitly allow an unlisted/private test'"
+      - name: Install video tools
+        if: env.PIPELINE_MODE != 'verify'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
       - name: Build video
-        if: ${{ !inputs.verify_only }}
+        if: env.PIPELINE_MODE != 'verify'
         run: python scripts/build_video.py
-
       - name: Generate thumbnail
-        if: ${{ !inputs.verify_only }}
+        if: env.PIPELINE_MODE != 'verify'
         run: python scripts/make_thumbnail.py
-
-      - name: Upload to YouTube
-        if: ${{ !inputs.verify_only }}
+      - name: Upload or resume and verify processing
+        if: env.PIPELINE_MODE == 'publish' || env.PIPELINE_MODE == 'resume'
         env:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
-          # Repo variable (Settings -> Secrets and variables -> Actions ->
-          # Variables), not a secret — nothing sensitive here. Leave unset
-          # for "public" (fully automated). Set to "unlisted" while
-          # reviewing the first few videos, then remove it (or set back to
-          # "public") once you're happy with the output.
-          UPLOAD_PRIVACY_STATUS: ${{ vars.UPLOAD_PRIVACY_STATUS }}
-          # Repo variable, not a secret — a channel ID is public info (it's
-          # in the channel's URL). Safety check: upload_youtube.py refuses
-          # to publish if the authenticated credentials resolve to a
-          # different channel than this.
           EXPECTED_YOUTUBE_CHANNEL_ID: ${{ vars.EXPECTED_YOUTUBE_CHANNEL_ID }}
+          UPLOAD_PRIVACY_STATUS: ${{ vars.UPLOAD_PRIVACY_STATUS }}
+          GH_TOKEN: ${{ github.token }}
         run: python scripts/upload_youtube.py
-
-      - name: Upload run artifacts for debugging
+      - name: Save review artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: run-debug-${{ github.run_id }}
+          name: run-debug-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             run/assets.json
             run/upload_result.json
             run/thumbnail.jpg
-          retention-days: 7
+            run/history.json
+          retention-days: 14
           if-no-files-found: ignore
+      - name: Save preview video
+        if: success() && env.PIPELINE_MODE == 'preview'
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-${{ github.run_id }}
+          path: run/output.mp4
+          retention-days: 3

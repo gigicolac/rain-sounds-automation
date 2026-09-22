@@ -1,4 +1,4 @@
-{duration} hours of {scene_term} to help you relax, sleep, study, or unwind. Let the sound of rain wash your stress away.
+{duration} minutes of {scene_term} to help you relax, sleep, study, or unwind. Let the sound of rain wash your stress away.
 
 Perfect for:
 • Falling asleep fast and staying asleep

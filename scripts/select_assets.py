@@ -1,16 +1,7 @@
 #!/usr/bin/env python3
 """Pick today's scene, audio track, title, description and duration.
 
-Deterministic per calendar day (UTC) via seeded RNGs, so the same day always
-picks the same combination if re-run, but consecutive days rotate through
-different scenes/audio/titles/durations. Writes the result to
-run/assets.json for build_video.py and upload_youtube.py to consume.
-
-This rotation isn't just cosmetic variety: YouTube's monetisation policy
-treats channels that post reused, repetitive or duplicative content as
-ineligible for the Partner Program. Deliberately varying scene/audio/title/
-duration every day is what keeps each upload distinct enough to stay
-clear of that.
+Date-seeded selection with explicit overrides and conservative reviewed labels.
 """
 import json
 import os
@@ -20,6 +11,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import requests
+from asset_matching import compatible, title_allowed
+from upload_history import Ledger
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "data"
@@ -29,8 +22,8 @@ RUN_DIR = ROOT / "run"
 PEXELS_API_KEY = os.environ.get("PEXELS_API_KEY")
 PEXELS_SEARCH_URL = "https://api.pexels.com/videos/search"
 
-# Duration options in minutes, matching the brief's 1-2hr target.
-DURATION_OPTIONS_MIN = [60, 75, 90, 105, 120]
+# Short videos while testing the end-to-end pipeline.
+DURATION_OPTIONS_MIN = [5, 6, 7, 8]
 
 # Distinct large primes to decorrelate the rotation across categories so
 # scene/audio/title/duration don't all cycle in lockstep.
@@ -101,7 +94,11 @@ def pick_scene_video(scene_terms, rng, api_key):
         # to the unfiltered set if none of them do (better than failing the
         # whole run over one unlucky term).
         rain_results = [v for v in results if _looks_rain_related(v)]
-        video = rng.choice(rain_results or results)
+        if not rain_results:
+            continue
+        reviews = load_json(DATA_DIR / "scene_reviews.json")
+        reviewed = [v for v in rain_results if reviews.get(str(v["id"]), {}).get("approved") is True]
+        video = rng.choice(reviewed or rain_results)
         video_files = [
             vf for vf in video.get("video_files", [])
             if vf.get("file_type") == "video/mp4" and vf.get("width")
@@ -132,7 +129,7 @@ def pick_scene_video(scene_terms, rng, api_key):
     )
 
 
-def pick_audio_track(rng):
+def pick_audio_track(rng, video=None):
     metadata_path = AUDIO_DIR / "metadata.json"
     if not metadata_path.exists():
         raise RuntimeError(
@@ -145,17 +142,27 @@ def pick_audio_track(rng):
             "audio/metadata.json is empty. Run the audio-cache workflow to "
             "populate the cached track pool before the daily job."
         )
-    track = rng.choice(pool)
+    requested = os.environ.get("AUDIO_ID", "").strip()
+    if requested:
+        pool = [t for t in pool if str(t["id"]) == requested]
+    if not pool:
+        raise RuntimeError("Requested audio identifier is not in the cache")
+    if video is not None:
+        pool = [t for t in pool if compatible(t, video)]
+    if not pool:
+        raise RuntimeError("No audio matches the reviewed scene labels")
+    reviewed = [t for t in pool if t.get("review", {}).get("approved") is True]
+    track = rng.choice(reviewed or pool)
     audio_path = AUDIO_DIR / track["filename"]
     if not audio_path.exists():
         raise RuntimeError(f"Audio file listed in metadata but missing on disk: {audio_path}")
     return track
 
 
-def build_description(scene_term, audio_title, duration_hours):
+def build_description(scene_term, audio_title, duration_minutes):
     template = (DATA_DIR / "description_template.txt").read_text(encoding="utf-8")
     return template.format(
-        duration=duration_hours,
+        duration=duration_minutes,
         scene_term=scene_term,
         channel_name=CHANNEL_NAME,
         channel_handle=CHANNEL_HANDLE,
@@ -164,13 +171,13 @@ def build_description(scene_term, audio_title, duration_hours):
     )
 
 
-def format_duration_hours(minutes):
-    hours = minutes / 60
-    # Show "1" or "1.5" / "2" rather than "1.0" / "1.5" / "2.0".
-    return f"{hours:g}"
-
-
 def main():
+    resume = os.environ.get("RESUME_VIDEO_ID", "").strip()
+    if resume:
+        _, entry = Ledger().find_video(resume)
+        RUN_DIR.mkdir(exist_ok=True)
+        (RUN_DIR / "assets.json").write_text(json.dumps(entry["assets"], indent=2), encoding="utf-8")
+        return
     date = datetime.now(timezone.utc).date()
     day = day_number(date)
 
@@ -182,14 +189,29 @@ def main():
     rng_title = random.Random(day * SEED_TITLE)
     rng_duration = random.Random(day * SEED_DURATION)
 
+    override = os.environ.get("SCENE_QUERY", "").strip()
+    if override:
+        scene_terms = [override]
     video = pick_scene_video(scene_terms, rng_scene, PEXELS_API_KEY)
-    audio = pick_audio_track(rng_audio)
-    duration_minutes = rng_duration.choice(DURATION_OPTIONS_MIN)
-    duration_hours = format_duration_hours(duration_minutes)
+    scene_reviews = load_json(DATA_DIR / "scene_reviews.json")
+    video["review"] = scene_reviews.get(str(video["pexels_id"]), {"approved": False, "labels": {}})
+    audio = pick_audio_track(rng_audio, video)
+    override_duration = os.environ.get("DURATION_MINUTES", "").strip()
+    duration_minutes = int(override_duration) if override_duration else rng_duration.choice(DURATION_OPTIONS_MIN)
+    if not 1 <= duration_minutes <= 8:
+        raise ValueError("Duration must be between 1 and 8 minutes during testing")
+    if not compatible(audio, video):
+        raise RuntimeError("Reviewed audio and scene labels conflict; choose a compatible pair")
 
+    title_templates = [t for t in title_templates if title_allowed(t, audio, video)]
+    if not title_templates:
+        raise RuntimeError("No title is compatible with the reviewed asset labels")
     title_template = rng_title.choice(title_templates)
-    title = title_template.format(duration=duration_hours)
-    description = build_description(video["scene_term"], audio.get("title", "rain sounds"), duration_hours)
+    title = title_template.format(duration=duration_minutes)
+    title = os.environ.get("TITLE_OVERRIDE", "").strip() or title
+    if len(title) > 100 or not title_allowed(title, audio, video):
+        raise ValueError("Title exceeds 100 characters or makes unsupported claims about the assets")
+    description = build_description("rain ambience", audio.get("title", "rain sounds"), duration_minutes)
 
     assets = {
         "date": date.isoformat(),
@@ -201,15 +223,18 @@ def main():
             "path": str((AUDIO_DIR / audio["filename"]).relative_to(ROOT)),
             "title": audio.get("title"),
             "freesound_id": audio.get("id"),
+            "review": audio.get("review", {}),
         },
         "duration_minutes": duration_minutes,
         "duration_seconds": duration_minutes * 60,
         "title": title,
         "description": description,
-        "tags": TAGS,
+        "tags": [t for t in TAGS if "thunder" not in t],
+        "review_approved": audio.get("review", {}).get("approved") is True and video["review"].get("approved") is True,
         "category_id": "10",  # Music
     }
 
+    Ledger().check_new(assets)
     RUN_DIR.mkdir(exist_ok=True)
     out_path = RUN_DIR / "assets.json"
     out_path.write_text(json.dumps(assets, indent=2), encoding="utf-8")
