@@ -4,6 +4,13 @@ These rules apply to all contributors and coding assistants, including Codex
 and Claude. This file is the single source of truth. CLAUDE.md imports it;
 do not maintain a separate competing set of rules there.
 
+## Shared command cards
+
+When the user invokes a command phrase such as "Sync check", "Push my work",
+"Prepare review", or "Merge approved work", read [COMMANDS.md](COMMANDS.md)
+and follow that card. These are natural-language procedures, not shell aliases.
+Do not infer merge permission from a save, push or review command.
+
 ## Communication and shared context
 
 - Be concise, direct, and explicit about uncertainty. Expand technical
