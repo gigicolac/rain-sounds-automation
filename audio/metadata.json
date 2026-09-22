@@ -25,7 +25,7 @@
     "username": "thinkingfish",
     "freesound_url": "https://freesound.org/s/695619/",
     "review": {
-      "approved": false,
+      "approved": true,
       "labels": {},
       "notes": "Pending listening review; title and tags are not verified evidence."
     }
@@ -46,7 +46,7 @@
     "review": {
       "approved": false,
       "labels": {},
-      "notes": "Pending listening review; title and tags are not verified evidence."
+      "notes": "Has thunder."
     }
   },
   {
@@ -70,9 +70,9 @@
     "username": "Petrosilia",
     "freesound_url": "https://freesound.org/s/592996/",
     "review": {
-      "approved": false,
+      "approved": true,
       "labels": {},
-      "notes": "Pending listening review; title and tags are not verified evidence."
+      "notes": "Sounds static-y."
     }
   },
   {
@@ -100,7 +100,7 @@
     "review": {
       "approved": false,
       "labels": {},
-      "notes": "Pending listening review; title and tags are not verified evidence."
+      "notes": "sounds scuffed."
     }
   },
   {
@@ -148,7 +148,7 @@
     "username": "YouMightLikeThis",
     "freesound_url": "https://freesound.org/s/788146/",
     "review": {
-      "approved": false,
+      "approved": true,
       "labels": {},
       "notes": "Pending listening review; title and tags are not verified evidence."
     }
