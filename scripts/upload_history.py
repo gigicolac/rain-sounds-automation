@@ -12,7 +12,10 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def fingerprint(assets):
     # Title/duration edits must not disguise reuse of the same source pair.
-    pair = [str(assets['video']['pexels_id']), str(assets['audio']['freesound_id'])]
+    video = assets['video']
+    # Preserve existing Pexels fingerprints exactly, including old ledger reservations.
+    video_id = str(video['pexels_id']) if video.get('pexels_id') is not None else video['asset_id']
+    pair = [video_id, str(assets['audio']['freesound_id'])]
     return hashlib.sha256(json.dumps(pair).encode()).hexdigest()
 
 

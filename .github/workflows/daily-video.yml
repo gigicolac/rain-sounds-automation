@@ -9,6 +9,19 @@ on:
         type: choice
         options: [verify, preview, publish, resume]
         default: preview
+      asset_selection:
+        description: "Curated exact assets, or exploratory search (preview only)"
+        type: choice
+        options: [curated, search]
+        default: curated
+      visual_style:
+        description: "Reviewed visual style (curated only)"
+        type: choice
+        options: [any, illustrated, live_action]
+        default: any
+      video_id:
+        description: "Exact curated identifier, e.g. pexels:12345"
+        type: string
       scene_query:
         description: "Optional Pexels search phrase"
         type: string
@@ -40,6 +53,9 @@ jobs:
     env:
       PIPELINE_MODE: ${{ inputs.mode || 'publish' }}
       RESUME_VIDEO_ID: ${{ inputs.resume_video_id }}
+      ASSET_SELECTION: ${{ inputs.asset_selection || 'curated' }}
+      VISUAL_STYLE: ${{ inputs.visual_style || 'any' }}
+      VIDEO_ID: ${{ inputs.video_id }}
       SCENE_QUERY: ${{ inputs.scene_query }}
       AUDIO_ID: ${{ inputs.audio_id }}
       TITLE_OVERRIDE: ${{ inputs.title }}
@@ -56,6 +72,7 @@ jobs:
         run: |
           python -c "import os; m=os.environ['PIPELINE_MODE']; r=os.environ['RESUME_VIDEO_ID']; assert (m == 'resume') == bool(r), 'Supply resume_video_id only in resume mode'"
       - name: Verify YouTube channel
+        if: env.PIPELINE_MODE != 'preview'
         env:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
@@ -105,6 +122,7 @@ jobs:
             run/upload_result.json
             run/thumbnail.jpg
             run/history.json
+            run/prepared-audio.quality.json
           retention-days: 14
           if-no-files-found: ignore
       - name: Save preview video

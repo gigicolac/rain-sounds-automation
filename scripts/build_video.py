@@ -6,11 +6,14 @@ Reads run/assets.json (written by select_assets.py) and produces
 run/output.mp4.
 """
 import json
+import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
 
 import requests
+from media_quality import probe, prepare_audio, ffmpeg
 
 ROOT = Path(__file__).resolve().parent.parent
 RUN_DIR = ROOT / "run"
@@ -18,7 +21,7 @@ ASSETS_PATH = RUN_DIR / "assets.json"
 SCENE_PATH = RUN_DIR / "scene.mp4"
 OUTPUT_PATH = RUN_DIR / "output.mp4"
 
-FONT_PATH = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+FONT_PATH = os.environ.get("VIDEO_FONT", "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf")
 TITLE_OVERLAY_SECONDS = 12
 TITLE_FADE_SECONDS = 2
 AUDIO_FADE_SECONDS = 3
@@ -50,11 +53,12 @@ def truncate(text, max_len=MAX_OVERLAY_TITLE_LEN):
 
 def build_filter_complex(title):
     overlay_text = escape_drawtext(truncate(title))
+    font = escape_drawtext(FONT_PATH.replace("\\", "/"))
     fade_start = TITLE_OVERLAY_SECONDS - TITLE_FADE_SECONDS
     return (
         "[0:v]scale=1920:1080:force_original_aspect_ratio=increase,"
         "crop=1920:1080,"
-        f"drawtext=fontfile={FONT_PATH}:text='{overlay_text}':"
+        f"drawtext=fontfile='{font}':text='{overlay_text}':"
         "fontcolor=white@0.9:fontsize=48:x=(w-text_w)/2:y=80:"
         "box=1:boxcolor=black@0.45:boxborderw=24:"
         f"enable='between(t,0,{TITLE_OVERLAY_SECONDS})':"
@@ -66,18 +70,39 @@ def build_filter_complex(title):
 def run_ffmpeg(assets):
     audio_path = ROOT / assets["audio"]["path"]
     duration_seconds = assets["duration_seconds"]
-    fade_out_start = duration_seconds - AUDIO_FADE_SECONDS
+    prepared = RUN_DIR / "prepared-audio.wav"
+    prepare_audio(audio_path, prepared, duration_seconds)
+    info = probe(SCENE_PATH)
+    stream = next(s for s in info["streams"] if s["codec_type"] == "video")
+    length = float(info["format"]["duration"])
+    if stream["width"] < 1920 or stream["height"] < 1080 or length < 10:
+        raise ValueError("Source video must be native 1920x1080 or better and at least 10 seconds")
+    scene = SCENE_PATH
+    fade = float(os.environ.get("VIDEO_CROSSFADE_SECONDS", "1"))
+    if not 0 <= fade <= 2 or (fade and length <= 2 * fade):
+        raise ValueError("Video crossfade must be 0–2 seconds and shorter than half the source")
+    if fade:
+        scene = RUN_DIR / "scene-loop.mp4"
+        graph = (
+            "[0:v]fps=30,settb=AVTB,format=yuv420p,split=3[body][tail][head];"
+            f"[body]trim=start={fade}:end={length-fade},setpts=PTS-STARTPTS[b];"
+            f"[tail]trim=start={length-fade}:end={length},setpts=PTS-STARTPTS[t];"
+            f"[head]trim=start=0:end={fade},setpts=PTS-STARTPTS[h];"
+            f"[t][h]xfade=transition=fade:duration={fade}:offset=0[x];"
+            "[b][x]concat=n=2:v=1:a=0[out]")
+        subprocess.run([ffmpeg(), "-y", "-loglevel", "error", "-i", str(SCENE_PATH),
+                        "-filter_complex", graph, "-map", "[out]", "-an", "-c:v", "libx264",
+                        "-preset", "fast", "-crf", "18", str(scene)], check=True)
 
     cmd = [
-        "ffmpeg", "-y",
-        "-stream_loop", "-1", "-i", str(SCENE_PATH),
-        "-stream_loop", "-1", "-i", str(audio_path),
+        ffmpeg(), "-y",
+        "-stream_loop", "-1", "-i", str(scene),
+        "-i", str(prepared),
         "-filter_complex", build_filter_complex(assets["title"]),
         "-map", "[v]", "-map", "1:a",
         "-t", str(duration_seconds),
-        "-c:v", "libx264", "-preset", "veryfast", "-crf", "23", "-pix_fmt", "yuv420p",
+        "-c:v", "libx264", "-preset", "fast", "-crf", "20", "-pix_fmt", "yuv420p",
         "-c:a", "aac", "-b:a", "192k",
-        "-af", f"afade=t=in:st=0:d={AUDIO_FADE_SECONDS},afade=t=out:st={fade_out_start}:d={AUDIO_FADE_SECONDS}",
         "-movflags", "+faststart",
         "-loglevel", "warning", "-stats",
         str(OUTPUT_PATH),
@@ -91,8 +116,13 @@ def main():
         raise RuntimeError(f"{ASSETS_PATH} not found — run select_assets.py first")
     assets = json.loads(ASSETS_PATH.read_text(encoding="utf-8"))
 
-    print(f"Downloading scene video from {assets['video']['download_url']}")
-    download_file(assets["video"]["download_url"], SCENE_PATH)
+    local = assets["video"].get("local_path")
+    if local:
+        source = (ROOT / local).resolve()
+        source.relative_to(ROOT.resolve())
+        shutil.copyfile(source, SCENE_PATH)
+    else:
+        download_file(assets["video"]["download_url"], SCENE_PATH)
 
     run_ffmpeg(assets)
     print(f"Wrote {OUTPUT_PATH}")

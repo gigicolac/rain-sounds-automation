@@ -1,0 +1,43 @@
+name: Discover Review Candidates
+on:
+  workflow_dispatch:
+    inputs:
+      style:
+        description: "Search direction only; human review establishes actual style"
+        type: choice
+        options: [illustrated, live_action]
+        default: illustrated
+permissions:
+  contents: read
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - name: Discover exact video candidates
+        env:
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          STYLE: ${{ inputs.style }}
+        run: python scripts/discover_assets.py discover --style "$STYLE" --limit 12
+      - name: Discover balanced audio candidates
+        env:
+          FREESOUND_API_KEY: ${{ secrets.FREESOUND_API_KEY }}
+          AUDIO_NEW_LIMIT: "12"
+          FETCH_BUDGET_SECONDS: "600"
+        run: python scripts/fetch_audio_pool.py
+      - name: Save candidate library for local review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: review-candidates-${{ github.run_id }}
+          path: |
+            data/video_library.json
+            data/video_discovery_state.json
+            data/audio_discovery_state.json
+            audio/
+          retention-days: 14

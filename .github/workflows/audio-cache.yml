@@ -36,13 +36,14 @@ jobs:
           # budget) — it can no longer hang, just possibly fall short of
           # the target if it runs out of time, which is fine.
           FETCH_BUDGET_SECONDS: "600"
+          AUDIO_NEW_LIMIT: "12"
         run: python scripts/fetch_audio_pool.py
 
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add audio/
+          git add audio/ data/audio_discovery_state.json
           if git diff --cached --quiet; then
             echo "No new tracks, nothing to commit."
           else

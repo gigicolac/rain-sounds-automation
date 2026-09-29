@@ -6,6 +6,8 @@ auto-selected frame).
 Reads run/assets.json + run/output.mp4, writes run/thumbnail.jpg.
 """
 import json
+import os
+from media_quality import ffmpeg
 import subprocess
 import sys
 from pathlib import Path
@@ -19,7 +21,7 @@ VIDEO_PATH = RUN_DIR / "output.mp4"
 RAW_FRAME_PATH = RUN_DIR / "thumb_raw.jpg"
 THUMBNAIL_PATH = RUN_DIR / "thumbnail.jpg"
 
-FONT_PATH = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+FONT_PATH = os.environ.get("VIDEO_FONT", "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf")
 THUMB_SIZE = (1280, 720)
 FONT_SIZE = 64
 MARGIN_X = 80
@@ -32,7 +34,7 @@ def extract_frame(duration_seconds):
     # frame) or the very end; clamp so it also works on short test videos.
     timestamp = max(1, min(300, duration_seconds // 3))
     cmd = [
-        "ffmpeg", "-y",
+        ffmpeg(), "-y",
         "-ss", str(timestamp),
         "-i", str(VIDEO_PATH),
         "-frames:v", "1", "-q:v", "2",

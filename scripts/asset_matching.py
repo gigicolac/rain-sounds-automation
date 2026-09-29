@@ -9,7 +9,7 @@ def labels_for(asset):
 
 def compatible(audio, video):
     a, v = labels_for(audio), labels_for(video)
-    for key in ('setting', 'intensity'):
+    for key in ('setting', 'intensity', 'surface', 'perspective'):
         if a.get(key) and v.get(key) and a[key] != v[key]:
             return False
     return True
