@@ -5,5 +5,5 @@
   "video_ids": ["local:study-room", "local:pixabay-215407", "local:pixabay-246241", "local:pixabay-271841", "local:pixabay-276498", "local:pixabay-297863", "local:pixabay-310025", "local:pixabay-312345", "local:pixabay-345856", "local:pixabay-376049", "local:pixabay-379719"],
   "audio_ids": ["695619", "651189", "788146"],
   "audio_selection_note": "User selected all recordings labelled sounds solid. This includes the city recording with traffic; do not claim traffic-free audio.",
-  "scope": "local preview only; publishing controls unchanged"
+  "scope": "user-selected channel pool; automatic technical checks and source records required for publishing"
 }

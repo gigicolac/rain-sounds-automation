@@ -75,8 +75,17 @@ def run_ffmpeg(assets):
     info = probe(SCENE_PATH)
     stream = next(s for s in info["streams"] if s["codec_type"] == "video")
     length = float(info["format"]["duration"])
-    if stream["width"] < 1920 or stream["height"] < 1080 or length < 10:
-        raise ValueError("Source video must be native 1920x1080 or better and at least 10 seconds")
+    channel = assets.get('selection_explanation', {}).get('policy') == 'channel_profile'
+    minimum = (1280, 720, 5) if channel else (1920, 1080, 10)
+    if stream["width"] < minimum[0] or stream["height"] < minimum[1] or length < minimum[2]:
+        raise ValueError(f'Source requires {minimum[0]}x{minimum[1]} or better and at least {minimum[2]} seconds')
+    if channel:
+        from preflight_assets import measure
+        from asset_library import write_json
+        source_report = measure(SCENE_PATH, 'video')
+        if not source_report.get('decode_ok'):
+            raise ValueError('Source video failed automatic decoding checks')
+        write_json(RUN_DIR / 'channel-source-quality.json', source_report)
     scene = SCENE_PATH
     fade = float(os.environ.get("VIDEO_CROSSFADE_SECONDS", "1"))
     if not 0 <= fade <= 2 or (fade and length <= 2 * fade):
@@ -125,6 +134,23 @@ def main():
         download_file(assets["video"]["download_url"], SCENE_PATH)
 
     run_ffmpeg(assets)
+    if assets.get('selection_explanation', {}).get('policy') == 'channel_profile':
+        from channel_profile import digest
+        from asset_library import write_json, read_json
+        from preflight_assets import measure
+        report = measure(OUTPUT_PATH, 'video')
+        audio_quality = read_json(RUN_DIR / 'prepared-audio.quality.json', {})
+        normalized = audio_quality.get('normalized_output', {})
+        peak = normalized.get('peak_db')
+        report.update(video_id=assets['video']['asset_id'], audio_id=str(assets['audio']['freesound_id']),
+                      output_sha256=digest(OUTPUT_PATH))
+        report['passed'] = bool(report.get('decode_ok') and report.get('width') == 1920
+            and report.get('height') == 1080
+            and abs(report['duration_seconds'] - assets['duration_seconds']) < 0.1
+            and peak is not None and peak <= -0.1)
+        write_json(RUN_DIR / 'channel-quality.json', report)
+        if not report['passed']:
+            raise ValueError('Rendered video/audio failed automatic channel checks')
     print(f"Wrote {OUTPUT_PATH}")
 
 

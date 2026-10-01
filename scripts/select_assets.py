@@ -174,16 +174,25 @@ def main():
 
     ledger = Ledger()
     mode = os.environ.get("PIPELINE_MODE", "preview")
-    selection = os.environ.get("ASSET_SELECTION", "curated")
+    selection = os.environ.get("ASSET_SELECTION", "channel")
     requested_video = os.environ.get("VIDEO_ID", "").strip()
     requested_audio = os.environ.get("AUDIO_ID", "").strip()
     style = os.environ.get("VISUAL_STYLE", "any")
     explanation = {}
-    if selection not in {"curated", "search"}:
-        raise ValueError("asset_selection must be curated or search")
+    if selection not in {"channel", "curated", "search"}:
+        raise ValueError("asset_selection must be channel, curated or search")
     if mode not in {"preview", "publish"}:
         raise ValueError("Asset selection requires preview or publish mode")
-    if selection == "search":
+    if selection == 'channel':
+        from channel_profile import choose
+        if os.environ.get('SCENE_QUERY', '').strip() or style not in {'any', 'illustrated'}:
+            raise ValueError('Channel mode uses the fixed anime window-rain pool.')
+        video, audio = choose(ROOT, ledger.entries, rng_scene, mode, requested_video, requested_audio)
+        video = dict(video, scene_term='anime window rain ambience')
+        explanation = {'policy': 'channel_profile', 'strict_review': False,
+                       'rotation': 'Prefer scenes absent from the last seven uploads, then lowest lifetime use; never reuse a reserved pair.'}
+        title_templates = ['Rainy Anime Study Room | {duration} Minutes of Rain Ambience']
+    elif selection == "search":
         if mode != "preview":
             raise ValueError("Live search is preview-only; publish an exact curated pair.")
         if requested_video or style != "any":
@@ -218,22 +227,24 @@ def main():
             from discover_assets import refresh_video
             video = refresh_video(video, PEXELS_API_KEY)
         video = dict(video, scene_term=video.get("scene_term", "curated rain ambience"))
-    if not compatible(audio, video):
+    if selection != 'channel' and not compatible(audio, video):
         raise RuntimeError("Reviewed audio and scene labels conflict")
     override_duration = os.environ.get("DURATION_MINUTES", "").strip()
     duration_minutes = int(override_duration) if override_duration else rng_duration.choice(DURATION_OPTIONS_MIN)
     if not 1 <= duration_minutes <= 8:
         raise ValueError("Duration must be between 1 and 8 minutes during testing")
-    if not compatible(audio, video):
+    if selection != 'channel' and not compatible(audio, video):
         raise RuntimeError("Reviewed audio and scene labels conflict; choose a compatible pair")
 
-    title_templates = [t for t in title_templates if title_allowed(t, audio, video)]
+    from channel_profile import title_allowed as channel_title_allowed
+    allowed = lambda t: channel_title_allowed(t) if selection == 'channel' else title_allowed(t, audio, video)
+    title_templates = [t for t in title_templates if allowed(t)]
     if not title_templates:
         raise RuntimeError("No title is compatible with the reviewed asset labels")
     title_template = rng_title.choice(title_templates)
     title = title_template.format(duration=duration_minutes)
     title = os.environ.get("TITLE_OVERRIDE", "").strip() or title
-    if len(title) > 100 or not title_allowed(title, audio, video):
+    if len(title) > 100 or not allowed(title):
         raise ValueError("Title exceeds 100 characters or makes unsupported claims about the assets")
     description = build_description("rain ambience", audio.get("title", "rain sounds"), duration_minutes, video)
 
@@ -247,14 +258,16 @@ def main():
             "path": str((AUDIO_DIR / audio["filename"]).relative_to(ROOT)),
             "title": audio.get("title"),
             "freesound_id": audio.get("id"),
+            "freesound_url": audio.get("freesound_url"),
+            "license": audio.get("license"),
             "review": audio.get("review", {}),
         },
         "duration_minutes": duration_minutes,
         "duration_seconds": duration_minutes * 60,
         "title": title,
         "description": description,
-        "tags": [t for t in TAGS if "thunder" not in t],
-        "review_approved": not pair_reasons(audio, video, strict=True),
+        "tags": [t for t in TAGS if "thunder" not in t and (selection != 'channel' or 'music' not in t)],
+        "review_approved": selection != 'channel' and not pair_reasons(audio, video, strict=True),
         "selection_explanation": explanation,
         "category_id": "10",  # Music
     }

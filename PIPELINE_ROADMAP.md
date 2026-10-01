@@ -1,5 +1,9 @@
 # Pipeline roadmap and review guide
 
+The current channel direction and remaining deployment work are recorded in
+[CHANNEL_WORKFLOW.md](CHANNEL_WORKFLOW.md). The selected anime-rain pool uses
+automatic checks rather than per-asset tag/review forms in channel mode.
+
 The original pipeline controls were merged through pull request #3.
 See [ASSET_QUALITY.md](ASSET_QUALITY.md) for the current asset-quality branch,
 which is pending review. It supersedes the selection and asset-review steps
