@@ -45,28 +45,29 @@ The public code repository must not contain the source-video bundle. An ignored
 `scripts/channel_storage.py <bundle.zip>` validates the whole archive before
 restoring media and refuses to replace different existing files.
 
-The private repository destination awaits explicit confirmation: proposed
-`shmop/rain-sounds-assets`. The signed-in account is shmop; the pipeline repository
-is `gigicolac/rain-sounds-automation` and is public. Automatic approval review
-rejected creation and a remote-download workflow step until that exact destination
-is confirmed. No private repository has been created or media uploaded.
+The user explicitly confirmed `shmop/rain-sounds-assets`; it has been created
+privately. The pipeline repository `gigicolac/rain-sounds-automation` is public.
 
-After confirmation, upload the bundle to a private release, record the release
-asset URL in `data/channel_storage.json`, and connect a fine-grained read-only
-token for that private repository as `CHANNEL_ASSET_TOKEN` in the pipeline's
-Actions secrets. Never paste a token into chat or commit it. The authenticated
-download step still needs completing after destination confirmation.
+The bundle is uploaded to a private release and its asset URL recorded in
+`data/channel_storage.json` when upload verification completes. The authenticated
+download step verifies repository privacy, the bundle checksum and every member.
+It accepts credentials only for the confirmed repository.
+
+The user must create a fine-grained token with resource owner `shmop`, selected
+repository `rain-sounds-assets`, and repository permission `Contents: Read-only`.
+Add that token as the `CHANNEL_ASSET_TOKEN` Actions secret in the pipeline repository.
+Never paste a token into chat or commit it. Hosted preview needs this secret.
 
 ## Validation
 
-- All 49 tests passed after merging origin/main at 3a80247 into this task branch.
+- All 50 tests passed after merging origin/main at 3a80247 into this task branch.
   Main's audio-cache addition 532211 is preserved, outside the channel pool.
 - All four workflow files parsed.
 - Integrated channel selection and build created a local 60-second 1080p preview;
   its automatic output checks passed. No YouTube upload or history reservation.
 - A six-second 720p source rendered a 20-second local preview with repeat transitions.
 - Three earlier 75-second audio comparisons were accepted by the user.
-- Hosted preview remains pending private-storage setup and pushing the branch.
+- Hosted preview remains pending the Actions read-only storage token and branch push.
 
 When hosted storage is connected, run Daily Rain Video on `codex/asset-quality`
 with `mode=preview`, `asset_selection=channel`, and `duration_minutes=1`. The

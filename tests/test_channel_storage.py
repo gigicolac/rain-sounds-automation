@@ -3,13 +3,25 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 import zipfile
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from channel_profile import digest
-from channel_storage import restore
+from channel_storage import restore, download
 
 
 class StorageTests(unittest.TestCase):
+    def test_unconfirmed_destination_never_receives_credentials(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder); (root / 'data').mkdir()
+            (root / 'data/channel_storage.json').write_text(json.dumps({
+                'repository': 'other/private',
+                'asset_api_url': 'https://api.github.com/repos/other/private/releases/assets/1'}))
+            with patch('channel_storage.requests.get') as request:
+                with self.assertRaisesRegex(ValueError, 'confirmed private'):
+                    download(root)
+                request.assert_not_called()
+
     def test_verified_restore_and_existing_file_preservation(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder); (root / 'data').mkdir()

@@ -79,6 +79,11 @@ jobs:
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
           EXPECTED_YOUTUBE_CHANNEL_ID: ${{ vars.EXPECTED_YOUTUBE_CHANNEL_ID }}
         run: python scripts/verify_youtube_channel.py
+      - name: Restore private channel scenes
+        if: env.PIPELINE_MODE != 'verify' && env.ASSET_SELECTION == 'channel'
+        env:
+          CHANNEL_ASSET_TOKEN: ${{ secrets.CHANNEL_ASSET_TOKEN }}
+        run: python scripts/channel_storage.py --download
       - name: Pick assets and check history
         if: env.PIPELINE_MODE != 'verify'
         env:
