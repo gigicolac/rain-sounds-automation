@@ -9,6 +9,19 @@ on:
         type: choice
         options: [verify, preview, publish, resume]
         default: preview
+      asset_selection:
+        description: "Fixed channel pool, reviewed curated assets, or exploratory search"
+        type: choice
+        options: [channel, curated, search]
+        default: channel
+      visual_style:
+        description: "Reviewed visual style (curated only)"
+        type: choice
+        options: [any, illustrated, live_action]
+        default: any
+      video_id:
+        description: "Exact curated identifier, e.g. pexels:12345"
+        type: string
       scene_query:
         description: "Optional Pexels search phrase"
         type: string
@@ -40,6 +53,9 @@ jobs:
     env:
       PIPELINE_MODE: ${{ inputs.mode || 'publish' }}
       RESUME_VIDEO_ID: ${{ inputs.resume_video_id }}
+      ASSET_SELECTION: ${{ inputs.asset_selection || 'channel' }}
+      VISUAL_STYLE: ${{ inputs.visual_style || 'any' }}
+      VIDEO_ID: ${{ inputs.video_id }}
       SCENE_QUERY: ${{ inputs.scene_query }}
       AUDIO_ID: ${{ inputs.audio_id }}
       TITLE_OVERRIDE: ${{ inputs.title }}
@@ -56,24 +72,24 @@ jobs:
         run: |
           python -c "import os; m=os.environ['PIPELINE_MODE']; r=os.environ['RESUME_VIDEO_ID']; assert (m == 'resume') == bool(r), 'Supply resume_video_id only in resume mode'"
       - name: Verify YouTube channel
+        if: env.PIPELINE_MODE != 'preview'
         env:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
           EXPECTED_YOUTUBE_CHANNEL_ID: ${{ vars.EXPECTED_YOUTUBE_CHANNEL_ID }}
         run: python scripts/verify_youtube_channel.py
+      - name: Restore private channel scenes
+        if: env.PIPELINE_MODE != 'verify' && env.ASSET_SELECTION == 'channel'
+        env:
+          CHANNEL_ASSET_TOKEN: ${{ secrets.CHANNEL_ASSET_TOKEN }}
+        run: python scripts/channel_storage.py --download
       - name: Pick assets and check history
         if: env.PIPELINE_MODE != 'verify'
         env:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           GH_TOKEN: ${{ github.token }}
         run: python scripts/select_assets.py
-      - name: Check publishing eligibility
-        if: env.PIPELINE_MODE == 'publish'
-        env:
-          UPLOAD_PRIVACY_STATUS: ${{ vars.UPLOAD_PRIVACY_STATUS }}
-        run: |
-          python -c "import json,os; a=json.load(open('run/assets.json')); p=(os.environ.get('UPLOAD_PRIVACY_STATUS') or 'public').strip().lower(); assert a.get('review_approved') or (os.environ['ALLOW_UNREVIEWED'].lower() == 'true' and p in ('private','unlisted')), 'Review assets first, or explicitly allow an unlisted/private test'"
       - name: Install video tools
         if: env.PIPELINE_MODE != 'verify'
         run: |
@@ -85,6 +101,12 @@ jobs:
       - name: Generate thumbnail
         if: env.PIPELINE_MODE != 'verify'
         run: python scripts/make_thumbnail.py
+      - name: Check publishing eligibility
+        if: env.PIPELINE_MODE == 'publish'
+        env:
+          UPLOAD_PRIVACY_STATUS: ${{ vars.UPLOAD_PRIVACY_STATUS }}
+        run: |
+          python -c "import json,os,sys; sys.path.insert(0,'scripts'); from channel_profile import publication_ready; from pathlib import Path; a=json.load(open('run/assets.json')); p=(os.environ.get('UPLOAD_PRIVACY_STATUS') or 'public').strip().lower(); assert publication_ready(a,Path.cwd()) or (a.get('selection_explanation',{}).get('policy') != 'channel_profile' and os.environ['ALLOW_UNREVIEWED'].lower() == 'true' and p in ('private','unlisted')), 'Assets have not passed publication checks'"
       - name: Upload or resume and verify processing
         if: env.PIPELINE_MODE == 'publish' || env.PIPELINE_MODE == 'resume'
         env:
@@ -105,6 +127,9 @@ jobs:
             run/upload_result.json
             run/thumbnail.jpg
             run/history.json
+            run/prepared-audio.quality.json
+            run/channel-source-quality.json
+            run/channel-quality.json
           retention-days: 14
           if-no-files-found: ignore
       - name: Save preview video

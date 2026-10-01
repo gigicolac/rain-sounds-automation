@@ -1,0 +1,5 @@
+{
+  "indoor_rain": ["rain heard indoors", "rain inside room", "soft rain indoors"],
+  "window_rain": ["gentle rain outside window", "rain through closed window", "steady rain window"],
+  "soft_rain": ["steady soft rainfall", "gentle continuous rain", "soft rain ambience"]
+}

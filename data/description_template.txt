@@ -12,5 +12,6 @@ Subscribe to {channel_name} ({channel_handle}) for a new rain sounds video every
 {hashtags}
 
 ---
-Video: sourced from Pexels (pexels.com), free to use under the Pexels License.
+Video source: {video_source}
+Video license: {video_license}
 Audio: "{audio_title}" sourced from Freesound.org, released under Creative Commons 0 (public domain).

@@ -1,0 +1,224 @@
+[
+  {
+    "asset_id": "local:study-room",
+    "local_path": "scenes/study-room.mp4",
+    "source_url": "https://pixabay.com/videos/anime-cozy-rain-rainy-night-330062/",
+    "license_url": "https://pixabay.com/service/license-summary/",
+    "width": 2560,
+    "height": 1440,
+    "duration": 63.552993,
+    "review": {
+      "approved": true,
+      "labels": {
+        "setting": "window",
+        "intensity": "gentle",
+        "surface": "mixed",
+        "perspective": "indoors",
+        "style": "illustrated"
+      },
+      "quality": {
+        "full_playback": true,
+        "loop_checked": true,
+        "sharp": true,
+        "stable": true,
+        "rain_visible": true
+      },
+      "notes": "Great",
+      "status": "approved",
+      "rights_checked": true,
+      "reviewed_at": "2026-10-01T08:13:39.532061+00:00"
+    }
+  },
+  {
+    "asset_id": "local:pixabay-215407",
+    "local_path": "scenes/pixabay-215407.mp4",
+    "source_url": "https://pixabay.com/videos/lofi-girl-study-lamp-rain-window-215407/",
+    "license_url": "https://pixabay.com/service/license-summary/",
+    "width": 2560,
+    "height": 1440,
+    "duration": 60.093367,
+    "review": {
+      "approved": false,
+      "labels": {},
+      "quality": {},
+      "notes": ""
+    },
+    "source_record_origin": "user supplied exact Pixabay page on 2026-10-01"
+  },
+  {
+    "asset_id": "local:pixabay-246241",
+    "local_path": "scenes/pixabay-246241.mp4",
+    "source_url": "https://pixabay.com/videos/lofi-cat-sleeping-cute-cartoon-246241/",
+    "license_url": "https://pixabay.com/service/license-summary/",
+    "width": 2560,
+    "height": 1440,
+    "duration": 75.341933,
+    "review": {
+      "approved": false,
+      "labels": {},
+      "quality": {},
+      "notes": ""
+    },
+    "source_record_origin": "user supplied exact Pixabay page on 2026-10-01"
+  },
+  {
+    "asset_id": "local:pixabay-271841",
+    "local_path": "scenes/pixabay-271841.mp4",
+    "source_url": "https://pixabay.com/videos/girl-chill-rain-relax-relaxation-271841/",
+    "license_url": "https://pixabay.com/service/license-summary/",
+    "width": 1920,
+    "height": 1080,
+    "duration": 67.8,
+    "review": {
+      "approved": false,
+      "labels": {},
+      "quality": {},
+      "notes": ""
+    },
+    "source_record_origin": "user supplied exact Pixabay page on 2026-10-01"
+  },
+  {
+    "asset_id": "local:pixabay-276498",
+    "local_path": "scenes/pixabay-276498.mp4",
+    "source_url": "https://pixabay.com/videos/girl-study-anime-cartoon-drawing-276498/",
+    "license_url": "https://pixabay.com/service/license-summary/",
+    "width": 3840,
+    "height": 2160,
+    "duration": 52.066667,
+    "review": {
+      "approved": true,
+      "labels": {
+        "setting": "window",
+        "intensity": "heavy",
+        "surface": "mixed",
+        "perspective": "indoors",
+        "style": "illustrated"
+      },
+      "quality": {
+        "full_playback": true,
+        "loop_checked": true,
+        "sharp": true,
+        "stable": true,
+        "rain_visible": true
+      },
+      "notes": "Great",
+      "status": "approved",
+      "rights_checked": true,
+      "reviewed_at": "2026-10-01T08:13:39.532061+00:00"
+    },
+    "source_record_origin": "user supplied exact Pixabay page on 2026-10-01"
+  },
+  {
+    "asset_id": "local:pixabay-297863",
+    "local_path": "scenes/pixabay-297863.mp4",
+    "source_url": "https://pixabay.com/videos/ai-generated-anime-cozy-rain-297863/",
+    "license_url": "https://pixabay.com/service/license-summary/",
+    "width": 1920,
+    "height": 1080,
+    "duration": 64.0,
+    "review": {
+      "approved": false,
+      "labels": {},
+      "quality": {},
+      "notes": ""
+    },
+    "source_record_origin": "user supplied exact Pixabay page on 2026-10-01"
+  },
+  {
+    "asset_id": "local:pixabay-310025",
+    "local_path": "scenes/pixabay-310025.mp4",
+    "source_url": "https://pixabay.com/videos/anime-cozy-rain-rainy-night-310025/",
+    "license_url": "https://pixabay.com/service/license-summary/",
+    "width": 2560,
+    "height": 1440,
+    "duration": 64.017007,
+    "review": {
+      "approved": true,
+      "labels": {
+        "setting": "window",
+        "intensity": "gentle",
+        "surface": "mixed",
+        "perspective": "indoors",
+        "style": "illustrated"
+      },
+      "quality": {
+        "full_playback": true,
+        "loop_checked": true,
+        "sharp": true,
+        "stable": true,
+        "rain_visible": true
+      },
+      "notes": "Great",
+      "status": "approved",
+      "rights_checked": true,
+      "reviewed_at": "2026-10-01T08:13:39.532061+00:00"
+    },
+    "source_record_origin": "user supplied exact Pixabay page on 2026-10-01"
+  },
+  {
+    "asset_id": "local:pixabay-312345",
+    "local_path": "scenes/pixabay-312345.mp4",
+    "source_url": "https://pixabay.com/videos/anime-lofi-cat-cozy-rain-312345/",
+    "license_url": "https://pixabay.com/service/license-summary/",
+    "width": 1920,
+    "height": 1080,
+    "duration": 64.0,
+    "review": {
+      "approved": false,
+      "labels": {},
+      "quality": {},
+      "notes": ""
+    },
+    "source_record_origin": "user supplied exact Pixabay page on 2026-10-01"
+  },
+  {
+    "asset_id": "local:pixabay-345856",
+    "local_path": "scenes/pixabay-345856.mp4",
+    "source_url": "https://pixabay.com/videos/anime-lofi-cat-cute-cat-345856/",
+    "license_url": "https://pixabay.com/service/license-summary/",
+    "width": 1920,
+    "height": 1080,
+    "duration": 64.0,
+    "review": {
+      "approved": false,
+      "labels": {},
+      "quality": {},
+      "notes": ""
+    },
+    "source_record_origin": "user supplied exact Pixabay page on 2026-10-01"
+  },
+  {
+    "asset_id": "local:pixabay-376049",
+    "local_path": "scenes/pixabay-376049.mp4",
+    "source_url": "https://pixabay.com/videos/heavy-rain-night-cozy-window-376049/",
+    "license_url": "https://pixabay.com/service/license-summary/",
+    "width": 1280,
+    "height": 720,
+    "duration": 6.0,
+    "review": {
+      "approved": false,
+      "status": "pending",
+      "labels": {},
+      "quality": {},
+      "notes": "User selected this shorter clip for inclusion. Loop and output quality still need checking."
+    },
+    "source_record_origin": "user supplied exact Pixabay page on 2026-10-01"
+  },
+  {
+    "asset_id": "local:pixabay-379719",
+    "local_path": "scenes/pixabay-379719.mp4",
+    "source_url": "https://pixabay.com/videos/ai-generated-anime-girl-study-379719/",
+    "license_url": "https://pixabay.com/service/license-summary/",
+    "width": 2560,
+    "height": 1440,
+    "duration": 8.066667,
+    "review": {
+      "approved": false,
+      "status": "pending",
+      "labels": {},
+      "quality": {},
+      "notes": "User selected this shorter clip for inclusion. Loop and output quality still need checking."
+    },
+    "source_record_origin": "user supplied exact Pixabay page on 2026-10-01"
+  }
+]

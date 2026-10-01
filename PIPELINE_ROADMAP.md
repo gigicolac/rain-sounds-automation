@@ -1,7 +1,13 @@
 # Pipeline roadmap and review guide
 
-Work on `codex/pipeline-review-controls`; do not merge until reviewed.
-Based on the authorization repair and 5–8 minute test changes.
+The current channel direction and remaining deployment work are recorded in
+[CHANNEL_WORKFLOW.md](CHANNEL_WORKFLOW.md). The selected anime-rain pool uses
+automatic checks rather than per-asset tag/review forms in channel mode.
+
+The original pipeline controls were merged through pull request #3.
+See [ASSET_QUALITY.md](ASSET_QUALITY.md) for the current asset-quality branch,
+which is pending review. It supersedes the selection and asset-review steps
+below on this branch.
 
 ## Six major steps
 
@@ -156,7 +162,7 @@ repair before a replacement is possible. No automatic deletion or re-upload.
 If the upload succeeded but history persistence failed, recover the identifier
 from run/upload_result.json in artifacts before repairing the ledger.
 
-## Remaining work before merge
+## Remaining operational follow-up
 
 - Listen to audio and approve a small matched scene/audio collection.
 - Run a preview on GitHub, then one explicitly approved unlisted publish/resume test.

@@ -11,8 +11,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import requests
-from asset_matching import compatible, title_allowed
+from asset_matching import compatible, title_allowed, labels_for
 from upload_history import Ledger
+from asset_library import curated_videos, choose_pair, pair_reasons
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "data"
@@ -90,39 +91,18 @@ def pick_scene_video(scene_terms, rng, api_key):
         if not results:
             continue
 
-        # Prefer candidates that actually look rain-related; only fall back
-        # to the unfiltered set if none of them do (better than failing the
-        # whole run over one unlucky term).
+        # Text filtering is only a discovery hint, never visual approval.
         rain_results = [v for v in results if _looks_rain_related(v)]
         if not rain_results:
             continue
         reviews = load_json(DATA_DIR / "scene_reviews.json")
         reviewed = [v for v in rain_results if reviews.get(str(v["id"]), {}).get("approved") is True]
         video = rng.choice(reviewed or rain_results)
-        video_files = [
-            vf for vf in video.get("video_files", [])
-            if vf.get("file_type") == "video/mp4" and vf.get("width")
-        ]
-        if not video_files:
+        from discover_assets import video_record
+        record = video_record(video)
+        if record is None:
             continue
-
-        # Prefer the largest file that's at or under 1080p width; otherwise
-        # fall back to the smallest available (better than failing outright).
-        under_1080 = [vf for vf in video_files if vf["width"] <= 1920]
-        chosen_file = (
-            max(under_1080, key=lambda vf: vf["width"])
-            if under_1080
-            else min(video_files, key=lambda vf: vf["width"])
-        )
-
-        return {
-            "scene_term": term,
-            "pexels_id": video["id"],
-            "pexels_url": video["url"],
-            "download_url": chosen_file["link"],
-            "width": chosen_file["width"],
-            "height": chosen_file["height"],
-        }
+        return dict(record, scene_term=term)
 
     raise RuntimeError(
         f"No usable Pexels video found after trying {len(ordered_terms[:5])} scene terms"
@@ -137,6 +117,7 @@ def pick_audio_track(rng, video=None):
             "(scripts/fetch_audio_pool.py) at least once before the daily job."
         )
     pool = load_json(metadata_path)
+    pool = [t for t in pool if t.get("review", {}).get("status") != "rejected"]
     if not pool:
         raise RuntimeError(
             "audio/metadata.json is empty. Run the audio-cache workflow to "
@@ -159,7 +140,7 @@ def pick_audio_track(rng, video=None):
     return track
 
 
-def build_description(scene_term, audio_title, duration_minutes):
+def build_description(scene_term, audio_title, duration_minutes, video=None):
     template = (DATA_DIR / "description_template.txt").read_text(encoding="utf-8")
     return template.format(
         duration=duration_minutes,
@@ -168,6 +149,8 @@ def build_description(scene_term, audio_title, duration_minutes):
         channel_handle=CHANNEL_HANDLE,
         hashtags=HASHTAGS,
         audio_title=audio_title,
+        video_source=(video or {}).get("source_url", (video or {}).get("pexels_url", "Pexels")),
+        video_license=(video or {}).get("license_url", "https://www.pexels.com/license/"),
     )
 
 
@@ -189,29 +172,81 @@ def main():
     rng_title = random.Random(day * SEED_TITLE)
     rng_duration = random.Random(day * SEED_DURATION)
 
-    override = os.environ.get("SCENE_QUERY", "").strip()
-    if override:
-        scene_terms = [override]
-    video = pick_scene_video(scene_terms, rng_scene, PEXELS_API_KEY)
-    scene_reviews = load_json(DATA_DIR / "scene_reviews.json")
-    video["review"] = scene_reviews.get(str(video["pexels_id"]), {"approved": False, "labels": {}})
-    audio = pick_audio_track(rng_audio, video)
+    ledger = Ledger()
+    mode = os.environ.get("PIPELINE_MODE", "preview")
+    selection = os.environ.get("ASSET_SELECTION", "channel")
+    requested_video = os.environ.get("VIDEO_ID", "").strip()
+    requested_audio = os.environ.get("AUDIO_ID", "").strip()
+    style = os.environ.get("VISUAL_STYLE", "any")
+    explanation = {}
+    if selection not in {"channel", "curated", "search"}:
+        raise ValueError("asset_selection must be channel, curated or search")
+    if mode not in {"preview", "publish"}:
+        raise ValueError("Asset selection requires preview or publish mode")
+    if selection == 'channel':
+        from channel_profile import choose
+        if os.environ.get('SCENE_QUERY', '').strip() or style not in {'any', 'illustrated'}:
+            raise ValueError('Channel mode uses the fixed anime window-rain pool.')
+        video, audio = choose(ROOT, ledger.entries, rng_scene, mode, requested_video, requested_audio)
+        video = dict(video, scene_term='anime window rain ambience')
+        explanation = {'policy': 'channel_profile', 'strict_review': False,
+                       'rotation': 'Prefer scenes absent from the last seven uploads, then lowest lifetime use; never reuse a reserved pair.'}
+        title_templates = ['Rainy Anime Study Room | {duration} Minutes of Rain Ambience']
+    elif selection == "search":
+        if mode != "preview":
+            raise ValueError("Live search is preview-only; publish an exact curated pair.")
+        if requested_video or style != "any":
+            raise ValueError("video_id and visual_style require curated selection")
+        override = os.environ.get("SCENE_QUERY", "").strip()
+        if override:
+            scene_terms = [override]
+        video = pick_scene_video(scene_terms, rng_scene, PEXELS_API_KEY)
+        scene_reviews = load_json(DATA_DIR / "scene_reviews.json")
+        video["review"] = scene_reviews.get(str(video["pexels_id"]), {"approved": False, "labels": {}})
+        audio = pick_audio_track(rng_audio, video)
+        explanation = {"strict_review": False, "policy": "Exploratory live search; not publishable."}
+    else:
+        if os.environ.get("SCENE_QUERY", "").strip():
+            raise ValueError("scene_query requires asset_selection=search (preview only).")
+        videos = curated_videos(ROOT)
+        if requested_video:
+            videos = [v for v in videos if v.get("asset_id") == requested_video]
+        if style != "any":
+            # Discovery hint is not evidence of style. Require reviewed style.
+            videos = [v for v in videos if labels_for(v).get("style") == style]
+        audios = load_json(AUDIO_DIR / "metadata.json")
+        audios = [a for a in audios if (AUDIO_DIR / a["filename"]).is_file()]
+        if requested_audio:
+            audios = [a for a in audios if str(a["id"]) == requested_audio]
+        if not videos:
+            raise RuntimeError("No curated videos match. Run discover_assets.py or import an exact clip, then review it.")
+        strict = mode == "publish" and os.environ.get("ALLOW_UNREVIEWED", "").lower() != "true"
+        video, audio, explanation = choose_pair(videos, audios, ledger.entries, rng_scene, strict=strict)
+        # Refresh only the chosen Pexels file, never search for a replacement clip.
+        if video.get("pexels_id") is not None:
+            from discover_assets import refresh_video
+            video = refresh_video(video, PEXELS_API_KEY)
+        video = dict(video, scene_term=video.get("scene_term", "curated rain ambience"))
+    if selection != 'channel' and not compatible(audio, video):
+        raise RuntimeError("Reviewed audio and scene labels conflict")
     override_duration = os.environ.get("DURATION_MINUTES", "").strip()
     duration_minutes = int(override_duration) if override_duration else rng_duration.choice(DURATION_OPTIONS_MIN)
     if not 1 <= duration_minutes <= 8:
         raise ValueError("Duration must be between 1 and 8 minutes during testing")
-    if not compatible(audio, video):
+    if selection != 'channel' and not compatible(audio, video):
         raise RuntimeError("Reviewed audio and scene labels conflict; choose a compatible pair")
 
-    title_templates = [t for t in title_templates if title_allowed(t, audio, video)]
+    from channel_profile import title_allowed as channel_title_allowed
+    allowed = lambda t: channel_title_allowed(t) if selection == 'channel' else title_allowed(t, audio, video)
+    title_templates = [t for t in title_templates if allowed(t)]
     if not title_templates:
         raise RuntimeError("No title is compatible with the reviewed asset labels")
     title_template = rng_title.choice(title_templates)
     title = title_template.format(duration=duration_minutes)
     title = os.environ.get("TITLE_OVERRIDE", "").strip() or title
-    if len(title) > 100 or not title_allowed(title, audio, video):
+    if len(title) > 100 or not allowed(title):
         raise ValueError("Title exceeds 100 characters or makes unsupported claims about the assets")
-    description = build_description("rain ambience", audio.get("title", "rain sounds"), duration_minutes)
+    description = build_description("rain ambience", audio.get("title", "rain sounds"), duration_minutes, video)
 
     assets = {
         "date": date.isoformat(),
@@ -223,18 +258,22 @@ def main():
             "path": str((AUDIO_DIR / audio["filename"]).relative_to(ROOT)),
             "title": audio.get("title"),
             "freesound_id": audio.get("id"),
+            "freesound_url": audio.get("freesound_url"),
+            "license": audio.get("license"),
             "review": audio.get("review", {}),
         },
         "duration_minutes": duration_minutes,
         "duration_seconds": duration_minutes * 60,
         "title": title,
         "description": description,
-        "tags": [t for t in TAGS if "thunder" not in t],
-        "review_approved": audio.get("review", {}).get("approved") is True and video["review"].get("approved") is True,
+        "tags": [t for t in TAGS if "thunder" not in t and (selection != 'channel' or 'music' not in t)],
+        "review_approved": selection != 'channel' and not pair_reasons(audio, video, strict=True),
+        "selection_explanation": explanation,
         "category_id": "10",  # Music
     }
 
-    Ledger().check_new(assets)
+    if mode == "publish":
+        ledger.check_new(assets)
     RUN_DIR.mkdir(exist_ok=True)
     out_path = RUN_DIR / "assets.json"
     out_path.write_text(json.dumps(assets, indent=2), encoding="utf-8")

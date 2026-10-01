@@ -202,7 +202,10 @@ def main():
     else:
         if not VIDEO_PATH.exists():
             raise RuntimeError("Build the video before uploading")
-        if not assets.get("review_approved"):
+        from channel_profile import publication_ready
+        if not publication_ready(assets, ROOT):
+            if assets.get('selection_explanation', {}).get('policy') == 'channel_profile':
+                raise RuntimeError('Channel assets require source records, pool membership and successful automatic render checks')
             if os.environ.get("ALLOW_UNREVIEWED", "false").lower() != "true" or PRIVACY_STATUS == "public":
                 raise RuntimeError("Unreviewed assets require explicit allow_unreviewed and private/unlisted visibility")
         key = ledger.reserve(assets)

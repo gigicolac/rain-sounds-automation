@@ -17,6 +17,8 @@ import os
 import signal
 import sys
 import time
+from datetime import datetime, timezone
+from asset_library import read_json, write_json
 from pathlib import Path
 
 import requests
@@ -38,6 +40,8 @@ def with_hard_timeout(seconds, func, *args, **kwargs):
     defeats a normal timeout= argument. SIGALRM interrupts regardless of
     where execution is actually stuck.
     """
+    if not hasattr(signal, "SIGALRM"):
+        return func(*args, **kwargs)
     old_handler = signal.signal(signal.SIGALRM, _alarm_handler)
     signal.alarm(seconds)
     try:
@@ -53,13 +57,6 @@ METADATA_PATH = AUDIO_DIR / "metadata.json"
 FREESOUND_API_KEY = os.environ.get("FREESOUND_API_KEY")
 SEARCH_URL = "https://freesound.org/apiv2/search/text/"
 
-SEARCH_TAGS = [
-    "rain", "heavy rain", "rain ambience", "rainstorm", "gentle rain",
-    "rain on window", "rainforest rain", "thunderstorm rain", "rain forest",
-    "rain on roof",
-]
-
-POOL_TARGET = int(os.environ.get("AUDIO_POOL_TARGET", "28"))
 MIN_DURATION_S = 45
 MAX_DURATION_S = 900
 FIELDS = "id,name,previews,duration,license,tags,username"
@@ -76,7 +73,7 @@ def save_metadata(pool):
     METADATA_PATH.write_text(json.dumps(pool, indent=2), encoding="utf-8")
 
 
-def search_tag(tag, api_key):
+def search_tag(tag, api_key, page=1):
     headers = {"Authorization": f"Token {api_key}"}
     params = {
         "query": tag,
@@ -87,13 +84,14 @@ def search_tag(tag, api_key):
         "fields": FIELDS,
         "sort": "rating_desc",
         "page_size": 15,
+        "page": page,
     }
     # (connect, read) tuple rather than one flat number, so a slow/hanging
     # connection to a single sound's server fails fast instead of silently
     # consuming a large chunk of the job's total runtime.
     resp = requests.get(SEARCH_URL, headers=headers, params=params, timeout=(10, 15))
     resp.raise_for_status()
-    return resp.json().get("results", [])
+    return resp.json()
 
 
 def download_preview(sound, dest_path):
@@ -123,74 +121,76 @@ def main():
     deadline = time.monotonic() + float(os.environ.get("FETCH_BUDGET_SECONDS", "240"))
 
     added = 0
-    for tag in SEARCH_TAGS:
-        if len(pool) >= POOL_TARGET:
-            break
+    new_limit = int(os.environ.get("AUDIO_NEW_LIMIT", "12"))
+    categories = read_json(ROOT / "data/audio_discovery.json", {})
+    state_path = ROOT / "data/audio_discovery_state.json"
+    state = read_json(state_path, {})
+    # Balance observed inventory coverage; query hints are never treated as verified labels.
+    def coverage(category):
+        return sum(1 for t in pool if t.get("review", {}).get("status") != "rejected"
+                   and t.get("discovery_category") == category)
+    categories = sorted(categories, key=coverage)
+    queues = {}
+    queries_by_category = {}
+    for category in categories:
         if time.monotonic() > deadline:
-            print("Overall fetch time budget exceeded, stopping.", flush=True)
             break
-        print(f"Searching tag {tag!r}...", flush=True)
+        queries = read_json(ROOT / "data/audio_discovery.json", {})[category]
+        cursor = state.get(category, {"query": 0, "page": 1})
+        query = queries[cursor["query"] % len(queries)]
+        queries_by_category[category] = query
         try:
-            results = with_hard_timeout(20, search_tag, tag, FREESOUND_API_KEY)
+            data = with_hard_timeout(20, search_tag, query, FREESOUND_API_KEY, cursor["page"])
         except (requests.RequestException, HardTimeout) as exc:
-            print(f"Search for '{tag}' failed, skipping: {exc}", file=sys.stderr, flush=True)
+            print(f"Search failed for {category}: {exc}", file=sys.stderr)
             continue
-
-        for sound in results:
-            if len(pool) >= POOL_TARGET:
+        state[category] = {"query": cursor["query"] + 1,
+                           "page": cursor["page"] + (1 if (cursor["query"] + 1) % len(queries) == 0 else 0)}
+        queues[category] = data.get("results", [])
+        if not queues[category]:
+            state[category]["page"] = 1
+    while added < new_limit and any(queues.values()) and time.monotonic() <= deadline:
+        progressed = False
+        for category in sorted(queues, key=coverage):
+            if added >= new_limit or time.monotonic() > deadline:
                 break
-            if time.monotonic() > deadline:
-                print("Overall fetch time budget exceeded, stopping.", flush=True)
+            queue = queues[category]
+            while queue:
+                sound = queue.pop(0)
+                if sound["id"] in existing_ids:
+                    continue
+                name = (sound.get("name") or "").lower()
+                if not any(word in name for word in ("rain", "storm", "thunder", "drizzle", "downpour")):
+                    continue
+                # Defense in depth: handle both URL and display-name license forms.
+                license_name = str(sound.get("license", "")).lower()
+                if not ("creativecommons.org/publicdomain/zero/" in license_name or license_name == "creative commons 0"):
+                    continue
+                filename = f"{sound['id']}.mp3"
+                try:
+                    ok = with_hard_timeout(25, download_preview, sound, AUDIO_DIR / filename)
+                except (requests.RequestException, HardTimeout) as exc:
+                    print(f"Download {sound['id']} failed: {exc}", file=sys.stderr)
+                    continue
+                if not ok:
+                    continue
+                pool.append({"id": sound["id"], "filename": filename, "title": sound.get("name"),
+                             "duration": sound.get("duration"), "license": sound.get("license"),
+                             "tags": sound.get("tags", []), "username": sound.get("username"),
+                             "freesound_url": f"https://freesound.org/s/{sound['id']}/",
+                             "download_kind": "hq_mp3_preview",
+                             "download_url": sound.get("previews", {}).get("preview-hq-mp3"),
+                             "discovery_query": queries_by_category[category],
+                             "discovery_category": category,
+                             "discovered_at": datetime.now(timezone.utc).isoformat(),
+                             "review": {"approved": False, "status": "pending", "labels": {},
+                                        "quality": {}, "notes": ""}})
+                existing_ids.add(sound["id"]); added += 1; progressed = True
+                save_metadata(pool)
                 break
-            if sound["id"] in existing_ids:
-                continue
-            # No client-side license re-check: the server-side filter above
-            # already restricts to CC0 (the earlier bug was re-checking this
-            # client-side against a hardcoded license URL string that didn't
-            # match Freesound's actual format, silently discarding every
-            # already-correct result).
-
-            # A search tag matching means a sound was tagged/associated with
-            # it somewhere, but that doesn't guarantee it actually sounds
-            # like rain (e.g. "rubber boots in mud.wav" carried a "rain"
-            # tag despite being footstep/splash sounds, not ambience). Skip
-            # anything whose own name doesn't mention rain-related weather
-            # at all, as a cheap sanity check against thematic mismatches.
-            name_lower = (sound.get("name") or "").lower()
-            if not any(kw in name_lower for kw in ("rain", "storm", "thunder", "drizzle", "downpour")):
-                print(f"Skipping {sound['id']} ({sound.get('name')!r}): name doesn't mention rain", flush=True)
-                continue
-
-            filename = f"{sound['id']}.mp3"
-            dest_path = AUDIO_DIR / filename
-            print(f"Downloading sound {sound['id']} ({sound.get('name')!r})...", flush=True)
-            try:
-                ok = with_hard_timeout(25, download_preview, sound, dest_path)
-            except (requests.RequestException, HardTimeout) as exc:
-                print(f"Download failed for sound {sound['id']}: {exc}", file=sys.stderr, flush=True)
-                continue
-            if not ok:
-                continue
-
-            pool.append({
-                "id": sound["id"],
-                "filename": filename,
-                "title": sound.get("name"),
-                "duration": sound.get("duration"),
-                "license": sound.get("license"),
-                "tags": sound.get("tags", []),
-                "username": sound.get("username"),
-                "freesound_url": f"https://freesound.org/s/{sound['id']}/",
-            })
-            existing_ids.add(sound["id"])
-            added += 1
-            print(f"Added {filename} ({sound.get('name')!r})", flush=True)
-            # Save after every successful add, not just at the end, so a
-            # slow run that needs to be interrupted doesn't lose progress
-            # already made (each download can itself take a while).
-            save_metadata(pool)
-            time.sleep(0.5)  # be polite to the API
-
+        if not progressed:
+            break
+    write_json(state_path, state)
     save_metadata(pool)
     print(f"Pool size now {len(pool)} (added {added} new tracks this run)", flush=True)
 

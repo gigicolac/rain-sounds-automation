@@ -126,7 +126,7 @@ class SelectionTests(unittest.TestCase):
     def test_manual_controls_reach_generated_assets(self):
         import select_assets as select
         with tempfile.TemporaryDirectory() as temp, patch.dict(os.environ, {
-            'SCENE_QUERY':'rain window', 'AUDIO_ID':'651189', 'TITLE_OVERRIDE':'My Rain Preview',
+            'ASSET_SELECTION':'search', 'SCENE_QUERY':'rain window', 'AUDIO_ID':'651189', 'TITLE_OVERRIDE':'My Rain Preview',
             'DURATION_MINUTES':'2'}, clear=True), patch.object(select,'RUN_DIR',Path(temp)), \
                 patch.object(select,'pick_scene_video',return_value={'pexels_id':123,'scene_term':'rain window'}) as pick, \
                 patch.object(select,'Ledger'):

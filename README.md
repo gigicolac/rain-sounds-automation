@@ -1,5 +1,17 @@
 # Rain Sounds YouTube Automation
 
+## Asset-quality branch
+
+See [CHANNEL_WORKFLOW.md](CHANNEL_WORKFLOW.md) for the current fixed anime rain
+pool, automatic checks, private storage setup, and pending GitHub preview work.
+Channel mode supersedes per-asset tagging for this pool. Changes remain on the
+task branch and are not deployed.
+
+See [ASSET_QUALITY.md](ASSET_QUALITY.md) for curated libraries, illustrated scenes,
+balanced audio discovery, the review form and validation evidence. These changes
+are pending review and not deployed. That guide supersedes the earlier selection
+and looping instructions below on this branch.
+
 A fully automated daily pipeline that publishes a short (5–8 minute)
 rain-sounds ambient video to YouTube, at **$0/month**, for the **Calming
 Rain Sounds** channel (`@calmingrainsoundssss`).

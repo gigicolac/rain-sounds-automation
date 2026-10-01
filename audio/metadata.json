@@ -26,8 +26,26 @@
     "freesound_url": "https://freesound.org/s/695619/",
     "review": {
       "approved": true,
-      "labels": {},
-      "notes": "Pending listening review; title and tags are not verified evidence."
+      "labels": {
+        "setting": "lake",
+        "intensity": "moderate",
+        "surface": "mixed",
+        "perspective": "outdoors",
+        "thunder": false,
+        "traffic": false,
+        "animals": false,
+        "music": false,
+        "voices": false
+      },
+      "notes": "sounds solid",
+      "quality": {
+        "full_playback": true,
+        "loop_checked": true,
+        "clean_recording": true,
+        "no_clipping": true
+      },
+      "status": "approved",
+      "reviewed_at": "2026-10-01T04:47:29.990552+00:00"
     }
   },
   {
@@ -45,8 +63,23 @@
     "freesound_url": "https://freesound.org/s/717876/",
     "review": {
       "approved": false,
-      "labels": {},
-      "notes": "Has thunder."
+      "labels": {
+        "intensity": "moderate",
+        "perspective": "outdoors",
+        "thunder": true,
+        "traffic": false,
+        "animals": false,
+        "music": false,
+        "voices": false
+      },
+      "notes": "Has thunder.",
+      "quality": {
+        "full_playback": true,
+        "loop_checked": true,
+        "clean_recording": true,
+        "no_clipping": true
+      },
+      "status": "pending"
     }
   },
   {
@@ -71,8 +104,26 @@
     "freesound_url": "https://freesound.org/s/592996/",
     "review": {
       "approved": true,
-      "labels": {},
-      "notes": "Sounds static-y."
+      "labels": {
+        "setting": "tent",
+        "intensity": "heavy",
+        "surface": "fabric",
+        "perspective": "sheltered",
+        "thunder": false,
+        "traffic": false,
+        "animals": false,
+        "music": false,
+        "voices": false
+      },
+      "notes": "Sounds static-y.",
+      "quality": {
+        "full_playback": true,
+        "loop_checked": true,
+        "clean_recording": true,
+        "no_clipping": true
+      },
+      "status": "approved",
+      "reviewed_at": "2026-10-01T04:47:29.990552+00:00"
     }
   },
   {
@@ -100,7 +151,14 @@
     "review": {
       "approved": false,
       "labels": {},
-      "notes": "sounds scuffed."
+      "notes": "sounds scuffed.",
+      "quality": {
+        "full_playback": false,
+        "loop_checked": false,
+        "clean_recording": false,
+        "no_clipping": false
+      },
+      "status": "rejected"
     }
   },
   {
@@ -124,9 +182,27 @@
     "username": "Borgory",
     "freesound_url": "https://freesound.org/s/651189/",
     "review": {
-      "approved": false,
-      "labels": {},
-      "notes": "Pending listening review; title and tags are not verified evidence."
+      "approved": true,
+      "labels": {
+        "setting": "forest",
+        "intensity": "heavy",
+        "surface": "leaves",
+        "perspective": "outdoors",
+        "thunder": false,
+        "traffic": false,
+        "animals": false,
+        "music": false,
+        "voices": false
+      },
+      "notes": "sounds solid",
+      "quality": {
+        "full_playback": true,
+        "loop_checked": true,
+        "clean_recording": true,
+        "no_clipping": true
+      },
+      "status": "approved",
+      "reviewed_at": "2026-10-01T04:47:29.990552+00:00"
     }
   },
   {
@@ -149,8 +225,26 @@
     "freesound_url": "https://freesound.org/s/788146/",
     "review": {
       "approved": true,
-      "labels": {},
-      "notes": "Pending listening review; title and tags are not verified evidence."
+      "labels": {
+        "setting": "city",
+        "intensity": "moderate",
+        "surface": "ground",
+        "perspective": "sheltered",
+        "thunder": false,
+        "traffic": true,
+        "animals": false,
+        "music": false,
+        "voices": false
+      },
+      "notes": "sounds solid",
+      "quality": {
+        "full_playback": true,
+        "loop_checked": true,
+        "clean_recording": true,
+        "no_clipping": true
+      },
+      "status": "approved",
+      "reviewed_at": "2026-10-01T04:47:29.990552+00:00"
     }
   },
   {

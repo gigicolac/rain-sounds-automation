@@ -1,0 +1,79 @@
+{
+  "visual_direction": "Anime/illustrated lo-fi scenes with rain: study rooms, studying characters, sleeping cats, cozy interiors, fireplace scenes and rainy train windows.",
+  "selection_guidance": [
+    "Use these exact videos as visual references, not tags alone.",
+    "Look for visible rain and windows, a calm composition, gentle repeatable motion, and consistent anime illustration.",
+    "Fireplace and train-cat variants should retain the same cozy rain atmosphere.",
+    "Avoid unrelated cartoon/vector interiors, fast camera movement, and scenes without rain."
+  ],
+  "sources": [
+    {
+      "pixabay_id": "310025",
+      "source_url": "https://pixabay.com/videos/anime-cozy-rain-rainy-night-310025/",
+      "status": "existing channel scene"
+    },
+    {
+      "pixabay_id": "215407",
+      "source_url": "https://pixabay.com/videos/lofi-girl-study-lamp-rain-window-215407/",
+      "status": "existing channel scene"
+    },
+    {
+      "pixabay_id": "276498",
+      "source_url": "https://pixabay.com/videos/girl-study-anime-cartoon-drawing-276498/",
+      "status": "existing channel scene"
+    },
+    {
+      "pixabay_id": "345856",
+      "source_url": "https://pixabay.com/videos/anime-lofi-cat-cute-cat-345856/",
+      "status": "existing channel scene"
+    },
+    {
+      "pixabay_id": "312345",
+      "source_url": "https://pixabay.com/videos/anime-lofi-cat-cozy-rain-312345/",
+      "status": "existing channel scene"
+    },
+    {
+      "pixabay_id": "246242",
+      "source_url": "https://pixabay.com/videos/lofi-cat-fireplace-fire-sleeping-246242/",
+      "status": "reference; not downloaded"
+    },
+    {
+      "pixabay_id": "246241",
+      "source_url": "https://pixabay.com/videos/lofi-cat-sleeping-cute-cartoon-246241/",
+      "status": "existing channel scene"
+    },
+    {
+      "pixabay_id": "301247",
+      "source_url": "https://pixabay.com/videos/cat-train-retro-chill-relax-anime-301247/",
+      "status": "reference; not downloaded"
+    },
+    {
+      "pixabay_id": "379719",
+      "source_url": "https://pixabay.com/videos/ai-generated-anime-girl-study-379719/",
+      "status": "existing channel scene"
+    },
+    {
+      "pixabay_id": "376049",
+      "source_url": "https://pixabay.com/videos/heavy-rain-night-cozy-window-376049/",
+      "status": "existing channel scene"
+    },
+    {
+      "pixabay_id": "271841",
+      "source_url": "https://pixabay.com/videos/girl-chill-rain-relax-relaxation-271841/",
+      "status": "existing channel scene"
+    },
+    {
+      "pixabay_id": "297863",
+      "source_url": "https://pixabay.com/videos/ai-generated-anime-cozy-rain-297863/",
+      "status": "existing channel scene"
+    }
+  ],
+  "additional_existing_reference": {
+    "pixabay_id": "330062",
+    "source_url": "https://pixabay.com/videos/anime-cozy-rain-rainy-night-330062/"
+  },
+  "search_pages": [
+    "https://pixabay.com/videos/search/cat%20rain%20anime/"
+  ],
+  "missing_source_ids": []
+}
