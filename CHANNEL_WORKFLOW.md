@@ -13,18 +13,24 @@ authorized fixed-pool publishing, both shorter clips, and enlargement of the 720
 clip. Scheduled runs use channel mode after this branch is merged; the daily
 schedule and upload visibility setting are unchanged. No upload was performed.
 
-Source records are required for publication. Three scenes have source links; the
-other eight remain previewable and excluded from publishing until links are
-recovered. Source filenames and user selection do not prove third-party rights.
+Source records are required for publication. All eleven scenes now have exact source links. Source filenames and user selection do not prove third-party rights.
 Publication uses only recorded source/licence references, without per-asset forms.
 
 Selection favors scenes absent from the last seven uploads, then less-used scenes.
 Reserved or uploaded source pairs are never reused, and the one-new-upload-per-date
 rule remains. Eleven scenes and three recordings allow at most 33 distinct pairs;
-only nine are currently eligible for publishing due to missing source links.
+All 33 pairs have the source records required for selection, subject to upload
+history and automatic quality checks.
 After those pairs are exhausted, add new source-backed scenes/recordings; do not
 delete upload history. The current three recordings are accepted by the user,
 including traffic in 788146. Titles avoid event-absence or intensity claims.
+
+`data/video_references.json` records the user's exact reference scenes and search
+guidance. Future searches favor anime study rooms, studying characters, sleeping
+cats, cozy fireplace interiors and rainy train windows, with visible rain and calm
+repeatable motion. Pixabay 246242 and 301247 are new reference candidates; their
+files have not been downloaded or added to the active pool. The source-link update
+does not change any source media or require rebuilding the private bundle.
 
 ## Automatic checks
 
