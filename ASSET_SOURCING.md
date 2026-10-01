@@ -74,6 +74,11 @@ licence documents with any future purchased/commissioned assets.
 
 ## Daily capacity and proposed controls
 
+The candidate discovery/download/private-cache process is now implemented in
+[AUTOMATED_SOURCING.md](AUTOMATED_SOURCING.md). It remains on the task branch;
+live provider validation and setup are pending. Candidate sourcing is separate
+from selecting those assets for publication.
+
 The active pool has eleven videos and three recordings: at most 33 unused source
 pairs before history blocks reuse. This is not 33 unique videos or recordings.
 If neither component may repeat between uploads, the current audio pool limits
