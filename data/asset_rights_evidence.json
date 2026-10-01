@@ -1,0 +1,304 @@
+{
+  "date_local": "2026-10-01",
+  "timezone": "Australia/Sydney",
+  "purpose": "Provenance and licence evidence; does not certify ownership or YouTube eligibility",
+  "raw_snapshot_storage": "Local ignored run directory; raw pages are not pushed to public repository",
+  "assets": [
+    {
+      "kind": "video",
+      "asset_id": "local:study-room",
+      "source_url": "https://pixabay.com/videos/anime-cozy-rain-rainy-night-330062/",
+      "license_url": "https://pixabay.com/service/license-summary/",
+      "media_sha256": "2bf1ab4725c9a0b62bd8227f425d4a7ba8a4c790ab73f9806b9c5f7b0e3d267d",
+      "license_record_origin": "existing library metadata; source supplied by user for local videos"
+    },
+    {
+      "kind": "video",
+      "asset_id": "local:pixabay-215407",
+      "source_url": "https://pixabay.com/videos/lofi-girl-study-lamp-rain-window-215407/",
+      "license_url": "https://pixabay.com/service/license-summary/",
+      "media_sha256": "10324dda27faa4fe010bbab16d18091f74ed5ef2594a1f8389f90c35e13e1f9b",
+      "license_record_origin": "existing library metadata; source supplied by user for local videos"
+    },
+    {
+      "kind": "video",
+      "asset_id": "local:pixabay-246241",
+      "source_url": "https://pixabay.com/videos/lofi-cat-sleeping-cute-cartoon-246241/",
+      "license_url": "https://pixabay.com/service/license-summary/",
+      "media_sha256": "5439790482df539c0e8c5497ef3d79dbae4110cfe8d1fae2efb275561b0b0728",
+      "license_record_origin": "existing library metadata; source supplied by user for local videos"
+    },
+    {
+      "kind": "video",
+      "asset_id": "local:pixabay-271841",
+      "source_url": "https://pixabay.com/videos/girl-chill-rain-relax-relaxation-271841/",
+      "license_url": "https://pixabay.com/service/license-summary/",
+      "media_sha256": "3c2d348d15294f3f8f5a0d02d6d519f1f859ae22ad7837841ecf4bc16ebfa10b",
+      "license_record_origin": "existing library metadata; source supplied by user for local videos"
+    },
+    {
+      "kind": "video",
+      "asset_id": "local:pixabay-276498",
+      "source_url": "https://pixabay.com/videos/girl-study-anime-cartoon-drawing-276498/",
+      "license_url": "https://pixabay.com/service/license-summary/",
+      "media_sha256": "d08bb98834eca4090b962e6d9f272b884da65b5230f6b56f8f9795391500f868",
+      "license_record_origin": "existing library metadata; source supplied by user for local videos"
+    },
+    {
+      "kind": "video",
+      "asset_id": "local:pixabay-297863",
+      "source_url": "https://pixabay.com/videos/ai-generated-anime-cozy-rain-297863/",
+      "license_url": "https://pixabay.com/service/license-summary/",
+      "media_sha256": "ab93de768de94e9e11f715ab04b80117a2aa9c7ed3584a5f2ae30633cb6e82a7",
+      "license_record_origin": "existing library metadata; source supplied by user for local videos"
+    },
+    {
+      "kind": "video",
+      "asset_id": "local:pixabay-310025",
+      "source_url": "https://pixabay.com/videos/anime-cozy-rain-rainy-night-310025/",
+      "license_url": "https://pixabay.com/service/license-summary/",
+      "media_sha256": "6f81b480d8094f82ba44c77c2cf09b1e956d324eefc1aab683b02b75db82cb88",
+      "license_record_origin": "existing library metadata; source supplied by user for local videos"
+    },
+    {
+      "kind": "video",
+      "asset_id": "local:pixabay-312345",
+      "source_url": "https://pixabay.com/videos/anime-lofi-cat-cozy-rain-312345/",
+      "license_url": "https://pixabay.com/service/license-summary/",
+      "media_sha256": "4f72910be23bd7a8c6937ff0d20a8b8415ee9cf59363bbfba6d297a7849c6c8b",
+      "license_record_origin": "existing library metadata; source supplied by user for local videos"
+    },
+    {
+      "kind": "video",
+      "asset_id": "local:pixabay-345856",
+      "source_url": "https://pixabay.com/videos/anime-lofi-cat-cute-cat-345856/",
+      "license_url": "https://pixabay.com/service/license-summary/",
+      "media_sha256": "fecfd4aaa925bb0b0bd4b2c9e5c7aa319c339c22dc0881c16993897358e37e85",
+      "license_record_origin": "existing library metadata; source supplied by user for local videos"
+    },
+    {
+      "kind": "video",
+      "asset_id": "local:pixabay-376049",
+      "source_url": "https://pixabay.com/videos/heavy-rain-night-cozy-window-376049/",
+      "license_url": "https://pixabay.com/service/license-summary/",
+      "media_sha256": "c2b1b7526866c2a81dadbe095a64b8dc47ed175db93d7a8dbd671000b1451305",
+      "license_record_origin": "existing library metadata; source supplied by user for local videos"
+    },
+    {
+      "kind": "video",
+      "asset_id": "local:pixabay-379719",
+      "source_url": "https://pixabay.com/videos/ai-generated-anime-girl-study-379719/",
+      "license_url": "https://pixabay.com/service/license-summary/",
+      "media_sha256": "a1f16ef69c690e95331a6ff9a630e4180702cff891febda6e6a0d60b47d8f485",
+      "license_record_origin": "existing library metadata; source supplied by user for local videos"
+    },
+    {
+      "kind": "audio",
+      "asset_id": "695619",
+      "source_url": "https://freesound.org/s/695619/",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/",
+      "media_sha256": "bd7b7ec882cc4d2edc11527bd5693bed31abf2c55e1f64a76ca14102dd525400",
+      "license_record_origin": "existing library metadata; source supplied by user for local videos"
+    },
+    {
+      "kind": "audio",
+      "asset_id": "651189",
+      "source_url": "https://freesound.org/s/651189/",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/",
+      "media_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+      "license_record_origin": "existing library metadata; source supplied by user for local videos"
+    },
+    {
+      "kind": "audio",
+      "asset_id": "788146",
+      "source_url": "https://freesound.org/s/788146/",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/",
+      "media_sha256": "210a8b6637b6a67bd7130761a8e75fc07eb91e3c9ef3ab6bb9d0460b9f3d4c83",
+      "license_record_origin": "existing library metadata; source supplied by user for local videos"
+    }
+  ],
+  "captures": [
+    {
+      "name": "pixabay-license",
+      "source_url": "https://pixabay.com/service/license-summary/",
+      "checked_at_utc": "2026-10-01T11:42:11.070282+00:00",
+      "http_status": 403,
+      "final_url": "https://pixabay.com/service/license-summary/",
+      "status": "capture unavailable; no licence conclusion from this response"
+    },
+    {
+      "name": "pixabay-terms",
+      "source_url": "https://pixabay.com/service/terms/",
+      "checked_at_utc": "2026-10-01T11:42:11.070282+00:00",
+      "http_status": 403,
+      "final_url": "https://pixabay.com/service/terms/",
+      "status": "capture unavailable; no licence conclusion from this response"
+    },
+    {
+      "name": "freesound-faq",
+      "source_url": "https://freesound.org/help/faq/",
+      "checked_at_utc": "2026-10-01T11:42:11.071824+00:00",
+      "http_status": 200,
+      "final_url": "https://freesound.org/help/faq/",
+      "snapshot_path": "run/licence-evidence/2026-10-01/freesound-faq.html",
+      "snapshot_sha256": "85315d2e80a9bf9a2e9e99d2ebb55b39df4d857d765b8f19923d9348da96801b",
+      "status": "HTTP 200 page captured; not proof of ownership"
+    },
+    {
+      "name": "cc0",
+      "source_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "checked_at_utc": "2026-10-01T11:42:11.071824+00:00",
+      "http_status": 200,
+      "final_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "snapshot_path": "run/licence-evidence/2026-10-01/cc0.html",
+      "snapshot_sha256": "3288b5ebdde20a28445d9b77775e3baa6843613e07bd80c5754b6587fdeaf95a",
+      "status": "HTTP 200 page captured; not proof of ownership"
+    },
+    {
+      "name": "youtube-monetisation",
+      "source_url": "https://support.google.com/youtube/answer/1311392?hl=en",
+      "checked_at_utc": "2026-10-01T11:42:11.071824+00:00",
+      "http_status": 200,
+      "final_url": "https://support.google.com/youtube/answer/1311392?hl=en",
+      "snapshot_path": "run/licence-evidence/2026-10-01/youtube-monetisation.html",
+      "snapshot_sha256": "b383031d54db549d8d23392ed15c844b3f580dcd5f574547ed22effb3b504371",
+      "status": "HTTP 200 page captured; not proof of ownership"
+    },
+    {
+      "name": "youtube-ai-disclosure",
+      "source_url": "https://support.google.com/youtube/answer/14328491?hl=en",
+      "checked_at_utc": "2026-10-01T11:42:11.198455+00:00",
+      "http_status": 200,
+      "final_url": "https://support.google.com/youtube/answer/14328491?hl=en",
+      "snapshot_path": "run/licence-evidence/2026-10-01/youtube-ai-disclosure.html",
+      "snapshot_sha256": "62e548f198af523bf3c7e238c8030a09671c77d09a2376081ae6eb9247054c22",
+      "status": "HTTP 200 page captured; not proof of ownership"
+    },
+    {
+      "name": "artlist-license",
+      "source_url": "https://artlist.io/help-center/privacy-terms/artlist-license",
+      "checked_at_utc": "2026-10-01T11:42:11.198455+00:00",
+      "http_status": 403,
+      "final_url": "https://artlist.io/help-center/privacy-terms/artlist-license",
+      "status": "capture unavailable; no licence conclusion from this response"
+    },
+    {
+      "name": "video-local-study-room",
+      "source_url": "https://pixabay.com/videos/anime-cozy-rain-rainy-night-330062/",
+      "checked_at_utc": "2026-10-01T11:42:11.215898+00:00",
+      "http_status": 403,
+      "final_url": "https://pixabay.com/videos/anime-cozy-rain-rainy-night-330062/",
+      "status": "capture unavailable; no licence conclusion from this response"
+    },
+    {
+      "name": "video-local-pixabay-215407",
+      "source_url": "https://pixabay.com/videos/lofi-girl-study-lamp-rain-window-215407/",
+      "checked_at_utc": "2026-10-01T11:42:11.269821+00:00",
+      "http_status": 403,
+      "final_url": "https://pixabay.com/videos/lofi-girl-study-lamp-rain-window-215407/",
+      "status": "capture unavailable; no licence conclusion from this response"
+    },
+    {
+      "name": "video-local-pixabay-246241",
+      "source_url": "https://pixabay.com/videos/lofi-cat-sleeping-cute-cartoon-246241/",
+      "checked_at_utc": "2026-10-01T11:42:11.279185+00:00",
+      "http_status": 403,
+      "final_url": "https://pixabay.com/videos/lofi-cat-sleeping-cute-cartoon-246241/",
+      "status": "capture unavailable; no licence conclusion from this response"
+    },
+    {
+      "name": "video-local-pixabay-271841",
+      "source_url": "https://pixabay.com/videos/girl-chill-rain-relax-relaxation-271841/",
+      "checked_at_utc": "2026-10-01T11:42:11.321698+00:00",
+      "http_status": 403,
+      "final_url": "https://pixabay.com/videos/girl-chill-rain-relax-relaxation-271841/",
+      "status": "capture unavailable; no licence conclusion from this response"
+    },
+    {
+      "name": "video-local-pixabay-276498",
+      "source_url": "https://pixabay.com/videos/girl-study-anime-cartoon-drawing-276498/",
+      "checked_at_utc": "2026-10-01T11:42:11.324768+00:00",
+      "http_status": 403,
+      "final_url": "https://pixabay.com/videos/girl-study-anime-cartoon-drawing-276498/",
+      "status": "capture unavailable; no licence conclusion from this response"
+    },
+    {
+      "name": "video-local-pixabay-297863",
+      "source_url": "https://pixabay.com/videos/ai-generated-anime-cozy-rain-297863/",
+      "checked_at_utc": "2026-10-01T11:42:11.371545+00:00",
+      "http_status": 403,
+      "final_url": "https://pixabay.com/videos/ai-generated-anime-cozy-rain-297863/",
+      "status": "capture unavailable; no licence conclusion from this response"
+    },
+    {
+      "name": "video-local-pixabay-310025",
+      "source_url": "https://pixabay.com/videos/anime-cozy-rain-rainy-night-310025/",
+      "checked_at_utc": "2026-10-01T11:42:11.388538+00:00",
+      "http_status": 403,
+      "final_url": "https://pixabay.com/videos/anime-cozy-rain-rainy-night-310025/",
+      "status": "capture unavailable; no licence conclusion from this response"
+    },
+    {
+      "name": "video-local-pixabay-312345",
+      "source_url": "https://pixabay.com/videos/anime-lofi-cat-cozy-rain-312345/",
+      "checked_at_utc": "2026-10-01T11:42:11.414944+00:00",
+      "http_status": 403,
+      "final_url": "https://pixabay.com/videos/anime-lofi-cat-cozy-rain-312345/",
+      "status": "capture unavailable; no licence conclusion from this response"
+    },
+    {
+      "name": "video-local-pixabay-345856",
+      "source_url": "https://pixabay.com/videos/anime-lofi-cat-cute-cat-345856/",
+      "checked_at_utc": "2026-10-01T11:42:11.452855+00:00",
+      "http_status": 403,
+      "final_url": "https://pixabay.com/videos/anime-lofi-cat-cute-cat-345856/",
+      "status": "capture unavailable; no licence conclusion from this response"
+    },
+    {
+      "name": "video-local-pixabay-376049",
+      "source_url": "https://pixabay.com/videos/heavy-rain-night-cozy-window-376049/",
+      "checked_at_utc": "2026-10-01T11:42:11.454423+00:00",
+      "http_status": 403,
+      "final_url": "https://pixabay.com/videos/heavy-rain-night-cozy-window-376049/",
+      "status": "capture unavailable; no licence conclusion from this response"
+    },
+    {
+      "name": "video-local-pixabay-379719",
+      "source_url": "https://pixabay.com/videos/ai-generated-anime-girl-study-379719/",
+      "checked_at_utc": "2026-10-01T11:42:11.490883+00:00",
+      "http_status": 403,
+      "final_url": "https://pixabay.com/videos/ai-generated-anime-girl-study-379719/",
+      "status": "capture unavailable; no licence conclusion from this response"
+    },
+    {
+      "name": "audio-695619",
+      "source_url": "https://freesound.org/s/695619/",
+      "checked_at_utc": "2026-10-01T11:42:11.512625+00:00",
+      "http_status": 200,
+      "final_url": "https://freesound.org/people/thinkingfish/sounds/695619/",
+      "snapshot_path": "run/licence-evidence/2026-10-01/audio-695619.html",
+      "snapshot_sha256": "8b808254d634e2aa5cd40e023848c47d79d0c0a75c0f14def86ab7cc6b15e4f0",
+      "status": "HTTP 200 page captured; not proof of ownership"
+    },
+    {
+      "name": "audio-651189",
+      "source_url": "https://freesound.org/s/651189/",
+      "checked_at_utc": "2026-10-01T11:42:11.534126+00:00",
+      "http_status": 200,
+      "final_url": "https://freesound.org/people/Borgory/sounds/651189/",
+      "snapshot_path": "run/licence-evidence/2026-10-01/audio-651189.html",
+      "snapshot_sha256": "e8319509b1271b3f115838d7d22b55760ba2caf60207d98dbb278b55194b70d5",
+      "status": "HTTP 200 page captured; not proof of ownership"
+    },
+    {
+      "name": "audio-788146",
+      "source_url": "https://freesound.org/s/788146/",
+      "checked_at_utc": "2026-10-01T11:42:12.512680+00:00",
+      "http_status": 200,
+      "final_url": "https://freesound.org/people/YouMightLikeThis/sounds/788146/",
+      "snapshot_path": "run/licence-evidence/2026-10-01/audio-788146.html",
+      "snapshot_sha256": "0be985b14246df4c6d26d0e7f10adfaf35cdaea25b28e04cd5e582f6db6c9f3d",
+      "status": "HTTP 200 page captured; not proof of ownership"
+    }
+  ]
+}

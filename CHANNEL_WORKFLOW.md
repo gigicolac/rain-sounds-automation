@@ -1,5 +1,8 @@
 # Fixed anime rain channel workflow
 
+See [ASSET_SOURCING.md](ASSET_SOURCING.md) for dated licence/policy evidence,
+daily supply limits and the proposed source replenishment strategy.
+
 The channel uses eleven user-selected anime study/cat/window-rain scenes and
 three rain recordings (695619, 651189, 788146). No per-asset tagging or approval
 form is required in `channel` mode. Existing reviewed `curated` mode and exploratory
