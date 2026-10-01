@@ -18,3 +18,14 @@ pass before upload, and YouTube processing/actual visibility must be verified.
 
 Source/evidence: private sourcing release sourcing-36859935300-1. Test media:
 private release unlisted-test-379717-20261001. Original source media is preserved.
+
+Validation on 2026-10-01: publication run 36861051300 stopped at YouTube channel
+verification because saved authorisation could not be refreshed. Upload and
+history reservation steps were skipped. No YouTube video was created.
+
+The same pinned scene/audio rendered successfully as a full five-minute preview
+in run 36861311532. The downloaded output SHA-256 matched the passed quality
+report. A local Google consent helper was opened to reconnect the expected
+channel and securely update the three matching GitHub secrets; user consent is
+still pending. Retry the unlisted publish only after reconnect succeeds. Do not
+describe the successful preview as an upload or YouTube processing result.

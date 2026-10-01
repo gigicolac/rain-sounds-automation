@@ -142,11 +142,16 @@ def main():
         audio_quality = read_json(RUN_DIR / 'prepared-audio.quality.json', {})
         normalized = audio_quality.get('normalized_output', {})
         peak = normalized.get('peak_db')
+        final_info = probe(OUTPUT_PATH)
+        audio_streams = [s for s in final_info['streams'] if s['codec_type'] == 'audio']
+        audio_duration = float(audio_streams[0].get('duration', 0)) if audio_streams else 0
+        report['audio_duration_seconds'] = audio_duration
         report.update(video_id=assets['video']['asset_id'], audio_id=str(assets['audio']['freesound_id']),
                       output_sha256=digest(OUTPUT_PATH))
         report['passed'] = bool(report.get('decode_ok') and report.get('width') == 1920
             and report.get('height') == 1080
             and abs(report['duration_seconds'] - assets['duration_seconds']) < 0.1
+            and abs(audio_duration - assets['duration_seconds']) < 0.1
             and peak is not None and peak <= -0.1)
         write_json(RUN_DIR / 'channel-quality.json', report)
         if not report['passed']:
