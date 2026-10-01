@@ -50,12 +50,17 @@ def prepare_audio(source, destination, duration, fade=2.0):
         import math
         count = max(2, math.ceil((duration - fade) / (length - fade)))
     raw = destination.with_name("audio-loop.wav")
-    command = [ffmpeg(), "-hide_banner", "-loglevel", "error", "-y", "-i", str(source)]
+    command = [ffmpeg(), "-hide_banner", "-loglevel", "error", "-y"]
+    # Independent decoders avoid older FFmpeg builds truncating chained acrossfade
+    # inputs when every branch is fed by the same asplit output.
+    for _ in range(count):
+        command += ["-i", str(source)]
     graph = []
     if count == 1:
         graph.append(f"[0:a]atrim=duration={duration},asetpts=PTS-STARTPTS[out]")
     else:
-        graph.append(f"[0:a]asplit={count}" + "".join(f"[a{i}]" for i in range(count)))
+        for i in range(count):
+            graph.append(f"[{i}:a]asetpts=PTS-STARTPTS[a{i}]")
         previous = "a0"
         for i in range(1, count):
             output = f"x{i}"
@@ -78,6 +83,10 @@ def prepare_audio(source, destination, duration, fade=2.0):
                     "-af", normalization + f",afade=t=in:d=3,afade=t=out:st={max(0,duration-3)}:d=3",
                     "-ar", "48000", "-c:a", "pcm_s24le", str(destination)], check=True)
     report["normalized_output"] = audio_report(destination)
+    actual = float(probe(destination)['format']['duration'])
+    report['output_duration_seconds'] = actual
+    if abs(actual - duration) > 0.1:
+        raise ValueError(f'Prepared audio duration {actual} does not match target {duration}')
     write_json(destination.with_suffix(".quality.json"), report)
 
 def main():
