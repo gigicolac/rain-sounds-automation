@@ -43,6 +43,7 @@ In gigicolac/rain-sounds-automation → Settings → Secrets and variables → A
 2. Secret `SOURCING_ASSET_TOKEN`: a separate fine-grained GitHub token restricted
    to `shmop/rain-sounds-assets`, with repository Contents read/write. Keep the
    existing `CHANNEL_ASSET_TOKEN` read-only for the daily rendering workflow.
+   Its presence was verified 2026-10-01; live write access is not yet verified.
 3. For audio: secret `FREESOUND_API_KEY` (already present), and variable
    `FREESOUND_COMMERCIAL_ACCESS_CONFIRMED=true` only after applicable commercial
    API access has been arranged. The [API access terms](https://freesound.org/help/tos_api/)
@@ -87,5 +88,8 @@ selection mechanism before unattended publication can use them.
 licence filtering, ID/file duplicate handling, original-library preservation,
 private-destination checks, redirect checks and failed-transfer checkpoints.
 All five workflow files parsed. Real decode checks passed for study-room.mp4 and
-695619.mp3. Provider search/download and private transfer are not yet live-tested;
-the writing token and commercial audio-access setup are still pending.
+695619.mp3. Both new secret names were verified present. A one-video branch test
+dispatch returned GitHub HTTP 404 because this new workflow has not been installed
+on the default branch. Provider search/download and private transfer remain
+unverified until deployment and a successful run. Commercial audio-access setup
+is still pending. Creating the keys does not verify their permissions or validity.
