@@ -220,5 +220,21 @@
       "notes": "User selected this shorter clip for inclusion. Loop and output quality still need checking."
     },
     "source_record_origin": "user supplied exact Pixabay page on 2026-10-01"
+  },
+  {
+    "asset_id": "local:pixabay-379717",
+    "local_path": "scenes/pixabay-379717.mp4",
+    "source_url": "https://pixabay.com/videos/id-379717/",
+    "license_url": "https://pixabay.com/service/license-summary/",
+    "width": 1920,
+    "height": 1080,
+    "duration": 8.066667,
+    "source_record_origin": "Verified private sourcing batch 36859935300; user requested unlisted publication after viewing source",
+    "review": {
+      "approved": false,
+      "labels": {},
+      "quality": {},
+      "notes": "User accepted visual preview; channel technical checks remain required."
+    }
   }
 ]

@@ -1,5 +1,6 @@
 {
   "repository": "shmop/rain-sounds-assets",
-  "asset_api_url": "https://api.github.com/repos/shmop/rain-sounds-assets/releases/assets/603006326",
-  "bundle_sha256": "31ad8ed81006718a1a86b902334e6b3374eeec856a036bc56ba0b29b7bb13ba0"
+  "asset_api_url": "https://api.github.com/repos/shmop/rain-sounds-assets/releases/assets/603200764",
+  "bundle_sha256": "821d9384e9b759b4481dbf929abca011719086fbd326f6bdd12f98ff84f53e94",
+  "scope": "Single-scene unlisted test on task branch; do not merge this storage configuration."
 }

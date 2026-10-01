@@ -34,6 +34,11 @@ on:
       duration_minutes:
         description: "Optional whole minutes, 1–8; blank chooses 5–8"
         type: string
+      upload_privacy_status:
+        description: "Visibility for this run; configured keeps the repository setting"
+        type: choice
+        options: [configured, unlisted, private, public]
+        default: configured
       allow_unreviewed:
         description: "Allow unreviewed assets for private/unlisted testing only"
         type: boolean
@@ -104,7 +109,7 @@ jobs:
       - name: Check publishing eligibility
         if: env.PIPELINE_MODE == 'publish'
         env:
-          UPLOAD_PRIVACY_STATUS: ${{ vars.UPLOAD_PRIVACY_STATUS }}
+          UPLOAD_PRIVACY_STATUS: ${{ inputs.upload_privacy_status != 'configured' && inputs.upload_privacy_status || vars.UPLOAD_PRIVACY_STATUS }}
         run: |
           python -c "import json,os,sys; sys.path.insert(0,'scripts'); from channel_profile import publication_ready; from pathlib import Path; a=json.load(open('run/assets.json')); p=(os.environ.get('UPLOAD_PRIVACY_STATUS') or 'public').strip().lower(); assert publication_ready(a,Path.cwd()) or (a.get('selection_explanation',{}).get('policy') != 'channel_profile' and os.environ['ALLOW_UNREVIEWED'].lower() == 'true' and p in ('private','unlisted')), 'Assets have not passed publication checks'"
       - name: Upload or resume and verify processing
@@ -114,7 +119,7 @@ jobs:
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
           EXPECTED_YOUTUBE_CHANNEL_ID: ${{ vars.EXPECTED_YOUTUBE_CHANNEL_ID }}
-          UPLOAD_PRIVACY_STATUS: ${{ vars.UPLOAD_PRIVACY_STATUS }}
+          UPLOAD_PRIVACY_STATUS: ${{ inputs.upload_privacy_status != 'configured' && inputs.upload_privacy_status || vars.UPLOAD_PRIVACY_STATUS }}
           GH_TOKEN: ${{ github.token }}
         run: python scripts/upload_youtube.py
       - name: Save review artifacts

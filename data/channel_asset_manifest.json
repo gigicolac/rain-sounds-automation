@@ -1,68 +1,8 @@
 [
   {
-    "asset_id": "local:study-room",
-    "path": "scenes/study-room.mp4",
-    "sha256": "2bf1ab4725c9a0b62bd8227f425d4a7ba8a4c790ab73f9806b9c5f7b0e3d267d",
-    "bytes": 190585963
-  },
-  {
-    "asset_id": "local:pixabay-215407",
-    "path": "scenes/pixabay-215407.mp4",
-    "sha256": "10324dda27faa4fe010bbab16d18091f74ed5ef2594a1f8389f90c35e13e1f9b",
-    "bytes": 21575987
-  },
-  {
-    "asset_id": "local:pixabay-246241",
-    "path": "scenes/pixabay-246241.mp4",
-    "sha256": "5439790482df539c0e8c5497ef3d79dbae4110cfe8d1fae2efb275561b0b0728",
-    "bytes": 26947038
-  },
-  {
-    "asset_id": "local:pixabay-271841",
-    "path": "scenes/pixabay-271841.mp4",
-    "sha256": "3c2d348d15294f3f8f5a0d02d6d519f1f859ae22ad7837841ecf4bc16ebfa10b",
-    "bytes": 27116419
-  },
-  {
-    "asset_id": "local:pixabay-276498",
-    "path": "scenes/pixabay-276498.mp4",
-    "sha256": "d08bb98834eca4090b962e6d9f272b884da65b5230f6b56f8f9795391500f868",
-    "bytes": 189900842
-  },
-  {
-    "asset_id": "local:pixabay-297863",
-    "path": "scenes/pixabay-297863.mp4",
-    "sha256": "ab93de768de94e9e11f715ab04b80117a2aa9c7ed3584a5f2ae30633cb6e82a7",
-    "bytes": 28148054
-  },
-  {
-    "asset_id": "local:pixabay-310025",
-    "path": "scenes/pixabay-310025.mp4",
-    "sha256": "6f81b480d8094f82ba44c77c2cf09b1e956d324eefc1aab683b02b75db82cb88",
-    "bytes": 225621874
-  },
-  {
-    "asset_id": "local:pixabay-312345",
-    "path": "scenes/pixabay-312345.mp4",
-    "sha256": "4f72910be23bd7a8c6937ff0d20a8b8415ee9cf59363bbfba6d297a7849c6c8b",
-    "bytes": 25072733
-  },
-  {
-    "asset_id": "local:pixabay-345856",
-    "path": "scenes/pixabay-345856.mp4",
-    "sha256": "fecfd4aaa925bb0b0bd4b2c9e5c7aa319c339c22dc0881c16993897358e37e85",
-    "bytes": 13466843
-  },
-  {
-    "asset_id": "local:pixabay-376049",
-    "path": "scenes/pixabay-376049.mp4",
-    "sha256": "c2b1b7526866c2a81dadbe095a64b8dc47ed175db93d7a8dbd671000b1451305",
-    "bytes": 1969540
-  },
-  {
-    "asset_id": "local:pixabay-379719",
-    "path": "scenes/pixabay-379719.mp4",
-    "sha256": "a1f16ef69c690e95331a6ff9a630e4180702cff891febda6e6a0d60b47d8f485",
-    "bytes": 4543422
+    "asset_id": "local:pixabay-379717",
+    "path": "scenes/pixabay-379717.mp4",
+    "sha256": "55c013988c8be47b389a583a9ecf59142aaa31f64a1c640e42734a69cb1dd965",
+    "bytes": 2456528
   }
 ]
