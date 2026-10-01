@@ -57,12 +57,6 @@ METADATA_PATH = AUDIO_DIR / "metadata.json"
 FREESOUND_API_KEY = os.environ.get("FREESOUND_API_KEY")
 SEARCH_URL = "https://freesound.org/apiv2/search/text/"
 
-SEARCH_TAGS = [
-    "rain", "heavy rain", "rain ambience", "rainstorm", "gentle rain",
-    "rain on window", "rainforest rain", "thunderstorm rain", "rain forest",
-    "rain on roof",
-]
-
 MIN_DURATION_S = 45
 MAX_DURATION_S = 900
 FIELDS = "id,name,previews,duration,license,tags,username"
@@ -137,12 +131,14 @@ def main():
                    and t.get("discovery_category") == category)
     categories = sorted(categories, key=coverage)
     queues = {}
+    queries_by_category = {}
     for category in categories:
         if time.monotonic() > deadline:
             break
         queries = read_json(ROOT / "data/audio_discovery.json", {})[category]
         cursor = state.get(category, {"query": 0, "page": 1})
         query = queries[cursor["query"] % len(queries)]
+        queries_by_category[category] = query
         try:
             data = with_hard_timeout(20, search_tag, query, FREESOUND_API_KEY, cursor["page"])
         except (requests.RequestException, HardTimeout) as exc:
@@ -182,6 +178,9 @@ def main():
                              "duration": sound.get("duration"), "license": sound.get("license"),
                              "tags": sound.get("tags", []), "username": sound.get("username"),
                              "freesound_url": f"https://freesound.org/s/{sound['id']}/",
+                             "download_kind": "hq_mp3_preview",
+                             "download_url": sound.get("previews", {}).get("preview-hq-mp3"),
+                             "discovery_query": queries_by_category[category],
                              "discovery_category": category,
                              "discovered_at": datetime.now(timezone.utc).isoformat(),
                              "review": {"approved": False, "status": "pending", "labels": {},

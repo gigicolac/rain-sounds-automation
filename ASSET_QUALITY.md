@@ -1,5 +1,56 @@
 # Asset quality and illustrated scenes
 
+## Audio sourcing and push readiness (2026-10-01)
+
+Discovery now searches indoor rain, rain outside windows and steady soft rainfall.
+Broad forest, tent, roof, city and lake categories were removed from discovery;
+existing files and the three selected channel recordings are preserved. New
+records explicitly identify their compressed preview download and discovery query.
+Search terms remain hints, not content verification. Original-file downloads still
+require Freesound OAuth2 account authorization; no such local credential is set.
+No live discovery was run because the local search credential is also absent.
+
+All 43 tests passed. Three 75-second local previews were accepted by the user.
+The user subsequently explicitly authorized fixed-pool publishing and the shorter
+and 720p clips, but production integration remains unimplemented. Before deployment:
+finish that integration, arrange hosted video storage/downloads, recover missing
+source links, and run a hosted preview. Latest fetched origin/main is 3a80247
+(audio-cache refresh adding 532211); incorporate it while preserving local reviews
+before final integration validation. Nothing has been pushed or merged.
+
+## Fixed channel direction (2026-10-01)
+
+The user selected anime study/cat scenes with rain by a window and a consistent
+rain soundtrack, replacing broad audio variety. `data/channel_profile.json`
+contains the eleven selected scene identifiers and a one-time default audio pool
+(695619, 651189, 788146: the user's sounds-solid recordings). Existing reviews are preserved.
+`python scripts/channel_preview.py` creates `run/channel-library.html` without
+tagging forms. `--plan` creates an isolated local preview plan once audio is set;
+it never creates publication approval or writes `run/assets.json`.
+
+Automatic approval review rejected changes that would remove publication review
+gates and lower production media thresholds. Those changes were not applied.
+Publishing and existing daily workflow defaults remain unchanged. This local-only
+workspace is an interim result, not completed unattended publishing. Two targeted
+tests passed for no-tag selection, missing files, and no unrelated audio fallback.
+
+## Assisted review (2026-10-01)
+
+Run `python scripts/review_assets.py prepare` to measure local media and refresh
+the review page. Set FFMPEG and FFPROBE when the tools are not on PATH.
+Results are cached by file SHA-256 and checker version under ignored
+`run/asset-preflight.json`. Changed files are measured again; failures remain
+visible and do not abort the rest of the library.
+
+Checks cover video resolution, duration, decoding and dark intervals, plus audio
+loudness, peak levels and silence. Dark intervals may be intentional night scenes;
+audio peaks are warnings, not proof of clipping. Human reviews are never changed.
+The page displays metadata-based label suggestions with evidence; a button fills
+only empty label fields. Suggestions never infer absence of voices/music/events.
+No visual/audio recognition service is connected. Loop continuity, style, audible
+content and rights still need review. Existing approved reviews remain reusable.
+Source links are preserved when supplied; missing links are not fabricated.
+
 Implemented on `codex/asset-quality`, based on `origin/main` at `fe4d2ce`.
 Pending review; not deployed. No video was uploaded during implementation.
 
@@ -36,10 +87,13 @@ Pexels has [animated lofi](https://www.pexels.com/search/videos/animated%20lofi/
 and [anime rain](https://www.pexels.com/search/videos/anime%20rain/) searches.
 Search terms are hints, not proof of style or quality.
 
-Specific external candidate, NOT downloaded or approved:
+Specific external candidate, downloaded and imported on 2026-10-01; final review pending:
 [Pixabay illustrated study-room loop](https://pixabay.com/videos/anime-cozy-rain-rainy-night-330062/).
 Its page marks it as AI-generated and lists 2560 by 1440 resolution. Chrome
-blocked the download during this session. Download, playback, loop and license
+initially blocked the download; the user successfully downloaded through the in-app browser.
+Imported as `local:study-room` from `scenes/study-room.mp4`: 2560x1440,
+63.553 seconds. Full video decode completed without reported errors. The user
+approved its visual direction. Playback, loop and license
 review are still required. Do not assume actual Lofi Girl channel footage is reusable.
 
 ## Discovery and review
@@ -144,7 +198,8 @@ source pair, not upstream bytes forever; re-review changed source content.
 - Measured full existing recording 695619: no detected silence intervals or
   near-full-scale peak warnings. This is NOT listening approval.
 - Review form opened in Chrome with the six preserved recordings.
-- Live discovery not run: local credentials are absent. Pixabay download blocked
-  by Chrome. No illustrated clip is approved or included yet.
+- Live discovery not run: local credentials are absent. The Pixabay study-room
+  clip is now imported locally, with final scene review and compatible audio pending.
+- User audio reviews applied on 2026-10-01: four approved, one pending, one rejected.
 - No hosted preview, live upload or live resume test was run.
 - Portable media tools, reports and test media remain under ignored `run/`.

@@ -1,8 +1,5 @@
 {
-  "forest": ["rain forest", "rain leaves forest"],
-  "window": ["rain on window", "gentle rain window"],
-  "roof": ["rain on roof", "rain metal roof"],
-  "tent": ["rain on tent", "gentle rain tent"],
-  "city": ["city rain ambience", "rain street night"],
-  "lake": ["rain lake", "rain water ambience"]
+  "indoor_rain": ["rain heard indoors", "rain inside room", "soft rain indoors"],
+  "window_rain": ["gentle rain outside window", "rain through closed window", "steady rain window"],
+  "soft_rain": ["steady soft rainfall", "gentle continuous rain", "soft rain ambience"]
 }

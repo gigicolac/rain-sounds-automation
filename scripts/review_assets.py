@@ -16,16 +16,19 @@ def key(kind, asset):
     return asset["asset_id"] if kind == "video" else str(asset["id"])
 
 def page(output):
+    from asset_library import identity
+    preflight = read_json(ROOT / 'run/asset-preflight.json', {}).get('assets', {})
     records = []
     for kind, asset in inventory():
         item = {"kind": kind, "id": key(kind, asset), "title": asset.get("title", asset.get("asset_id")),
-                "review": asset.get("review", {}), "errors": review_errors(asset, kind)}
+                "review": asset.get("review", {}), "errors": review_errors(asset, kind),
+                "preflight": preflight.get(identity(asset, kind), {})}
         path = asset.get("local_path") if kind == "video" else "audio/" + asset["filename"]
         item["media"] = Path(os.path.relpath((ROOT / path).resolve(), output.resolve().parent)).as_posix() if path else asset.get("download_url", "")
         item["source"] = asset.get("source_url", asset.get("freesound_url", ""))
         records.append(item)
     data = json.dumps(records).replace("<", "\\u003c")
-    content = """<!doctype html><meta charset="utf-8"><title>Rain asset review</title>
+    content = r"""<!doctype html><meta charset="utf-8"><title>Rain asset review</title>
 <style>body{font:16px system-ui;max-width:1050px;margin:32px auto;background:#12202a;color:#eef5fa}
 article{background:#203440;padding:22px;margin:20px 0;border-radius:12px}video{width:100%;max-height:420px}
 audio{width:100%}textarea{width:100%;height:80px}label{display:inline-block;margin:8px 14px 8px 0}select{padding:6px}a{color:#9cdaff}button{padding:12px}pre{white-space:pre-wrap}
@@ -47,6 +50,16 @@ for(const r of records){
  const player=document.createElement(r.kind==='video'?'video':'audio');player.controls=true;player.preload='none';player.src=r.media;card.append(player);
  const link=document.createElement('a');link.textContent='Open source / check license';link.href=r.source;link.target='_blank';card.append(link);
  const errors=document.createElement('pre');errors.textContent='Publishing gaps: '+r.errors.join('; ');card.append(errors);
+ const automatic=document.createElement('pre');
+ const m=r.preflight.measurements;
+ automatic.textContent='Automatic checks (last prepared snapshot):\n'+(m?
+   ['Duration: '+m.duration_seconds.toFixed(1)+' seconds',
+    m.width?'Resolution: '+m.width+' × '+m.height:'Peak level: '+m.peak_db+' dB',
+    'Decoding: '+(m.decode_ok?'passed':'needs inspection'),
+    ...(m.warnings||[])].join('\n'):'Not measured yet.')
+   +'\n'+(r.preflight.warnings||[]).join('\n')
+   +'\nThese measurements do not confirm content labels, visual quality, a seamless loop, or usage rights.';
+ card.append(automatic);
 
  const rcopy=structuredClone(r.review);rcopy.labels=rcopy.labels||{};rcopy.quality=rcopy.quality||{};
  const controls={};
@@ -63,6 +76,15 @@ for(const r of records){
  if(r.kind==='video')vocab.style=['live_action','illustrated'];
  else for(const event of ['thunder','traffic','animals','music','voices'])vocab[event]=['true','false'];
  for(const [key,values] of Object.entries(vocab))controls.labels[key]=selectField(key,['',...values],rcopy.labels[key],card);
+ const hints=r.preflight.suggestions||{};
+ if(Object.keys(hints).length){
+   const explanation=document.createElement('pre');
+   explanation.textContent='Suggested labels — metadata hints, not content verification:\n'+
+     Object.entries(hints).map(([k,v])=>k+': '+v.value+' ('+v.evidence+')').join('\n');card.append(explanation);
+   const use=document.createElement('button');use.textContent='Fill empty labels with suggestions';use.type='button';
+   use.onclick=()=>{for(const [k,v] of Object.entries(hints))if(controls.labels[k]&&!controls.labels[k].value){
+     controls.labels[k].value=v.value;r.changed=true;}};card.append(use);
+ }
  controls.quality={};
  const checks=['full_playback','loop_checked',...(r.kind==='video'?['sharp','stable','rain_visible']:['clean_recording','no_clipping'])];
  for(const key of checks){
@@ -170,12 +192,17 @@ def import_candidates(folder):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
+    sub.add_parser('prepare', help='Run cached technical checks and generate the review page')
     p = sub.add_parser("page")
     p.add_argument("--output", type=Path, default=ROOT / "run/asset-review.html")
     a = sub.add_parser("apply"); a.add_argument("file", type=Path)
     i = sub.add_parser("import-candidates"); i.add_argument("folder", type=Path)
     args = parser.parse_args()
-    if args.command == "page":
+    if args.command == 'prepare':
+        from preflight_assets import run
+        run()
+        page(ROOT / 'run/asset-review.html')
+    elif args.command == "page":
         page(args.output)
     elif args.command == "apply":
         apply(args.file)
