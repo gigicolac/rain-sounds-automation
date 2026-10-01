@@ -67,7 +67,14 @@ Never paste a token into chat or commit it. Hosted preview needs this secret.
   its automatic output checks passed. No YouTube upload or history reservation.
 - A six-second 720p source rendered a 20-second local preview with repeat transitions.
 - Three earlier 75-second audio comparisons were accepted by the user.
-- Hosted preview remains pending the Actions read-only storage token and branch push.
+- Hosted preview succeeded on 2026-10-01 after configuring the read-only storage
+  token: [run 36854378148](https://github.com/gigicolac/rain-sounds-automation/actions/runs/36854378148).
+  Private restore, rendering, thumbnail and preview artifact all passed. Automatic
+  output checks confirmed 1920x1080 and 60 seconds. YouTube authentication and upload
+  were skipped. The combined preview artifact is `preview-36854378148` (three-day
+  retention), with diagnostic artifact `run-debug-36854378148-1` (14-day retention).
+  An initial attempt failed with private-repository 404 until token repository
+  selection and Contents: Read-only permissions were corrected.
 
 When hosted storage is connected, run Daily Rain Video on `codex/asset-quality`
 with `mode=preview`, `asset_selection=channel`, and `duration_minutes=1`. The
