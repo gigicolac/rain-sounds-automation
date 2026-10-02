@@ -91,6 +91,7 @@ def run_ffmpeg(assets):
     if not 0 <= fade <= 2 or (fade and length <= 2 * fade):
         raise ValueError("Video crossfade must be 0–2 seconds and shorter than half the source")
     if fade:
+        print('Encoding the seamless scene cycle', flush=True)
         scene = RUN_DIR / "scene-loop.mp4"
         graph = (
             "[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,"
@@ -105,6 +106,7 @@ def run_ffmpeg(assets):
                         "-preset", "fast", "-crf", "18", str(scene)], check=True)
 
     if duration_seconds >= 3600:
+        print('Muxing the full-duration video and audio', flush=True)
         # Encode the short seamless cycle once. Copy its compressed frames for
         # long videos rather than re-encoding 324,000 frames for a three-hour run.
         if not fade:
@@ -151,6 +153,7 @@ def main():
         from channel_profile import digest
         from asset_library import write_json, read_json
         from preflight_assets import measure
+        print('Decoding and checking the complete rendered video', flush=True)
         report = measure(OUTPUT_PATH, 'video')
         audio_quality = read_json(RUN_DIR / 'prepared-audio.quality.json', {})
         normalized = audio_quality.get('normalized_output', {})

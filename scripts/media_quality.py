@@ -41,6 +41,7 @@ def audio_report(path):
 def prepare_audio(source, destination, duration, fade=2.0):
     """Crossfade repeated copies, then measure and normalize the finished loop in two passes."""
     info = probe(source)
+    print(f'Preparing {duration} seconds of crossfaded audio', flush=True)
     length = float(info["format"]["duration"])
     if length <= 2 * fade:
         raise ValueError("Audio is too short for the configured crossfade")
@@ -86,6 +87,7 @@ def prepare_audio(source, destination, duration, fade=2.0):
     else:
         subprocess.run(command + ["-filter_complex", ";".join(graph), "-map", "[out]", "-ar", "48000",
                                   "-c:a", "pcm_s24le", '-rf64', 'auto', str(raw)], check=True)
+    print('Measuring the complete audio loop', flush=True)
     source_report = audio_report(source)
     report = audio_report(raw)
     report["original_source"] = source_report
@@ -96,9 +98,11 @@ def prepare_audio(source, destination, duration, fade=2.0):
                      f"measured_TP={measured['input_tp']}:measured_LRA={measured['input_lra']}:"
                      f"measured_thresh={measured['input_thresh']}:offset={measured['target_offset']}:"
                      "linear=true")
+    print('Normalizing the complete audio loop', flush=True)
     subprocess.run([ffmpeg(), "-hide_banner", "-loglevel", "error", "-y", "-i", str(raw),
                     "-af", normalization + f",afade=t=in:d=3,afade=t=out:st={max(0,duration-3)}:d=3",
                     "-ar", "48000", "-c:a", "pcm_s24le", '-rf64', 'auto', str(destination)], check=True)
+    print('Checking normalized audio loudness and peaks', flush=True)
     report["normalized_output"] = audio_report(destination)
     actual = float(probe(destination)['format']['duration'])
     report['output_duration_seconds'] = actual
