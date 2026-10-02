@@ -1,0 +1,82 @@
+{
+  "7b79dab25207a554f33c8b3a35e13f80a06b03558a3958f3373c66c671634769": {
+    "state": "reserved",
+    "assets": {
+      "date": "2026-10-02",
+      "day_number": 739891,
+      "scene_term": "anime window rain ambience",
+      "video": {
+        "asset_id": "local:pixabay-379717",
+        "local_path": "scenes/pixabay-379717.mp4",
+        "source_url": "https://pixabay.com/videos/id-379717/",
+        "license_url": "https://pixabay.com/service/license-summary/",
+        "width": 1920,
+        "height": 1080,
+        "duration": 8.066667,
+        "source_record_origin": "Verified private sourcing batch 36859935300; user requested unlisted publication after viewing source",
+        "review": {
+          "approved": false,
+          "labels": {},
+          "quality": {},
+          "notes": "User accepted visual preview; channel technical checks remain required."
+        },
+        "scene_term": "anime window rain ambience"
+      },
+      "audio": {
+        "filename": "695619.mp3",
+        "path": "audio/695619.mp3",
+        "title": "Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav",
+        "freesound_id": 695619,
+        "freesound_url": "https://freesound.org/s/695619/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "review": {
+          "approved": true,
+          "labels": {
+            "setting": "lake",
+            "intensity": "moderate",
+            "surface": "mixed",
+            "perspective": "outdoors",
+            "thunder": false,
+            "traffic": false,
+            "animals": false,
+            "music": false,
+            "voices": false
+          },
+          "notes": "sounds solid",
+          "quality": {
+            "full_playback": true,
+            "loop_checked": true,
+            "clean_recording": true,
+            "no_clipping": true
+          },
+          "status": "approved",
+          "reviewed_at": "2026-10-01T04:47:29.990552+00:00"
+        }
+      },
+      "duration_minutes": 5,
+      "duration_seconds": 300,
+      "title": "Rainy Anime Study Room | 5 Minutes of Rain Ambience",
+      "description": "5 minutes of rain ambience to help you relax, sleep, study, or unwind. Let the sound of rain wash your stress away.\n\nPerfect for:\n\u2022 Falling asleep fast and staying asleep\n\u2022 Studying, reading, or deep work\n\u2022 Meditation and relaxation\n\u2022 Calming a crying baby\n\u2022 Masking tinnitus or background noise\n\nSubscribe to Calming Rain Sounds (@calmingrainsoundssss) for a new rain sounds video every day.\n\n#rainsounds #rain #sleep #relaxation #ambience #whitenoise #study\n\n---\nVideo source: https://pixabay.com/videos/id-379717/\nVideo license: https://pixabay.com/service/license-summary/\nAudio: \"Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav\" sourced from Freesound.org, released under Creative Commons 0 (public domain).\n",
+      "tags": [
+        "rain sounds",
+        "rain sounds for sleeping",
+        "rain ambience",
+        "sleep sounds",
+        "relaxing rain",
+        "white noise",
+        "rain sounds for studying",
+        "calming rain",
+        "ambient rain",
+        "deep sleep"
+      ],
+      "review_approved": false,
+      "selection_explanation": {
+        "policy": "channel_profile",
+        "strict_review": false,
+        "rotation": "Prefer scenes absent from the last seven uploads, then lowest lifetime use; never reuse a reserved pair."
+      },
+      "category_id": "10"
+    },
+    "run_id": "36966210464"
+  }
+}
