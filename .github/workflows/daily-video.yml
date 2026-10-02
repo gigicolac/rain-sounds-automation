@@ -1,7 +1,8 @@
 name: Daily Rain Video
 on:
   schedule:
-    - cron: "0 1 * * *"
+    - cron: "0 11 * * *"
+      timezone: "Australia/Sydney"
   workflow_dispatch:
     inputs:
       mode:
@@ -32,8 +33,13 @@ on:
         description: "Optional title (unsupported content claims are rejected)"
         type: string
       duration_minutes:
-        description: "Optional whole minutes, 1–8; blank chooses 5–8"
+        description: "Optional 1–8 testing minutes, 60 or 180; blank uses 180"
         type: string
+      upload_privacy_status:
+        description: "Visibility for this run"
+        type: choice
+        options: [public, unlisted, private]
+        default: public
       allow_unreviewed:
         description: "Allow unreviewed assets for private/unlisted testing only"
         type: boolean
@@ -49,7 +55,7 @@ permissions:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 180
     env:
       PIPELINE_MODE: ${{ inputs.mode || 'publish' }}
       RESUME_VIDEO_ID: ${{ inputs.resume_video_id }}
@@ -60,6 +66,7 @@ jobs:
       AUDIO_ID: ${{ inputs.audio_id }}
       TITLE_OVERRIDE: ${{ inputs.title }}
       DURATION_MINUTES: ${{ inputs.duration_minutes }}
+      UPLOAD_PRIVACY_STATUS: ${{ inputs.upload_privacy_status || 'public' }}
       ALLOW_UNREVIEWED: ${{ inputs.allow_unreviewed || 'false' }}
     steps:
       - uses: actions/checkout@v4
@@ -104,7 +111,7 @@ jobs:
       - name: Check publishing eligibility
         if: env.PIPELINE_MODE == 'publish'
         env:
-          UPLOAD_PRIVACY_STATUS: ${{ vars.UPLOAD_PRIVACY_STATUS }}
+          UPLOAD_PRIVACY_STATUS: ${{ inputs.upload_privacy_status || 'public' }}
         run: |
           python -c "import json,os,sys; sys.path.insert(0,'scripts'); from channel_profile import publication_ready; from pathlib import Path; a=json.load(open('run/assets.json')); p=(os.environ.get('UPLOAD_PRIVACY_STATUS') or 'public').strip().lower(); assert publication_ready(a,Path.cwd()) or (a.get('selection_explanation',{}).get('policy') != 'channel_profile' and os.environ['ALLOW_UNREVIEWED'].lower() == 'true' and p in ('private','unlisted')), 'Assets have not passed publication checks'"
       - name: Upload or resume and verify processing
@@ -114,7 +121,7 @@ jobs:
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
           EXPECTED_YOUTUBE_CHANNEL_ID: ${{ vars.EXPECTED_YOUTUBE_CHANNEL_ID }}
-          UPLOAD_PRIVACY_STATUS: ${{ vars.UPLOAD_PRIVACY_STATUS }}
+          UPLOAD_PRIVACY_STATUS: ${{ inputs.upload_privacy_status || 'public' }}
           GH_TOKEN: ${{ github.token }}
         run: python scripts/upload_youtube.py
       - name: Save review artifacts

@@ -93,7 +93,8 @@ def run_ffmpeg(assets):
     if fade:
         scene = RUN_DIR / "scene-loop.mp4"
         graph = (
-            "[0:v]fps=30,settb=AVTB,format=yuv420p,split=3[body][tail][head];"
+            "[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,"
+            "fps=30,settb=AVTB,format=yuv420p,split=3[body][tail][head];"
             f"[body]trim=start={fade}:end={length-fade},setpts=PTS-STARTPTS[b];"
             f"[tail]trim=start={length-fade}:end={length},setpts=PTS-STARTPTS[t];"
             f"[head]trim=start=0:end={fade},setpts=PTS-STARTPTS[h];"
@@ -102,6 +103,18 @@ def run_ffmpeg(assets):
         subprocess.run([ffmpeg(), "-y", "-loglevel", "error", "-i", str(SCENE_PATH),
                         "-filter_complex", graph, "-map", "[out]", "-an", "-c:v", "libx264",
                         "-preset", "fast", "-crf", "18", str(scene)], check=True)
+
+    if duration_seconds >= 3600:
+        # Encode the short seamless cycle once. Copy its compressed frames for
+        # long videos rather than re-encoding 324,000 frames for a three-hour run.
+        if not fade:
+            raise ValueError('Long-form videos require a prepared seamless scene cycle')
+        cmd = [ffmpeg(), '-y', '-stream_loop', '-1', '-i', str(scene),
+               '-i', str(prepared), '-map', '0:v:0', '-map', '1:a:0',
+               '-t', str(duration_seconds), '-c:v', 'copy', '-c:a', 'aac',
+               '-b:a', '192k', '-movflags', '+faststart', '-loglevel', 'warning', str(OUTPUT_PATH)]
+        subprocess.run(cmd, check=True)
+        return
 
     cmd = [
         ffmpeg(), "-y",

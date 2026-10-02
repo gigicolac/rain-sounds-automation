@@ -67,8 +67,25 @@ def prepare_audio(source, destination, duration, fade=2.0):
             graph.append(f"[{previous}][a{i}]acrossfade=d={fade}:c1=tri:c2=tri[{output}]")
             previous = output
         graph.append(f"[{previous}]atrim=duration={duration},asetpts=PTS-STARTPTS[out]")
-    subprocess.run(command + ["-filter_complex", ";".join(graph), "-map", "[out]", "-ar", "48000",
-                              "-c:a", "pcm_s24le", str(raw)], check=True)
+    if duration >= 3600 and count > 1:
+        # Build one lossless cyclic crossfade rather than opening hundreds of
+        # decoders for hours of audio. Independent inputs work on older FFmpeg.
+        cycle = destination.with_name('audio-cycle.flac')
+        graph = (
+            f'[0:a]atrim=start={fade}:end={length-fade},asetpts=PTS-STARTPTS[b];'
+            f'[1:a]atrim=start={length-fade}:end={length},asetpts=PTS-STARTPTS[t];'
+            f'[2:a]atrim=start=0:end={fade},asetpts=PTS-STARTPTS[h];'
+            f'[t][h]acrossfade=d={fade}:c1=tri:c2=tri[x];'
+            '[b][x]concat=n=2:v=0:a=1[out]')
+        subprocess.run([ffmpeg(), '-y', '-loglevel', 'error', '-i', str(source),
+                        '-i', str(source), '-i', str(source), '-filter_complex', graph,
+                        '-map', '[out]', '-ar', '48000', '-c:a', 'flac', str(cycle)], check=True)
+        subprocess.run([ffmpeg(), '-y', '-loglevel', 'error', '-stream_loop', '-1',
+                        '-i', str(cycle), '-t', str(duration), '-ar', '48000',
+                        '-c:a', 'pcm_s24le', '-rf64', 'auto', str(raw)], check=True)
+    else:
+        subprocess.run(command + ["-filter_complex", ";".join(graph), "-map", "[out]", "-ar", "48000",
+                                  "-c:a", "pcm_s24le", '-rf64', 'auto', str(raw)], check=True)
     source_report = audio_report(source)
     report = audio_report(raw)
     report["original_source"] = source_report
@@ -81,13 +98,14 @@ def prepare_audio(source, destination, duration, fade=2.0):
                      "linear=true")
     subprocess.run([ffmpeg(), "-hide_banner", "-loglevel", "error", "-y", "-i", str(raw),
                     "-af", normalization + f",afade=t=in:d=3,afade=t=out:st={max(0,duration-3)}:d=3",
-                    "-ar", "48000", "-c:a", "pcm_s24le", str(destination)], check=True)
+                    "-ar", "48000", "-c:a", "pcm_s24le", '-rf64', 'auto', str(destination)], check=True)
     report["normalized_output"] = audio_report(destination)
     actual = float(probe(destination)['format']['duration'])
     report['output_duration_seconds'] = actual
     if abs(actual - duration) > 0.1:
         raise ValueError(f'Prepared audio duration {actual} does not match target {duration}')
     write_json(destination.with_suffix(".quality.json"), report)
+    raw.unlink()  # Reclaim the multi-gigabyte intermediate before video muxing.
 
 def main():
     import argparse

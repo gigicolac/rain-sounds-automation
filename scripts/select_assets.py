@@ -230,9 +230,9 @@ def main():
     if selection != 'channel' and not compatible(audio, video):
         raise RuntimeError("Reviewed audio and scene labels conflict")
     override_duration = os.environ.get("DURATION_MINUTES", "").strip()
-    duration_minutes = int(override_duration) if override_duration else rng_duration.choice(DURATION_OPTIONS_MIN)
-    if not 1 <= duration_minutes <= 8:
-        raise ValueError("Duration must be between 1 and 8 minutes during testing")
+    duration_minutes = int(override_duration) if override_duration else 180
+    if not (1 <= duration_minutes <= 8 or duration_minutes in (60, 180)):
+        raise ValueError("Duration must be 1–8 testing minutes, 60 or 180")
     if selection != 'channel' and not compatible(audio, video):
         raise RuntimeError("Reviewed audio and scene labels conflict; choose a compatible pair")
 
@@ -243,6 +243,8 @@ def main():
         raise RuntimeError("No title is compatible with the reviewed asset labels")
     title_template = rng_title.choice(title_templates)
     title = title_template.format(duration=duration_minutes)
+    if selection == 'channel' and duration_minutes >= 60:
+        title = f'Cozy Rainy Study Room | {duration_minutes // 60} Hours of Rain Sounds'
     title = os.environ.get("TITLE_OVERRIDE", "").strip() or title
     if len(title) > 100 or not allowed(title):
         raise ValueError("Title exceeds 100 characters or makes unsupported claims about the assets")
