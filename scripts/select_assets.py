@@ -243,8 +243,16 @@ def main():
         raise RuntimeError("No title is compatible with the reviewed asset labels")
     title_template = rng_title.choice(title_templates)
     title = title_template.format(duration=duration_minutes)
+    title_options = []
     if selection == 'channel' and duration_minutes >= 60:
-        title = f'Cozy Rainy Study Room | {duration_minutes // 60} Hours of Rain Sounds'
+        hours = duration_minutes // 60
+        length_label = f'{hours} Hour' + ('s' if hours != 1 else '')
+        title_options = [
+            f'Cozy Rainy Evening | {length_label} of Rain Sounds',
+            f'Rain Sounds for Study & Relaxation | {length_label} of Cozy Ambience',
+            f'A Rainy Escape | {length_label} of Rain Ambience',
+        ]
+        title = rng_title.choice(title_options)
     title = os.environ.get("TITLE_OVERRIDE", "").strip() or title
     if len(title) > 100 or not allowed(title):
         raise ValueError("Title exceeds 100 characters or makes unsupported claims about the assets")
@@ -267,6 +275,7 @@ def main():
         "duration_minutes": duration_minutes,
         "duration_seconds": duration_minutes * 60,
         "title": title,
+        "title_options": [title] + [t for t in title_options if t != title][:2],
         "description": description,
         "tags": [t for t in TAGS if "thunder" not in t and (selection != 'channel' or 'music' not in t)],
         "review_approved": selection != 'channel' and not pair_reasons(audio, video, strict=True),

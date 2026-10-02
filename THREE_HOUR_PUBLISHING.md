@@ -36,6 +36,10 @@ for the first public upload, keeping the chosen COZY RAIN thumbnail:
 2. Rain Sounds for Studying | Cozy Anime Room (3 Hours)
 3. Rainy Evening at Your Desk | 3 Hours of Rain Ambience
 
+Scheduled titles rotate between cozy evening, study/relaxation and rainy escape
+wording. `run/assets.json` includes three correctly timed `title_options` for
+native title experiments. Creating those options does not start an experiment.
+
 The temporary single-scene private-storage configuration on
 `codex/unlisted-sourcing-test` is not included here. All eleven channel scenes
 remain available for scheduled rotation. No audio source metadata is changed.
