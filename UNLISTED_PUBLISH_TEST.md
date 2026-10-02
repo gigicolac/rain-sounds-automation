@@ -29,3 +29,14 @@ report. A local Google consent helper was opened to reconnect the expected
 channel and securely update the three matching GitHub secrets; user consent is
 still pending. Retry the unlisted publish only after reconnect succeeds. Do not
 describe the successful preview as an upload or YouTube processing result.
+
+Completed 2026-10-02: local Google consent verified the expected Calming Rain Sounds
+channel and securely replaced all three matching GitHub YouTube secrets. Publishing
+run 36966210464 completed successfully. YouTube processing was verified, actual
+visibility is unlisted, thumbnail was set, and the final audio duration is 300 seconds.
+Video: https://www.youtube.com/watch?v=3igpnr0FEbs
+
+The earlier preview audio cutoff was corrected in f257e44. Corrected preview run
+36863317464 had 300 seconds of audio, with sound verified at 75, 150 and 290 seconds.
+The production audio fix is isolated in PR #5 and is still awaiting merge approval.
+Do not merge this test branch's temporary single-scene storage configuration.
