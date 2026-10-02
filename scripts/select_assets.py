@@ -190,7 +190,7 @@ def main():
         video, audio = choose(ROOT, ledger.entries, rng_scene, mode, requested_video, requested_audio)
         video = dict(video, scene_term='anime window rain ambience')
         explanation = {'policy': 'channel_profile', 'strict_review': False,
-                       'rotation': 'Prefer scenes absent from the last seven uploads, then lowest lifetime use; never reuse a reserved pair.'}
+                       'rotation': 'Use every available scene once per cycle before repeating; prefer less recent and less-used scenes within a cycle; never reuse a reserved pair.'}
         title_templates = ['Rainy Anime Study Room | {duration} Minutes of Rain Ambience']
     elif selection == "search":
         if mode != "preview":
@@ -230,9 +230,9 @@ def main():
     if selection != 'channel' and not compatible(audio, video):
         raise RuntimeError("Reviewed audio and scene labels conflict")
     override_duration = os.environ.get("DURATION_MINUTES", "").strip()
-    duration_minutes = int(override_duration) if override_duration else rng_duration.choice(DURATION_OPTIONS_MIN)
-    if not 1 <= duration_minutes <= 8:
-        raise ValueError("Duration must be between 1 and 8 minutes during testing")
+    duration_minutes = int(override_duration) if override_duration else 180
+    if not (1 <= duration_minutes <= 8 or duration_minutes in (60, 180)):
+        raise ValueError("Duration must be 1–8 testing minutes, 60 or 180")
     if selection != 'channel' and not compatible(audio, video):
         raise RuntimeError("Reviewed audio and scene labels conflict; choose a compatible pair")
 
@@ -243,6 +243,16 @@ def main():
         raise RuntimeError("No title is compatible with the reviewed asset labels")
     title_template = rng_title.choice(title_templates)
     title = title_template.format(duration=duration_minutes)
+    title_options = []
+    if selection == 'channel' and duration_minutes >= 60:
+        hours = duration_minutes // 60
+        length_label = f'{hours} Hour' + ('s' if hours != 1 else '')
+        title_options = [
+            f'Cozy Rainy Evening | {length_label} of Rain Sounds',
+            f'Rain Sounds for Study & Relaxation | {length_label} of Cozy Ambience',
+            f'A Rainy Escape | {length_label} of Rain Ambience',
+        ]
+        title = rng_title.choice(title_options)
     title = os.environ.get("TITLE_OVERRIDE", "").strip() or title
     if len(title) > 100 or not allowed(title):
         raise ValueError("Title exceeds 100 characters or makes unsupported claims about the assets")
@@ -265,6 +275,7 @@ def main():
         "duration_minutes": duration_minutes,
         "duration_seconds": duration_minutes * 60,
         "title": title,
+        "title_options": [title] + [t for t in title_options if t != title][:2],
         "description": description,
         "tags": [t for t in TAGS if "thunder" not in t and (selection != 'channel' or 'music' not in t)],
         "review_approved": selection != 'channel' and not pair_reasons(audio, video, strict=True),

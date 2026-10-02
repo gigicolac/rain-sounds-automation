@@ -41,6 +41,7 @@ def audio_report(path):
 def prepare_audio(source, destination, duration, fade=2.0):
     """Crossfade repeated copies, then measure and normalize the finished loop in two passes."""
     info = probe(source)
+    print(f'Preparing {duration} seconds of crossfaded audio', flush=True)
     length = float(info["format"]["duration"])
     if length <= 2 * fade:
         raise ValueError("Audio is too short for the configured crossfade")
@@ -50,20 +51,43 @@ def prepare_audio(source, destination, duration, fade=2.0):
         import math
         count = max(2, math.ceil((duration - fade) / (length - fade)))
     raw = destination.with_name("audio-loop.wav")
-    command = [ffmpeg(), "-hide_banner", "-loglevel", "error", "-y", "-i", str(source)]
+    command = [ffmpeg(), "-hide_banner", "-loglevel", "error", "-y"]
+    # Independent decoders avoid older FFmpeg builds truncating chained acrossfade
+    # inputs when every branch is fed by the same asplit output.
+    for _ in range(count):
+        command += ["-i", str(source)]
     graph = []
     if count == 1:
         graph.append(f"[0:a]atrim=duration={duration},asetpts=PTS-STARTPTS[out]")
     else:
-        graph.append(f"[0:a]asplit={count}" + "".join(f"[a{i}]" for i in range(count)))
+        for i in range(count):
+            graph.append(f"[{i}:a]asetpts=PTS-STARTPTS[a{i}]")
         previous = "a0"
         for i in range(1, count):
             output = f"x{i}"
             graph.append(f"[{previous}][a{i}]acrossfade=d={fade}:c1=tri:c2=tri[{output}]")
             previous = output
         graph.append(f"[{previous}]atrim=duration={duration},asetpts=PTS-STARTPTS[out]")
-    subprocess.run(command + ["-filter_complex", ";".join(graph), "-map", "[out]", "-ar", "48000",
-                              "-c:a", "pcm_s24le", str(raw)], check=True)
+    if duration >= 3600 and count > 1:
+        # Build one lossless cyclic crossfade rather than opening hundreds of
+        # decoders for hours of audio. Independent inputs work on older FFmpeg.
+        cycle = destination.with_name('audio-cycle.flac')
+        graph = (
+            f'[0:a]atrim=start={fade}:end={length-fade},asetpts=PTS-STARTPTS[b];'
+            f'[1:a]atrim=start={length-fade}:end={length},asetpts=PTS-STARTPTS[t];'
+            f'[2:a]atrim=start=0:end={fade},asetpts=PTS-STARTPTS[h];'
+            f'[t][h]acrossfade=d={fade}:c1=tri:c2=tri[x];'
+            '[b][x]concat=n=2:v=0:a=1[out]')
+        subprocess.run([ffmpeg(), '-y', '-loglevel', 'error', '-i', str(source),
+                        '-i', str(source), '-i', str(source), '-filter_complex', graph,
+                        '-map', '[out]', '-ar', '48000', '-c:a', 'flac', str(cycle)], check=True)
+        subprocess.run([ffmpeg(), '-y', '-loglevel', 'error', '-stream_loop', '-1',
+                        '-i', str(cycle), '-t', str(duration), '-ar', '48000',
+                        '-c:a', 'pcm_s24le', '-rf64', 'auto', str(raw)], check=True)
+    else:
+        subprocess.run(command + ["-filter_complex", ";".join(graph), "-map", "[out]", "-ar", "48000",
+                                  "-c:a", "pcm_s24le", '-rf64', 'auto', str(raw)], check=True)
+    print('Measuring the complete audio loop', flush=True)
     source_report = audio_report(source)
     report = audio_report(raw)
     report["original_source"] = source_report
@@ -74,11 +98,18 @@ def prepare_audio(source, destination, duration, fade=2.0):
                      f"measured_TP={measured['input_tp']}:measured_LRA={measured['input_lra']}:"
                      f"measured_thresh={measured['input_thresh']}:offset={measured['target_offset']}:"
                      "linear=true")
+    print('Normalizing the complete audio loop', flush=True)
     subprocess.run([ffmpeg(), "-hide_banner", "-loglevel", "error", "-y", "-i", str(raw),
                     "-af", normalization + f",afade=t=in:d=3,afade=t=out:st={max(0,duration-3)}:d=3",
-                    "-ar", "48000", "-c:a", "pcm_s24le", str(destination)], check=True)
+                    "-ar", "48000", "-c:a", "pcm_s24le", '-rf64', 'auto', str(destination)], check=True)
+    print('Checking normalized audio loudness and peaks', flush=True)
     report["normalized_output"] = audio_report(destination)
+    actual = float(probe(destination)['format']['duration'])
+    report['output_duration_seconds'] = actual
+    if abs(actual - duration) > 0.1:
+        raise ValueError(f'Prepared audio duration {actual} does not match target {duration}')
     write_json(destination.with_suffix(".quality.json"), report)
+    raw.unlink()  # Reclaim the multi-gigabyte intermediate before video muxing.
 
 def main():
     import argparse

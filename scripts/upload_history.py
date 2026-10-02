@@ -75,13 +75,18 @@ class Ledger:
         key = fingerprint(assets)
         if key in self.entries:
             raise RuntimeError('This source video/audio pair is already reserved or uploaded. Use resume_video_id for an existing upload.')
-        if any(e['assets']['date'] == assets['date'] for e in self.entries.values()):
+        if any(e['assets']['date'] == assets['date'] and not (
+                (os.environ.get('UPLOAD_PRIVACY_STATUS') or 'public') == 'public'
+                and e.get('state') == 'complete'
+                and e.get('actual_privacy') in ('private', 'unlisted'))
+               for e in self.entries.values()):
             raise RuntimeError('An upload is already reserved for this date. Review history or resume it before starting another.')
         return key
 
     def reserve(self, assets):
         key = self.check_new(assets)
         self.entries[key] = {'state': 'reserved', 'assets': assets,
+                             'requested_privacy': os.environ.get('UPLOAD_PRIVACY_STATUS') or 'public',
                              'run_id': os.environ.get('GITHUB_RUN_ID')}
         self.save()  # Must succeed before contacting YouTube upload endpoint.
         return key

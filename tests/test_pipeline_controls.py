@@ -58,6 +58,27 @@ class HistoryTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, 'this date'):
             Ledger().check_new(changed)
 
+    def test_completed_unlisted_test_does_not_block_public_release(self):
+        ledger = Ledger()
+        key = ledger.reserve(self.assets)
+        ledger.entries[key].update(state='complete', actual_privacy='unlisted')
+        ledger.save()
+        changed = dict(self.assets, video={'pexels_id':999})
+        self.assertEqual(Ledger().check_new(changed), fingerprint(changed))
+        # The test's original source pair remains permanently blocked.
+        with self.assertRaisesRegex(RuntimeError, 'already reserved'):
+            Ledger().check_new(self.assets)
+
+    def test_uncertain_or_public_upload_still_blocks_same_day(self):
+        ledger = Ledger()
+        key = ledger.reserve(self.assets)
+        changed = dict(self.assets, video={'pexels_id':999})
+        for state, privacy in [('uploaded', 'unlisted'), ('complete', 'public'), ('complete', None)]:
+            ledger.entries[key].update(state=state, actual_privacy=privacy)
+            ledger.save()
+            with self.assertRaisesRegex(RuntimeError, 'this date'):
+                Ledger().check_new(changed)
+
     def test_resume_only_known_upload(self):
         ledger=Ledger(); key=ledger.reserve(self.assets)
         ledger.entries[key]['video_id']='known'; ledger.save()

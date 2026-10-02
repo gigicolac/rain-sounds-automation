@@ -1,15 +1,21 @@
 # Rain Sounds YouTube Automation
 
+The three-hour publishing workflow is documented in
+[THREE_HOUR_PUBLISHING.md](THREE_HOUR_PUBLISHING.md). This version defaults to
+three hours, uses the COZY RAIN thumbnail layout, and schedules a public run at
+11am Australia/Sydney. Manual runs default to preview. The short-duration
+instructions below describe the earlier testing configuration.
+
 ## Asset-quality branch
 
 See [CHANNEL_WORKFLOW.md](CHANNEL_WORKFLOW.md) for the current fixed anime rain
-pool, automatic checks, private storage setup, and pending GitHub preview work.
-Channel mode supersedes per-asset tagging for this pool. Changes remain on the
-task branch and are not deployed.
+pool, automatic checks, private storage setup, and validation evidence.
+Channel mode supersedes per-asset tagging for this pool. The channel pool was
+merged through PR #4; the three-hour daily publishing update is in PR #6.
 
 See [ASSET_QUALITY.md](ASSET_QUALITY.md) for curated libraries, illustrated scenes,
 balanced audio discovery, the review form and validation evidence. These changes
-are pending review and not deployed. That guide supersedes the earlier selection
+were merged through PR #4. That guide supersedes the earlier selection
 and looping instructions below on this branch.
 
 A fully automated daily pipeline that publishes a short (5–8 minute)

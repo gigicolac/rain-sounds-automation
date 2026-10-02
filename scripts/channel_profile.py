@@ -47,6 +47,17 @@ def choose(root, entries, rng, mode, video_id='', audio_id=''):
             pairs.append((int(vid in recent_ids), counts.get(vid, 0), rng.random(), video, audio))
     if not pairs:
         raise RuntimeError('No unused channel pair with available files and required source records. Check storage, source links and history; no unrelated fallback is used.')
+    # Reconstruct the current scene cycle from the persistent ledger. Reservations
+    # count too: an uncertain upload must not make its scene look unused.
+    available_ids = {identity(p[3], 'video') for p in pairs}
+    cycle_used = set()
+    for entry in sorted(entries.values(), key=lambda e: e['assets']['date']):
+        vid = identity(entry['assets']['video'], 'video')
+        if vid in available_ids:
+            cycle_used.add(vid)
+            if cycle_used == available_ids:
+                cycle_used.clear()
+    pairs = [p for p in pairs if identity(p[3], 'video') not in cycle_used]
     _, _, _, video, audio = min(pairs, key=lambda p: p[:3])
     return video, audio
 

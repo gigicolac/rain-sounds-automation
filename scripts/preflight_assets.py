@@ -43,9 +43,15 @@ def measure(path, kind):
     else:
         stream = next(s for s in info['streams'] if s['codec_type'] == 'video')
         report.update(width=stream['width'], height=stream['height'])
+        detector = 'blackdetect=d=0.5:pix_th=0.10'
+        if report['duration_seconds'] >= 3600:
+            # Decode every frame, but black-frame detection does not need to
+            # count every 1080p pixel across hundreds of thousands of frames.
+            detector = 'scale=320:180:flags=fast_bilinear,' + detector
+            report['black_detection_resolution'] = [320, 180]
         result = subprocess.run([ffmpeg(), '-hide_banner', '-nostdin', '-i', str(path),
-            '-map', '0:v:0', '-vf', 'blackdetect=d=0.5:pix_th=0.10', '-an', '-f', 'null', '-'],
-            capture_output=True, text=True, timeout=600)
+            '-map', '0:v:0', '-vf', detector, '-an', '-f', 'null', '-'],
+            capture_output=True, text=True, timeout=max(600, report['duration_seconds'] / 4))
         # A zero exit code alone can still accompany recoverable decode errors.
         suspicious = [line for line in result.stderr.splitlines()
                       if re.search(r'error|corrupt|invalid', line, re.I)]

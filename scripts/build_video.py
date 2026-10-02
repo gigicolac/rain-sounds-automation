@@ -91,9 +91,11 @@ def run_ffmpeg(assets):
     if not 0 <= fade <= 2 or (fade and length <= 2 * fade):
         raise ValueError("Video crossfade must be 0–2 seconds and shorter than half the source")
     if fade:
+        print('Encoding the seamless scene cycle', flush=True)
         scene = RUN_DIR / "scene-loop.mp4"
         graph = (
-            "[0:v]fps=30,settb=AVTB,format=yuv420p,split=3[body][tail][head];"
+            "[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,"
+            "fps=30,settb=AVTB,format=yuv420p,split=3[body][tail][head];"
             f"[body]trim=start={fade}:end={length-fade},setpts=PTS-STARTPTS[b];"
             f"[tail]trim=start={length-fade}:end={length},setpts=PTS-STARTPTS[t];"
             f"[head]trim=start=0:end={fade},setpts=PTS-STARTPTS[h];"
@@ -102,6 +104,19 @@ def run_ffmpeg(assets):
         subprocess.run([ffmpeg(), "-y", "-loglevel", "error", "-i", str(SCENE_PATH),
                         "-filter_complex", graph, "-map", "[out]", "-an", "-c:v", "libx264",
                         "-preset", "fast", "-crf", "18", str(scene)], check=True)
+
+    if duration_seconds >= 3600:
+        print('Muxing the full-duration video and audio', flush=True)
+        # Encode the short seamless cycle once. Copy its compressed frames for
+        # long videos rather than re-encoding 324,000 frames for a three-hour run.
+        if not fade:
+            raise ValueError('Long-form videos require a prepared seamless scene cycle')
+        cmd = [ffmpeg(), '-y', '-stream_loop', '-1', '-i', str(scene),
+               '-i', str(prepared), '-map', '0:v:0', '-map', '1:a:0',
+               '-t', str(duration_seconds), '-c:v', 'copy', '-c:a', 'aac',
+               '-b:a', '192k', '-movflags', '+faststart', '-loglevel', 'warning', str(OUTPUT_PATH)]
+        subprocess.run(cmd, check=True)
+        return
 
     cmd = [
         ffmpeg(), "-y",
@@ -138,15 +153,21 @@ def main():
         from channel_profile import digest
         from asset_library import write_json, read_json
         from preflight_assets import measure
+        print('Decoding and checking the complete rendered video', flush=True)
         report = measure(OUTPUT_PATH, 'video')
         audio_quality = read_json(RUN_DIR / 'prepared-audio.quality.json', {})
         normalized = audio_quality.get('normalized_output', {})
         peak = normalized.get('peak_db')
+        final_info = probe(OUTPUT_PATH)
+        audio_streams = [s for s in final_info['streams'] if s['codec_type'] == 'audio']
+        audio_duration = float(audio_streams[0].get('duration', 0)) if audio_streams else 0
+        report['audio_duration_seconds'] = audio_duration
         report.update(video_id=assets['video']['asset_id'], audio_id=str(assets['audio']['freesound_id']),
                       output_sha256=digest(OUTPUT_PATH))
         report['passed'] = bool(report.get('decode_ok') and report.get('width') == 1920
             and report.get('height') == 1080
             and abs(report['duration_seconds'] - assets['duration_seconds']) < 0.1
+            and abs(audio_duration - assets['duration_seconds']) < 0.1
             and peak is not None and peak <= -0.1)
         write_json(RUN_DIR / 'channel-quality.json', report)
         if not report['passed']:
