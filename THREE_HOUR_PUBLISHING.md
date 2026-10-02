@@ -24,6 +24,8 @@ The thumbnail renderer applies the approved cream/amber COZY RAIN layout to
 an original video screenshot and adds the actual duration. Generated design
 mockups are not source frames and are not committed. The template is reusable,
 so daily runs require no image-generation service or separate asset approval.
+Rounded lettering uses the bundled Nunito typeface from Google Fonts; its
+SIL Open Font License is included in `fonts/nunito/OFL.txt`.
 Native YouTube title/thumbnail A/B experiments are not started by this workflow.
 Those need YouTube Studio; different video lengths are not native A/B variants.
 

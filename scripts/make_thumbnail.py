@@ -73,16 +73,19 @@ def compose_thumbnail(title, duration_seconds=None):
             draw.line([(x, 0), (x, 720)], fill=(8, 14, 34, alpha))
         cream = (255, 239, 201, 255)
         amber = (255, 192, 91, 255)
-        badge_font = ImageFont.truetype(FONT_PATH, 44)
+        rounded_font = str(ROOT / 'fonts/nunito/Nunito.ttf')
+        badge_font = ImageFont.truetype(rounded_font, 44)
+        badge_font.set_variation_by_axes([1000])
         hours = duration_seconds // 3600
         badge = f'{hours} HOUR' + ('S' if hours != 1 else '')
         badge_width = draw.textlength(badge, font=badge_font) + 54
         draw.rounded_rectangle((64, 84, 64 + badge_width, 159), radius=38, fill=amber)
         draw.text((91, 94), badge, font=badge_font, fill=(75, 36, 15, 255))
-        headline = ImageFont.truetype(FONT_PATH, 136)
+        headline = ImageFont.truetype(rounded_font, 145)
+        headline.set_variation_by_axes([1000])
         draw.text((57, 174), 'COZY', font=headline, fill=cream,
                   stroke_width=1, stroke_fill=cream)
-        draw.text((57, 310), 'RAIN', font=headline, fill=cream,
+        draw.text((57, 325), 'RAIN', font=headline, fill=cream,
                   stroke_width=1, stroke_fill=cream)
         Image.alpha_composite(image.convert('RGBA'), overlay).convert('RGB').save(
             THUMBNAIL_PATH, 'JPEG', quality=94)
