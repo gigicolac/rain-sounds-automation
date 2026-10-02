@@ -60,6 +60,62 @@ class ChannelTests(unittest.TestCase):
         self.assertTrue(title_allowed('Rainy Anime Study Room'))
         self.assertFalse(title_allowed('Traffic-free Pure Rain'))
 
+    def install_pool(self, count=11):
+        videos = [dict(self.video, asset_id=f'local:{i}', local_path=f'scenes/{i}.mp4')
+                  for i in range(count)]
+        audios = [dict(self.audio, id=i, filename=f'{i}.mp3') for i in range(1, 4)]
+        for video in videos:
+            (self.root / video['local_path']).write_bytes(b'video')
+        for audio in audios:
+            (self.root / 'audio' / audio['filename']).write_bytes(b'audio')
+        self.write('data/video_library.json', videos)
+        self.write('audio/metadata.json', audios)
+        self.write('data/channel_profile.json', {'video_ids': [v['asset_id'] for v in videos],
+                                                'audio_ids': [str(a['id']) for a in audios]})
+        return videos, audios
+
+    def test_all_eleven_scenes_used_once_in_each_cycle_until_pairs_exhausted(self):
+        from datetime import date, timedelta
+        videos, _ = self.install_pool()
+        expected = {v['asset_id'] for v in videos}
+        for seed in range(5):
+            entries, sequence, pairs = {}, [], set()
+            for day in range(33):
+                video, audio = choose(self.root, entries, random.Random(seed + day), 'publish')
+                pair = (video['asset_id'], audio['id'])
+                self.assertNotIn(pair, pairs)
+                pairs.add(pair)
+                sequence.append(video['asset_id'])
+                entries[str(day)] = {'state': 'complete', 'assets': {
+                    'date': str(date(2026, 10, 1) + timedelta(days=day)),
+                    'video': video, 'audio': {'freesound_id': audio['id']}}}
+            for start in (0, 11, 22):
+                self.assertEqual(set(sequence[start:start + 11]), expected)
+            with self.assertRaises(RuntimeError):
+                choose(self.root, entries, random.Random(seed), 'publish')
+
+    def test_cycle_survives_uneven_history_and_counts_uncertain_reservations(self):
+        videos, _ = self.install_pool(3)
+        # A complete old cycle, then a partial new cycle. Lifetime counts would
+        # favor A again, but B must finish the current cycle first.
+        entries = {}
+        for day, (index, audio_id) in enumerate([(0, 1), (1, 1), (2, 1), (2, 2), (0, 2)]):
+            entries[str(day)] = {'state': 'reserved', 'assets': {
+                'date': f'2026-10-{day + 1:02}', 'video': videos[index],
+                'audio': {'freesound_id': audio_id}}}
+        selected, _ = choose(self.root, entries, random.Random(1), 'publish')
+        self.assertEqual(selected['asset_id'], videos[1]['asset_id'])
+
+    def test_cycle_skips_missing_files_and_rejects_used_manual_pair(self):
+        videos, _ = self.install_pool(3)
+        (self.root / videos[2]['local_path']).unlink()
+        entries = {'one': {'assets': {'date': '2026-10-01', 'video': videos[0],
+                                     'audio': {'freesound_id': 1}}}}
+        selected, _ = choose(self.root, entries, random.Random(1), 'publish')
+        self.assertEqual(selected['asset_id'], videos[1]['asset_id'])
+        with self.assertRaises(RuntimeError):
+            choose(self.root, entries, random.Random(1), 'publish', videos[0]['asset_id'], '1')
+
     def test_scheduled_channel_selection_defaults_to_three_hours(self):
         import select_assets
         self.write('data/scene_terms.json', ['rain window'])

@@ -20,6 +20,13 @@ release on the same date. Reserved, uncertain, public or unknown-visibility
 uploads still block it. Every previous entry is retained and duplicate source
 pairs remain permanently blocked.
 
+Automatic scene selection reconstructs a cycle from upload history and uses every
+available scene before repeating one, regardless of which audio is selected.
+Reservations count as uses, so uncertain uploads cannot bypass rotation. Missing
+files, missing source records, rejected assets and scenes with no unused audio
+pair are excluded. Within a cycle, selection favors less recent and less-used
+scenes. Explicit manual scene overrides remain available. History is preserved.
+
 The thumbnail renderer applies the approved cream/amber COZY RAIN layout to
 an original video screenshot and adds the actual duration. Generated design
 mockups are not source frames and are not committed. The template is reusable,
@@ -43,3 +50,29 @@ native title experiments. Creating those options does not start an experiment.
 The temporary single-scene private-storage configuration on
 `codex/unlisted-sourcing-test` is not included here. All eleven channel scenes
 remain available for scheduled rotation. No audio source metadata is changed.
+
+## Validation and authorization status (2026-10-02)
+
+The public three-hour upload completed successfully on the task branch:
+[run 36974548325](https://github.com/gigicolac/rain-sounds-automation/actions/runs/36974548325),
+[YouTube video](https://www.youtube.com/watch?v=EXjpeDzwuAs).
+Final output checks passed: 1920x1080, video 10800.066667 seconds, audio 10800
+seconds, complete video decoding, and no detected black intervals. YouTube
+processing completed, actual visibility was public, and the thumbnail was set.
+An earlier preview failed on the old 600-second full-video check timeout; the
+publishing run used the corrected timeout and scaled black-detection analysis.
+The rounded Nunito thumbnail refinement followed that live run and was checked
+locally; subsequent scheduled runs use the current template.
+
+Google sign-in and the matching GitHub upload credentials were repaired; this
+is proven by the successful upload. A fresh Google Cloud Audience check still
+shows the existing app in Testing, with Publish app disabled pending Branding
+configuration. This is separate from credential repair. Google documents a
+[seven-day refresh-token limit for external Testing apps](https://developers.google.com/identity/protocols/oauth2#expiration).
+Production setup and renewed authorization remain needed for unattended operation
+beyond that window. No Google app settings were changed by this publishing merge.
+
+Scene-cycle regression tests simulate all 33 combinations over three complete
+eleven-scene cycles, check uneven history and reservations, and preserve pair
+exhaustion protection. Scheduled sourcing is still gated by SOURCING_ENABLED;
+new candidates are not automatically enrolled in the publishing pool.

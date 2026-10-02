@@ -14,15 +14,18 @@ channel pool: membership is recorded once in `data/channel_profile.json`.
 
 ## Current status
 
-Implemented on `codex/asset-quality`; not merged or deployed. The user explicitly
-authorized fixed-pool publishing, both shorter clips, and enlargement of the 720p
-clip. Scheduled runs use channel mode after this branch is merged; the daily
-schedule and upload visibility setting are unchanged. No upload was performed.
+The fixed channel pool was merged through PR #4. Three-hour public publishing,
+11am Australia/Sydney scheduling and complete scene cycles are documented in
+[THREE_HOUR_PUBLISHING.md](THREE_HOUR_PUBLISHING.md) and deployed through PR #6.
+The user authorized both shorter clips and enlargement of the 720p clip. A public
+three-hour task-branch upload completed on 2026-10-02; Google production
+authorization remains a separate outstanding configuration step.
 
 Source records are required for publication. All eleven scenes now have exact source links. Source filenames and user selection do not prove third-party rights.
 Publication uses only recorded source/licence references, without per-asset forms.
 
-Selection favors scenes absent from the last seven uploads, then less-used scenes.
+Selection uses every available scene once per cycle before repeating, then favors
+scenes absent from the last seven uploads and less-used scenes within that cycle.
 Reserved or uploaded source pairs are never reused, and the one-new-upload-per-date
 rule remains. Eleven scenes and three recordings allow at most 33 distinct pairs;
 All 33 pairs have the source records required for selection, subject to upload

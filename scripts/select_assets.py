@@ -190,7 +190,7 @@ def main():
         video, audio = choose(ROOT, ledger.entries, rng_scene, mode, requested_video, requested_audio)
         video = dict(video, scene_term='anime window rain ambience')
         explanation = {'policy': 'channel_profile', 'strict_review': False,
-                       'rotation': 'Prefer scenes absent from the last seven uploads, then lowest lifetime use; never reuse a reserved pair.'}
+                       'rotation': 'Use every available scene once per cycle before repeating; prefer less recent and less-used scenes within a cycle; never reuse a reserved pair.'}
         title_templates = ['Rainy Anime Study Room | {duration} Minutes of Rain Ambience']
     elif selection == "search":
         if mode != "preview":
