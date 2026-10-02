@@ -1,5 +1,11 @@
 # Rain Sounds YouTube Automation
 
+The three-hour publishing workflow is documented in
+[THREE_HOUR_PUBLISHING.md](THREE_HOUR_PUBLISHING.md). This version defaults to
+three hours, uses the COZY RAIN thumbnail layout, and schedules a public run at
+11am Australia/Sydney. Manual runs default to preview. The short-duration
+instructions below describe the earlier testing configuration.
+
 ## Asset-quality branch
 
 See [CHANNEL_WORKFLOW.md](CHANNEL_WORKFLOW.md) for the current fixed anime rain

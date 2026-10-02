@@ -45,7 +45,7 @@ def measure(path, kind):
         report.update(width=stream['width'], height=stream['height'])
         result = subprocess.run([ffmpeg(), '-hide_banner', '-nostdin', '-i', str(path),
             '-map', '0:v:0', '-vf', 'blackdetect=d=0.5:pix_th=0.10', '-an', '-f', 'null', '-'],
-            capture_output=True, text=True, timeout=600)
+            capture_output=True, text=True, timeout=max(600, report['duration_seconds'] / 4))
         # A zero exit code alone can still accompany recoverable decode errors.
         suspicious = [line for line in result.stderr.splitlines()
                       if re.search(r'error|corrupt|invalid', line, re.I)]
