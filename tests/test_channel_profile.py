@@ -4,6 +4,8 @@ import random
 import sys
 import tempfile
 import unittest
+import os
+from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from channel_profile import choose, publication_ready, digest, title_allowed
 
@@ -57,3 +59,22 @@ class ChannelTests(unittest.TestCase):
     def test_titles_do_not_invent_audio_claims(self):
         self.assertTrue(title_allowed('Rainy Anime Study Room'))
         self.assertFalse(title_allowed('Traffic-free Pure Rain'))
+
+    def test_scheduled_channel_selection_defaults_to_three_hours(self):
+        import select_assets
+        self.write('data/scene_terms.json', ['rain window'])
+        self.write('data/title_templates.json', ['{duration} Minutes of Rain Ambience'])
+        (self.root / 'data/description_template.txt').write_text('{duration} minutes of {scene_term}')
+        with patch.dict(os.environ, {'PIPELINE_MODE': 'publish', 'ASSET_SELECTION': 'channel'}, clear=True), \
+             patch.object(select_assets, 'ROOT', self.root), \
+             patch.object(select_assets, 'DATA_DIR', self.root / 'data'), \
+             patch.object(select_assets, 'AUDIO_DIR', self.root / 'audio'), \
+             patch.object(select_assets, 'RUN_DIR', self.root / 'run'), \
+             patch.object(select_assets, 'Ledger') as ledger:
+            ledger.return_value.entries = {}
+            select_assets.main()
+            result = json.loads((self.root / 'run/assets.json').read_text())
+            self.assertEqual(result['duration_seconds'], 10800)
+            self.assertEqual(len(result['title_options']), 3)
+            self.assertTrue(all('3 Hours' in title for title in result['title_options']))
+            ledger.return_value.check_new.assert_called_once_with(result)
