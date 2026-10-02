@@ -1,6 +1,6 @@
 {
   "7b79dab25207a554f33c8b3a35e13f80a06b03558a3958f3373c66c671634769": {
-    "state": "reserved",
+    "state": "uploaded",
     "assets": {
       "date": "2026-10-02",
       "day_number": 739891,
@@ -77,6 +77,8 @@
       },
       "category_id": "10"
     },
-    "run_id": "36966210464"
+    "run_id": "36966210464",
+    "video_id": "3igpnr0FEbs",
+    "url": "https://www.youtube.com/watch?v=3igpnr0FEbs"
   }
 }
