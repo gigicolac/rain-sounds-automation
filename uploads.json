@@ -469,7 +469,7 @@
     "thumbnail": "set"
   },
   "7d201bbb3d22ce8bd2bfea9496014d366a1e84a0d3c07458314b5c7a27011686": {
-    "state": "uploaded",
+    "state": "processed",
     "assets": {
       "date": "2026-10-06",
       "day_number": 739895,
@@ -554,6 +554,7 @@
     "requested_privacy": "public",
     "run_id": "37392026114",
     "video_id": "U79yfYF_N-w",
-    "url": "https://www.youtube.com/watch?v=U79yfYF_N-w"
+    "url": "https://www.youtube.com/watch?v=U79yfYF_N-w",
+    "actual_privacy": "public"
   }
 }
