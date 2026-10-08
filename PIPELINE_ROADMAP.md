@@ -173,3 +173,23 @@ from run/upload_result.json in artifacts before repairing the ledger.
 Automated tests exercise claim gating, conflicts, persistent reservations,
 duplicate attempts, resume lookup, processing rejection/timeout/success, and
 authorization. They use simulated services; they do not prove live upload recovery.
+
+## Upload presentation variety (review branch)
+
+Automatic channel titles now lead with sleep, study or relaxation search phrases,
+prefer titles absent from the ledger, and add a session number only when the
+available wording is exhausted. Manual titles already in history are rejected.
+Specific settings require matching approved audio and video labels; source names
+are not evidence. Thumbnails retain the actual scene frame and duration badge,
+rotate SLEEP / STUDY / UNWIND wording, and avoid the last recorded headline.
+Descriptions lead with duration and verified setting (or generic ambience),
+include a subscribe invitation and identify the selected recording and source
+licenses without claiming that stock audio is an original channel recording.
+The existing ledger receives additive variety records containing sources, length,
+keyword, title, thumbnail wording, description opening and verified labels. Old
+entries remain valid and source-pair fingerprints/reservations are unchanged.
+Existing public videos are not edited; these changes affect future selections
+after merge. This improves presentation, not proof of materially varied content
+or monetisation eligibility. Intro/end rendering is outside these four changes.
+
+Validation: 69 unit tests passed. All three thumbnail layouts rendered and were visually inspected on a clearly marked synthetic layout fixture. Full source-media/GitHub preview is still required before merge; source scenes are not present in this local checkout. No live upload or existing-video edits were performed.

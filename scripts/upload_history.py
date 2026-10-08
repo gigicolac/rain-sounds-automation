@@ -85,7 +85,9 @@ class Ledger:
 
     def reserve(self, assets):
         key = self.check_new(assets)
+        from upload_presentation import variety_record
         self.entries[key] = {'state': 'reserved', 'assets': assets,
+                             'variety': variety_record(assets),
                              'requested_privacy': os.environ.get('UPLOAD_PRIVACY_STATUS') or 'public',
                              'run_id': os.environ.get('GITHUB_RUN_ID')}
         self.save()  # Must succeed before contacting YouTube upload endpoint.
