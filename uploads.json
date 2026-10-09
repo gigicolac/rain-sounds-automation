@@ -737,5 +737,91 @@
     "url": "https://www.youtube.com/watch?v=ErQhAyBmzYo",
     "actual_privacy": "public",
     "thumbnail": "set"
+  },
+  "dc8baa2690d0142b4473c697b9f04d9fb2986b70122b2edc0c1580d86a465083": {
+    "state": "reserved",
+    "assets": {
+      "date": "2026-10-09",
+      "day_number": 739898,
+      "scene_term": "anime window rain ambience",
+      "video": {
+        "asset_id": "local:pixabay-297863",
+        "local_path": "scenes/pixabay-297863.mp4",
+        "source_url": "https://pixabay.com/videos/ai-generated-anime-cozy-rain-297863/",
+        "license_url": "https://pixabay.com/service/license-summary/",
+        "width": 1920,
+        "height": 1080,
+        "duration": 64.0,
+        "review": {
+          "approved": false,
+          "labels": {},
+          "quality": {},
+          "notes": ""
+        },
+        "source_record_origin": "user supplied exact Pixabay page on 2026-10-01",
+        "scene_term": "anime window rain ambience"
+      },
+      "audio": {
+        "filename": "695619.mp3",
+        "path": "audio/695619.mp3",
+        "title": "Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav",
+        "freesound_id": 695619,
+        "freesound_url": "https://freesound.org/s/695619/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "review": {
+          "approved": true,
+          "labels": {
+            "setting": "lake",
+            "intensity": "moderate",
+            "surface": "mixed",
+            "perspective": "outdoors",
+            "thunder": false,
+            "traffic": false,
+            "animals": false,
+            "music": false,
+            "voices": false
+          },
+          "notes": "sounds solid",
+          "quality": {
+            "full_playback": true,
+            "loop_checked": true,
+            "clean_recording": true,
+            "no_clipping": true
+          },
+          "status": "approved",
+          "reviewed_at": "2026-10-01T04:47:29.990552+00:00"
+        }
+      },
+      "duration_minutes": 180,
+      "duration_seconds": 10800,
+      "title": "Cozy Rainy Evening | 3 Hours of Rain Sounds",
+      "title_options": [
+        "Cozy Rainy Evening | 3 Hours of Rain Sounds",
+        "Rain Sounds for Study & Relaxation | 3 Hours of Cozy Ambience",
+        "A Rainy Escape | 3 Hours of Rain Ambience"
+      ],
+      "description": "180 minutes of rain ambience to help you relax, sleep, study, or unwind. Let the sound of rain wash your stress away.\n\nPerfect for:\n\u2022 Falling asleep fast and staying asleep\n\u2022 Studying, reading, or deep work\n\u2022 Meditation and relaxation\n\u2022 Calming a crying baby\n\u2022 Masking tinnitus or background noise\n\nSubscribe to Calming Rain Sounds (@calmingrainsoundssss) for a new rain sounds video every day.\n\n#rainsounds #rain #sleep #relaxation #ambience #whitenoise #study\n\n---\nVideo source: https://pixabay.com/videos/ai-generated-anime-cozy-rain-297863/\nVideo license: https://pixabay.com/service/license-summary/\nAudio: \"Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav\" sourced from Freesound.org, released under Creative Commons 0 (public domain).\n",
+      "tags": [
+        "rain sounds",
+        "rain sounds for sleeping",
+        "rain ambience",
+        "sleep sounds",
+        "relaxing rain",
+        "white noise",
+        "rain sounds for studying",
+        "calming rain",
+        "ambient rain",
+        "deep sleep"
+      ],
+      "review_approved": false,
+      "selection_explanation": {
+        "policy": "channel_profile",
+        "strict_review": false,
+        "rotation": "Use every available scene once per cycle before repeating; prefer less recent and less-used scenes within a cycle; never reuse a reserved pair."
+      },
+      "category_id": "10"
+    },
+    "requested_privacy": "public",
+    "run_id": "37862970039"
   }
 }
