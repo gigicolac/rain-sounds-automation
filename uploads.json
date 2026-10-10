@@ -829,7 +829,7 @@
     "thumbnail": "set"
   },
   "f769a1cb1faee9c482fbaf36804be651d2557c6ae6688a052d3c36689dea6919": {
-    "state": "processed",
+    "state": "complete",
     "assets": {
       "date": "2026-10-10",
       "day_number": 739899,
@@ -930,6 +930,7 @@
     "run_id": "38007462486",
     "video_id": "PgrCtw2yz8Q",
     "url": "https://www.youtube.com/watch?v=PgrCtw2yz8Q",
-    "actual_privacy": "public"
+    "actual_privacy": "public",
+    "thumbnail": "set"
   }
 }
