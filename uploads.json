@@ -1024,7 +1024,7 @@
     "thumbnail": "set"
   },
   "775fb47022988f83368a841a9221874534d8f9abcc366cedc1fc592a6934daf1": {
-    "state": "uploaded",
+    "state": "processed",
     "assets": {
       "date": "2026-10-12",
       "day_number": 739901,
@@ -1110,6 +1110,7 @@
     "requested_privacy": "public",
     "run_id": "38186674629",
     "video_id": "7a0rzetIs_I",
-    "url": "https://www.youtube.com/watch?v=7a0rzetIs_I"
+    "url": "https://www.youtube.com/watch?v=7a0rzetIs_I",
+    "actual_privacy": "public"
   }
 }
