@@ -1115,7 +1115,7 @@
     "thumbnail": "set"
   },
   "5b98337bf8c0c45151368223354e95d23a2ea8b1687b82f987a548401bb5fbb7": {
-    "state": "processed",
+    "state": "complete",
     "assets": {
       "date": "2026-10-13",
       "day_number": 739902,
@@ -1202,6 +1202,7 @@
     "run_id": "38346268992",
     "video_id": "HCTOKmxEU64",
     "url": "https://www.youtube.com/watch?v=HCTOKmxEU64",
-    "actual_privacy": "public"
+    "actual_privacy": "public",
+    "thumbnail": "set"
   }
 }
