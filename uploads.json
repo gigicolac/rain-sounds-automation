@@ -1206,7 +1206,7 @@
     "thumbnail": "set"
   },
   "867907d85f2fa2c6b8ce282391cc144b25bec50fc1f02b70c0f9e64dee51177c": {
-    "state": "processed",
+    "state": "complete",
     "assets": {
       "date": "2026-10-14",
       "day_number": 739903,
@@ -1292,6 +1292,7 @@
     "run_id": "38501759116",
     "video_id": "20E9MI22ktY",
     "url": "https://www.youtube.com/watch?v=20E9MI22ktY",
-    "actual_privacy": "public"
+    "actual_privacy": "public",
+    "thumbnail": "set"
   }
 }
