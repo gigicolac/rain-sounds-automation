@@ -1296,7 +1296,7 @@
     "thumbnail": "set"
   },
   "16c009000c43747f1013ff18558983919eca8992144aa47cd78cbd93554e7022": {
-    "state": "reserved",
+    "state": "uploaded",
     "assets": {
       "date": "2026-10-15",
       "day_number": 739904,
@@ -1379,6 +1379,8 @@
       "category_id": "10"
     },
     "requested_privacy": "public",
-    "run_id": "38669990815"
+    "run_id": "38669990815",
+    "video_id": "ylofk_wwd3Q",
+    "url": "https://www.youtube.com/watch?v=ylofk_wwd3Q"
   }
 }
