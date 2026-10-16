@@ -1386,7 +1386,7 @@
     "thumbnail": "set"
   },
   "29ca94d76bb89ead0c508316d6c0182296a5b67afe14c3718d2cb597a52057af": {
-    "state": "reserved",
+    "state": "uploaded",
     "assets": {
       "date": "2026-10-16",
       "day_number": 739905,
@@ -1484,6 +1484,8 @@
       "category_id": "10"
     },
     "requested_privacy": "public",
-    "run_id": "38838686096"
+    "run_id": "38838686096",
+    "video_id": "5s_daHk7RSQ",
+    "url": "https://www.youtube.com/watch?v=5s_daHk7RSQ"
   }
 }
