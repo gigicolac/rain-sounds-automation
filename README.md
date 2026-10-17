@@ -1,5 +1,9 @@
 # Rain Sounds YouTube Automation
 
+See [CUSTOM_CHANNEL_LAUNCH.md](CUSTOM_CHANNEL_LAUNCH.md) for the custom scene
+launch branch, thumbnail treatments, title rotation, audio listening candidates
+and deployment evidence.
+
 The three-hour publishing workflow is documented in
 [THREE_HOUR_PUBLISHING.md](THREE_HOUR_PUBLISHING.md). This version defaults to
 three hours, uses the COZY RAIN thumbnail layout, and schedules a public run at

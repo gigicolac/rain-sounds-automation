@@ -261,6 +261,8 @@ def main():
     opening = f'{length_label(duration_minutes)} of {detail.lower()} for sleep, study and relaxation, featuring the recording "{audio.get("title") or "Rain sounds"}".'
     description = build_description("rain ambience", audio.get("title", "rain sounds"), duration_minutes, video, audio, opening)
 
+    from upload_presentation import thumbnail_variants
+    variants = thumbnail_variants(thumbnail_headline, video, ledger.entries, rng_title)
     assets = {
         "date": date.isoformat(),
         "day_number": day,
@@ -281,6 +283,9 @@ def main():
         "title_options": [title] + [t for t in title_options if t != title][:2],
         "description": description,
         "thumbnail_headline": thumbnail_headline,
+        "thumbnail_style": variants[0]['style'],
+        "thumbnail_side": variants[0]['side'],
+        "thumbnail_variants": variants,
         "tags": [t for t in TAGS if "thunder" not in t and (selection != 'channel' or 'music' not in t)],
         "review_approved": selection != 'channel' and not pair_reasons(audio, video, strict=True),
         "selection_explanation": explanation,

@@ -60,40 +60,14 @@ def wrap_text(draw, text, font, max_width):
     return lines[:MAX_LINES]
 
 
-def compose_thumbnail(title, duration_seconds=None, headline="COZY\nRAIN"):
+def compose_thumbnail(title, duration_seconds=None, headline="COZY\nRAIN", style="stacked", side="left", destination=None):
     image = Image.open(RAW_FRAME_PATH).convert("RGB").resize(THUMB_SIZE, Image.LANCZOS)
     overlay = Image.new("RGBA", THUMB_SIZE, (0, 0, 0, 0))
     draw = ImageDraw.Draw(overlay)
 
-    if duration_seconds and duration_seconds >= 3600:
-        # Approved COZY RAIN layout on the untouched actual video frame.
-        # Keep the right-hand subject and YouTube's bottom-right badge clear.
-        for x in range(780):
-            alpha = int(95 * max(0, 1 - x / 780))
-            draw.line([(x, 0), (x, 720)], fill=(8, 14, 34, alpha))
-        cream = (255, 239, 201, 255)
-        amber = (255, 192, 91, 255)
-        rounded_font = str(ROOT / 'fonts/nunito/Nunito.ttf')
-        badge_font = ImageFont.truetype(rounded_font, 44)
-        badge_font.set_variation_by_axes([1000])
-        hours = duration_seconds // 3600
-        badge = f'{hours} HOUR' + ('S' if hours != 1 else '')
-        badge_width = draw.textlength(badge, font=badge_font) + 54
-        draw.rounded_rectangle((64, 84, 64 + badge_width, 159), radius=38, fill=amber)
-        draw.text((91, 94), badge, font=badge_font, fill=(75, 36, 15, 255))
-        headline_text = headline
-        headline = ImageFont.truetype(rounded_font, 145)
-        headline.set_variation_by_axes([1000])
-        while max(draw.textlength(line, font=headline) for line in headline_text.split('\n')) > 660:
-            headline = ImageFont.truetype(rounded_font, headline.size - 2)
-            headline.set_variation_by_axes([1000])
-        words = headline_text.split('\n')
-        draw.text((57, 174), words[0], font=headline, fill=cream,
-                  stroke_width=1, stroke_fill=cream)
-        draw.text((57, 325), words[1] if len(words) > 1 else 'RAIN', font=headline, fill=cream,
-                  stroke_width=1, stroke_fill=cream)
-        Image.alpha_composite(image.convert('RGBA'), overlay).convert('RGB').save(
-            THUMBNAIL_PATH, 'JPEG', quality=94)
+    if headline:
+        from thumbnail_design import render
+        render(image, duration_seconds, headline, style, side).save(destination or THUMBNAIL_PATH, 'JPEG', quality=94)
         return
 
     font = ImageFont.truetype(FONT_PATH, FONT_SIZE)
@@ -125,7 +99,11 @@ def main():
 
     assets = json.loads(ASSETS_PATH.read_text(encoding="utf-8"))
     extract_frame(assets["duration_seconds"])
-    compose_thumbnail(assets["title"], assets["duration_seconds"], assets.get("thumbnail_headline", "COZY\nRAIN"))
+    compose_thumbnail(assets['title'], assets['duration_seconds'], assets.get('thumbnail_headline', 'COZY\nRAIN'),
+                      assets.get('thumbnail_style', 'stacked'), assets.get('thumbnail_side', 'left'))
+    for index, variant in enumerate(assets.get('thumbnail_variants', []), 1):
+        compose_thumbnail(assets['title'], assets['duration_seconds'], variant['headline'],
+                          variant['style'], variant['side'], RUN_DIR / f'thumbnail-variant-{index}.jpg')
     print(f"Wrote {THUMBNAIL_PATH}")
 
 

@@ -1,9 +1,21 @@
 {
-  "name": "Anime window rain",
-  "visual_direction": "Anime study rooms, cats or studying characters with rain outside the window",
+  "name": "Custom illustrated rain scenes",
+  "visual_direction": "User-approved custom animated scenes; original scene pool retained in the catalogue for recovery",
   "audio_direction": "Steady gentle-to-moderate indoor rain; avoid thunder, voices, music, obvious traffic and distinctive tent or tin-roof sounds",
-  "video_ids": ["local:study-room", "local:pixabay-215407", "local:pixabay-246241", "local:pixabay-271841", "local:pixabay-276498", "local:pixabay-297863", "local:pixabay-310025", "local:pixabay-312345", "local:pixabay-345856", "local:pixabay-376049", "local:pixabay-379719"],
-  "audio_ids": ["695619", "651189", "788146"],
+  "video_ids": [
+    "custom:01-girl-apartment",
+    "custom:02-girl-cabin",
+    "custom:03-boy-attic",
+    "custom:04-boy-library",
+    "custom:05-girl-cat",
+    "custom:09-cat-dog",
+    "custom:10-mug-window"
+  ],
+  "audio_ids": [
+    "695619",
+    "651189",
+    "788146"
+  ],
   "audio_selection_note": "User selected all recordings labelled sounds solid. This includes the city recording with traffic; do not claim traffic-free audio.",
   "scope": "user-selected channel pool; automatic technical checks and source records required for publishing"
 }

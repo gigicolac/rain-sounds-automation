@@ -133,6 +133,7 @@ jobs:
             run/assets.json
             run/upload_result.json
             run/thumbnail.jpg
+            run/thumbnail-variant-*.jpg
             run/history.json
             run/prepared-audio.quality.json
             run/channel-source-quality.json
