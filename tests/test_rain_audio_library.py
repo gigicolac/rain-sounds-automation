@@ -64,6 +64,15 @@ class LibraryTests(LibraryFixture):
         with self.assertRaisesRegex(ValueError,'Full playback'):
             export_ready(self.root,self.base/'export',[self.record['id']])
 
+    def test_restored_review_retains_only_explicit_quality_checks(self):
+        decision={'status':'approved','notes':'User completed both checks','sha256':self.record['sha256'],
+                  'reviewed_at':'2026-10-17','quality':{'full_playback':True,'loop_checked':True},
+                  'labels':{'surface':'leaves'}}
+        self.imported({self.record['id']:decision})
+        asset=read_library(self.root)['assets'][self.record['id']]
+        self.assertEqual(asset['review']['quality'],decision['quality'])
+        self.assertEqual(asset['review']['labels'],decision['labels'])
+
     def test_export_ready_only_approved_checked_asset_and_filtered_pool(self):
         self.imported()
         review(self.root,self.record['id'],'approved','Full source and seam accepted',True,True,True)

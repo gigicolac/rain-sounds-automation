@@ -145,7 +145,9 @@ def import_batch(root, batch, decisions=None):
             asset['status'] = decision['status']
             asset['review'].update(approved=decision['status'] == 'approved', status=decision['status'],
                                    notes=decision['notes'], reviewed_at=decision['reviewed_at'],
-                                   acceptance_scope='User sound approval; full playback and loop checks not inferred')
+                                   quality=decision.get('quality', {}), labels=decision.get('labels', {}),
+                                   acceptance_scope='Recorded user review; only explicitly completed checks are carried forward')
+            asset['intent'] = decision.get('intent', intent)
             asset['decisions'].append(decision)
         save_library(root, library)
     return library

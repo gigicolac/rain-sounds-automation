@@ -128,3 +128,16 @@ The local collection was populated with the six earlier candidates and four new
 creation button. Full-track playback was checked in the browser; this verifies
 player operation, not an additional sound approval. Missing roof audio produced
 an explicit needs-source result. User-approved/rejected decisions were retained.
+
+## Completed sound review
+
+The user completed the collection review on 17 October 2026: eight approved,
+two rejected, no pending or spare assets. Exact checksums and the user's notes
+are saved in `data/rain_audio_review_decisions.json`.
+
+Sparse Drizzle was rejected as too sparse/odd; Light Shower was rejected for
+static-like, unnatural droplets. The recording-based blends were accepted,
+including muffled puddle sounds, leaves, closer rain and the urban variant's
+wind/traffic. Use those notes when creating future candidates; wind/traffic is
+context-specific rather than universally forbidden. Full-source and loop boxes
+were unchecked at this snapshot; publishing readiness remains unconfirmed.

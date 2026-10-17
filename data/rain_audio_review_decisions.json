@@ -1,14 +1,174 @@
 {
+  "custom-audio:v2-sparse-drizzle": {
+    "status": "rejected",
+    "notes": "too sparse - sounds odd",
+    "sha256": "8d79cd4946e6202143d331f4d82b8afcefabc4767c02d982caa0b610a85aa0d7",
+    "reviewed_at": "2026-10-17T02:46:20.542187+00:00",
+    "quality": {
+      "full_playback": false,
+      "loop_checked": false
+    },
+    "labels": {},
+    "intent": {
+      "heaviness": "light",
+      "environment": "unlabelled",
+      "vibes": []
+    }
+  },
   "custom-audio:v2-light-shower": {
     "status": "rejected",
-    "notes": "User listening feedback: \"the first one is not great - the rain drop sound itself sounds static-y and unnatural\". Refers to Light Shower in the prior response.",
+    "notes": "the rain drop sound itself sounds static-y and unnatural",
     "sha256": "5a1f0d1cadfc0efa8243d35338f7a545511c8ab88fc4df1b12ff0f4c37c2895b",
-    "reviewed_at": "2026-10-17"
+    "reviewed_at": "2026-10-17T02:46:43.492847+00:00",
+    "quality": {
+      "full_playback": false,
+      "loop_checked": false
+    },
+    "labels": {},
+    "intent": {
+      "heaviness": "light",
+      "environment": "unlabelled",
+      "vibes": []
+    }
+  },
+  "custom-audio:v2-light-blend": {
+    "status": "approved",
+    "notes": "much better - mixture of rain on puddles and on some material",
+    "sha256": "bdf8c63753b06e017fa34ed9001c75f92d1a2139f2e0a81fb54416e79782ef34",
+    "reviewed_at": "2026-10-17T02:47:05.547062+00:00",
+    "quality": {
+      "full_playback": false,
+      "loop_checked": false
+    },
+    "labels": {},
+    "intent": {
+      "heaviness": "light",
+      "environment": "unlabelled",
+      "vibes": []
+    }
   },
   "custom-audio:v2-changing-shower": {
     "status": "approved",
-    "notes": "User listening feedback: \"second one is great\". Refers to Changing Shower in the prior response; accepted as the sound reference. Full playback and loop checks were not explicitly confirmed.",
+    "notes": "this is good",
     "sha256": "0c95e63f16e389121ff93d6e63ac1455e9091d5a16e164fc4b4917a43cf54ab0",
-    "reviewed_at": "2026-10-17"
+    "reviewed_at": "2026-10-17T02:47:15.478936+00:00",
+    "quality": {
+      "full_playback": false,
+      "loop_checked": false
+    },
+    "labels": {},
+    "intent": {
+      "heaviness": "light-to-moderate",
+      "environment": "unlabelled",
+      "vibes": []
+    }
+  },
+  "custom-audio:v2-building-rain": {
+    "status": "approved",
+    "notes": "nice background rain on something that sounds like leaves - and then some closer rain",
+    "sha256": "577ed9e2dabef3d762be4619a0f4b33d1909bab9e9df2276966ffb59e1f050b7",
+    "reviewed_at": "2026-10-17T02:47:39.821151+00:00",
+    "quality": {
+      "full_playback": false,
+      "loop_checked": false
+    },
+    "labels": {},
+    "intent": {
+      "heaviness": "light-to-moderate",
+      "environment": "unlabelled",
+      "vibes": []
+    }
+  },
+  "custom-audio:v2-moderate-rain": {
+    "status": "approved",
+    "notes": "nice moderate rain - leaning towards heavy rain though",
+    "sha256": "1ca4c197a818dfa786eecc00e3bb867900e9870b180f881fa2b2e5bc36e3bfb5",
+    "reviewed_at": "2026-10-17T02:48:00.884777+00:00",
+    "quality": {
+      "full_playback": false,
+      "loop_checked": false
+    },
+    "labels": {},
+    "intent": {
+      "heaviness": "moderate",
+      "environment": "unlabelled",
+      "vibes": []
+    }
+  },
+  "custom-audio:window-drizzle-417-20261017-011856-714260": {
+    "status": "approved",
+    "notes": "puddles muffled is good",
+    "sha256": "4dc849411db5fa660957b06ed629bce7d64e3c139e20bbfc1f6867aba62c5172",
+    "reviewed_at": "2026-10-17T02:48:14.481625+00:00",
+    "quality": {
+      "full_playback": false,
+      "loop_checked": false
+    },
+    "labels": {},
+    "intent": {
+      "heaviness": "light",
+      "environment": "window",
+      "vibes": [
+        "cozy",
+        "sleep"
+      ]
+    }
+  },
+  "custom-audio:forest-steady-417-20261017-011914-932410": {
+    "status": "approved",
+    "notes": "on leaves is good",
+    "sha256": "0207eb4b3aabf2eb304ce19058751e03e622d4650381376ce45d12c98f9c54c3",
+    "reviewed_at": "2026-10-17T02:48:26.970082+00:00",
+    "quality": {
+      "full_playback": false,
+      "loop_checked": false
+    },
+    "labels": {},
+    "intent": {
+      "heaviness": "moderate",
+      "environment": "forest",
+      "vibes": [
+        "immersive",
+        "focus"
+      ]
+    }
+  },
+  "custom-audio:city-rain-417-20261017-011933-891051": {
+    "status": "approved",
+    "notes": "nice with some windy/traffic sounds",
+    "sha256": "fb06e0eaf7360c09890048e6ae33943152a19ad3021c75a23d29b6a749ec2ac4",
+    "reviewed_at": "2026-10-17T02:48:44.225884+00:00",
+    "quality": {
+      "full_playback": false,
+      "loop_checked": false
+    },
+    "labels": {},
+    "intent": {
+      "heaviness": "moderate",
+      "environment": "city",
+      "vibes": [
+        "urban",
+        "evening"
+      ]
+    }
+  },
+  "custom-audio:cabin-evening-123-20261017-012120-376343": {
+    "status": "approved",
+    "notes": "muffled, sounds a little bit underwatery but still solid",
+    "sha256": "2e8bdc6cbfcac64e285bd0c10ecc67dbb38dfd71fccd81863e9a86ae45749f42",
+    "reviewed_at": "2026-10-17T02:49:03.407239+00:00",
+    "quality": {
+      "full_playback": false,
+      "loop_checked": false
+    },
+    "labels": {},
+    "intent": {
+      "heaviness": "light",
+      "environment": "cabin",
+      "vibes": [
+        "warm",
+        "unwind"
+      ]
+    }
   }
 }
