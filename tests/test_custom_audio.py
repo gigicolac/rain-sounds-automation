@@ -58,7 +58,7 @@ class CustomAudioTests(unittest.TestCase):
             root = Path(tmp); (root/'data').mkdir(); (root/'audio').mkdir()
             candidates=root/'candidates'; candidates.mkdir(); source=candidates/'sound.flac';source.write_bytes(b'audio')
             record={'id':'custom-audio:a','path':'sound.flac','sha256':digest(source),'technical_pass':True,
-                    'title':'Custom rain','duration':90,'components':[{'kind':'procedural'}],
+                    'title':'Custom rain','duration':90,'components':[{'kind':'procedural','seed':123,'event_times_seconds':[1.2,2.3]}],
                     'review':{'approved':False,'status':'pending'}}
             (candidates/'candidates.json').write_text(json.dumps([record]))
             with self.assertRaisesRegex(ValueError,'Full listening'):
@@ -76,6 +76,9 @@ class CustomAudioTests(unittest.TestCase):
             self.assertEqual(metadata[0],legacy)
             self.assertEqual(metadata[1]['asset_id'],'custom-audio:a')
             self.assertEqual(metadata[1]['target_lufs'],-29)
+            self.assertEqual(metadata[1]['components'][0]['event_count'],2)
+            self.assertNotIn('event_times_seconds',metadata[1]['components'][0])
+            self.assertEqual(json.loads((candidates/'candidates.json').read_text())[0]['components'][0]['event_times_seconds'],[1.2,2.3])
             a={'video':{'asset_id':'custom:v'},'audio':{'asset_id':'custom-audio:a','freesound_id':None}}
             b={'video':{'asset_id':'custom:v'},'audio':{'asset_id':'custom-audio:b','freesound_id':None}}
             self.assertNotEqual(fingerprint(a),fingerprint(b))

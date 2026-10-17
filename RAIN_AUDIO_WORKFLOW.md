@@ -152,3 +152,15 @@ audio files (170,286,653 bytes; SHA-256
 Its 15-file checksum-verified restore and selection of all eight approved audio
 assets passed locally. Rejected audio is excluded. Private transfer and deployment
 are still pending; the production profile has not been changed.
+
+## Approved private bundle upload
+
+The user explicitly approved the combined private upload. It is stored in the
+existing `shmop/rain-sounds-assets` private repository under release
+`reviewed-rain-audio-2026-10-17`, asset `649358617`. Earlier releases remain intact.
+The task branch now references this bundle and adds the eight approved custom
+tracks alongside the existing three recordings (eleven eligible audio assets).
+The two rejected candidates are excluded. Per-track mastering levels and source
+component records are retained. No publishing schedule, visibility or upload
+history was changed. Deployment still requires merging PR #8; private storage
+upload alone does not change the scheduled publishing pool.

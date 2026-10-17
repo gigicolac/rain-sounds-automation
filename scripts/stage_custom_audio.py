@@ -13,6 +13,17 @@ from asset_library import ROOT, read_json, write_json
 from channel_profile import digest
 
 
+def catalogue_components(components):
+    """Keep seed/recipe provenance; full event schedules remain in library packages."""
+    result = []
+    for component in components:
+        item = {key: value for key, value in component.items() if key != 'event_times_seconds'}
+        if 'event_times_seconds' in component:
+            item['event_count'] = len(component['event_times_seconds'])
+        result.append(item)
+    return result
+
+
 def stage(candidates, ids, root=ROOT):
     candidates = Path(candidates).resolve()
     records = read_json(candidates / 'candidates.json', [])
@@ -43,7 +54,7 @@ def stage(candidates, ids, root=ROOT):
             'source_url': record.get('generator_source_url') or 'https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py',
             **{k: record[k] for k in ('generator_sha256', 'generator_source_url') if k in record},
             'license': 'Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)',
-            'components': record['components'], 'sha256': record['sha256'], 'review': review,
+            'components': catalogue_components(record['components']), 'sha256': record['sha256'], 'review': review,
             'target_lufs': target_lufs}))
     # Check every existing manifest item before changing the catalogue or profile.
     manifest = read_json(root / 'data/channel_asset_manifest.json', [])
