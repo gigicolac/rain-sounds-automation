@@ -11,7 +11,11 @@ def digest(path):
 
 def source_complete(video, audio):
     return all((video.get('source_url'), video.get('license_url'),
-                audio.get('freesound_url'), audio.get('license')))
+                audio.get('source_url') or audio.get('freesound_url'), audio.get('license')))
+
+
+def audio_key(audio):
+    return str(audio.get('asset_id') or audio.get('freesound_id') or audio.get('id'))
 
 
 def choose(root, entries, rng, mode, video_id='', audio_id=''):
@@ -31,6 +35,8 @@ def choose(root, entries, rng, mode, video_id='', audio_id=''):
     for video in videos:
         for audio in audios:
             if any(x.get('review', {}).get('status') == 'rejected' for x in (video, audio)):
+                continue
+            if mode == 'publish' and audio.get('components') and audio.get('review', {}).get('approved') is not True:
                 continue
             relative = video.get('local_path')
             if not relative:
@@ -72,7 +78,9 @@ def publication_ready(assets, root):
         return assets.get('review_approved') is True
     profile = read_json(root / 'data/channel_profile.json', {})
     video, audio = assets['video'], assets['audio']
-    if video.get('asset_id') not in profile.get('video_ids', []) or str(audio.get('freesound_id')) not in profile.get('audio_ids', []):
+    if video.get('asset_id') not in profile.get('video_ids', []) or audio_key(audio) not in profile.get('audio_ids', []):
+        return False
+    if audio.get('components') and audio.get('review', {}).get('approved') is not True:
         return False
     if not source_complete(video, audio):
         return False
@@ -80,5 +88,5 @@ def publication_ready(assets, root):
     output = root / 'run/output.mp4'
     return bool(report.get('passed') is True and output.is_file()
                 and report.get('video_id') == video.get('asset_id')
-                and report.get('audio_id') == str(audio.get('freesound_id'))
+                and report.get('audio_id') == audio_key(audio)
                 and report.get('output_sha256') == digest(output))

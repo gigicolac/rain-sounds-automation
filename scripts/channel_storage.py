@@ -57,7 +57,9 @@ def restore(bundle_path, root=ROOT):
                 raise ValueError('Bundle contents differ from the asset manifest')
             for index, (name, item) in enumerate(expected.items()):
                 destination = (root / name).resolve()
-                destination.relative_to((root / 'scenes').resolve())
+                relative = destination.relative_to(root.resolve())
+                if relative.parts[0] not in {'scenes', 'audio'} or destination.suffix.lower() not in {'.mp4', '.mp3', '.wav', '.flac'}:
+                    raise ValueError('Bundle must contain scene or audio media only')
                 info = bundle.getinfo(name)
                 if info.file_size != item['bytes'] or info.is_dir():
                     raise ValueError('Unexpected asset size')

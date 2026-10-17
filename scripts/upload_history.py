@@ -15,7 +15,7 @@ def fingerprint(assets):
     video = assets['video']
     # Preserve existing Pexels fingerprints exactly, including old ledger reservations.
     video_id = str(video['pexels_id']) if video.get('pexels_id') is not None else video['asset_id']
-    pair = [video_id, str(assets['audio']['freesound_id'])]
+    pair = [video_id, str(assets['audio'].get('asset_id') or assets['audio']['freesound_id'])]
     return hashlib.sha256(json.dumps(pair).encode()).hexdigest()
 
 
@@ -85,7 +85,9 @@ class Ledger:
 
     def reserve(self, assets):
         key = self.check_new(assets)
+        from upload_presentation import variety_record
         self.entries[key] = {'state': 'reserved', 'assets': assets,
+                             'variety': variety_record(assets),
                              'requested_privacy': os.environ.get('UPLOAD_PRIVACY_STATUS') or 'public',
                              'run_id': os.environ.get('GITHUB_RUN_ID')}
         self.save()  # Must succeed before contacting YouTube upload endpoint.

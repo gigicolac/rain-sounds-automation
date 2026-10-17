@@ -150,7 +150,7 @@ def main():
 
     run_ffmpeg(assets)
     if assets.get('selection_explanation', {}).get('policy') == 'channel_profile':
-        from channel_profile import digest
+        from channel_profile import digest, audio_key
         from asset_library import write_json, read_json
         from preflight_assets import measure
         print('Decoding and checking the complete rendered video', flush=True)
@@ -162,7 +162,7 @@ def main():
         audio_streams = [s for s in final_info['streams'] if s['codec_type'] == 'audio']
         audio_duration = float(audio_streams[0].get('duration', 0)) if audio_streams else 0
         report['audio_duration_seconds'] = audio_duration
-        report.update(video_id=assets['video']['asset_id'], audio_id=str(assets['audio']['freesound_id']),
+        report.update(video_id=assets['video']['asset_id'], audio_id=audio_key(assets['audio']),
                       output_sha256=digest(OUTPUT_PATH))
         report['passed'] = bool(report.get('decode_ok') and report.get('width') == 1920
             and report.get('height') == 1080

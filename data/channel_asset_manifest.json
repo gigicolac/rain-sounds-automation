@@ -1,68 +1,37 @@
 [
   {
-    "asset_id": "local:study-room",
-    "path": "scenes/study-room.mp4",
-    "sha256": "2bf1ab4725c9a0b62bd8227f425d4a7ba8a4c790ab73f9806b9c5f7b0e3d267d",
-    "bytes": 190585963
+    "path": "scenes/custom-01-girl-apartment.mp4",
+    "sha256": "86297736004f72a39df918595dd104919317a5a7e9f715ae9ef1503e8eb701f6",
+    "bytes": 5947873
   },
   {
-    "asset_id": "local:pixabay-215407",
-    "path": "scenes/pixabay-215407.mp4",
-    "sha256": "10324dda27faa4fe010bbab16d18091f74ed5ef2594a1f8389f90c35e13e1f9b",
-    "bytes": 21575987
+    "path": "scenes/custom-02-girl-cabin.mp4",
+    "sha256": "67b3a69176802059cbeb5a0914a1bd2b40274a580850f9ad0d401c5917d081bf",
+    "bytes": 5796503
   },
   {
-    "asset_id": "local:pixabay-246241",
-    "path": "scenes/pixabay-246241.mp4",
-    "sha256": "5439790482df539c0e8c5497ef3d79dbae4110cfe8d1fae2efb275561b0b0728",
-    "bytes": 26947038
+    "path": "scenes/custom-03-boy-attic.mp4",
+    "sha256": "5db25f2eed57a680d6e055d500e02729174767b8892ca354e80e28feec420ea0",
+    "bytes": 4428554
   },
   {
-    "asset_id": "local:pixabay-271841",
-    "path": "scenes/pixabay-271841.mp4",
-    "sha256": "3c2d348d15294f3f8f5a0d02d6d519f1f859ae22ad7837841ecf4bc16ebfa10b",
-    "bytes": 27116419
+    "path": "scenes/custom-04-boy-library.mp4",
+    "sha256": "907ac7986effff79052d97b8253e49556c199817c912eb473a5418a468e48f88",
+    "bytes": 3358588
   },
   {
-    "asset_id": "local:pixabay-276498",
-    "path": "scenes/pixabay-276498.mp4",
-    "sha256": "d08bb98834eca4090b962e6d9f272b884da65b5230f6b56f8f9795391500f868",
-    "bytes": 189900842
+    "path": "scenes/custom-05-girl-cat.mp4",
+    "sha256": "da54a187914e2c2b9cbdfd6b761653e6e3ed3f0063c32ca9206e15fe68d03e98",
+    "bytes": 5419468
   },
   {
-    "asset_id": "local:pixabay-297863",
-    "path": "scenes/pixabay-297863.mp4",
-    "sha256": "ab93de768de94e9e11f715ab04b80117a2aa9c7ed3584a5f2ae30633cb6e82a7",
-    "bytes": 28148054
+    "path": "scenes/custom-09-cat-dog.mp4",
+    "sha256": "474363a2d9ef7db9174abed766b35d0a040eedaf60e07d3cbc220f0c26fa334a",
+    "bytes": 5646663
   },
   {
-    "asset_id": "local:pixabay-310025",
-    "path": "scenes/pixabay-310025.mp4",
-    "sha256": "6f81b480d8094f82ba44c77c2cf09b1e956d324eefc1aab683b02b75db82cb88",
-    "bytes": 225621874
-  },
-  {
-    "asset_id": "local:pixabay-312345",
-    "path": "scenes/pixabay-312345.mp4",
-    "sha256": "4f72910be23bd7a8c6937ff0d20a8b8415ee9cf59363bbfba6d297a7849c6c8b",
-    "bytes": 25072733
-  },
-  {
-    "asset_id": "local:pixabay-345856",
-    "path": "scenes/pixabay-345856.mp4",
-    "sha256": "fecfd4aaa925bb0b0bd4b2c9e5c7aa319c339c22dc0881c16993897358e37e85",
-    "bytes": 13466843
-  },
-  {
-    "asset_id": "local:pixabay-376049",
-    "path": "scenes/pixabay-376049.mp4",
-    "sha256": "c2b1b7526866c2a81dadbe095a64b8dc47ed175db93d7a8dbd671000b1451305",
-    "bytes": 1969540
-  },
-  {
-    "asset_id": "local:pixabay-379719",
-    "path": "scenes/pixabay-379719.mp4",
-    "sha256": "a1f16ef69c690e95331a6ff9a630e4180702cff891febda6e6a0d60b47d8f485",
-    "bytes": 4543422
+    "path": "scenes/custom-10-mug-window.mp4",
+    "sha256": "e3adc46f6a986c5e99977631cff2fddf9cf0bb75ecc7c76169d40474157b4147",
+    "bytes": 6138379
   }
 ]

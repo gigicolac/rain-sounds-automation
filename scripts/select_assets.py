@@ -13,6 +13,7 @@ from pathlib import Path
 import requests
 from asset_matching import compatible, title_allowed, labels_for
 from upload_history import Ledger
+from upload_presentation import presentation, unique_title, variety_record, length_label
 from asset_library import curated_videos, choose_pair, pair_reasons
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -140,9 +141,10 @@ def pick_audio_track(rng, video=None):
     return track
 
 
-def build_description(scene_term, audio_title, duration_minutes, video=None):
+def build_description(scene_term, audio_title, duration_minutes, video=None, audio=None, opening=None):
     template = (DATA_DIR / "description_template.txt").read_text(encoding="utf-8")
     return template.format(
+        opening=opening or f"{length_label(duration_minutes)} of {scene_term} for sleep, study and relaxation.",
         duration=duration_minutes,
         scene_term=scene_term,
         channel_name=CHANNEL_NAME,
@@ -151,6 +153,8 @@ def build_description(scene_term, audio_title, duration_minutes, video=None):
         audio_title=audio_title,
         video_source=(video or {}).get("source_url", (video or {}).get("pexels_url", "Pexels")),
         video_license=(video or {}).get("license_url", "https://www.pexels.com/license/"),
+        audio_source=(audio or {}).get("source_url") or (audio or {}).get("freesound_url", "Freesound.org"),
+        audio_license=(audio or {}).get("license", "License not recorded"),
     )
 
 
@@ -243,27 +247,29 @@ def main():
         raise RuntimeError("No title is compatible with the reviewed asset labels")
     title_template = rng_title.choice(title_templates)
     title = title_template.format(duration=duration_minutes)
-    title_options = []
-    if selection == 'channel' and duration_minutes >= 60:
-        hours = duration_minutes // 60
-        length_label = f'{hours} Hour' + ('s' if hours != 1 else '')
-        title_options = [
-            f'Cozy Rainy Evening | {length_label} of Rain Sounds',
-            f'Rain Sounds for Study & Relaxation | {length_label} of Cozy Ambience',
-            f'A Rainy Escape | {length_label} of Rain Ambience',
-        ]
-        title = rng_title.choice(title_options)
-    title = os.environ.get("TITLE_OVERRIDE", "").strip() or title
+    title_options, thumbnail_headline, detail = presentation(video, audio, duration_minutes, ledger.entries, rng_title)
+    if selection == 'channel':
+        # Reviewed shared labels may support settings; retain conservative claim checks.
+        allowed = lambda t: title_allowed(t, audio, video) and not any(
+            word in t.lower() for word in ('no ads', 'ad-free'))
+        title_options = [t for t in title_options if allowed(t)]
+    else:
+        title_options = [title] + [t for t in title_options if allowed(t) and t != title]
+    title = unique_title(title_options, ledger.entries, rng_title, os.environ.get("TITLE_OVERRIDE", "").strip())
     if len(title) > 100 or not allowed(title):
         raise ValueError("Title exceeds 100 characters or makes unsupported claims about the assets")
-    description = build_description("rain ambience", audio.get("title", "rain sounds"), duration_minutes, video)
+    opening = f'{length_label(duration_minutes)} of {detail.lower()} for sleep, study and relaxation, featuring the recording "{audio.get("title") or "Rain sounds"}".'
+    description = build_description("rain ambience", audio.get("title", "rain sounds"), duration_minutes, video, audio, opening)
 
+    from upload_presentation import thumbnail_variants
+    variants = thumbnail_variants(thumbnail_headline, video, ledger.entries, rng_title)
     assets = {
         "date": date.isoformat(),
         "day_number": day,
         "scene_term": video["scene_term"],
         "video": video,
         "audio": {
+            **{k: audio[k] for k in ('asset_id', 'source_url', 'components', 'sha256') if k in audio},
             "filename": audio["filename"],
             "path": str((AUDIO_DIR / audio["filename"]).relative_to(ROOT)),
             "title": audio.get("title"),
@@ -277,12 +283,17 @@ def main():
         "title": title,
         "title_options": [title] + [t for t in title_options if t != title][:2],
         "description": description,
+        "thumbnail_headline": thumbnail_headline,
+        "thumbnail_style": variants[0]['style'],
+        "thumbnail_side": variants[0]['side'],
+        "thumbnail_variants": variants,
         "tags": [t for t in TAGS if "thunder" not in t and (selection != 'channel' or 'music' not in t)],
         "review_approved": selection != 'channel' and not pair_reasons(audio, video, strict=True),
         "selection_explanation": explanation,
         "category_id": "10",  # Music
     }
 
+    assets["variety"] = variety_record(assets)
     if mode == "publish":
         ledger.check_new(assets)
     RUN_DIR.mkdir(exist_ok=True)

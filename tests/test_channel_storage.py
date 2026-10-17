@@ -11,6 +11,25 @@ from channel_storage import restore, download
 
 
 class StorageTests(unittest.TestCase):
+    def test_audio_restore_and_nonmedia_rejection(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder); (root/'data').mkdir()
+            sample=root/'sample';sample.write_bytes(b'audio')
+            bundle=root/'bundle.zip'
+            def configure(name):
+                with zipfile.ZipFile(bundle,'w') as archive:
+                    archive.write(sample,name)
+                (root/'data/channel_storage.json').write_text(json.dumps({'bundle_sha256':digest(bundle)}))
+                (root/'data/channel_asset_manifest.json').write_text(json.dumps([
+                    {'path':name,'sha256':digest(sample),'bytes':5}]))
+            configure('audio/custom/rain.flac')
+            restore(bundle,root)
+            self.assertEqual((root/'audio/custom/rain.flac').read_bytes(),b'audio')
+            configure('audio/metadata.json')
+            with self.assertRaisesRegex(ValueError,'media only'):
+                restore(bundle,root)
+            self.assertFalse((root/'audio/metadata.json').exists())
+
     def test_unconfirmed_destination_never_receives_credentials(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder); (root / 'data').mkdir()
