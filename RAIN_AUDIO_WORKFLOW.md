@@ -164,3 +164,12 @@ The two rejected candidates are excluded. Per-track mastering levels and source
 component records are retained. No publishing schedule, visibility or upload
 history was changed. Deployment still requires merging PR #8; private storage
 upload alone does not change the scheduled publishing pool.
+
+Hosted preview [38997267739](https://github.com/gigicolac/rain-sounds-automation/actions/runs/38997267739)
+passed at media/configuration commit `d6bdced`. GitHub restored the complete new
+bundle and rendered `custom-audio:v2-light-blend` with the custom apartment scene.
+The result fully decoded at 1920x1080, with matching 60-second audio/video and
+no detected black intervals. Its mastering target was -29.07 LUFS and the
+prepared audio measured -28.82 LUFS, retaining the quieter level. All 90
+regression tests and the final five staging tests passed. This preview uploaded
+nothing to YouTube; scheduled use of the expanded pool still awaits PR #8 merge.
