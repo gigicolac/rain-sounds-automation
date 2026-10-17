@@ -49,7 +49,7 @@ These are listening candidates, not approved rain recordings. They are not in
 `audio/metadata.json` or the channel's `audio_ids`, so public runs still use the
 three existing tracks. Listen through the full 90-second candidates, including
 the 59- and 75-second source boundaries; approve preferred mixes before adding
-them to the private media bundle and publishing pool. Do not transfer source
+them to the private media bundle and publishing pool. `stage_custom_audio.py` requires explicit dated full-playback and loop approval, preserves legacy metadata, adds distinct custom audio identities, and builds a combined scene/audio bundle. Pending derived audio is blocked from public selection even if accidentally added to the profile. Upload the staged bundle to the same private store and update the storage checksum before deployment. Do not transfer source
 review approval automatically to a derived mix.
 
 Reproduce locally, using a fresh output folder:
@@ -60,7 +60,7 @@ python scripts/create_custom_audio.py --output run/audio-review-new --duration 9
 
 ## Validation and deployment status
 
-- 75 automated tests passed with the project's Python environment. Windows
+- 77 automated tests passed with the project's Python environment. Windows
   sandbox temporary-directory permissions prevented the first run; the same
   suite passed outside that restriction.
 - Local 60-second custom apartment preview: complete decoding, 1920x1080,
@@ -69,8 +69,8 @@ python scripts/create_custom_audio.py --output run/audio-review-new --duration 9
   text moved to the right for six scenes to preserve subjects.
 - Audio candidates require human listening; technical measurements cannot
   establish realism or an audible improvement.
-- Hosted preview and merge status must be recorded after completion. Neither a
-  local preview nor a private asset upload changes scheduled production.
+- Hosted preview [38985344992](https://github.com/gigicolac/rain-sounds-automation/actions/runs/38985344992) succeeded at scene/packaging commit `647990d`. It restored the new private bundle and rendered the custom apartment scene without uploading to YouTube.
+- Pull request [7](https://github.com/gigicolac/rain-sounds-automation/pull/7) awaits merge approval. Scheduled production is unchanged until merge.
 
 After merge, scheduled runs use the custom pool and new presentation system.
 Before merging, fetch current main and rerun affected checks if it changed.

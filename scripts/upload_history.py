@@ -15,7 +15,7 @@ def fingerprint(assets):
     video = assets['video']
     # Preserve existing Pexels fingerprints exactly, including old ledger reservations.
     video_id = str(video['pexels_id']) if video.get('pexels_id') is not None else video['asset_id']
-    pair = [video_id, str(assets['audio']['freesound_id'])]
+    pair = [video_id, str(assets['audio'].get('asset_id') or assets['audio']['freesound_id'])]
     return hashlib.sha256(json.dumps(pair).encode()).hexdigest()
 
 

@@ -153,7 +153,7 @@ def build_description(scene_term, audio_title, duration_minutes, video=None, aud
         audio_title=audio_title,
         video_source=(video or {}).get("source_url", (video or {}).get("pexels_url", "Pexels")),
         video_license=(video or {}).get("license_url", "https://www.pexels.com/license/"),
-        audio_source=(audio or {}).get("freesound_url", "Freesound.org"),
+        audio_source=(audio or {}).get("source_url") or (audio or {}).get("freesound_url", "Freesound.org"),
         audio_license=(audio or {}).get("license", "License not recorded"),
     )
 
@@ -269,6 +269,7 @@ def main():
         "scene_term": video["scene_term"],
         "video": video,
         "audio": {
+            **{k: audio[k] for k in ('asset_id', 'source_url', 'components', 'sha256') if k in audio},
             "filename": audio["filename"],
             "path": str((AUDIO_DIR / audio["filename"]).relative_to(ROOT)),
             "title": audio.get("title"),

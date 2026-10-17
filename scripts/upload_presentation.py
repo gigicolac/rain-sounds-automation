@@ -72,7 +72,9 @@ def variety_record(assets):
     video, audio = assets["video"], assets["audio"]
     return {"scene_id": video.get("asset_id", video.get("pexels_id")),
             "scene_source": video.get("source_url", video.get("pexels_url")),
-            "audio_id": audio.get("freesound_id"), "audio_source": audio.get("freesound_url"),
+            "audio_id": audio.get("asset_id") or audio.get("freesound_id"),
+            "audio_source": audio.get("source_url") or audio.get("freesound_url"),
+            "audio_components": audio.get("components", []),
             "duration_seconds": assets.get("duration_seconds"), "title": assets.get("title"),
             "keyword": assets.get("title", "").split("|")[0].strip(),
             "thumbnail_headline": assets.get("thumbnail_headline"),
