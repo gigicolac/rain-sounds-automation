@@ -1,0 +1,14 @@
+{
+  "custom-audio:v2-light-shower": {
+    "status": "rejected",
+    "notes": "User listening feedback: \"the first one is not great - the rain drop sound itself sounds static-y and unnatural\". Refers to Light Shower in the prior response.",
+    "sha256": "5a1f0d1cadfc0efa8243d35338f7a545511c8ab88fc4df1b12ff0f4c37c2895b",
+    "reviewed_at": "2026-10-17"
+  },
+  "custom-audio:v2-changing-shower": {
+    "status": "approved",
+    "notes": "User listening feedback: \"second one is great\". Refers to Changing Shower in the prior response; accepted as the sound reference. Full playback and loop checks were not explicitly confirmed.",
+    "sha256": "0c95e63f16e389121ff93d6e63ac1455e9091d5a16e164fc4b4917a43cf54ab0",
+    "reviewed_at": "2026-10-17"
+  }
+}

@@ -1,6 +1,8 @@
 """Reproducible synthetic rain and licensed-recording blends for listening review.
 
 Candidates remain outside the publishing pool until explicitly reviewed.
+Use rain_audio_library.py for normal asset creation. This lower-level tool also
+retains the earlier six experimental profiles for reproducible comparisons.
 No music, voices or thunder recordings are added; generated texture is sound
 design, not a claim to be a new field recording.
 """
@@ -79,7 +81,7 @@ def droplets(path, duration, seed, rate=12, curve=None):
     return events
 
 
-def create(output, audio_root, duration=90, seed=20261017):
+def create(output, audio_root, duration=90, seed=20261017, profiles=None):
     output, audio_root = Path(output), Path(audio_root)
     if output.exists() and any(output.iterdir()):
         raise ValueError('Use a new output directory; existing candidates are preserved')
@@ -88,8 +90,11 @@ def create(output, audio_root, duration=90, seed=20261017):
     output.mkdir(parents=True, exist_ok=True)
     metadata = read_json(audio_root / 'metadata.json', [])
     records = []
+    profiles = PROFILES if profiles is None else profiles
+    if not profiles:
+        raise ValueError('At least one audio profile is required')
     prepared = {}
-    for source_id in sorted({p['source'] for p in PROFILES if p['source']}):
+    for source_id in sorted({p['source'] for p in profiles if p['source']}):
         source = next(t for t in metadata if str(t['id']) == source_id)
         if source.get('review', {}).get('approved') is not True or source.get('review', {}).get('status') == 'rejected':
             raise ValueError('Blend requires an approved source')
@@ -100,7 +105,7 @@ def create(output, audio_root, duration=90, seed=20261017):
         folder = output / ('source-' + source_id); folder.mkdir()
         prepared[source_id] = folder / 'crossfaded.wav'
         prepare_audio(audio_root / source['filename'], prepared[source_id], duration)
-    for index, profile in enumerate(PROFILES):
+    for index, profile in enumerate(profiles):
         name, source_id = profile['name'], profile['source']
         print('Rendering ' + name, flush=True)
         folder = output / name; folder.mkdir()
@@ -112,7 +117,11 @@ def create(output, audio_root, duration=90, seed=20261017):
         components = [{'kind': 'procedural', 'seed': seed+index,
                        'method': 'sparse unpitched stereo rain transients; no continuous noise generator',
                        'profile': profile, 'event_times_seconds': sorted(round(t,4) for t in events)}]
-        graph = ['[0:a]highpass=f=600:p=2,lowpass=f=7800:p=2[drops]']
+        highpass = profile.get('highpass', 450)
+        lowpass = profile.get('lowpass', 7200)
+        if not 250 <= highpass <= 1000 or not 1200 <= lowpass <= 12000:
+            raise ValueError('Profile filters must retain rain detail and suppress rumble')
+        graph = [f'[0:a]highpass=f=600:p=2,lowpass=f={min(lowpass,7800)}:p=2[drops]']
         inputs = '[drops]'
         if source_id:
             source = next(t for t in metadata if str(t['id']) == source_id)
@@ -120,8 +129,8 @@ def create(output, audio_root, duration=90, seed=20261017):
                 raise ValueError('Blend requires an approved source')
             source_path = audio_root / source['filename']
             command += ['-i', str(prepared[source_id])]
-            graph.append(f'[1:a]highpass=f=450:p=2,highpass=f=450:p=2,'
-                         f'lowpass=f=7200:p=2,volume={profile["bed_db"]}dB,'
+            graph.append(f'[1:a]highpass=f={highpass}:p=2,highpass=f={highpass}:p=2,'
+                         f'lowpass=f={lowpass}:p=2,volume={profile["bed_db"]}dB,'
                          f"volume='{density_expression(duration, profile['curve'])}':eval=frame,"
                          'aformat=sample_rates=48000:channel_layouts=stereo[recording]')
             inputs += '[recording]'
