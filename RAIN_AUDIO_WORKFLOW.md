@@ -141,3 +141,14 @@ including muffled puddle sounds, leaves, closer rain and the urban variant's
 wind/traffic. Use those notes when creating future candidates; wind/traffic is
 context-specific rather than universally forbidden. Full-source and loop boxes
 were unchecked at this snapshot; publishing readiness remains unconfirmed.
+
+The user subsequently explicitly confirmed both complete-track and repeat-boundary
+checks for all eight approved sounds. Those checks are now recorded in the local
+library and the checksum-bound review snapshot. Eight assets were exported to
+`run/ready-rain-20261017/` and staged separately in `run/audio-release-20261017/`.
+The combined bundle contains seven current custom scenes plus eight approved
+audio files (170,286,653 bytes; SHA-256
+`1ee1830c084347c2a40f424500ebeb97bddd35be27b59b2a31046fd26268480c`).
+Its 15-file checksum-verified restore and selection of all eight approved audio
+assets passed locally. Rejected audio is excluded. Private transfer and deployment
+are still pending; the production profile has not been changed.

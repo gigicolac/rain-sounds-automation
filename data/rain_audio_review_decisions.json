@@ -35,10 +35,10 @@
     "status": "approved",
     "notes": "much better - mixture of rain on puddles and on some material",
     "sha256": "bdf8c63753b06e017fa34ed9001c75f92d1a2139f2e0a81fb54416e79782ef34",
-    "reviewed_at": "2026-10-17T02:47:05.547062+00:00",
+    "reviewed_at": "2026-10-17T02:52:48.633854+00:00",
     "quality": {
-      "full_playback": false,
-      "loop_checked": false
+      "full_playback": true,
+      "loop_checked": true
     },
     "labels": {},
     "intent": {
@@ -51,10 +51,10 @@
     "status": "approved",
     "notes": "this is good",
     "sha256": "0c95e63f16e389121ff93d6e63ac1455e9091d5a16e164fc4b4917a43cf54ab0",
-    "reviewed_at": "2026-10-17T02:47:15.478936+00:00",
+    "reviewed_at": "2026-10-17T02:52:48.633854+00:00",
     "quality": {
-      "full_playback": false,
-      "loop_checked": false
+      "full_playback": true,
+      "loop_checked": true
     },
     "labels": {},
     "intent": {
@@ -67,10 +67,10 @@
     "status": "approved",
     "notes": "nice background rain on something that sounds like leaves - and then some closer rain",
     "sha256": "577ed9e2dabef3d762be4619a0f4b33d1909bab9e9df2276966ffb59e1f050b7",
-    "reviewed_at": "2026-10-17T02:47:39.821151+00:00",
+    "reviewed_at": "2026-10-17T02:52:48.633854+00:00",
     "quality": {
-      "full_playback": false,
-      "loop_checked": false
+      "full_playback": true,
+      "loop_checked": true
     },
     "labels": {},
     "intent": {
@@ -83,10 +83,10 @@
     "status": "approved",
     "notes": "nice moderate rain - leaning towards heavy rain though",
     "sha256": "1ca4c197a818dfa786eecc00e3bb867900e9870b180f881fa2b2e5bc36e3bfb5",
-    "reviewed_at": "2026-10-17T02:48:00.884777+00:00",
+    "reviewed_at": "2026-10-17T02:52:48.633854+00:00",
     "quality": {
-      "full_playback": false,
-      "loop_checked": false
+      "full_playback": true,
+      "loop_checked": true
     },
     "labels": {},
     "intent": {
@@ -99,10 +99,10 @@
     "status": "approved",
     "notes": "puddles muffled is good",
     "sha256": "4dc849411db5fa660957b06ed629bce7d64e3c139e20bbfc1f6867aba62c5172",
-    "reviewed_at": "2026-10-17T02:48:14.481625+00:00",
+    "reviewed_at": "2026-10-17T02:52:48.633854+00:00",
     "quality": {
-      "full_playback": false,
-      "loop_checked": false
+      "full_playback": true,
+      "loop_checked": true
     },
     "labels": {},
     "intent": {
@@ -118,10 +118,10 @@
     "status": "approved",
     "notes": "on leaves is good",
     "sha256": "0207eb4b3aabf2eb304ce19058751e03e622d4650381376ce45d12c98f9c54c3",
-    "reviewed_at": "2026-10-17T02:48:26.970082+00:00",
+    "reviewed_at": "2026-10-17T02:52:48.633854+00:00",
     "quality": {
-      "full_playback": false,
-      "loop_checked": false
+      "full_playback": true,
+      "loop_checked": true
     },
     "labels": {},
     "intent": {
@@ -137,10 +137,10 @@
     "status": "approved",
     "notes": "nice with some windy/traffic sounds",
     "sha256": "fb06e0eaf7360c09890048e6ae33943152a19ad3021c75a23d29b6a749ec2ac4",
-    "reviewed_at": "2026-10-17T02:48:44.225884+00:00",
+    "reviewed_at": "2026-10-17T02:52:48.633854+00:00",
     "quality": {
-      "full_playback": false,
-      "loop_checked": false
+      "full_playback": true,
+      "loop_checked": true
     },
     "labels": {},
     "intent": {
@@ -156,10 +156,10 @@
     "status": "approved",
     "notes": "muffled, sounds a little bit underwatery but still solid",
     "sha256": "2e8bdc6cbfcac64e285bd0c10ecc67dbb38dfd71fccd81863e9a86ae45749f42",
-    "reviewed_at": "2026-10-17T02:49:03.407239+00:00",
+    "reviewed_at": "2026-10-17T02:52:48.633854+00:00",
     "quality": {
-      "full_playback": false,
-      "loop_checked": false
+      "full_playback": true,
+      "loop_checked": true
     },
     "labels": {},
     "intent": {
