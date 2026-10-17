@@ -71,7 +71,7 @@ def run_ffmpeg(assets):
     audio_path = ROOT / assets["audio"]["path"]
     duration_seconds = assets["duration_seconds"]
     prepared = RUN_DIR / "prepared-audio.wav"
-    prepare_audio(audio_path, prepared, duration_seconds)
+    prepare_audio(audio_path, prepared, duration_seconds, target_lufs=assets['audio'].get('target_lufs', -20))
     info = probe(SCENE_PATH)
     stream = next(s for s in info["streams"] if s["codec_type"] == "video")
     length = float(info["format"]["duration"])

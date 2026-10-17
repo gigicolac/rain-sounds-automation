@@ -21,6 +21,9 @@ def stage(candidates, ids, root=ROOT):
         raise ValueError('Supply exact candidate identifiers from candidates.json')
     staged = []
     for record in selected:
+        target_lufs = record.get('target_lufs', -20)
+        if not isinstance(target_lufs, (int, float)) or not -40 <= target_lufs <= -20:
+            raise ValueError('Candidate loudness target must be between -40 and -20 LUFS')
         review = record.get('review', {})
         if (review.get('approved') is not True or review.get('status') != 'approved'
                 or not review.get('notes') or not review.get('reviewed_at')
@@ -37,9 +40,11 @@ def stage(candidates, ids, root=ROOT):
             raise ValueError('Existing audio differs; preserve and resolve manually')
         staged.append((source, destination, {'id': record['id'], 'asset_id': record['id'],
             'filename': filename, 'title': record['title'], 'duration': record['duration'],
-            'source_url': 'https://github.com/gigicolac/rain-sounds-automation/blob/codex/custom-channel-launch/scripts/create_custom_audio.py',
+            'source_url': record.get('generator_source_url') or 'https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py',
+            **{k: record[k] for k in ('generator_sha256', 'generator_source_url') if k in record},
             'license': 'Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)',
-            'components': record['components'], 'sha256': record['sha256'], 'review': review}))
+            'components': record['components'], 'sha256': record['sha256'], 'review': review,
+            'target_lufs': target_lufs}))
     # Check every existing manifest item before changing the catalogue or profile.
     manifest = read_json(root / 'data/channel_asset_manifest.json', [])
     for item in manifest:
