@@ -1489,5 +1489,170 @@
     "url": "https://www.youtube.com/watch?v=5s_daHk7RSQ",
     "actual_privacy": "public",
     "thumbnail": "set"
+  },
+  "673435ab538ef5ab49a1abb8338d68c844c8f4b8f8d544f43c3c1661c4373e21": {
+    "state": "reserved",
+    "assets": {
+      "date": "2026-10-17",
+      "day_number": 739906,
+      "scene_term": "anime window rain ambience",
+      "video": {
+        "asset_id": "custom:10-mug-window",
+        "local_path": "scenes/custom-10-mug-window.mp4",
+        "source_url": "https://github.com/shmop/rain-sounds-assets/releases/tag/custom-scenes-2026-10-17",
+        "license_url": "https://openai.com/policies/terms-of-use/",
+        "source_record_origin": "User-created image_gen scene and exact user-approved animation preview",
+        "generator": "built-in image_gen",
+        "sha256": "e3adc46f6a986c5e99977631cff2fddf9cf0bb75ecc7c76169d40474157b4147",
+        "width": 1920,
+        "height": 1080,
+        "duration": 10.0,
+        "thumbnail_text_side": "right",
+        "review": {
+          "approved": true,
+          "status": "approved",
+          "labels": {},
+          "notes": "User approved master and animation preview.",
+          "approval_scope": "master and exact animation preview; content labels remain unknown"
+        },
+        "custom_scene": {
+          "scene_id": "10-mug-window",
+          "preview": "source-warp-preview-v1.mp4",
+          "master_sha256": "7ff8e174003b351b3ffd57183be09077a990d95282b1128c07080f85c286520f"
+        },
+        "scene_term": "anime window rain ambience"
+      },
+      "audio": {
+        "filename": "651189.mp3",
+        "path": "audio/651189.mp3",
+        "title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald",
+        "freesound_id": 651189,
+        "freesound_url": "https://freesound.org/s/651189/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "review": {
+          "approved": true,
+          "labels": {
+            "setting": "forest",
+            "intensity": "heavy",
+            "surface": "leaves",
+            "perspective": "outdoors",
+            "thunder": false,
+            "traffic": false,
+            "animals": false,
+            "music": false,
+            "voices": false
+          },
+          "notes": "sounds solid",
+          "quality": {
+            "full_playback": true,
+            "loop_checked": true,
+            "clean_recording": true,
+            "no_clipping": true
+          },
+          "status": "approved",
+          "reviewed_at": "2026-10-01T04:47:29.990552+00:00"
+        }
+      },
+      "duration_minutes": 180,
+      "duration_seconds": 10800,
+      "title": "Stay In With Rain Sounds | 3 Hours",
+      "title_options": [
+        "Stay In With Rain Sounds | 3 Hours",
+        "Cozy Rain Ambience | 3 Hours",
+        "A Cozy Escape With Rain | 3 Hours"
+      ],
+      "description": "3 Hours of cozy rain ambience for sleep, study and relaxation, featuring the recording \"Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald\".\n\nSubscribe to Calming Rain Sounds (@calmingrainsoundssss) for more rain ambience.\n\nThis session pairs the selected visual scene with the recording \"Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald\". The source details below identify the footage and audio used for this upload.\n\n#rainsounds #rain #sleep #relaxation #ambience #whitenoise #study\n\n---\nVideo source: https://github.com/shmop/rain-sounds-assets/releases/tag/custom-scenes-2026-10-17\nVideo license: https://openai.com/policies/terms-of-use/\nAudio recording: \"Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald\"\nAudio source: https://freesound.org/s/651189/\nAudio license: http://creativecommons.org/publicdomain/zero/1.0/\n",
+      "thumbnail_headline": "COZY\nRAIN",
+      "thumbnail_style": "stacked",
+      "thumbnail_side": "right",
+      "thumbnail_variants": [
+        {
+          "headline": "COZY\nRAIN",
+          "style": "stacked",
+          "side": "right"
+        },
+        {
+          "headline": "COZY\nRAIN",
+          "style": "accent",
+          "side": "right"
+        },
+        {
+          "headline": "COZY\nRAIN",
+          "style": "panel",
+          "side": "right"
+        }
+      ],
+      "tags": [
+        "rain sounds",
+        "rain sounds for sleeping",
+        "rain ambience",
+        "sleep sounds",
+        "relaxing rain",
+        "white noise",
+        "rain sounds for studying",
+        "calming rain",
+        "ambient rain",
+        "deep sleep"
+      ],
+      "review_approved": false,
+      "selection_explanation": {
+        "policy": "channel_profile",
+        "strict_review": false,
+        "rotation": "Use every available scene once per cycle before repeating; prefer less recent and less-used scenes within a cycle; never reuse a reserved pair."
+      },
+      "category_id": "10",
+      "variety": {
+        "scene_id": "custom:10-mug-window",
+        "scene_source": "https://github.com/shmop/rain-sounds-assets/releases/tag/custom-scenes-2026-10-17",
+        "audio_id": 651189,
+        "audio_source": "https://freesound.org/s/651189/",
+        "audio_components": [],
+        "duration_seconds": 10800,
+        "title": "Stay In With Rain Sounds | 3 Hours",
+        "keyword": "Stay In With Rain Sounds",
+        "thumbnail_headline": "COZY\nRAIN",
+        "thumbnail_style": "stacked",
+        "description_opening": "3 Hours of cozy rain ambience for sleep, study and relaxation, featuring the recording \"Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald\".",
+        "verified_video_labels": {},
+        "verified_audio_labels": {
+          "setting": "forest",
+          "intensity": "heavy",
+          "surface": "leaves",
+          "perspective": "outdoors",
+          "thunder": false,
+          "traffic": false,
+          "animals": false,
+          "music": false,
+          "voices": false
+        }
+      }
+    },
+    "variety": {
+      "scene_id": "custom:10-mug-window",
+      "scene_source": "https://github.com/shmop/rain-sounds-assets/releases/tag/custom-scenes-2026-10-17",
+      "audio_id": 651189,
+      "audio_source": "https://freesound.org/s/651189/",
+      "audio_components": [],
+      "duration_seconds": 10800,
+      "title": "Stay In With Rain Sounds | 3 Hours",
+      "keyword": "Stay In With Rain Sounds",
+      "thumbnail_headline": "COZY\nRAIN",
+      "thumbnail_style": "stacked",
+      "description_opening": "3 Hours of cozy rain ambience for sleep, study and relaxation, featuring the recording \"Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald\".",
+      "verified_video_labels": {},
+      "verified_audio_labels": {
+        "setting": "forest",
+        "intensity": "heavy",
+        "surface": "leaves",
+        "perspective": "outdoors",
+        "thunder": false,
+        "traffic": false,
+        "animals": false,
+        "music": false,
+        "voices": false
+      }
+    },
+    "requested_privacy": "public",
+    "run_id": "38993158786"
   }
 }
