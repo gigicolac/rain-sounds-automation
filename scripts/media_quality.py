@@ -38,8 +38,10 @@ def audio_report(path):
             "silence_seconds": silence, "warnings": warnings,
             "limitation": "Measurements do not identify setting, thunder, voices or prove a clean recording."}
 
-def prepare_audio(source, destination, duration, fade=2.0):
+def prepare_audio(source, destination, duration, fade=2.0, target_lufs=-20):
     """Crossfade repeated copies, then measure and normalize the finished loop in two passes."""
+    if not isinstance(target_lufs, (int, float)) or not -40 <= target_lufs <= -20:
+        raise ValueError('Audio loudness target must be between -40 and -20 LUFS')
     info = probe(source)
     print(f'Preparing {duration} seconds of crossfaded audio', flush=True)
     length = float(info["format"]["duration"])
@@ -94,9 +96,10 @@ def prepare_audio(source, destination, duration, fade=2.0):
     measured = report["loudness"]
     if any(str(measured[k]).lower() in {"-inf", "inf", "nan"} for k in ("input_i", "input_tp", "input_lra", "input_thresh")):
         raise ValueError("Audio is silent or invalid; cannot normalize")
-    normalization = (f"loudnorm=I=-20:TP=-2:LRA=7:measured_I={measured['input_i']}:"
+    offset = measured['target_offset'] if target_lufs == -20 else 0
+    normalization = (f"loudnorm=I={target_lufs}:TP=-2:LRA=7:measured_I={measured['input_i']}:"
                      f"measured_TP={measured['input_tp']}:measured_LRA={measured['input_lra']}:"
-                     f"measured_thresh={measured['input_thresh']}:offset={measured['target_offset']}:"
+                     f"measured_thresh={measured['input_thresh']}:offset={offset}:"
                      "linear=true")
     print('Normalizing the complete audio loop', flush=True)
     subprocess.run([ffmpeg(), "-hide_banner", "-loglevel", "error", "-y", "-i", str(raw),
@@ -104,6 +107,7 @@ def prepare_audio(source, destination, duration, fade=2.0):
                     "-ar", "48000", "-c:a", "pcm_s24le", '-rf64', 'auto', str(destination)], check=True)
     print('Checking normalized audio loudness and peaks', flush=True)
     report["normalized_output"] = audio_report(destination)
+    report['target_lufs'] = target_lufs
     actual = float(probe(destination)['format']['duration'])
     report['output_duration_seconds'] = actual
     if abs(actual - duration) > 0.1:

@@ -269,7 +269,7 @@ def main():
         "scene_term": video["scene_term"],
         "video": video,
         "audio": {
-            **{k: audio[k] for k in ('asset_id', 'source_url', 'components', 'sha256') if k in audio},
+            **{k: audio[k] for k in ('asset_id', 'source_url', 'components', 'sha256', 'target_lufs') if k in audio},
             "filename": audio["filename"],
             "path": str((AUDIO_DIR / audio["filename"]).relative_to(ROOT)),
             "title": audio.get("title"),
