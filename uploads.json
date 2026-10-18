@@ -1658,5 +1658,170 @@
     "url": "https://www.youtube.com/watch?v=-YMxfNtrsgM",
     "actual_privacy": "public",
     "thumbnail": "set"
+  },
+  "27b440ec9c72a155b30e3b0da8f90746e05e8bebad43325549681d0977378f31": {
+    "state": "reserved",
+    "assets": {
+      "date": "2026-10-18",
+      "day_number": 739907,
+      "scene_term": "anime window rain ambience",
+      "video": {
+        "asset_id": "custom:01-girl-apartment",
+        "local_path": "scenes/custom-01-girl-apartment.mp4",
+        "source_url": "https://github.com/shmop/rain-sounds-assets/releases/tag/custom-scenes-2026-10-17",
+        "license_url": "https://openai.com/policies/terms-of-use/",
+        "source_record_origin": "User-created image_gen scene and exact user-approved animation preview",
+        "generator": "built-in image_gen",
+        "sha256": "86297736004f72a39df918595dd104919317a5a7e9f715ae9ef1503e8eb701f6",
+        "width": 1920,
+        "height": 1080,
+        "duration": 10.0,
+        "thumbnail_text_side": "right",
+        "review": {
+          "approved": true,
+          "status": "approved",
+          "labels": {},
+          "notes": "User explicitly approved source-warp-preview-v5.mp4: stronger breathing, independent lamp glow and centered steam. Approval covers the source-warp package, not unused cutout drafts. Local active library only.",
+          "approval_scope": "master and exact animation preview; content labels remain unknown"
+        },
+        "custom_scene": {
+          "scene_id": "01-girl-apartment",
+          "preview": "source-warp-preview-v5.mp4",
+          "master_sha256": "670952fc24cb053a6330597e1eb082e9e428cb3dbbc56ab25cb7a5f8db4c8218"
+        },
+        "scene_term": "anime window rain ambience"
+      },
+      "audio": {
+        "filename": "695619.mp3",
+        "path": "audio/695619.mp3",
+        "title": "Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav",
+        "freesound_id": 695619,
+        "freesound_url": "https://freesound.org/s/695619/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "review": {
+          "approved": true,
+          "labels": {
+            "setting": "lake",
+            "intensity": "moderate",
+            "surface": "mixed",
+            "perspective": "outdoors",
+            "thunder": false,
+            "traffic": false,
+            "animals": false,
+            "music": false,
+            "voices": false
+          },
+          "notes": "sounds solid",
+          "quality": {
+            "full_playback": true,
+            "loop_checked": true,
+            "clean_recording": true,
+            "no_clipping": true
+          },
+          "status": "approved",
+          "reviewed_at": "2026-10-01T04:47:29.990552+00:00"
+        }
+      },
+      "duration_minutes": 180,
+      "duration_seconds": 10800,
+      "title": "Rain for a Quiet Moment | 3 Hours",
+      "title_options": [
+        "Rain for a Quiet Moment | 3 Hours",
+        "Rain Sounds to Unwind | 3 Hours",
+        "Take a Rainy Break | 3 Hours"
+      ],
+      "description": "3 Hours of cozy rain ambience for sleep, study and relaxation, featuring the recording \"Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav\".\n\nSubscribe to Calming Rain Sounds (@calmingrainsoundssss) for more rain ambience.\n\nThis session pairs the selected visual scene with the recording \"Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav\". The source details below identify the footage and audio used for this upload.\n\n#rainsounds #rain #sleep #relaxation #ambience #whitenoise #study\n\n---\nVideo source: https://github.com/shmop/rain-sounds-assets/releases/tag/custom-scenes-2026-10-17\nVideo license: https://openai.com/policies/terms-of-use/\nAudio recording: \"Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav\"\nAudio source: https://freesound.org/s/695619/\nAudio license: http://creativecommons.org/publicdomain/zero/1.0/\n",
+      "thumbnail_headline": "UNWIND\nRAIN",
+      "thumbnail_style": "accent",
+      "thumbnail_side": "right",
+      "thumbnail_variants": [
+        {
+          "headline": "UNWIND\nRAIN",
+          "style": "accent",
+          "side": "right"
+        },
+        {
+          "headline": "UNWIND\nRAIN",
+          "style": "stacked",
+          "side": "right"
+        },
+        {
+          "headline": "UNWIND\nRAIN",
+          "style": "panel",
+          "side": "right"
+        }
+      ],
+      "tags": [
+        "rain sounds",
+        "rain sounds for sleeping",
+        "rain ambience",
+        "sleep sounds",
+        "relaxing rain",
+        "white noise",
+        "rain sounds for studying",
+        "calming rain",
+        "ambient rain",
+        "deep sleep"
+      ],
+      "review_approved": false,
+      "selection_explanation": {
+        "policy": "channel_profile",
+        "strict_review": false,
+        "rotation": "Use every available scene once per cycle before repeating; prefer less recent and less-used scenes within a cycle; never reuse a reserved pair."
+      },
+      "category_id": "10",
+      "variety": {
+        "scene_id": "custom:01-girl-apartment",
+        "scene_source": "https://github.com/shmop/rain-sounds-assets/releases/tag/custom-scenes-2026-10-17",
+        "audio_id": 695619,
+        "audio_source": "https://freesound.org/s/695619/",
+        "audio_components": [],
+        "duration_seconds": 10800,
+        "title": "Rain for a Quiet Moment | 3 Hours",
+        "keyword": "Rain for a Quiet Moment",
+        "thumbnail_headline": "UNWIND\nRAIN",
+        "thumbnail_style": "accent",
+        "description_opening": "3 Hours of cozy rain ambience for sleep, study and relaxation, featuring the recording \"Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav\".",
+        "verified_video_labels": {},
+        "verified_audio_labels": {
+          "setting": "lake",
+          "intensity": "moderate",
+          "surface": "mixed",
+          "perspective": "outdoors",
+          "thunder": false,
+          "traffic": false,
+          "animals": false,
+          "music": false,
+          "voices": false
+        }
+      }
+    },
+    "variety": {
+      "scene_id": "custom:01-girl-apartment",
+      "scene_source": "https://github.com/shmop/rain-sounds-assets/releases/tag/custom-scenes-2026-10-17",
+      "audio_id": 695619,
+      "audio_source": "https://freesound.org/s/695619/",
+      "audio_components": [],
+      "duration_seconds": 10800,
+      "title": "Rain for a Quiet Moment | 3 Hours",
+      "keyword": "Rain for a Quiet Moment",
+      "thumbnail_headline": "UNWIND\nRAIN",
+      "thumbnail_style": "accent",
+      "description_opening": "3 Hours of cozy rain ambience for sleep, study and relaxation, featuring the recording \"Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav\".",
+      "verified_video_labels": {},
+      "verified_audio_labels": {
+        "setting": "lake",
+        "intensity": "moderate",
+        "surface": "mixed",
+        "perspective": "outdoors",
+        "thunder": false,
+        "traffic": false,
+        "animals": false,
+        "music": false,
+        "voices": false
+      }
+    },
+    "requested_privacy": "public",
+    "run_id": "39088450693"
   }
 }
