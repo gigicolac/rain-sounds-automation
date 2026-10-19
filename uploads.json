@@ -1827,5 +1827,170 @@
     "url": "https://www.youtube.com/watch?v=GSPR6XEVWcY",
     "actual_privacy": "public",
     "thumbnail": "set"
+  },
+  "5cba2fed03c3befd55193efbe0c598c77693a88e4500e6e5f9169b16ef665434": {
+    "state": "reserved",
+    "assets": {
+      "date": "2026-10-19",
+      "day_number": 739908,
+      "scene_term": "anime window rain ambience",
+      "video": {
+        "asset_id": "custom:04-boy-library",
+        "local_path": "scenes/custom-04-boy-library.mp4",
+        "source_url": "https://github.com/shmop/rain-sounds-assets/releases/tag/custom-scenes-2026-10-17",
+        "license_url": "https://openai.com/policies/terms-of-use/",
+        "source_record_origin": "User-created image_gen scene and exact user-approved animation preview",
+        "generator": "built-in image_gen",
+        "sha256": "907ac7986effff79052d97b8253e49556c199817c912eb473a5418a468e48f88",
+        "width": 1920,
+        "height": 1080,
+        "duration": 10.0,
+        "thumbnail_text_side": "left",
+        "review": {
+          "approved": true,
+          "status": "approved",
+          "labels": {},
+          "notes": "User approved master and animation preview.",
+          "approval_scope": "master and exact animation preview; content labels remain unknown"
+        },
+        "custom_scene": {
+          "scene_id": "04-boy-library",
+          "preview": "source-warp-preview-v1.mp4",
+          "master_sha256": "17403b395c7d82e0a76f96efc0a05d7bc62c03d3650141f9e67b339ddfeb298d"
+        },
+        "scene_term": "anime window rain ambience"
+      },
+      "audio": {
+        "filename": "695619.mp3",
+        "path": "audio/695619.mp3",
+        "title": "Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav",
+        "freesound_id": 695619,
+        "freesound_url": "https://freesound.org/s/695619/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "review": {
+          "approved": true,
+          "labels": {
+            "setting": "lake",
+            "intensity": "moderate",
+            "surface": "mixed",
+            "perspective": "outdoors",
+            "thunder": false,
+            "traffic": false,
+            "animals": false,
+            "music": false,
+            "voices": false
+          },
+          "notes": "sounds solid",
+          "quality": {
+            "full_playback": true,
+            "loop_checked": true,
+            "clean_recording": true,
+            "no_clipping": true
+          },
+          "status": "approved",
+          "reviewed_at": "2026-10-01T04:47:29.990552+00:00"
+        }
+      },
+      "duration_minutes": 180,
+      "duration_seconds": 10800,
+      "title": "Pause With Rain Sounds | 3 Hours",
+      "title_options": [
+        "Pause With Rain Sounds | 3 Hours",
+        "Your Rain Break | 3 Hours",
+        "A Rainy Reset | 3 Hours"
+      ],
+      "description": "3 Hours of cozy rain ambience for sleep, study and relaxation, featuring the recording \"Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav\".\n\nSubscribe to Calming Rain Sounds (@calmingrainsoundssss) for more rain ambience.\n\nThis session pairs the selected visual scene with the recording \"Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav\". The source details below identify the footage and audio used for this upload.\n\n#rainsounds #rain #sleep #relaxation #ambience #whitenoise #study\n\n---\nVideo source: https://github.com/shmop/rain-sounds-assets/releases/tag/custom-scenes-2026-10-17\nVideo license: https://openai.com/policies/terms-of-use/\nAudio recording: \"Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav\"\nAudio source: https://freesound.org/s/695619/\nAudio license: http://creativecommons.org/publicdomain/zero/1.0/\n",
+      "thumbnail_headline": "RAIN\nBREAK",
+      "thumbnail_style": "panel",
+      "thumbnail_side": "left",
+      "thumbnail_variants": [
+        {
+          "headline": "RAIN\nBREAK",
+          "style": "panel",
+          "side": "left"
+        },
+        {
+          "headline": "RAIN\nBREAK",
+          "style": "stacked",
+          "side": "left"
+        },
+        {
+          "headline": "RAIN\nBREAK",
+          "style": "accent",
+          "side": "left"
+        }
+      ],
+      "tags": [
+        "rain sounds",
+        "rain sounds for sleeping",
+        "rain ambience",
+        "sleep sounds",
+        "relaxing rain",
+        "white noise",
+        "rain sounds for studying",
+        "calming rain",
+        "ambient rain",
+        "deep sleep"
+      ],
+      "review_approved": false,
+      "selection_explanation": {
+        "policy": "channel_profile",
+        "strict_review": false,
+        "rotation": "Use every available scene once per cycle before repeating; prefer less recent and less-used scenes within a cycle; never reuse a reserved pair."
+      },
+      "category_id": "10",
+      "variety": {
+        "scene_id": "custom:04-boy-library",
+        "scene_source": "https://github.com/shmop/rain-sounds-assets/releases/tag/custom-scenes-2026-10-17",
+        "audio_id": 695619,
+        "audio_source": "https://freesound.org/s/695619/",
+        "audio_components": [],
+        "duration_seconds": 10800,
+        "title": "Pause With Rain Sounds | 3 Hours",
+        "keyword": "Pause With Rain Sounds",
+        "thumbnail_headline": "RAIN\nBREAK",
+        "thumbnail_style": "panel",
+        "description_opening": "3 Hours of cozy rain ambience for sleep, study and relaxation, featuring the recording \"Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav\".",
+        "verified_video_labels": {},
+        "verified_audio_labels": {
+          "setting": "lake",
+          "intensity": "moderate",
+          "surface": "mixed",
+          "perspective": "outdoors",
+          "thunder": false,
+          "traffic": false,
+          "animals": false,
+          "music": false,
+          "voices": false
+        }
+      }
+    },
+    "variety": {
+      "scene_id": "custom:04-boy-library",
+      "scene_source": "https://github.com/shmop/rain-sounds-assets/releases/tag/custom-scenes-2026-10-17",
+      "audio_id": 695619,
+      "audio_source": "https://freesound.org/s/695619/",
+      "audio_components": [],
+      "duration_seconds": 10800,
+      "title": "Pause With Rain Sounds | 3 Hours",
+      "keyword": "Pause With Rain Sounds",
+      "thumbnail_headline": "RAIN\nBREAK",
+      "thumbnail_style": "panel",
+      "description_opening": "3 Hours of cozy rain ambience for sleep, study and relaxation, featuring the recording \"Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav\".",
+      "verified_video_labels": {},
+      "verified_audio_labels": {
+        "setting": "lake",
+        "intensity": "moderate",
+        "surface": "mixed",
+        "perspective": "outdoors",
+        "thunder": false,
+        "traffic": false,
+        "animals": false,
+        "music": false,
+        "voices": false
+      }
+    },
+    "requested_privacy": "public",
+    "run_id": "39189195700"
   }
 }
