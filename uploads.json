@@ -1829,7 +1829,7 @@
     "thumbnail": "set"
   },
   "5cba2fed03c3befd55193efbe0c598c77693a88e4500e6e5f9169b16ef665434": {
-    "state": "processed",
+    "state": "complete",
     "assets": {
       "date": "2026-10-19",
       "day_number": 739908,
@@ -1994,6 +1994,7 @@
     "run_id": "39189195700",
     "video_id": "1HIc8Y_Bjoc",
     "url": "https://www.youtube.com/watch?v=1HIc8Y_Bjoc",
-    "actual_privacy": "public"
+    "actual_privacy": "public",
+    "thumbnail": "set"
   }
 }
