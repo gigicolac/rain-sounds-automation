@@ -1996,5 +1996,170 @@
     "url": "https://www.youtube.com/watch?v=1HIc8Y_Bjoc",
     "actual_privacy": "public",
     "thumbnail": "set"
+  },
+  "798823958a2d45d6f095555baf03dc17a5553a1d1e6218f66ae0b5255ba39e9c": {
+    "state": "reserved",
+    "assets": {
+      "date": "2026-10-20",
+      "day_number": 739909,
+      "scene_term": "anime window rain ambience",
+      "video": {
+        "asset_id": "custom:09-cat-dog",
+        "local_path": "scenes/custom-09-cat-dog.mp4",
+        "source_url": "https://github.com/shmop/rain-sounds-assets/releases/tag/custom-scenes-2026-10-17",
+        "license_url": "https://openai.com/policies/terms-of-use/",
+        "source_record_origin": "User-created image_gen scene and exact user-approved animation preview",
+        "generator": "built-in image_gen",
+        "sha256": "474363a2d9ef7db9174abed766b35d0a040eedaf60e07d3cbc220f0c26fa334a",
+        "width": 1920,
+        "height": 1080,
+        "duration": 10.0,
+        "thumbnail_text_side": "right",
+        "review": {
+          "approved": true,
+          "status": "approved",
+          "labels": {},
+          "notes": "User approved master and animation preview.",
+          "approval_scope": "master and exact animation preview; content labels remain unknown"
+        },
+        "custom_scene": {
+          "scene_id": "09-cat-dog",
+          "preview": "source-warp-preview-v1.mp4",
+          "master_sha256": "6c7ac830f151cfc0365766ffcad3eda1b1d608c3fc44f33d35b7d0f79c6937fd"
+        },
+        "scene_term": "anime window rain ambience"
+      },
+      "audio": {
+        "filename": "788146.mp3",
+        "path": "audio/788146.mp3",
+        "title": "WTHR-MIX_RAIN-Underneath Roof Of Hawaii Capitol With Light Rain And Heavy Droplets from Water Runoff Of the Roof With City Traffic And A Siren_YMLT_NONE_85281923",
+        "freesound_id": 788146,
+        "freesound_url": "https://freesound.org/s/788146/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "review": {
+          "approved": true,
+          "labels": {
+            "setting": "city",
+            "intensity": "moderate",
+            "surface": "ground",
+            "perspective": "sheltered",
+            "thunder": false,
+            "traffic": true,
+            "animals": false,
+            "music": false,
+            "voices": false
+          },
+          "notes": "sounds solid",
+          "quality": {
+            "full_playback": true,
+            "loop_checked": true,
+            "clean_recording": true,
+            "no_clipping": true
+          },
+          "status": "approved",
+          "reviewed_at": "2026-10-01T04:47:29.990552+00:00"
+        }
+      },
+      "duration_minutes": 180,
+      "duration_seconds": 10800,
+      "title": "A Quiet Rainy Retreat | 3 Hours",
+      "title_options": [
+        "A Quiet Rainy Retreat | 3 Hours",
+        "Cozy Rain Ambience | 3 Hours",
+        "A Cozy Escape With Rain | 3 Hours"
+      ],
+      "description": "3 Hours of cozy rain ambience for sleep, study and relaxation, featuring the recording \"WTHR-MIX_RAIN-Underneath Roof Of Hawaii Capitol With Light Rain And Heavy Droplets from Water Runoff Of the Roof With City Traffic And A Siren_YMLT_NONE_85281923\".\n\nSubscribe to Calming Rain Sounds (@calmingrainsoundssss) for more rain ambience.\n\nThis session pairs the selected visual scene with the recording \"WTHR-MIX_RAIN-Underneath Roof Of Hawaii Capitol With Light Rain And Heavy Droplets from Water Runoff Of the Roof With City Traffic And A Siren_YMLT_NONE_85281923\". The source details below identify the footage and audio used for this upload.\n\n#rainsounds #rain #sleep #relaxation #ambience #whitenoise #study\n\n---\nVideo source: https://github.com/shmop/rain-sounds-assets/releases/tag/custom-scenes-2026-10-17\nVideo license: https://openai.com/policies/terms-of-use/\nAudio recording: \"WTHR-MIX_RAIN-Underneath Roof Of Hawaii Capitol With Light Rain And Heavy Droplets from Water Runoff Of the Roof With City Traffic And A Siren_YMLT_NONE_85281923\"\nAudio source: https://freesound.org/s/788146/\nAudio license: http://creativecommons.org/publicdomain/zero/1.0/\n",
+      "thumbnail_headline": "COZY\nRAIN",
+      "thumbnail_style": "stacked",
+      "thumbnail_side": "right",
+      "thumbnail_variants": [
+        {
+          "headline": "COZY\nRAIN",
+          "style": "stacked",
+          "side": "right"
+        },
+        {
+          "headline": "COZY\nRAIN",
+          "style": "accent",
+          "side": "right"
+        },
+        {
+          "headline": "COZY\nRAIN",
+          "style": "panel",
+          "side": "right"
+        }
+      ],
+      "tags": [
+        "rain sounds",
+        "rain sounds for sleeping",
+        "rain ambience",
+        "sleep sounds",
+        "relaxing rain",
+        "white noise",
+        "rain sounds for studying",
+        "calming rain",
+        "ambient rain",
+        "deep sleep"
+      ],
+      "review_approved": false,
+      "selection_explanation": {
+        "policy": "channel_profile",
+        "strict_review": false,
+        "rotation": "Use every available scene once per cycle before repeating; prefer less recent and less-used scenes within a cycle; never reuse a reserved pair."
+      },
+      "category_id": "10",
+      "variety": {
+        "scene_id": "custom:09-cat-dog",
+        "scene_source": "https://github.com/shmop/rain-sounds-assets/releases/tag/custom-scenes-2026-10-17",
+        "audio_id": 788146,
+        "audio_source": "https://freesound.org/s/788146/",
+        "audio_components": [],
+        "duration_seconds": 10800,
+        "title": "A Quiet Rainy Retreat | 3 Hours",
+        "keyword": "A Quiet Rainy Retreat",
+        "thumbnail_headline": "COZY\nRAIN",
+        "thumbnail_style": "stacked",
+        "description_opening": "3 Hours of cozy rain ambience for sleep, study and relaxation, featuring the recording \"WTHR-MIX_RAIN-Underneath Roof Of Hawaii Capitol With Light Rain And Heavy Droplets from Water Runoff Of the Roof With City Traffic And A Siren_YMLT_NONE_85281923\".",
+        "verified_video_labels": {},
+        "verified_audio_labels": {
+          "setting": "city",
+          "intensity": "moderate",
+          "surface": "ground",
+          "perspective": "sheltered",
+          "thunder": false,
+          "traffic": true,
+          "animals": false,
+          "music": false,
+          "voices": false
+        }
+      }
+    },
+    "variety": {
+      "scene_id": "custom:09-cat-dog",
+      "scene_source": "https://github.com/shmop/rain-sounds-assets/releases/tag/custom-scenes-2026-10-17",
+      "audio_id": 788146,
+      "audio_source": "https://freesound.org/s/788146/",
+      "audio_components": [],
+      "duration_seconds": 10800,
+      "title": "A Quiet Rainy Retreat | 3 Hours",
+      "keyword": "A Quiet Rainy Retreat",
+      "thumbnail_headline": "COZY\nRAIN",
+      "thumbnail_style": "stacked",
+      "description_opening": "3 Hours of cozy rain ambience for sleep, study and relaxation, featuring the recording \"WTHR-MIX_RAIN-Underneath Roof Of Hawaii Capitol With Light Rain And Heavy Droplets from Water Runoff Of the Roof With City Traffic And A Siren_YMLT_NONE_85281923\".",
+      "verified_video_labels": {},
+      "verified_audio_labels": {
+        "setting": "city",
+        "intensity": "moderate",
+        "surface": "ground",
+        "perspective": "sheltered",
+        "thunder": false,
+        "traffic": true,
+        "animals": false,
+        "music": false,
+        "voices": false
+      }
+    },
+    "requested_privacy": "public",
+    "run_id": "39359332454"
   }
 }
