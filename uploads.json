@@ -1998,7 +1998,7 @@
     "thumbnail": "set"
   },
   "798823958a2d45d6f095555baf03dc17a5553a1d1e6218f66ae0b5255ba39e9c": {
-    "state": "reserved",
+    "state": "uploaded",
     "assets": {
       "date": "2026-10-20",
       "day_number": 739909,
@@ -2160,6 +2160,8 @@
       }
     },
     "requested_privacy": "public",
-    "run_id": "39359332454"
+    "run_id": "39359332454",
+    "video_id": "FQRWfqcIC6g",
+    "url": "https://www.youtube.com/watch?v=FQRWfqcIC6g"
   }
 }
