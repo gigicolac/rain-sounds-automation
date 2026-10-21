@@ -30,4 +30,3 @@ Full suite: 78 tests passed outside the restricted sandbox; the initial run had
 14 temporary-file access errors. Local still-image composition inspected:
 readable headline/badge and no clipping. This does not validate scene motion,
 audio, hosted rendering or publishing. No hosted preview was run.
-
