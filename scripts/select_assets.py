@@ -258,7 +258,7 @@ def main():
     title = unique_title(title_options, ledger.entries, rng_title, os.environ.get("TITLE_OVERRIDE", "").strip())
     if len(title) > 100 or not allowed(title):
         raise ValueError("Title exceeds 100 characters or makes unsupported claims about the assets")
-    opening = f'{length_label(duration_minutes)} of {detail.lower()} for sleep, study and relaxation, featuring the recording "{audio.get("title") or "Rain sounds"}".'
+    opening = f'Rain sounds for sleep, study and relaxation. Enjoy {length_label(duration_minutes).lower()} of {detail.lower()}.'
     description = build_description("rain ambience", audio.get("title", "rain sounds"), duration_minutes, video, audio, opening)
 
     from upload_presentation import thumbnail_variants

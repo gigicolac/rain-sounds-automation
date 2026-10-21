@@ -28,14 +28,19 @@ def presentation(video, audio, minutes, entries, rng):
     if a.get("setting") == v.get("setting") and a.get("setting") in {"window", "forest", "roof", "tent", "lake", "city"}:
         detail = {"window": "Rain on a Window", "forest": "Forest Rain", "roof": "Rain on a Roof",
                   "tent": "Rain on a Tent", "lake": "Lakeside Rain", "city": "City Rain"}[a["setting"]]
-    themes = {
-        'SLEEP\nRAIN': ['Rain Sounds for Sleep', 'Drift Off With Rain', 'Rain for a Restful Night', 'Bedtime Rain Ambience', 'Wind Down With Rain', 'Rain for Your Bedtime Routine'],
-        'STUDY\nRAIN': ['Rain Sounds for Studying', 'Settle Into Study With Rain', 'Rain for Reading', 'Your Rainy Study Break', 'Rain for a Focus Session', 'Rain for Your Reading Hour'],
-        'UNWIND\nRAIN': ['Rain Sounds to Unwind', 'Take a Rainy Break', 'A Little Rain, A Little Rest', 'Slow Down With Rain', 'Rain for a Quiet Moment', 'Leave the Day Behind With Rain'],
-        'COZY\nRAIN': ['Cozy Rain Ambience', 'A Cozy Escape With Rain', 'Stay In With Rain Sounds', 'Make Time for Rain', 'A Quiet Rainy Retreat', 'Rain Sounds for a Cozy Break'],
-        'JUST\nRAIN': ['Just Rain Sounds', 'A Moment With Rain', 'Let the Rain Play', 'Rain Sounds for Your Day', 'Take Your Time With Rain', 'Rain Ambience for a Slow Day'],
-        'RAIN\nBREAK': ['Your Rain Break', 'Pause With Rain Sounds', 'A Rainy Reset', 'Step Away With Rain', 'Rain for a Breathing Space', 'A Short Escape With Rain'],
+    # Keep the searchable purpose first; vary truthful ambience wording only.
+    purposes = {
+        'SLEEP\nRAIN': 'Rain Sounds for Sleeping',
+        'STUDY\nRAIN': 'Rain Sounds for Studying',
+        'UNWIND\nRAIN': 'Rain Sounds for Relaxation',
+        'COZY\nRAIN': 'Rain Sounds for Sleep',
+        'JUST\nRAIN': 'Rain Sounds for Rest',
+        'RAIN\nBREAK': 'Rain Sounds for Reading',
     }
+    moods = ['Cozy Ambience', 'Rain Ambience', 'Cozy Rain',
+             'Rainy Escape', 'Rainy Retreat', 'Rainy Atmosphere']
+    themes = {headline: [f'{keyword} | {mood}' for mood in moods]
+              for headline, keyword in purposes.items()}
     used = {e.get('assets', {}).get('title', '').strip().casefold() for e in entries.values()}
     recent = sorted(entries.values(), key=lambda e: e.get("assets", {}).get("date", ""), reverse=True)
     previous = next((e.get("assets", {}).get("thumbnail_headline") for e in recent
@@ -48,7 +53,7 @@ def presentation(video, audio, minutes, entries, rng):
     headline = rng.choice([h for h in eligible if h != previous] or list(eligible))
     options = eligible[headline]
     if detail != 'Cozy Rain Ambience':
-        specific = f'{detail} | {length}'
+        specific = f'{purposes[headline]} | {detail} | {length}'
         if specific.casefold() not in used:
             options.append(specific)
     return options, headline, detail
@@ -59,13 +64,10 @@ def thumbnail_variants(headline, video, entries, rng):
     side = video.get('thumbnail_text_side', 'left')
     if side not in {'left', 'right'}:
         raise ValueError('thumbnail_text_side must be left or right')
-    styles = ['stacked', 'accent', 'panel']
-    recent = sorted(entries.values(), key=lambda e: e.get('assets', {}).get('date', ''), reverse=True)
-    previous = next((e['assets'].get('thumbnail_style') for e in recent
-                     if e.get('assets', {}).get('thumbnail_style')), None)
-    first = rng.choice([style for style in styles if style != previous])
+    # The published cover always uses the same layout. Alternatives remain
+    # local review artifacts and do not rotate the channel's visual identity.
     return [{'headline': headline, 'style': style, 'side': side}
-            for style in [first] + [s for s in styles if s != first]]
+            for style in ['stacked', 'accent', 'panel']]
 
 
 def variety_record(assets):
