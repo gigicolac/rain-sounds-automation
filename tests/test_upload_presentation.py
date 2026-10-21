@@ -14,6 +14,8 @@ class PresentationTests(unittest.TestCase):
         self.assertTrue(all('3 Hours' in t and len(t) <= 60 for t in options))
         self.assertNotIn('thunder', ' '.join(options).lower())
         self.assertNotIn('window', ' '.join(options).lower())
+        self.assertTrue(all(t.startswith('Rain Sounds for ') for t in options))
+        self.assertNotIn('black screen', ' '.join(options).lower())
 
     def test_setting_requires_both_approved_labels(self):
         reviewed = {'review': {'approved': True, 'labels': {'setting': 'window'}}}
@@ -42,12 +44,12 @@ class PresentationTests(unittest.TestCase):
         self.assertEqual(record['verified_audio_labels'], {})
         self.assertEqual(record['description_opening'], 'Opening')
 
-    def test_three_variants_keep_headline_and_scene_side(self):
+    def test_published_layout_stays_consistent_with_review_variants(self):
         entries = {'old': {'assets': {'date': '2026-10-16', 'thumbnail_style': 'stacked'}}}
         for seed in range(10):
             variants = thumbnail_variants('STUDY\nRAIN', {'thumbnail_text_side': 'right'}, entries, random.Random(seed))
             self.assertEqual(len({v['style'] for v in variants}), 3)
-            self.assertNotEqual(variants[0]['style'], 'stacked')
+            self.assertEqual(variants[0]['style'], 'stacked')
             self.assertTrue(all(v['headline'] == 'STUDY\nRAIN' and v['side'] == 'right' for v in variants))
 
     def test_catalogue_generates_distinct_titles_until_exhausted(self):
