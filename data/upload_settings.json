@@ -1,0 +1,17 @@
+{
+  "language": "en-AU",
+  "category_id": "10",
+  "contains_synthetic_media": true,
+  "has_paid_product_placement": false,
+  "recording_timezone": "Australia/Melbourne",
+  "recording_location": {
+    "description": "Melbourne, Australia",
+    "latitude": -37.8136,
+    "longitude": 144.9631
+  },
+  "playlists": {
+    "COZY\nRAIN": "",
+    "DEEP SLEEP\nRAIN": "",
+    "INSOMNIA\nRAIN": ""
+  }
+}

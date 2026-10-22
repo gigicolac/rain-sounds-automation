@@ -1,5 +1,28 @@
 """Truthful presentation choices and additive variety records for upload history."""
+import json
+from pathlib import Path
+
 from asset_matching import labels_for
+
+COPY_PATH = Path(__file__).resolve().parents[1] / 'data' / 'description_copy.json'
+CHANNEL_URL = 'https://www.youtube.com/@calmingrainsoundssss'
+HASHTAGS = '#rainsounds #rainsoundsforsleeping #sleepsounds #rainasmr #rainforstudy #rainforfocus'
+TAGS = ['rain sounds for sleeping', 'rain sounds for sleep', 'rain sounds', 'sleep sounds',
+        'calming rain sounds', 'rain ambience', 'cozy rain', 'rain for insomnia',
+        'deep sleep rain', 'rain asmr']
+# Highest-volume searches lead every title (vidIQ, Oct 2026).
+KEYWORDS = ('Rain Sounds for Sleeping', 'Rain Sounds for Sleep')
+# Locked thumbnail headlines; each owns outcomes that match its promise.
+THEMES = {
+    'COZY\nRAIN': ('Cozy Rain to Fall Asleep Fast', 'Fall Asleep Fast Tonight', 'Cozy Night Rain to Unwind',
+                   'Unwind and Drift Off', 'Let the Day Melt Away'),
+    'DEEP SLEEP\nRAIN': ('Drift Into Restorative Sleep', 'Fall Asleep Fast and Sleep Deeply',
+                         'Deep Sleep and Total Relaxation', 'Stop Overthinking Tonight', 'Calm Your Mind for Deep Sleep'),
+    'INSOMNIA\nRAIN': ('Calm a Racing Mind', 'For Insomnia and Restless Nights', 'Quiet Your Thoughts',
+                       'Stop Overthinking and Drift Off', 'Calm Your Nervous System'),
+}
+RECENT_WINDOW = 7
+CHAPTER_NAMES = ('Settle in and breathe', 'Drift deeper', 'Deep, restorative rest')
 
 
 def length_label(minutes):
@@ -21,6 +44,11 @@ def unique_title(options, entries, rng, override=""):
     raise ValueError('All eligible titles have been used; add new truthful titles before publishing.')
 
 
+def _outcome(title):
+    parts = [p.strip() for p in title.split('|')]
+    return parts[1].casefold() if len(parts) == 3 else ''
+
+
 def presentation(video, audio, minutes, entries, rng):
     length = length_label(minutes)
     a, v = labels_for(audio), labels_for(video)
@@ -28,35 +56,21 @@ def presentation(video, audio, minutes, entries, rng):
     if a.get("setting") == v.get("setting") and a.get("setting") in {"window", "forest", "roof", "tent", "lake", "city"}:
         detail = {"window": "Rain on a Window", "forest": "Forest Rain", "roof": "Rain on a Roof",
                   "tent": "Rain on a Tent", "lake": "Lakeside Rain", "city": "City Rain"}[a["setting"]]
-    # Keep the searchable purpose first; vary truthful ambience wording only.
-    purposes = {
-        'SLEEP\nRAIN': 'Rain Sounds for Sleeping',
-        'STUDY\nRAIN': 'Rain Sounds for Studying',
-        'UNWIND\nRAIN': 'Rain Sounds for Relaxation',
-        'COZY\nRAIN': 'Rain Sounds for Sleep',
-        'JUST\nRAIN': 'Rain Sounds for Rest',
-        'RAIN\nBREAK': 'Rain Sounds for Reading',
-    }
-    moods = ['Cozy Ambience', 'Rain Ambience', 'Cozy Rain',
-             'Rainy Escape', 'Rainy Retreat', 'Rainy Atmosphere']
-    themes = {headline: [f'{keyword} | {mood}' for mood in moods]
-              for headline, keyword in purposes.items()}
     used = {e.get('assets', {}).get('title', '').strip().casefold() for e in entries.values()}
     recent = sorted(entries.values(), key=lambda e: e.get("assets", {}).get("date", ""), reverse=True)
     previous = next((e.get("assets", {}).get("thumbnail_headline") for e in recent
                      if e.get("assets", {}).get("thumbnail_headline")), None)
-    eligible = {h: [f'{t} | {length}' for t in titles if f'{t} | {length}'.casefold() not in used]
-                for h, titles in themes.items()}
+    # Near-identical titles on consecutive days compete with each other in search.
+    recent_outcomes = {_outcome(e.get('assets', {}).get('title', '')) for e in recent[:RECENT_WINDOW]}
+    eligible = {h: [f'{k} | {o} | {length}' for o in outcomes for k in KEYWORDS
+                    if f'{k} | {o} | {length}'.casefold() not in used]
+                for h, outcomes in THEMES.items()}
     eligible = {h: titles for h, titles in eligible.items() if titles}
     if not eligible:
         raise ValueError('Title catalogue exhausted; add new truthful titles before publishing.')
     headline = rng.choice([h for h in eligible if h != previous] or list(eligible))
-    options = eligible[headline]
-    if detail != 'Cozy Rain Ambience':
-        specific = f'{purposes[headline]} | {detail} | {length}'
-        if specific.casefold() not in used:
-            options.append(specific)
-    return options, headline, detail
+    fresh = [t for t in eligible[headline] if _outcome(t) not in recent_outcomes]
+    return fresh or eligible[headline], headline, detail
 
 
 def thumbnail_variants(headline, video, entries, rng):
@@ -68,6 +82,50 @@ def thumbnail_variants(headline, video, entries, rng):
     # local review artifacts and do not rotate the channel's visual identity.
     return [{'headline': headline, 'style': style, 'side': side}
             for style in ['stacked', 'accent', 'panel']]
+
+
+def timestamp(seconds):
+    hours, rest = divmod(int(seconds), 3600)
+    minutes, secs = divmod(rest, 60)
+    return f'{hours}:{minutes:02}:{secs:02}' if hours else f'{minutes}:{secs:02}'
+
+
+def chapters(minutes):
+    # YouTube needs three or more chapters starting at 0:00, each 10 seconds or longer.
+    if minutes < 30:
+        return ''
+    marks = [index * minutes * 60 // len(CHAPTER_NAMES) for index in range(len(CHAPTER_NAMES))]
+    return 'Chapters\n' + '\n'.join(f'{timestamp(m)} {name}' for m, name in zip(marks, CHAPTER_NAMES))
+
+
+def audio_credit(audio):
+    source = audio.get('source_url') or audio.get('freesound_url') or ''
+    where = 'Freesound.org' if 'freesound.org' in source else (source or 'an unrecorded source')
+    license_text = audio.get('license') or 'a license that was not recorded'
+    if 'publicdomain/zero' in license_text:
+        license_text = 'Creative Commons 0 (public domain)'
+    return f'sourced from {where}, released under {license_text}'
+
+
+def theme_copy(headline):
+    return json.loads(COPY_PATH.read_text(encoding='utf-8'))[headline]
+
+
+def description_parts(headline, minutes, audio, rng, clean):
+    """Brand-voice copy. Audio claims appear only when listening review confirmed them."""
+    copy = theme_copy(headline)
+    return {
+        'opening': rng.choice(copy['openings']).format(length=length_label(minutes).lower()),
+        'body': '\n\n'.join(copy['body']),
+        'clean_line': 'Just rain. No music, no voices, no traffic.' if clean else '',
+        'chapters': chapters(minutes),
+        'audio_credit': audio_credit(audio),
+        'channel_url': CHANNEL_URL,
+    }
+
+
+def pinned_comment(headline, rng):
+    return rng.choice(theme_copy(headline)['pinned_comments'])
 
 
 def variety_record(assets):

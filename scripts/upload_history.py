@@ -75,10 +75,12 @@ class Ledger:
         key = fingerprint(assets)
         if key in self.entries:
             raise RuntimeError('This source video/audio pair is already reserved or uploaded. Use resume_video_id for an existing upload.')
+        # A scheduled release is private until publishAt, but it is the day's public video.
         if any(e['assets']['date'] == assets['date'] and not (
                 (os.environ.get('UPLOAD_PRIVACY_STATUS') or 'public') == 'public'
                 and e.get('state') == 'complete'
-                and e.get('actual_privacy') in ('private', 'unlisted'))
+                and e.get('actual_privacy') in ('private', 'unlisted')
+                and not e.get('publish_at'))
                for e in self.entries.values()):
             raise RuntimeError('An upload is already reserved for this date. Review history or resume it before starting another.')
         return key

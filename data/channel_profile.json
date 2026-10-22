@@ -1,7 +1,7 @@
 {
   "name": "Custom illustrated rain scenes",
   "visual_direction": "User-approved custom animated scenes; original scene pool retained in the catalogue for recovery",
-  "audio_direction": "Steady gentle-to-moderate indoor rain; avoid thunder, voices, music, obvious traffic and distinctive tent or tin-roof sounds",
+  "audio_direction": "Clean, steady rain only. Listening review must confirm no traffic, sirens, voices, music, thunder or animals; the pipeline rejects recordings without those confirmations.",
   "video_ids": [
     "custom:01-girl-apartment",
     "custom:02-girl-cabin",
@@ -13,9 +13,10 @@
   ],
   "audio_ids": [
     "695619",
-    "651189",
-    "788146"
+    "651189"
   ],
-  "audio_selection_note": "User selected all recordings labelled sounds solid. This includes the city recording with traffic; do not claim traffic-free audio.",
-  "scope": "user-selected channel pool; automatic technical checks and source records required for publishing"
+  "audio_selection_note": "788146 (city recording with traffic and a siren) removed 2026-10-22 after the Oct 20 upload: sleep viewers leave at the first siren. Only clean rain is eligible.",
+  "scope": "user-selected channel pool; automatic technical checks and source records required for publishing",
+  "thumbnail_scene_id": "custom:10-mug-window",
+  "thumbnail_frame_seconds": 4.0
 }

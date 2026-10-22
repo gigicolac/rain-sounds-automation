@@ -2,6 +2,19 @@
 import hashlib
 import re
 from asset_library import read_json, identity
+from asset_matching import labels_for
+
+# Sleep viewers leave at the first siren or car horn, which cuts watch time.
+CLEAN_RAIN_ABSENT = ('traffic', 'voices', 'music', 'thunder', 'animals')
+UNSAFE_AUDIO_TITLE = re.compile(r'traffic|siren|horn|\bcars?\b|voices?|crowd|people|music|thunder', re.I)
+
+
+def clean_rain(audio):
+    """Listening review must confirm each distraction is absent; unknown is not absent."""
+    labels = labels_for(audio)
+    if not all(labels.get(key) is False for key in CLEAN_RAIN_ABSENT):
+        return False
+    return not UNSAFE_AUDIO_TITLE.search(audio.get('title') or '')
 
 
 def digest(path):
@@ -36,6 +49,9 @@ def choose(root, entries, rng, mode, video_id='', audio_id=''):
         for audio in audios:
             if any(x.get('review', {}).get('status') == 'rejected' for x in (video, audio)):
                 continue
+            # Previews stay open so new recordings can be listened to before review.
+            if mode == 'publish' and not clean_rain(audio):
+                continue
             if mode == 'publish' and audio.get('components') and audio.get('review', {}).get('approved') is not True:
                 continue
             relative = video.get('local_path')
@@ -52,7 +68,9 @@ def choose(root, entries, rng, mode, video_id='', audio_id=''):
                 continue
             pairs.append((int(vid in recent_ids), counts.get(vid, 0), rng.random(), video, audio))
     if not pairs:
-        raise RuntimeError('No unused channel pair with available files and required source records. Check storage, source links and history; no unrelated fallback is used.')
+        raise RuntimeError('No unused channel pair with available files, required source records and listening-confirmed clean rain '
+                           '(no traffic, voices, music, thunder or animals). Check storage, source links, audio reviews and history; '
+                           'no unrelated fallback is used.')
     # Reconstruct the current scene cycle from the persistent ledger. Reservations
     # count too: an uncertain upload must not make its scene look unused.
     available_ids = {identity(p[3], 'video') for p in pairs}
@@ -81,6 +99,8 @@ def publication_ready(assets, root):
     if video.get('asset_id') not in profile.get('video_ids', []) or audio_key(audio) not in profile.get('audio_ids', []):
         return False
     if audio.get('components') and audio.get('review', {}).get('approved') is not True:
+        return False
+    if not clean_rain(audio):
         return False
     if not source_complete(video, audio):
         return False

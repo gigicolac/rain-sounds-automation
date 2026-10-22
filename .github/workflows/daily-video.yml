@@ -40,6 +40,11 @@ on:
         type: choice
         options: [public, unlisted, private]
         default: public
+      publish_timing:
+        description: "Public uploads: go live in the next US audience window (scheduled) or as soon as processed"
+        type: choice
+        options: [scheduled, immediate]
+        default: scheduled
       allow_unreviewed:
         description: "Allow unreviewed assets for private/unlisted testing only"
         type: boolean
@@ -67,6 +72,7 @@ jobs:
       TITLE_OVERRIDE: ${{ inputs.title }}
       DURATION_MINUTES: ${{ inputs.duration_minutes }}
       UPLOAD_PRIVACY_STATUS: ${{ inputs.upload_privacy_status || 'public' }}
+      PUBLISH_TIMING: ${{ inputs.publish_timing || 'scheduled' }}
       ALLOW_UNREVIEWED: ${{ inputs.allow_unreviewed || 'false' }}
     steps:
       - uses: actions/checkout@v4

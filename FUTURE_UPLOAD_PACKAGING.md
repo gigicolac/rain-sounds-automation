@@ -1,5 +1,7 @@
 # Future upload packaging
 
+Superseded in part by UPLOAD_SETTINGS.md (titles, thumbnails, descriptions, upload fields and timing).
+
 Prepared on codex/searchable-packaging; not deployed.
 
 Automatic titles lead with Rain Sounds for Sleeping, Sleep, Studying,
