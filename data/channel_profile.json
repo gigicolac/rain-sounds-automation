@@ -18,5 +18,8 @@
   "audio_selection_note": "788146 (city recording with traffic and a siren) removed 2026-10-22 after the Oct 20 upload: sleep viewers leave at the first siren. Only clean rain is eligible.",
   "scope": "user-selected channel pool; automatic technical checks and source records required for publishing",
   "thumbnail_scene_id": "custom:10-mug-window",
-  "thumbnail_frame_seconds": 4.0
+  "thumbnail_frame_seconds": 4.0,
+  "thumbnail_style": "pixel",
+  "thumbnail_alternate_style": "soft",
+  "thumbnail_alternate_share": 0.25
 }

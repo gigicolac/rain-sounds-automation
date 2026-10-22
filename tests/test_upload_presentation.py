@@ -53,7 +53,7 @@ class PresentationTests(unittest.TestCase):
         for seed in range(10):
             variants = thumbnail_variants('STUDY\nRAIN', {'thumbnail_text_side': 'right'}, entries, random.Random(seed))
             self.assertEqual(len({v['style'] for v in variants}), 3)
-            self.assertEqual(variants[0]['style'], 'stacked')
+            self.assertEqual(variants[0]['style'], 'pixel')
             self.assertTrue(all(v['headline'] == 'STUDY\nRAIN' and v['side'] == 'right' for v in variants))
 
     def test_catalogue_generates_distinct_titles_until_exhausted(self):
@@ -106,6 +106,26 @@ class PackagingTests(unittest.TestCase):
             for unsupported in ('thunder', 'gentle', 'heavy', 'no ads', 'black screen', '\u2014'):
                 self.assertNotIn(unsupported, text)
             self.assertTrue(pinned_comment(headline, random.Random(1)).startswith('\U0001f4ac'))
+
+    def test_configured_style_is_published_first(self):
+        variants = thumbnail_variants('COZY\nRAIN', {}, {}, random.Random(1), 'pixel')
+        self.assertEqual([v['style'] for v in variants], ['pixel', 'soft', 'stacked'])
+        variants = thumbnail_variants('COZY\nRAIN', {}, {}, random.Random(1), 'soft')
+        self.assertEqual([v['style'] for v in variants], ['soft', 'pixel', 'stacked'])
+        with self.assertRaises(ValueError):
+            thumbnail_variants('COZY\nRAIN', {}, {}, random.Random(1), 'neon')
+
+    def test_pixel_by_default_soft_sometimes_never_twice_running(self):
+        from upload_presentation import choose_thumbnail_style
+        profile = {'thumbnail_style': 'pixel', 'thumbnail_alternate_style': 'soft', 'thumbnail_alternate_share': 0.25}
+        entries, styles = {}, []
+        for day in range(400):
+            style = choose_thumbnail_style(profile, entries, random.Random(day))
+            styles.append(style)
+            entries[str(day)] = {'assets': {'date': f'{day:04}', 'thumbnail_style': style}}
+        self.assertTrue(0.12 < styles.count('soft') / len(styles) < 0.3)
+        self.assertNotIn(('soft', 'soft'), list(zip(styles, styles[1:])))
+        self.assertEqual(choose_thumbnail_style({}, {}, random.Random(1)), 'pixel')
 
     def test_tags_stay_within_youtube_guidance(self):
         self.assertTrue(5 <= len(TAGS) <= 10)

@@ -277,7 +277,10 @@ def main():
 
     from upload_presentation import thumbnail_variants
     background = thumbnail_scene(ROOT) if selection == 'channel' else None
-    variants = thumbnail_variants(thumbnail_headline, background or video, ledger.entries, rng_title)
+    from asset_library import read_json
+    from upload_presentation import choose_thumbnail_style
+    style = choose_thumbnail_style(read_json(ROOT / "data/channel_profile.json", {}), ledger.entries, rng_title)
+    variants = thumbnail_variants(thumbnail_headline, background or video, ledger.entries, rng_title, style)
     assets = {
         "date": date.isoformat(),
         "day_number": day,

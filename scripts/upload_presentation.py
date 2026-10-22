@@ -73,15 +73,32 @@ def presentation(video, audio, minutes, entries, rng):
     return fresh or eligible[headline], headline, detail
 
 
-def thumbnail_variants(headline, video, entries, rng):
+THUMBNAIL_STYLES = ('pixel', 'soft', 'stacked')
+
+
+def choose_thumbnail_style(profile, entries, rng):
+    """Mostly the default style, sometimes the alternate, never the alternate twice running."""
+    style = profile.get('thumbnail_style', 'pixel')
+    alternate = profile.get('thumbnail_alternate_style')
+    share = float(profile.get('thumbnail_alternate_share', 0))
+    recent = sorted(entries.values(), key=lambda e: e.get('assets', {}).get('date', ''), reverse=True)
+    last = next((e['assets']['thumbnail_style'] for e in recent if e.get('assets', {}).get('thumbnail_style')), None)
+    if alternate and last != alternate and rng.random() < share:
+        return alternate
+    return style
+
+
+def thumbnail_variants(headline, video, entries, rng, style='pixel'):
     """Three alternatives for Studio review; only the first is uploaded."""
     side = video.get('thumbnail_text_side', 'left')
     if side not in {'left', 'right'}:
         raise ValueError('thumbnail_text_side must be left or right')
-    # The published cover always uses the same layout. Alternatives remain
+    if style not in THUMBNAIL_STYLES:
+        raise ValueError(f'thumbnail_style must be one of {THUMBNAIL_STYLES}')
+    # The published cover always uses the configured style. Alternatives remain
     # local review artifacts and do not rotate the channel's visual identity.
-    return [{'headline': headline, 'style': style, 'side': side}
-            for style in ['stacked', 'accent', 'panel']]
+    return [{'headline': headline, 'style': s, 'side': side}
+            for s in [style] + [s for s in THUMBNAIL_STYLES if s != style]]
 
 
 def timestamp(seconds):

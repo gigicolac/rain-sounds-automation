@@ -205,9 +205,26 @@ class ThumbnailDesignTests(unittest.TestCase):
         from upload_presentation import THEMES
         frame = Image.new('RGB', (1280, 720), (40, 30, 22))
         for headline in THEMES:
-            for style in ('stacked', 'accent', 'panel'):
+            for style in ('soft', 'pixel', 'stacked', 'accent', 'panel'):
                 for side in ('left', 'right'):
                     self.assertEqual(render(frame, 10800, headline, style, side).size, (1280, 720))
+
+
+    def test_centred_text_is_centred_and_long_headlines_fit(self):
+        from PIL import Image, ImageChops
+        from thumbnail_design import render
+        frame = Image.new('RGB', (1280, 720), (0, 0, 0))
+        for style in ('soft', 'pixel'):
+            for headline in ('COZY\nRAIN', 'DEEP SLEEP\nRAIN', 'INSOMNIA\nRAIN'):
+                box = ImageChops.difference(render(frame, 10800, headline, style), frame).getbbox()
+                left, top, right, bottom = box
+                self.assertLess(abs((left + right) / 2 - 640), 20, (style, headline))
+                self.assertLess(abs((top + bottom) / 2 - 360), 40, (style, headline))
+                self.assertGreater(left, 60)
+
+    def test_live_profile_defaults_to_pixel(self):
+        profile = json.loads((REPO / 'data/channel_profile.json').read_text())
+        self.assertEqual((profile['thumbnail_style'], profile['thumbnail_alternate_style']), ('pixel', 'soft'))
 
 
 class ThumbnailSourceTests(unittest.TestCase):
