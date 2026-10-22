@@ -9,9 +9,9 @@ Supersedes the title, thumbnail and description parts of FUTURE_UPLOAD_PACKAGING
 |---|---|---|
 | Audio | Channel publishing requires listening review to confirm no traffic, voices, music, thunder or animals (unknown is not absent), plus no siren/traffic/horn words in the title. Previews are not restricted, so new recordings can still be reviewed. | `CLEAN_RAIN_ABSENT` in `scripts/channel_profile.py` |
 | Audio pool | 788146 (city rain with traffic and a siren, used on Oct 20) removed. Pool is 7 scenes × 2 recordings = 14 pairs; 3 were used by Oct 20, so about 11 uploads remain before new clean audio is needed. | `data/channel_profile.json` |
-| Titles | `Keyword | Outcome | Length`, e.g. `Rain Sounds for Sleeping | Fall Asleep Fast Tonight | 3 Hours`. 30 titles, at most 70 characters. Exact titles never repeat; an outcome is not reused within the last 7 uploads while alternatives remain. | `KEYWORDS`, `THEMES` in `scripts/upload_presentation.py` |
+| Titles | Outcome first, like the channel's winners: `{Opener} 🌧️ {Rain Sounds for Sleeping/Sleep phrase} & {benefit} | 3 Hours`, e.g. `Fall Asleep Fast 🌧️ Cozy Night Rain Sounds for Sleeping & Restorative Rest | 3 Hours`. 90 titles (30 per thumbnail headline), at most 95 characters, search keyword within the first 45. Exact titles never repeat; an opener is not reused within 7 uploads. The on-screen title drops the emoji and benefit (the video font has no emoji). | `THEMES` in `scripts/upload_presentation.py` |
 | Thumbnail | Lo-fi style: centred white headline with a soft shadow and a small "3 hours" line, no badge or panel, over a frame of `custom:10-mug-window` (4.0 s) whatever scene the video shows. Default font is Pixelify Sans in Title Case ("Cozy Rain"); about 1 upload in 4 uses Nunito in lowercase ("cozy rain"), never two in a row. Headlines rotate between cozy, deep sleep and insomnia rain. Fonts are SIL Open Font License, bundled in `fonts/`. | `thumbnail_scene_id`, `thumbnail_frame_seconds`, `thumbnail_style`, `thumbnail_alternate_style`, `thumbnail_alternate_share` in `data/channel_profile.json` |
-| Description | Brand-voice copy per headline with search keywords in the first two lines, chapters for videos of 30 minutes or more, CC0 credit, relaxation disclaimer and hashtags. "No music, no voices, no traffic" appears only when listening review confirmed it. | `data/description_copy.json`, `data/description_template.txt` |
+| Description | Brand voice taken from the channel's own examples, search keyword in the first two lines. Every description includes restorative, relaxation, flow, drift, calm your nervous system, focus, improve and productivity (enforced by tests), with no em dashes or repeated phrases. Chapters for videos of 30 minutes or more, CC0 credit, relaxation disclaimer and hashtags. "No music, no voices, no distractions" appears only when listening review confirmed it. | `data/description_copy.json`, `data/description_template.txt` |
 | Tags | 10 tags from the top keyword searches. | `TAGS` in `scripts/upload_presentation.py` |
 | Upload fields | Category Music, language English (Australia), AI disclosure yes (scenes are AI-generated), paid promotion no, recording date = today in Melbourne, location Melbourne, Australia. | `data/upload_settings.json` |
 | Timing | Public runs upload as private with `publishAt` set to the next US Eastern posting window that starts at least 2 hours later (HD processing and checks). Manual runs can choose `publish_timing: immediate`. | `WINDOWS` in `scripts/publish_schedule.py` |
@@ -34,7 +34,7 @@ Each publish run lists them in the job summary with that video's pinned-comment 
 
 ## Validation
 
-- 106 unit tests pass with simulated YouTube and GitHub services.
+- 110 unit tests pass with simulated YouTube and GitHub services.
 - Every new upload field name was checked against the discovery document bundled with
   google-api-python-client 2.201.0.
 - Thumbnails rendered locally on a drawn stand-in scene and approved from that mockup.

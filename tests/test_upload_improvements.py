@@ -198,6 +198,41 @@ class UploadFlowTests(unittest.TestCase):
         self.assertEqual(Ledger().find_video('vid')[1]['state'], 'complete')
 
 
+class BrandVoiceTests(unittest.TestCase):
+    REQUIRED = ('restorative', 'relaxation', 'flow', 'drift', 'calm your nervous system',
+                'focus', 'improve', 'productivity')
+
+    def descriptions(self):
+        import random, re
+        import select_assets
+        from upload_presentation import THEMES, description_parts
+        audio = {'title': 'Steady rain', 'freesound_url': 'https://freesound.org/s/7/',
+                 'license': 'http://creativecommons.org/publicdomain/zero/1.0/'}
+        copy = json.loads((REPO / 'data/description_copy.json').read_text())
+        for headline in THEMES:
+            for seed in range(len(copy[headline]['openings']) * 4):
+                parts = description_parts(headline, 180, audio, random.Random(seed), True)
+                yield headline, select_assets.build_description('rain', audio['title'], 180, {}, audio, parts)
+
+    def test_every_description_uses_the_brand_words(self):
+        for headline, text in self.descriptions():
+            for word in self.REQUIRED:
+                self.assertIn(word, text.lower(), (headline, word))
+
+    def test_no_ai_tells_or_repeated_phrases(self):
+        import re
+        for headline, text in self.descriptions():
+            self.assertNotIn('\u2014', text)
+            brand = text.split('About Calming Rain Sounds')[0].lower()
+            words = re.findall(r"[a-z']+", brand)
+            grams = [' '.join(words[i:i + 4]) for i in range(len(words) - 3)]
+            self.assertEqual({g for g in grams if grams.count(g) > 1}, set(), headline)
+
+    def test_search_keyword_in_first_two_lines(self):
+        for headline, text in self.descriptions():
+            self.assertIn('rain sounds for', ' '.join(text.splitlines()[:2]).lower(), headline)
+
+
 class ThumbnailDesignTests(unittest.TestCase):
     def test_every_locked_headline_renders_in_every_layout(self):
         from PIL import Image
@@ -278,7 +313,9 @@ class ChannelSelectionTests(unittest.TestCase):
         self.assertTrue(assets['pinned_comment'])
         description = assets['description']
         self.assertTrue(description.lower().startswith('rain sounds for'))
-        self.assertIn('Just rain. No music, no voices, no traffic.', description)
+        self.assertIn('Just steady rain. No music, no voices, no distractions.', description)
+        self.assertIn('·', assets['overlay_title'])
+        self.assertNotIn('🌧', assets['overlay_title'])
         self.assertIn('0:00 Settle in and breathe', description)
         self.assertIn('released under Creative Commons 0 (public domain)', description)
         self.assertNotIn('\n\n\n', description)

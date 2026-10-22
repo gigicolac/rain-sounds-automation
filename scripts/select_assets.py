@@ -14,7 +14,7 @@ import requests
 from asset_matching import compatible, title_allowed, labels_for
 from upload_history import Ledger
 from upload_presentation import (presentation, unique_title, variety_record, length_label,
-                                 description_parts, pinned_comment, HASHTAGS, TAGS)
+                                 description_parts, pinned_comment, overlay_title, HASHTAGS, TAGS)
 from asset_library import curated_videos, choose_pair, pair_reasons
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -300,6 +300,7 @@ def main():
         "duration_seconds": duration_minutes * 60,
         "title": title,
         "title_options": [title] + [t for t in title_options if t != title][:2],
+        "overlay_title": overlay_title(title),
         "description": description,
         "thumbnail_headline": thumbnail_headline,
         "thumbnail_style": variants[0]['style'],

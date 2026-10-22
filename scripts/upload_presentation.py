@@ -10,16 +10,30 @@ HASHTAGS = '#rainsounds #rainsoundsforsleeping #sleepsounds #rainasmr #rainforst
 TAGS = ['rain sounds for sleeping', 'rain sounds for sleep', 'rain sounds', 'sleep sounds',
         'calming rain sounds', 'rain ambience', 'cozy rain', 'rain for insomnia',
         'deep sleep rain', 'rain asmr']
-# Highest-volume searches lead every title (vidIQ, Oct 2026).
+# Highest-volume searches (vidIQ, Oct 2026): every middle carries one of these.
 KEYWORDS = ('Rain Sounds for Sleeping', 'Rain Sounds for Sleep')
-# Locked thumbnail headlines; each owns outcomes that match its promise.
+EMOJI = '🌧️'
+# Winners lead with the outcome: "{opener} 🌧️ {middle} & {benefit} | {length}".
+# Each locked thumbnail headline owns wording that matches its promise.
 THEMES = {
-    'COZY\nRAIN': ('Cozy Rain to Fall Asleep Fast', 'Fall Asleep Fast Tonight', 'Cozy Night Rain to Unwind',
-                   'Unwind and Drift Off', 'Let the Day Melt Away'),
-    'DEEP SLEEP\nRAIN': ('Drift Into Restorative Sleep', 'Fall Asleep Fast and Sleep Deeply',
-                         'Deep Sleep and Total Relaxation', 'Stop Overthinking Tonight', 'Calm Your Mind for Deep Sleep'),
-    'INSOMNIA\nRAIN': ('Calm a Racing Mind', 'For Insomnia and Restless Nights', 'Quiet Your Thoughts',
-                       'Stop Overthinking and Drift Off', 'Calm Your Nervous System'),
+    'COZY\nRAIN': {
+        'openers': ('Fall Asleep Fast', 'Unwind and Drift Off', 'Let the Day Melt Away',
+                    'Slow Down and Drift Off', 'Fall Asleep Fast Tonight'),
+        'middles': ('Cozy Night Rain Sounds for Sleeping', 'Cozy Rain Sounds for Sleep'),
+        'benefits': ('Deep Relaxation', 'Restorative Rest', 'a Calm Mind'),
+    },
+    'DEEP SLEEP\nRAIN': {
+        'openers': ('Fall Asleep Fast', 'Drift Into Deep Sleep', 'Sleep Deeply Tonight',
+                    'Rest Deeply Tonight', 'Fall Asleep Fast Tonight'),
+        'middles': ('Calming Rain Sounds for Sleeping', 'Rain Sounds for Sleep'),
+        'benefits': ('Restorative Rest', 'Deep Relaxation', 'a Nervous System Reset'),
+    },
+    'INSOMNIA\nRAIN': {
+        'openers': ('Stop Overthinking', 'Calm a Racing Mind', 'Quiet Your Thoughts',
+                    "Can't Sleep?", 'Switch Off Your Mind'),
+        'middles': ('Rain Sounds for Sleeping', 'Calming Rain Sounds for Sleep'),
+        'benefits': ('Insomnia Nights', 'Restless Nights', 'a Nervous System Reset'),
+    },
 }
 RECENT_WINDOW = 7
 CHAPTER_NAMES = ('Settle in and breathe', 'Drift deeper', 'Deep, restorative rest')
@@ -44,9 +58,25 @@ def unique_title(options, entries, rng, override=""):
     raise ValueError('All eligible titles have been used; add new truthful titles before publishing.')
 
 
+def theme_titles(headline, length):
+    theme = THEMES[headline]
+    return [f'{o} {EMOJI} {m} & {b} | {length}'
+            for o in theme['openers'] for m in theme['middles'] for b in theme['benefits']]
+
+
 def _outcome(title):
-    parts = [p.strip() for p in title.split('|')]
-    return parts[1].casefold() if len(parts) == 3 else ''
+    # "Fall Asleep Fast" and "Fall Asleep Fast Tonight" count as the same opener.
+    if EMOJI not in title:
+        return ''
+    return ' '.join(title.split(EMOJI)[0].casefold().split()[:3])
+
+
+def overlay_title(title):
+    """Short, emoji-free version for the on-screen title (the video font has no emoji)."""
+    if EMOJI not in title:
+        return title
+    opener, rest = (part.strip() for part in title.split(EMOJI, 1))
+    return f"{opener} · {rest.split(' & ')[0]}"
 
 
 def presentation(video, audio, minutes, entries, rng):
@@ -62,9 +92,7 @@ def presentation(video, audio, minutes, entries, rng):
                      if e.get("assets", {}).get("thumbnail_headline")), None)
     # Near-identical titles on consecutive days compete with each other in search.
     recent_outcomes = {_outcome(e.get('assets', {}).get('title', '')) for e in recent[:RECENT_WINDOW]}
-    eligible = {h: [f'{k} | {o} | {length}' for o in outcomes for k in KEYWORDS
-                    if f'{k} | {o} | {length}'.casefold() not in used]
-                for h, outcomes in THEMES.items()}
+    eligible = {h: [t for t in theme_titles(h, length) if t.casefold() not in used] for h in THEMES}
     eligible = {h: titles for h, titles in eligible.items() if titles}
     if not eligible:
         raise ValueError('Title catalogue exhausted; add new truthful titles before publishing.')
@@ -134,7 +162,7 @@ def description_parts(headline, minutes, audio, rng, clean):
     return {
         'opening': rng.choice(copy['openings']).format(length=length_label(minutes).lower()),
         'body': '\n\n'.join(copy['body']),
-        'clean_line': 'Just rain. No music, no voices, no traffic.' if clean else '',
+        'clean_line': 'Just steady rain. No music, no voices, no distractions.' if clean else '',
         'chapters': chapters(minutes),
         'audio_credit': audio_credit(audio),
         'channel_url': CHANNEL_URL,
