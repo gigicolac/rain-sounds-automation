@@ -17,7 +17,7 @@ import os
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 
-from upload_youtube import SCOPES, verify_target_channel
+from upload_youtube import COMMENT_SCOPES, verify_target_channel
 
 
 def main():
@@ -34,15 +34,15 @@ def main():
     )
     args = parser.parse_args()
 
-    flow = InstalledAppFlow.from_client_secrets_file(args.client_secrets, SCOPES)
+    flow = InstalledAppFlow.from_client_secrets_file(args.client_secrets, COMMENT_SCOPES)
     credentials = flow.run_local_server(
         port=0, access_type="offline", prompt="consent select_account",
     )
     if not credentials.refresh_token:
-        raise RuntimeError("Google did not return a refresh token. Repeat sign-in and grant both requested permissions.")
+        raise RuntimeError("Google did not return a refresh token. Repeat sign-in and grant all requested permissions.")
     granted = credentials.granted_scopes
-    if granted is not None and not set(SCOPES).issubset(granted):
-        raise RuntimeError("Both youtube.upload and youtube.readonly permissions must be granted. Repeat sign-in.")
+    if granted is not None and not set(COMMENT_SCOPES).issubset(granted):
+        raise RuntimeError("The upload, read-only and comment (youtube.force-ssl) permissions must all be granted. Repeat sign-in.")
     os.environ["EXPECTED_YOUTUBE_CHANNEL_ID"] = args.expected_channel_id
     verify_target_channel(build("youtube", "v3", credentials=credentials))
 

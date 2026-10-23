@@ -4,6 +4,7 @@ import unittest
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from upload_presentation import presentation, unique_title, variety_record, thumbnail_variants
+from channel_profile import title_allowed as channel_title_allowed
 
 
 class PresentationTests(unittest.TestCase):
@@ -54,11 +55,12 @@ class PresentationTests(unittest.TestCase):
 
     def test_catalogue_generates_distinct_titles_until_exhausted(self):
         entries = {}
-        for seed in range(36):
+        for seed in range(72):
             options, headline, _ = presentation({}, {}, 180, entries, random.Random(seed))
             title = unique_title(options, entries, random.Random(seed))
             self.assertNotIn(title, [e['assets']['title'] for e in entries.values()])
             self.assertLessEqual(len(title), 60)
+            self.assertTrue(channel_title_allowed(title), title)
             entries[str(seed)] = {'assets': {'date': str(seed).zfill(3), 'title': title, 'thumbnail_headline': headline}}
         with self.assertRaisesRegex(ValueError, 'catalogue exhausted'):
-            presentation({}, {}, 180, entries, random.Random(40))
+            presentation({}, {}, 180, entries, random.Random(80))

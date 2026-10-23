@@ -1,0 +1,20 @@
+{
+  "note": "Copied from reference video EXjpeDzwuAs (2 Oct 2026) via the read-only verify-mode settings report on 23 Oct 2026. recordingDate is set to each upload's date. Privacy, scheduling and Made for Kids are controlled by the pipeline, not this file.",
+  "snippet": {
+    "defaultLanguage": "en-AU",
+    "defaultAudioLanguage": "en-AU"
+  },
+  "status": {
+    "embeddable": true,
+    "license": "youtube",
+    "publicStatsViewable": true
+  },
+  "recordingDetails": {
+    "location": {
+      "latitude": -37.8136276,
+      "longitude": 144.9630576,
+      "altitude": 0
+    },
+    "locationDescription": "Melbourne"
+  }
+}
