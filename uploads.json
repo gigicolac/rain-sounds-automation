@@ -1998,7 +1998,7 @@
     "thumbnail": "set"
   },
   "798823958a2d45d6f095555baf03dc17a5553a1d1e6218f66ae0b5255ba39e9c": {
-    "state": "processed",
+    "state": "complete",
     "assets": {
       "date": "2026-10-20",
       "day_number": 739909,
@@ -2163,8 +2163,8 @@
     "run_id": "39359332454",
     "video_id": "FQRWfqcIC6g",
     "url": "https://www.youtube.com/watch?v=FQRWfqcIC6g",
-    "last_error": "Video FQRWfqcIC6g is still processing. Resume it later; do not upload again.",
-    "actual_privacy": "public"
+    "actual_privacy": "public",
+    "thumbnail": "set"
   },
   "3f79ca3a1a5456d2c6460c6feeb0d784006e6b84ce83a05c2c60f7833ea8cc24": {
     "state": "complete",
