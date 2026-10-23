@@ -5,6 +5,7 @@ video build) so a wrong-channel setup fails in seconds, not after wasting
 a full build cycle. Reuses the exact same check upload_youtube.py runs
 before actually publishing, just without needing a video/thumbnail ready.
 """
+import os
 import sys
 from pathlib import Path
 
@@ -19,6 +20,10 @@ def main():
     creds = get_credentials()
     youtube = build("youtube", "v3", credentials=creds)
     verify_target_channel(youtube)
+    inspect_id = os.environ.get("INSPECT_VIDEO_ID", "").strip()
+    if inspect_id:
+        from inspect_video_settings import report
+        report(youtube, inspect_id)
 
 
 if __name__ == "__main__":
