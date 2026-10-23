@@ -2164,5 +2164,170 @@
     "video_id": "FQRWfqcIC6g",
     "url": "https://www.youtube.com/watch?v=FQRWfqcIC6g",
     "last_error": "Video FQRWfqcIC6g is still processing. Resume it later; do not upload again."
+  },
+  "3f79ca3a1a5456d2c6460c6feeb0d784006e6b84ce83a05c2c60f7833ea8cc24": {
+    "state": "reserved",
+    "assets": {
+      "date": "2026-10-23",
+      "day_number": 739912,
+      "scene_term": "anime window rain ambience",
+      "video": {
+        "asset_id": "custom:02-girl-cabin",
+        "local_path": "scenes/custom-02-girl-cabin.mp4",
+        "source_url": "https://github.com/shmop/rain-sounds-assets/releases/tag/custom-scenes-2026-10-17",
+        "license_url": "https://openai.com/policies/terms-of-use/",
+        "source_record_origin": "User-created image_gen scene and exact user-approved animation preview",
+        "generator": "built-in image_gen",
+        "sha256": "67b3a69176802059cbeb5a0914a1bd2b40274a580850f9ad0d401c5917d081bf",
+        "width": 1920,
+        "height": 1080,
+        "duration": 10.0,
+        "thumbnail_text_side": "right",
+        "review": {
+          "approved": true,
+          "status": "approved",
+          "labels": {},
+          "notes": "User approved master and animation preview.",
+          "approval_scope": "master and exact animation preview; content labels remain unknown"
+        },
+        "custom_scene": {
+          "scene_id": "02-girl-cabin",
+          "preview": "source-warp-preview-v1.mp4",
+          "master_sha256": "90a0474e04b12ee493f8bb602dd9b4abc07fd46969ab38f232d958ccc658f1d0"
+        },
+        "scene_term": "anime window rain ambience"
+      },
+      "audio": {
+        "filename": "695619.mp3",
+        "path": "audio/695619.mp3",
+        "title": "Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav",
+        "freesound_id": 695619,
+        "freesound_url": "https://freesound.org/s/695619/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "review": {
+          "approved": true,
+          "labels": {
+            "setting": "lake",
+            "intensity": "moderate",
+            "surface": "mixed",
+            "perspective": "outdoors",
+            "thunder": false,
+            "traffic": false,
+            "animals": false,
+            "music": false,
+            "voices": false
+          },
+          "notes": "sounds solid",
+          "quality": {
+            "full_playback": true,
+            "loop_checked": true,
+            "clean_recording": true,
+            "no_clipping": true
+          },
+          "status": "approved",
+          "reviewed_at": "2026-10-01T04:47:29.990552+00:00"
+        }
+      },
+      "duration_minutes": 180,
+      "duration_seconds": 10800,
+      "title": "Rain Sounds for Reading | Cozy Ambience | 3 Hours",
+      "title_options": [
+        "Rain Sounds for Reading | Cozy Ambience | 3 Hours",
+        "Rain Sounds for Reading | Rain Ambience | 3 Hours",
+        "Rain Sounds for Reading | Cozy Rain | 3 Hours"
+      ],
+      "description": "Rain sounds for sleep, study and relaxation. Enjoy 3 hours of cozy rain ambience.\n\nSubscribe to Calming Rain Sounds (@calmingrainsoundssss) for more rain ambience.\n\nThis session pairs the selected visual scene with the recording \"Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav\". The source details below identify the footage and audio used for this upload.\n\n#rainsounds #rain #sleep #relaxation #ambience #whitenoise #study\n\n---\nVideo source: https://github.com/shmop/rain-sounds-assets/releases/tag/custom-scenes-2026-10-17\nVideo license: https://openai.com/policies/terms-of-use/\nAudio recording: \"Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav\"\nAudio source: https://freesound.org/s/695619/\nAudio license: http://creativecommons.org/publicdomain/zero/1.0/\n",
+      "thumbnail_headline": "RAIN\nBREAK",
+      "thumbnail_style": "stacked",
+      "thumbnail_side": "right",
+      "thumbnail_variants": [
+        {
+          "headline": "RAIN\nBREAK",
+          "style": "stacked",
+          "side": "right"
+        },
+        {
+          "headline": "RAIN\nBREAK",
+          "style": "accent",
+          "side": "right"
+        },
+        {
+          "headline": "RAIN\nBREAK",
+          "style": "panel",
+          "side": "right"
+        }
+      ],
+      "tags": [
+        "rain sounds",
+        "rain sounds for sleeping",
+        "rain ambience",
+        "sleep sounds",
+        "relaxing rain",
+        "white noise",
+        "rain sounds for studying",
+        "calming rain",
+        "ambient rain",
+        "deep sleep"
+      ],
+      "review_approved": false,
+      "selection_explanation": {
+        "policy": "channel_profile",
+        "strict_review": false,
+        "rotation": "Use every available scene once per cycle before repeating; prefer less recent and less-used scenes within a cycle; never reuse a reserved pair."
+      },
+      "category_id": "10",
+      "variety": {
+        "scene_id": "custom:02-girl-cabin",
+        "scene_source": "https://github.com/shmop/rain-sounds-assets/releases/tag/custom-scenes-2026-10-17",
+        "audio_id": 695619,
+        "audio_source": "https://freesound.org/s/695619/",
+        "audio_components": [],
+        "duration_seconds": 10800,
+        "title": "Rain Sounds for Reading | Cozy Ambience | 3 Hours",
+        "keyword": "Rain Sounds for Reading",
+        "thumbnail_headline": "RAIN\nBREAK",
+        "thumbnail_style": "stacked",
+        "description_opening": "Rain sounds for sleep, study and relaxation. Enjoy 3 hours of cozy rain ambience.",
+        "verified_video_labels": {},
+        "verified_audio_labels": {
+          "setting": "lake",
+          "intensity": "moderate",
+          "surface": "mixed",
+          "perspective": "outdoors",
+          "thunder": false,
+          "traffic": false,
+          "animals": false,
+          "music": false,
+          "voices": false
+        }
+      }
+    },
+    "variety": {
+      "scene_id": "custom:02-girl-cabin",
+      "scene_source": "https://github.com/shmop/rain-sounds-assets/releases/tag/custom-scenes-2026-10-17",
+      "audio_id": 695619,
+      "audio_source": "https://freesound.org/s/695619/",
+      "audio_components": [],
+      "duration_seconds": 10800,
+      "title": "Rain Sounds for Reading | Cozy Ambience | 3 Hours",
+      "keyword": "Rain Sounds for Reading",
+      "thumbnail_headline": "RAIN\nBREAK",
+      "thumbnail_style": "stacked",
+      "description_opening": "Rain sounds for sleep, study and relaxation. Enjoy 3 hours of cozy rain ambience.",
+      "verified_video_labels": {},
+      "verified_audio_labels": {
+        "setting": "lake",
+        "intensity": "moderate",
+        "surface": "mixed",
+        "perspective": "outdoors",
+        "thunder": false,
+        "traffic": false,
+        "animals": false,
+        "music": false,
+        "voices": false
+      }
+    },
+    "requested_privacy": "public",
+    "run_id": "39889505749"
   }
 }
