@@ -37,8 +37,11 @@ def presentation(video, audio, minutes, entries, rng):
         'JUST\nRAIN': 'Rain Sounds for Rest',
         'RAIN\nBREAK': 'Rain Sounds for Reading',
     }
+    # Mood wording makes no intensity, time-of-day or setting claim.
     moods = ['Cozy Ambience', 'Rain Ambience', 'Cozy Rain',
-             'Rainy Escape', 'Rainy Retreat', 'Rainy Atmosphere']
+             'Rainy Escape', 'Rainy Retreat', 'Rainy Atmosphere',
+             'Calm Ambience', 'Calm Rain', 'Peaceful Ambience',
+             'Peaceful Rain', 'Relaxing Ambience', 'Relaxing Rain']
     themes = {headline: [f'{keyword} | {mood}' for mood in moods]
               for headline, keyword in purposes.items()}
     used = {e.get('assets', {}).get('title', '').strip().casefold() for e in entries.values()}
@@ -50,6 +53,10 @@ def presentation(video, audio, minutes, entries, rng):
     eligible = {h: titles for h, titles in eligible.items() if titles}
     if not eligible:
         raise ValueError('Title catalogue exhausted; add new truthful titles before publishing.')
+    remaining = sum(len(titles) for titles in eligible.values())
+    if remaining <= 14:
+        print(f'::warning::Only {remaining} unused automatic titles remain for {length}; '
+              'add new truthful titles in scripts/upload_presentation.py before they run out.')
     headline = rng.choice([h for h in eligible if h != previous] or list(eligible))
     options = eligible[headline]
     if detail != 'Cozy Rain Ambience':

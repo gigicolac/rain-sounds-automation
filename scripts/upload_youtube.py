@@ -65,6 +65,26 @@ def get_credentials():
     )
 
 
+def signup_required(exc):
+    body = exc.content.decode("utf-8", "replace") if isinstance(exc.content, bytes) else str(exc.content)
+    return "youtubeSignupRequired" in str(exc) or "youtubeSignupRequired" in body
+
+
+def list_own_channel(youtube, retry_delay=60):
+    """channels().list(mine=True), retried once on youtubeSignupRequired.
+    That 401 failed the 21 and 22 Oct 2026 scheduled runs, then cleared
+    on 23 Oct, so a single delayed retry absorbs a transient occurrence.
+    """
+    try:
+        return youtube.channels().list(part="id,snippet", mine=True).execute()
+    except HttpError as exc:
+        if not signup_required(exc):
+            raise
+        print(f"YouTube returned youtubeSignupRequired; retrying once in {retry_delay}s")
+        time.sleep(retry_delay)
+        return youtube.channels().list(part="id,snippet", mine=True).execute()
+
+
 def verify_target_channel(youtube):
     """Guard against uploading to the wrong YouTube channel — a real
     incident: the Google account used for OAuth setup manages multiple
@@ -85,7 +105,19 @@ def verify_target_channel(youtube):
         )
 
     try:
-        response = youtube.channels().list(part="id,snippet", mine=True).execute()
+        response = list_own_channel(youtube)
+    except HttpError as exc:
+        if not signup_required(exc):
+            raise
+        raise RuntimeError(
+            "YouTube reported youtubeSignupRequired twice: the Google account behind "
+            "YT_REFRESH_TOKEN did not resolve to a YouTube channel. Check that the channel "
+            "still exists and the app's access was not removed. If it persists, run "
+            "scripts/get_youtube_refresh_token.py --client-secrets client_secret.json "
+            "--expected-channel-id " + expected_channel_id + " locally, pick the channel "
+            "(not the personal account) when signing in, and replace the three YT_* "
+            "repository secrets with its output."
+        ) from exc
     except RefreshError as exc:
         raise RuntimeError(
             "YouTube authorization could not be refreshed. If the error is invalid_scope, "
