@@ -48,6 +48,13 @@ reference for future batches while varying environments and intensity movement.
 Fullness is the desired texture; retain the earlier avoidance of unnatural
 static-like droplets and excessive wind/boomy rumble.
 
+The user further requested **fewer light, puddle-like and traffic-heavy
+sounds**. Weight future batches toward full, dense rain like sound 10;
+reduce sparse/light treatments, prominent puddle splashes and urban traffic
+textures. This is a preference for fewer of those styles, not a blanket ban
+or a rejection of existing assets. Preserve variation in environments and
+intensity movement within the fuller rain direction.
+
 Reference recipe: `forest-downpour`, source `651189`, seed `2026102310`,
 rate `60`, recording balance `-7.6 dB`, target `-22` loudness units relative
 to full scale, high-pass `500 Hz`, low-pass `8101 Hz`, density curve
