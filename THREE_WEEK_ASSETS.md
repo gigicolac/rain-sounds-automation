@@ -39,6 +39,24 @@ pure-synthetic Light Shower and Sparse Drizzle recipes were not used.
 
 ## Review
 
+### Future sound preference — user feedback, 23 October 2026
+
+Prioritize more sounds like **10 — Library in the downpour**
+(`custom-audio:three-weeks-10-storm-library`). The user specifically likes
+its **heaviness and full, dense sound**. Use this exact candidate as a sonic
+reference for future batches while varying environments and intensity movement.
+Fullness is the desired texture; retain the earlier avoidance of unnatural
+static-like droplets and excessive wind/boomy rumble.
+
+Reference recipe: `forest-downpour`, source `651189`, seed `2026102310`,
+rate `60`, recording balance `-7.6 dB`, target `-22` loudness units relative
+to full scale, high-pass `500 Hz`, low-pass `8101 Hz`, density curve
+`[0.597, 0.853, 0.524, 0.901, 0.746]`. Master checksum:
+`94a6c0477e5bd1346846cc9ca9a952618dfd7a8141b63bb24f8778bd51ba6336`.
+
+This feedback records a future generation preference; it does not establish
+full-track or repeat-boundary checks or change the current approval state.
+
 All new video and audio assets start **pending**. Technical checks do not imply
 visual or listening approval. Sound decisions save through Rain Atelier; check
 full-track and repeat-boundary review separately. Video decisions use the
