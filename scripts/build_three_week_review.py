@@ -106,7 +106,9 @@ def main():
               'per_week':{str(w):sum(m['week']==w for m in manifest) for w in (1,2,3)},
               'audio_review_states':dict(Counter(a['status'] for a in audio.values())),
               'video_review_states':dict(Counter(m['video_status'] for m in manifest)),
-              'human_review':'Audio decisions preserved; revised videos await human playback approval.'}
+              'human_review':('Audio decisions preserved; revised videos await human playback approval.'
+                              if any(m['video_status']=='pending' for m in manifest)
+                              else 'User video decisions recorded; audio decisions preserved.')}
     save(batch / 'validation.json', report)
     print(json.dumps(report, indent=2))
 

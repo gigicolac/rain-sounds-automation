@@ -181,4 +181,19 @@ The gallery checksum audit passed for all sixty assets and confirmed ten
 pairs per week. Browser verification confirmed revised video playback and
 the ten-pair Week 1 filter. `pane-revision-validation.json` records the final
 selected revisions, unchanged artwork hashes and unchanged audio registry.
-All thirty revised videos remain pending human playback approval.
+At that check all thirty revised videos were pending human playback approval.
+
+### User video decisions — 23 October 2026
+
+The user approved every revised video except these three pass/spare scenes:
+
+- **03 — Greenhouse tea corner:** rain on the smaller panes looks slightly awkward.
+- **18 — Orchard window tea:** fruit trees look slightly awkward.
+- **25 — Cottage dog beside the rain:** mug has two handles.
+
+Final video decisions: **27 approve, 3 pass/spare, 0 reject, 0 pending**.
+The scene-library review command recorded those decisions and package checks;
+`video-review-decisions.json` binds the local decisions to the selected preview
+checksums. The paired gallery displays the recorded states. Audio remains
+**27 approved and 3 pass/spare**. Approval records the review decision only;
+no asset upload, production activation or publication was performed.
