@@ -41,6 +41,8 @@ def main():
                 raise ValueError('Scene checksum mismatch: ' + slug)
         if spec.get('animation_sha256') and sha(folder / spec['animation_settings']) != spec['animation_sha256']:
             raise ValueError('Scene motion settings changed: ' + slug)
+        if spec.get('rain_mask_sha256') and sha(folder / spec['rain_mask']) != spec['rain_mask_sha256']:
+            raise ValueError('Scene rain mask changed: ' + slug)
         if not all(spec['validation'].values()):
             raise ValueError('Scene validation incomplete: ' + slug)
         if spec['master_sha256'] in video_hashes:
@@ -65,13 +67,15 @@ def main():
         ImageDraw.Draw(sheets[week]).text((x+12,y+278), f'{slug} | {status}', fill='#e8ddd0')
         intensity = record['intent']['heaviness']
         vibes = ', '.join(record['intent']['vibes'])
+        mask_link = (f' · <a href="scenes/{slug}/{spec["rain_mask_overlay"]}" target="_blank">Rain coverage overlay ({spec["pane_count"]} panes)</a>'
+                     if spec.get('rain_mask_overlay') else '')
         cards.append(f'''<article data-week="{week}" data-intensity="{intensity}">
 <div class="label">Week {week} / {slug} / Video: {html.escape(status)}</div><h2>{html.escape(title)}</h2>
 <video controls loop muted playsinline preload="none" poster="{master_rel}" src="scenes/{slug}/{spec['preview']}"></video>
 <p class="tags">{intensity} · {html.escape(record['intent']['environment'])} · {html.escape(vibes)}</p>
 <label>Complete rain track · 90 seconds</label><audio controls preload="none" src="audio-library/{record['listen']}"></audio>
 <label>Repeat-boundary audition · 10 seconds</label><audio controls preload="none" src="audio-library/{record['loop']}"></audio>
-<p class="small">Audio: {record['status']}. <a href="{master_rel}" target="_blank">Full artwork</a> · <a href="scenes/{slug}/package.json">Video package</a></p></article>''')
+<p class="small">Audio: {record['status']}. <a href="{master_rel}" target="_blank">Full artwork</a>{mask_link} · <a href="scenes/{slug}/package.json">Video package</a></p></article>''')
         manifest.append({'week':week,'slot':index%10+1,'scene_id':slug,'scene_title':title,
                          'video':f'scenes/{slug}/{spec["preview"]}','video_sha256':spec['preview_sha256'],
                          'master_sha256':spec['master_sha256'],'video_status':status,
@@ -90,7 +94,7 @@ def main():
 <title>Three weeks · Rain asset review</title><style>
 :root{color-scheme:dark;font:16px system-ui;background:#0d1720;color:#eee6d9}body{max-width:1320px;margin:auto;padding:32px}h1{font-size:40px;margin-bottom:12px}p{line-height:1.6;color:#b6c3c8}a{color:#d8b57b}nav{display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:0;background:#0d1720;padding:14px 0;z-index:1}button,select{font:inherit;padding:10px 16px;background:#22313c;color:#eee6d9;border:1px solid #53616a;border-radius:8px;cursor:pointer}.active{background:#dfc394;color:#17212a}main{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}article{background:#14232d;border:1px solid #324650;border-radius:14px;overflow:hidden;padding:20px}h2{font-size:23px;margin:10px 0 18px}.label{font-size:12px;letter-spacing:.05em;color:#b3c4c7}video{width:100%;aspect-ratio:16/9;background:#080d11;border-radius:8px}audio{width:100%;display:block;margin:10px 0 18px}label,.small{font-size:13px;color:#b7c6c9}.tags{color:#e1c89e}.notice{border-left:3px solid #dfc394;padding:10px 18px;max-width:1000px}footer{padding:32px 0;color:#a6bac2}@media(max-width:760px){body{padding:18px}main{grid-template-columns:1fr}h1{font-size:32px}}</style>
 <header><p>CALMING RAIN SOUNDS / LOCAL REVIEW</p><h1>Three weeks of new assets</h1><p>30 animated video loops + 30 custom rain mixes. Ten of each per week.</p>
-<p class="notice">All new assets start pending. Watch the complete 10-second video and its repeat. Listen to each complete rain track and its separate boundary audition. Tags describe design intent, not verified recording locations. These are loop assets for later long videos.</p>
+<p class="notice">Revised pane masks. Rain now covers each visible pane with frame and foreground exclusions. Watch the complete 10-second video and its repeat; use the cyan coverage overlays to inspect clipping. Audio review decisions are preserved and shown below. Tags describe design intent, not verified recording locations. These are loop assets for later long videos.</p>
 <p id="audio-review"><a href="AUDIO_URL" target="_blank">Open Rain Atelier to approve, pass or reject sounds</a>. For video decisions, send the scene IDs with approve / pass / reject and notes.</p>
 <p><a href="week-1-contact.jpg">Week 1 contact sheet</a> · <a href="week-2-contact.jpg">Week 2 contact sheet</a> · <a href="week-3-contact.jpg">Week 3 contact sheet</a> · <a href="manifest.json">Batch manifest</a></p></header>
 <nav><button class="active" data-week="all">All three weeks</button><button data-week="1">Week 1</button><button data-week="2">Week 2</button><button data-week="3">Week 3</button><select aria-label="Rain intensity"><option value="all">All intensities</option><option>light</option><option>moderate</option><option>changing</option><option>heavy</option></select></nav><p id="count"></p><main>CARDS</main><footer>Local-only review assets. No video uploads, schedule changes or production activation.</footer>
@@ -100,7 +104,9 @@ def main():
               'audio_count':len(audio_hashes),'all_checksums_verified':True,
               'all_technical_checks_passed':True,'audio_intensity':dict(Counter(a['intent']['heaviness'] for a in audio.values())),
               'per_week':{str(w):sum(m['week']==w for m in manifest) for w in (1,2,3)},
-              'human_review':'pending; technical validation is not listening or visual approval'}
+              'audio_review_states':dict(Counter(a['status'] for a in audio.values())),
+              'video_review_states':dict(Counter(m['video_status'] for m in manifest)),
+              'human_review':'Audio decisions preserved; revised videos await human playback approval.'}
     save(batch / 'validation.json', report)
     print(json.dumps(report, indent=2))
 

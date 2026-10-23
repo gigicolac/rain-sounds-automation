@@ -13,7 +13,7 @@ The collection is under `run/20261023-three-weeks/` in this checkout:
 - `scenes/`: original image masters, clean revisions where needed, animation
   settings, 1920 × 1080 ten-second silent loops at 24 frames per second,
   frame samples, checksums and package reports.
-- `audio-library/`: Rain Atelier collection with thirty pending sounds, each
+- `audio-library/`: Rain Atelier collection with thirty reviewed sounds, each
   including a 90-second lossless master, listening copy, ten-second repeat
   audition, source provenance, exact recipe and technical report.
 - `manifest.json`, `audio-manifest.json`, `validation.json`: inventory and checks.
@@ -86,14 +86,15 @@ Local generation reuses these existing checkouts without modifying them:
 
 - Audio: `../rain-audio-refinement`, commit
   `aedd67a34ae95286b88ebed8384769028c1cba5f`.
-- Scene animation: `../layered-scene-workflow`, commit
-  `2d649437e4fbb7b63e6f745e26447e66bedaa0eb`.
+- Scene animation originally used `../layered-scene-workflow`, commit
+  `2d649437e4fbb7b63e6f745e26447e66bedaa0eb`. The pane correction now uses
+  the branch-local `scripts/animate_review_scene.py`, adapted from that engine.
 
 Use the root project's Python environment and installed FFmpeg tools:
 
 ```powershell
 python scripts/create_three_week_audio.py --audio-worktree ../rain-audio-refinement
-python scripts/render_three_week_scenes.py --scene-worktree ../layered-scene-workflow
+python scripts/render_three_week_scenes.py --revision panes-v2
 python scripts/build_three_week_review.py
 python ../rain-audio-refinement/scripts/rain_audio_library.py --library run/20261023-three-weeks/audio-library serve --port 0 --audio-root ../rain-audio-refinement/audio
 ```
@@ -136,3 +137,48 @@ Current local session links (valid while the servers run):
 
 - Paired gallery: <http://127.0.0.1:60995/>
 - Sound decisions: <http://127.0.0.1:58684/>
+
+## Pane correction after video review
+
+The user completed audio decisions: **27 approved and 3 pass/spare**, with no
+pending or rejected sounds. `audio-review-completed-snapshot.json` preserves
+the registry before animation changes. Its SHA-256 digest is
+`8d1b88206f95555ff56eeb93e7e398867b270fc88518b4be239b30f54f5a91a3`.
+This correction leaves listening flags, decisions, audio media and artwork alone.
+
+The first video batch used approximate window polygons and a rain particle
+field confined to part of the canvas. That left side, lower and transom panes
+dry and put some rain over frames. `data/three_week_window_masks.json` now
+traces the panes separately for all thirty scenes, including small rear windows
+and glazed roof sections. Foreground exclusions protect indoor lamps, plants,
+furniture and people. Fully obscured lower panes remain dry. The rain field
+spans the whole image and is clipped through the union of these masks.
+
+`preview-panes-v2.mp4` and `animation-panes-v2.json` preserve the previous loops.
+Scenes 06, 10, 16 and 27 have a further `panes-v3` edge refinement. Reproduce those with
+`python scripts/render_three_week_scenes.py --ids 06-forest-loft 10-storm-library 16-train-dog 27-city-cat --revision panes-v3`;
+the remaining scenes use `panes-v2`. Package reports select the current revision.
+For a complete fresh rerender with the final geometry, choose an unused revision
+name for the entire batch. Reusing an older name with changed geometry fails
+before replacing its masks or previews.
+Each package includes the binary mask and its checksum, plus a numbered cyan
+coverage overlay. `--overlays-only` regenerates the geometry views without
+encoding video. Review the artwork against those overlays when adjusting panes;
+technical containment proves clipping to the supplied geometry, not that the
+geometry matches the artwork. Four sampled frames per rendered loop support
+visual checks, while complete playback approval remains a user review step.
+
+Targeted regression checks in `tests/test_rain_window_masks.py` cover every
+visible pane, dry frame gaps and foreground exclusions, full-canvas rain and
+the periodic rain boundary. The paired gallery preserves current audio states
+and links each video to its coverage overlay.
+
+The final thirty packages decoded fully at 1920 × 1080, ten seconds and
+24 frames per second. All thirty masks and their encoded 2.5-second samples
+were visually inspected. Three targeted tests passed at output resolution;
+the old-revision protection was also exercised against an existing mask.
+The gallery checksum audit passed for all sixty assets and confirmed ten
+pairs per week. Browser verification confirmed revised video playback and
+the ten-pair Week 1 filter. `pane-revision-validation.json` records the final
+selected revisions, unchanged artwork hashes and unchanged audio registry.
+All thirty revised videos remain pending human playback approval.
