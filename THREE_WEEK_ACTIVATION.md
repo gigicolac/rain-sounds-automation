@@ -26,7 +26,7 @@ records remain present; pass/spare media stays in the local review library.
 The private destination is the existing `shmop/rain-sounds-assets` repository,
 release `three-week-approved-2026-10-23`. Bundle size: 679,340,707 bytes.
 SHA-256: `22a7ca3a535f24bb0d64e7fc7c2000f203cce3a72ba19bf5fbd5e9c2bccea987`.
-The uploaded asset is `668577853`, recorded in `data/channel_storage.json`. The private upload completed successfully; hosted restore verification follows.
+The uploaded asset is `668577853`, recorded in `data/channel_storage.json`. The private upload completed successfully. GitHub reported the same SHA-256 digest and size; hosted restore and rendering also passed.
 
 `package_custom_scenes.py` now verifies the master file selected by each package,
 including `master-clean.png`, and preserves existing manifest members when
@@ -39,8 +39,7 @@ Local validation passed 113 tests, including new clean-master and legacy-bundle
 preservation regressions. The bundle restored into a clean staging folder;
 all member checksums, 27-by-27 eligible source combinations and pass exclusions
 were checked. The earlier user-reviewed video revisions and audio masters are
-used directly, without regeneration. Hosted preview and deployment evidence
-will be recorded here after completion.
+used directly, without regeneration. [Hosted preview 39930323538](https://github.com/gigicolac/rain-sounds-automation/actions/runs/39930323538) restored the new bundle and rendered `custom:01-bookshop` with `custom-audio:three-weeks-10-storm-library`. The downloaded output was 60 seconds at 1920 by 1080, fully decoded, had no black intervals or quality warnings, matched its reported output digest, and passed the actual publication-eligibility gate against the new profile. The rendered frame and thumbnail were inspected. The upload/resume step was skipped; no YouTube upload or history reservation was created. Final local validation passed 113 tests after the catalogue updates.
 
 The existing schedule, duration, upload visibility, reservations and history
 remain unchanged. Preview mode creates no YouTube upload. Activation changes
