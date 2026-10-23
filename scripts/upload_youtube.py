@@ -14,6 +14,7 @@ import time
 from pathlib import Path
 
 from upload_history import Ledger
+from publish_schedule import api_timestamp, next_publish_at
 from google.oauth2.credentials import Credentials
 from google.auth.exceptions import RefreshError
 from googleapiclient.discovery import build
@@ -145,7 +146,15 @@ def verify_target_channel(youtube):
     print(f"Verified target channel: {actual_channel_title!r} ({actual_channel_id})")
 
 
-def upload_video(youtube, assets):
+def scheduled_release():
+    """Public uploads are released at the configured weekday time unless
+    PUBLISH_TIMING=now; explicit private/unlisted uploads are never scheduled."""
+    if PRIVACY_STATUS != "public" or (os.environ.get("PUBLISH_TIMING") or "schedule").strip().lower() == "now":
+        return None
+    return api_timestamp(next_publish_at())
+
+
+def upload_video(youtube, assets, publish_at=None):
     body = {
         "snippet": {
             "title": assets["title"][:100],  # YouTube title limit
@@ -158,6 +167,9 @@ def upload_video(youtube, assets):
             "selfDeclaredMadeForKids": False,
         },
     }
+    if publish_at:
+        # YouTube accepts publishAt only on private videos and makes them public then.
+        body["status"].update(privacyStatus="private", publishAt=publish_at)
     media = MediaFileUpload(str(VIDEO_PATH), chunksize=CHUNK_SIZE, resumable=True, mimetype="video/mp4")
     request = youtube.videos().insert(part="snippet,status", body=body, media_body=media)
 
@@ -240,9 +252,12 @@ def main():
                 raise RuntimeError('Channel assets require source records, pool membership and successful automatic render checks')
             if os.environ.get("ALLOW_UNREVIEWED", "false").lower() != "true" or PRIVACY_STATUS == "public":
                 raise RuntimeError("Unreviewed assets require explicit allow_unreviewed and private/unlisted visibility")
-        key = ledger.reserve(assets)
+        publish_at = scheduled_release()
+        key = ledger.reserve(assets, publish_at)
         entry = ledger.entries[key]
-        response = upload_video(youtube, assets)
+        if publish_at:
+            print(f"Scheduling public release for {publish_at}")
+        response = upload_video(youtube, assets, publish_at)
         video_id = response["id"]
         entry.update(video_id=video_id, url=f"https://www.youtube.com/watch?v={video_id}", state="uploaded")
         # Local recovery evidence first; remote persistence before any optional work.
@@ -258,7 +273,8 @@ def main():
         entry.pop("last_error", None)
         save_result(entry)
         ledger.save()
-        print(f"Processed successfully: {entry['url']} (visibility: {entry.get('actual_privacy')})")
+        release = f"; scheduled to go public at {entry['publish_at']}" if entry.get("publish_at") else ""
+        print(f"Processed successfully: {entry['url']} (visibility: {entry.get('actual_privacy')}{release})")
     except Exception as exc:
         entry["last_error"] = str(exc)
         save_result(entry)

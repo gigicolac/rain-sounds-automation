@@ -40,6 +40,11 @@ on:
         type: choice
         options: [public, unlisted, private]
         default: public
+      publish_timing:
+        description: "Public uploads: release at the weekday time in data/publish_schedule.json, or immediately"
+        type: choice
+        options: [schedule, now]
+        default: schedule
       allow_unreviewed:
         description: "Allow unreviewed assets for private/unlisted testing only"
         type: boolean
@@ -68,6 +73,7 @@ jobs:
       DURATION_MINUTES: ${{ inputs.duration_minutes }}
       UPLOAD_PRIVACY_STATUS: ${{ inputs.upload_privacy_status || 'public' }}
       ALLOW_UNREVIEWED: ${{ inputs.allow_unreviewed || 'false' }}
+      PUBLISH_TIMING: ${{ inputs.publish_timing || 'schedule' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
