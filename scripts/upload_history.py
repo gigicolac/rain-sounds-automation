@@ -78,18 +78,21 @@ class Ledger:
         if any(e['assets']['date'] == assets['date'] and not (
                 (os.environ.get('UPLOAD_PRIVACY_STATUS') or 'public') == 'public'
                 and e.get('state') == 'complete'
-                and e.get('actual_privacy') in ('private', 'unlisted'))
+                and e.get('actual_privacy') in ('private', 'unlisted')
+                and not e.get('publish_at'))  # scheduled public releases are private until then
                for e in self.entries.values()):
             raise RuntimeError('An upload is already reserved for this date. Review history or resume it before starting another.')
         return key
 
-    def reserve(self, assets):
+    def reserve(self, assets, publish_at=None):
         key = self.check_new(assets)
         from upload_presentation import variety_record
         self.entries[key] = {'state': 'reserved', 'assets': assets,
                              'variety': variety_record(assets),
                              'requested_privacy': os.environ.get('UPLOAD_PRIVACY_STATUS') or 'public',
                              'run_id': os.environ.get('GITHUB_RUN_ID')}
+        if publish_at:
+            self.entries[key]['publish_at'] = publish_at
         self.save()  # Must succeed before contacting YouTube upload endpoint.
         return key
 
