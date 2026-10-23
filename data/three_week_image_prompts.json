@@ -1,0 +1,238 @@
+[
+  {
+    "id": "01-bookshop",
+    "prompt": "Use case: illustration-story. Create one original wide 16:9 cozy anime illustration master for a rain ambience video, 1920x1080 composition. Reference image is STYLE ONLY: clean precise linework, soft cel shading, amber indoor light against cool indigo outdoors. NEW scene: quiet midnight bookshop reading alcove, one young adult woman in a moss sweater reading in a cushioned chair on left, small wooden side table with a single ceramic mug, amber shaded lamp, large unobstructed rectangular window on right overlooking a tree-lined lane. One human, no animals. Anatomically coherent hands/legs, relaxed seated pose. Static camera. Broad clear window glass. No text, logos, watermarks, rain streaks, droplets on glass, steam, fog, flames or motion blur: weather and steam will be animated later. Distinct from reference composition; no collage or panels.",
+    "path": "run/20261023-three-weeks/scenes/01-bookshop/master.png",
+    "generation_file": "master.png"
+  },
+  {
+    "id": "02-mountain-cabin",
+    "prompt": "Use case: illustration-story. One original wide 16:9 anime illustration master for a cozy rain ambience video. STYLE ONLY from reference: polished clean linework, restrained soft shading, rich warm amber indoors and blue-purple evening outdoors. NEW SUBJECT AND LOCATION: Young adult man in navy cardigan writing in a journal at a pine desk on left, rustic mountain cabin, right picture window overlooking layered fir mountains, brass lamp. Framing: stationary wide camera, compose main subject and furniture left, broad clear rectangular window panes right. One human maximum, no extra pets. Coherent anatomy, natural hands and legs, no floating objects. No writing/text/logos/watermarks/panels. No visible rain strokes, glass droplets, steam, fog, flames or motion blur; these are added by animation later. Distinct architecture and composition from reference.",
+    "path": "run/20261023-three-weeks/scenes/02-mountain-cabin/master.png",
+    "generation_file": "exec-ed297bdd-2ae0-4185-9b46-b8f259d3fc7e.png"
+  },
+  {
+    "id": "03-greenhouse",
+    "prompt": "Use case: illustration-story. One original wide 16:9 anime illustration master for a cozy rain ambience video. STYLE ONLY from reference: polished clean linework, restrained soft shading, rich warm amber indoors and blue-purple evening outdoors. NEW SUBJECT AND LOCATION: Empty indoor greenhouse tea corner with terracotta plants, wicker armchair and ceramic mug on side table at left, large clear right window overlooking a lush garden, amber pendant lamp. Framing: stationary wide camera, compose main subject and furniture left, broad clear rectangular window panes right. One human maximum, no extra pets. Coherent anatomy, natural hands and legs, no floating objects. No writing/text/logos/watermarks/panels. No visible rain strokes, glass droplets, steam, fog, flames or motion blur; these are added by animation later. Distinct architecture and composition from reference.",
+    "path": "run/20261023-three-weeks/scenes/03-greenhouse/master.png",
+    "generation_file": "exec-7471347b-62df-4269-9c1a-e7f74f8dd6bd.png"
+  },
+  {
+    "id": "04-rooftop-cat",
+    "prompt": "Use case: illustration-story. One original wide 16:9 anime illustration master for a cozy rain ambience video. STYLE ONLY from reference: polished clean linework, restrained soft shading, rich warm amber indoors and blue-purple evening outdoors. NEW SUBJECT AND LOCATION: One curled sleeping ginger cat on a cushion on left in a cozy rooftop apartment, low oak table with ceramic mug, right window overlooking blue city rooftops, warm paper floor lamp. Framing: stationary wide camera, compose main subject and furniture left, broad clear rectangular window panes right. One human maximum, no extra pets. Coherent anatomy, natural hands and legs, no floating objects. No writing/text/logos/watermarks/panels. No visible rain strokes, glass droplets, steam, fog, flames or motion blur; these are added by animation later. Distinct architecture and composition from reference.",
+    "path": "run/20261023-three-weeks/scenes/04-rooftop-cat/master.png",
+    "generation_file": "exec-60974e62-6d6c-4b9e-b383-81aba1bfcc6a.png"
+  },
+  {
+    "id": "06-forest-loft",
+    "prompt": "Use case: illustration-story. NEW original 16:9 cozy anime background illustration for a rain ambience video. Scene: Empty A-frame forest loft with low reading chair, folded wool blanket and mug on left table, tall broad window on right overlooking cedar forest, warm shaded floor lamp. Clean precise linework, polished soft cel shading, luminous warm amber room and muted cool blue-purple outdoors. Wide stationary camera, clear coherent architecture, generous unobstructed window panes on right; foreground subject left; preserve broad window view. STRICTLY NO PEOPLE OR ANIMALS; empty room. No text/logos/watermarks/collage. Do not draw rain streaks, glass droplets, steam, fog or flames: those are animated separately. Distinctive room, sophisticated original detail, peaceful restful mood.",
+    "path": "run/20261023-three-weeks/scenes/06-forest-loft/master.png",
+    "generation_file": "exec-b0f45197-d3bd-4cbb-88d1-bd009b5a296d.png"
+  },
+  {
+    "id": "05-lake-writing",
+    "prompt": "Use case: illustration-story. NEW original 16:9 cozy anime background illustration for a rain ambience video. Scene: Young adult woman with short dark hair writing a letter at a walnut desk on left, calm lakeside cottage, right window overlooking still lake and distant hills, amber desk lamp. Clean precise linework, polished soft cel shading, luminous warm amber room and muted cool blue-purple outdoors. Wide stationary camera, clear coherent architecture, generous unobstructed window panes on right; foreground subject left; preserve broad window view. Only the single person specified, anatomically natural hands and legs; no animals. No text/logos/watermarks/collage. Do not draw rain streaks, glass droplets, steam, fog or flames: those are animated separately. Distinctive room, sophisticated original detail, peaceful restful mood.",
+    "path": "run/20261023-three-weeks/scenes/05-lake-writing/master.png",
+    "generation_file": "exec-709564cc-5c4b-46e9-9c01-a1ef5f5b8caf.png"
+  },
+  {
+    "id": "07-pottery",
+    "prompt": "Use case: illustration-story. Original wide 16:9 cozy anime scene master for a rain ambience video. Empty cozy pottery studio, orderly shelves of handmade ceramic bowls on left, low worktable with one mug, huge right window overlooking a quiet wet courtyard, amber work lamp. Absolutely no people or animals; the room is unoccupied. Clean detailed linework, soft cel shading, warm amber lighting indoors contrasting blue-purple overcast evening outdoors. Fixed wide camera, main subject left, broad clear window panes right. Sophisticated original room composition, quiet restful atmosphere. No text, logos, watermark, panels, rain streaks, glass drops, steam, smoke, fog or visible flames. Weather will be animated later.",
+    "path": "run/20261023-three-weeks/scenes/07-pottery/master.png",
+    "generation_file": "exec-ddafed05-5f2d-4279-b787-9ce694751c3e.png"
+  },
+  {
+    "id": "08-dog-veranda",
+    "prompt": "Use case: illustration-story. Original wide 16:9 cozy anime scene master for a rain ambience video. One sleeping golden retriever curled on oval rug on left inside a garden room, small left side table with mug, broad right glazing overlooking hydrangea garden, amber table lamp. Only the single specified animal; NO PEOPLE. Natural coherent animal anatomy, no extra paws or tails. Clean detailed linework, soft cel shading, warm amber lighting indoors contrasting blue-purple overcast evening outdoors. Fixed wide camera, main subject left, broad clear window panes right. Sophisticated original room composition, quiet restful atmosphere. No text, logos, watermark, panels, rain streaks, glass drops, steam, smoke, fog or visible flames. Weather will be animated later.",
+    "path": "run/20261023-three-weeks/scenes/08-dog-veranda/master.png",
+    "generation_file": "exec-4537e54a-6e00-4987-905f-f704aec0be53.png"
+  },
+  {
+    "id": "09-attic-stars",
+    "prompt": "Use case: illustration-story. Original wide 16:9 cozy anime scene master for a rain ambience video. Young adult man with round glasses reading on a left window bench inside a sloped attic bedroom, side table with mug, large right dormer window overlooking hill town, amber lamp. Only the single specified human; no animals. Natural coherent hands and legs. Clean detailed linework, soft cel shading, warm amber lighting indoors contrasting blue-purple overcast evening outdoors. Fixed wide camera, main subject left, broad clear window panes right. Sophisticated original room composition, quiet restful atmosphere. No text, logos, watermark, panels, rain streaks, glass drops, steam, smoke, fog or visible flames. Weather will be animated later.",
+    "path": "run/20261023-three-weeks/scenes/09-attic-stars/master.png",
+    "generation_file": "exec-c0c45e3f-f54e-428d-aabe-d08eac477105.png"
+  },
+  {
+    "id": "10-storm-library",
+    "prompt": "Use case: illustration-story. Original wide 16:9 cozy anime scene master for rain ambience. Empty old private library with deep green armchair and brass lamp on left, mug on low table, large right window overlooking dark woodland, deep warm shadows. Absolutely no people or animals; unoccupied room. Polished clean linework, soft cel shading, warm amber indoors and muted blue-purple overcast evening outdoors. Fixed wide camera, main subject left, broad clear window panes right, peaceful detailed original composition. No text/logos/watermark/collage, no rain strokes/glass droplets/steam/fog/smoke/visible flames. Weather animated separately.",
+    "path": "run/20261023-three-weeks/scenes/10-storm-library/master.png",
+    "generation_file": "exec-481d8c48-a87c-43c2-86b3-42dc13b5d07e.png"
+  },
+  {
+    "id": "11-coastal-room",
+    "prompt": "Use case: illustration-story. Original wide 16:9 cozy anime scene master for rain ambience. Empty coastal cottage reading room with pale timber walls, blue upholstered chair and mug on left table, broad right window overlooking a sheltered bay without breaking waves, warm lamp. Absolutely no people or animals; unoccupied room. Polished clean linework, soft cel shading, warm amber indoors and muted blue-purple overcast evening outdoors. Fixed wide camera, main subject left, broad clear window panes right, peaceful detailed original composition. No text/logos/watermark/collage, no rain strokes/glass droplets/steam/fog/smoke/visible flames. Weather animated separately.",
+    "path": "run/20261023-three-weeks/scenes/11-coastal-room/master.png",
+    "generation_file": "exec-05aeb97b-61af-45a5-bc7b-6c77807286c2.png"
+  },
+  {
+    "id": "12-bakery-cat",
+    "prompt": "Use case: illustration-story. Original wide 16:9 cozy anime scene master for rain ambience. One curled sleeping tabby cat in a basket on left in an empty closed neighborhood bakery, cooling racks and ceramic mug on left counter, broad right shop window overlooking quiet street, warm pendant lamp. Only the single specified animal; NO PEOPLE. Natural animal anatomy, no extra paws or tails. Polished clean linework, soft cel shading, warm amber indoors and muted blue-purple overcast evening outdoors. Fixed wide camera, main subject left, broad clear window panes right, peaceful detailed original composition. No text/logos/watermark/collage, no rain strokes/glass droplets/steam/fog/smoke/visible flames. Weather animated separately.",
+    "path": "run/20261023-three-weeks/scenes/12-bakery-cat/master.png",
+    "generation_file": "exec-ee0aefcf-2d42-4040-99c2-9ad6d6be8742.png"
+  },
+  {
+    "id": "15-sewing-room",
+    "prompt": "Original wide 16:9 cozy anime illustration master for rain ambience. Empty cozy sewing studio with folded fabrics and vintage sewing machine on left workbench, mug beside amber task lamp, broad right window overlooking small garden. NO PEOPLE OR ANIMALS; empty unoccupied interior. Warm amber interior light, cool blue-purple cloudy evening outdoors. Beautiful clean linework and soft cel shading, coherent perspective and furniture, fixed wide camera. Main subject left and broad unobstructed clear window panes right. No text/logos/watermark/collage, no rain streaks, glass droplets, steam, smoke, fog or visible flame. New distinctive architecture; peaceful detailed composition.",
+    "path": "run/20261023-three-weeks/scenes/15-sewing-room/master.png",
+    "generation_file": "exec-3f1776fb-5100-42f5-b992-fa5d0ecd10a2.png"
+  },
+  {
+    "id": "14-cedar-bedroom",
+    "prompt": "Original wide 16:9 cozy anime illustration master for rain ambience. Empty cedar cabin bedroom with neatly folded quilt on low bed on left, ceramic mug on bedside table, large right window overlooking pine hillside, soft amber bedside lamp. NO PEOPLE OR ANIMALS; empty unoccupied interior. Warm amber interior light, cool blue-purple cloudy evening outdoors. Beautiful clean linework and soft cel shading, coherent perspective and furniture, fixed wide camera. Main subject left and broad unobstructed clear window panes right. No text/logos/watermark/collage, no rain streaks, glass droplets, steam, smoke, fog or visible flame. New distinctive architecture; peaceful detailed composition.",
+    "path": "run/20261023-three-weeks/scenes/14-cedar-bedroom/master.png",
+    "generation_file": "exec-fcf4344b-bc4f-4685-bc91-840b0804eb3f.png"
+  },
+  {
+    "id": "13-botanical-desk",
+    "prompt": "Original wide 16:9 cozy anime illustration master for rain ambience. Young adult woman with braided black hair sketching leaves at a left desk, cozy botanical study, ceramic mug and amber lamp, broad right window overlooking birch grove. One specified human only, natural hands and legs, no animals. Warm amber interior light, cool blue-purple cloudy evening outdoors. Beautiful clean linework and soft cel shading, coherent perspective and furniture, fixed wide camera. Main subject left and broad unobstructed clear window panes right. No text/logos/watermark/collage, no rain streaks, glass droplets, steam, smoke, fog or visible flame. New distinctive architecture; peaceful detailed composition.",
+    "path": "run/20261023-three-weeks/scenes/13-botanical-desk/master.png",
+    "generation_file": "exec-ed33a414-792b-486f-a1e1-6f4e861af9c6.png"
+  },
+  {
+    "id": "17-forest-study",
+    "prompt": "Original wide 16:9 cozy anime scene illustration for a rain ambience master. Young adult man with curly dark hair studying an open book at a left oak desk, cabin study, ceramic mug and amber banker lamp, broad right window overlooking dense fern forest. Only specified human, natural hands and legs, no animals. Polished clean linework and soft cel shading, warm amber indoors contrasting cool blue-purple cloudy outdoors. Static wide camera, subject left and broad clear rectangular window panes right. Distinct original architecture, peaceful atmosphere. No text, logo, watermark, panels, rain streaks, glass drops, steam, smoke, fog or visible flames. Weather added in animation.",
+    "path": "run/20261023-three-weeks/scenes/17-forest-study/master.png",
+    "generation_file": "exec-6714bdc5-4b1c-4d0d-9cee-4b7ea587f0ab.png"
+  },
+  {
+    "id": "16-train-dog",
+    "prompt": "Original wide 16:9 cozy anime scene illustration for a rain ambience master. One sleeping small brown dog curled on cushion on left inside a railway keeper cottage, boots by a closed door, table with mug and amber lamp, broad right window overlooking quiet empty railway platform. Only specified dog; NO PEOPLE. Coherent anatomy, no extra paws or tails. Polished clean linework and soft cel shading, warm amber indoors contrasting cool blue-purple cloudy outdoors. Static wide camera, subject left and broad clear rectangular window panes right. Distinct original architecture, peaceful atmosphere. No text, logo, watermark, panels, rain streaks, glass drops, steam, smoke, fog or visible flames. Weather added in animation.",
+    "path": "run/20261023-three-weeks/scenes/16-train-dog/master.png",
+    "generation_file": "exec-be9526a8-b34e-44e9-a880-5d5fcca2707f.png"
+  },
+  {
+    "id": "18-orchard-window",
+    "prompt": "Original wide 16:9 cozy anime scene illustration for a rain ambience master. Empty farmhouse breakfast nook with checked linen on left table, mug and bowl of pears, broad right window overlooking an apple orchard, amber pendant lamp. NO PEOPLE OR ANIMALS; unoccupied room. Polished clean linework and soft cel shading, warm amber indoors contrasting cool blue-purple cloudy outdoors. Static wide camera, subject left and broad clear rectangular window panes right. Distinct original architecture, peaceful atmosphere. No text, logo, watermark, panels, rain streaks, glass drops, steam, smoke, fog or visible flames. Weather added in animation.",
+    "path": "run/20261023-three-weeks/scenes/18-orchard-window/master.png",
+    "generation_file": "exec-0840ece0-dc8c-4ef8-b01c-fd2508d3dc54.png"
+  },
+  {
+    "id": "21-music-room",
+    "prompt": "Original wide 16:9 cozy anime illustration for a rain ambience scene master. Empty cozy music room, upright piano on left with closed keyboard cover, chair and mug on small side table, broad right window overlooking garden, warm shaded lamp, no person. NO PEOPLE OR ANIMALS, empty unoccupied interior. Beautiful clean linework, soft cel shading, warm amber light inside and cool blue-purple cloudy evening outside. Static wide camera, main subject left, broad clear window panes right. Distinctive architecture, peaceful detailed room. No text, logo, watermark, collage, rain streaks, glass droplets, steam, smoke, fog or visible flames. Weather animated separately.",
+    "path": "run/20261023-three-weeks/scenes/21-music-room/master.png",
+    "generation_file": "exec-08ccf577-b709-4ef9-80bd-28fddc3b8a20.png"
+  },
+  {
+    "id": "20-ranger-storm",
+    "prompt": "Original wide 16:9 cozy anime illustration for a rain ambience scene master. Empty forest ranger cabin with dark green armchair and wool blanket on left, ceramic mug on wooden side table, big right window overlooking dark tall pines, amber oil-style electric lamp with no flame. NO PEOPLE OR ANIMALS, empty unoccupied interior. Beautiful clean linework, soft cel shading, warm amber light inside and cool blue-purple cloudy evening outside. Static wide camera, main subject left, broad clear window panes right. Distinctive architecture, peaceful detailed room. No text, logo, watermark, collage, rain streaks, glass droplets, steam, smoke, fog or visible flames. Weather animated separately.",
+    "path": "run/20261023-three-weeks/scenes/20-ranger-storm/master.png",
+    "generation_file": "exec-009efc4c-a3eb-44c5-ba27-fa90b24ae9d0.png"
+  },
+  {
+    "id": "19-city-journal",
+    "prompt": "Original wide 16:9 cozy anime illustration for a rain ambience scene master. Young adult woman in rust cardigan journaling at a left desk in a brick loft, ceramic mug and warm lamp, huge right window overlooking a blue-purple city skyline. One specified human only, coherent natural hands and legs, no animals. Beautiful clean linework, soft cel shading, warm amber light inside and cool blue-purple cloudy evening outside. Static wide camera, main subject left, broad clear window panes right. Distinctive architecture, peaceful detailed room. No text, logo, watermark, collage, rain streaks, glass droplets, steam, smoke, fog or visible flames. Weather animated separately.",
+    "path": "run/20261023-three-weeks/scenes/19-city-journal/master.png",
+    "generation_file": "exec-6e4d6a9f-ee36-46aa-ad6c-fd127c0cda66.png"
+  },
+  {
+    "id": "23-lake-reader",
+    "prompt": "Original wide 16:9 cozy anime illustration master for rain ambience. Young adult man in cream sweater reading in left armchair inside timber lake house, ceramic mug and shaded lamp on side table, broad right window overlooking calm lake and distant forest. One specified human only; natural hands and legs, no animals. Warm amber electric lamps indoors, blue-purple cloudy evening outside. Clean detailed linework, soft cel shading, static wide camera, subject left, broad clear window panes right. Peaceful original architecture. NO FIREPLACES OR CANDLES OR OIL LANTERNS. No text/logo/watermark/collage, rain streaks, glass drops, steam, smoke, fog or flames. Weather animated separately.",
+    "path": "run/20261023-three-weeks/scenes/23-lake-reader/master.png",
+    "generation_file": "exec-e04e26d0-fe87-4abe-832a-d7c070ded09f.png"
+  },
+  {
+    "id": "24-print-studio",
+    "prompt": "Original wide 16:9 cozy anime illustration master for rain ambience. Empty cozy printmaking studio with tidy paper stacks and wooden press on left, mug and warm work lamp, broad right window overlooking narrow blue-purple courtyard. NO PEOPLE OR ANIMALS; unoccupied interior. Warm amber electric lamps indoors, blue-purple cloudy evening outside. Clean detailed linework, soft cel shading, static wide camera, subject left, broad clear window panes right. Peaceful original architecture. NO FIREPLACES OR CANDLES OR OIL LANTERNS. No text/logo/watermark/collage, rain streaks, glass drops, steam, smoke, fog or flames. Weather animated separately.",
+    "path": "run/20261023-three-weeks/scenes/24-print-studio/master.png",
+    "generation_file": "exec-7bdab2c1-b400-4786-8763-248c7288c6f8.png"
+  },
+  {
+    "id": "22-conservatory-cat",
+    "prompt": "Original wide 16:9 cozy anime illustration master for rain ambience. One sleeping cream cat curled on left wicker chair in a plant-filled conservatory, mug on wooden side table, broad right clear window overlooking fern garden, amber lamp. Only specified cat; NO PEOPLE, natural anatomy and no extra paws. Warm amber electric lamps indoors, blue-purple cloudy evening outside. Clean detailed linework, soft cel shading, static wide camera, subject left, broad clear window panes right. Peaceful original architecture. NO FIREPLACES OR CANDLES OR OIL LANTERNS. No text/logo/watermark/collage, rain streaks, glass drops, steam, smoke, fog or flames. Weather animated separately.",
+    "path": "run/20261023-three-weeks/scenes/22-conservatory-cat/master.png",
+    "generation_file": "exec-4607d260-858c-4731-afb1-daf42ca58426.png"
+  },
+  {
+    "id": "26-map-room",
+    "prompt": "Original wide 16:9 cozy anime scene master for rain ambience. Empty cozy map room inside woodland lodge, rolled unlettered maps and hiking bag on left, ceramic mug and amber desk lamp, broad right window overlooking tall forest. NO PEOPLE OR ANIMALS; unoccupied interior. Warm amber electric lamps indoors, blue-purple cloudy evening outside. Polished clean linework, soft cel shading, fixed wide camera, subject left, broad clear window panes right, distinctive architecture and peaceful atmosphere. No fireplaces/candles/lanterns, no text/logo/watermark/collage, rain streaks, glass droplets, steam, smoke, fog or flames. Weather animated separately.",
+    "path": "run/20261023-three-weeks/scenes/26-map-room/master.png",
+    "generation_file": "exec-d1e2470b-9251-4309-abfc-c6f27e9a52a0.png"
+  },
+  {
+    "id": "27-city-cat",
+    "prompt": "Original wide 16:9 cozy anime scene master for rain ambience. One sleeping gray cat curled on a left cushion in a compact city studio apartment, mug and warm lamp on side table, huge right window overlooking quiet apartment towers and lane. Only specified animal; NO PEOPLE. Natural anatomy with no extra paws or tails. Warm amber electric lamps indoors, blue-purple cloudy evening outside. Polished clean linework, soft cel shading, fixed wide camera, subject left, broad clear window panes right, distinctive architecture and peaceful atmosphere. No fireplaces/candles/lanterns, no text/logo/watermark/collage, rain streaks, glass droplets, steam, smoke, fog or flames. Weather animated separately.",
+    "path": "run/20261023-three-weeks/scenes/27-city-cat/master.png",
+    "generation_file": "exec-9cef9dc0-0e8a-4332-80e6-23345ef413e8.png"
+  },
+  {
+    "id": "25-cottage-dog",
+    "prompt": "Original wide 16:9 cozy anime scene master for rain ambience. One curled sleeping black and tan dog on a wool rug at left in a stone cottage, amber table lamp and mug on low table, big right window overlooking green hedgerows. Only specified animal; NO PEOPLE. Natural anatomy with no extra paws or tails. Warm amber electric lamps indoors, blue-purple cloudy evening outside. Polished clean linework, soft cel shading, fixed wide camera, subject left, broad clear window panes right, distinctive architecture and peaceful atmosphere. No fireplaces/candles/lanterns, no text/logo/watermark/collage, rain streaks, glass droplets, steam, smoke, fog or flames. Weather animated separately.",
+    "path": "run/20261023-three-weeks/scenes/25-cottage-dog/master.png",
+    "generation_file": "exec-3dbd724d-0bff-4716-b026-82348ae5d6f5.png"
+  },
+  {
+    "id": "30-woodland-night",
+    "prompt": "Original wide 16:9 cozy anime interior illustration. Empty cozy woodland cabin sitting room with amber lamp, soft brown armchair and mug on left side table, huge right picture window overlooking deep blue dense forest. NO PEOPLE OR ANIMALS, empty room. Amber electric lamps indoors, cool blue-purple evening outdoors. Polished clean linework and soft cel shading. Static wide camera, subject left, broad completely clear and dry window panes right. Outside air is completely CLEAR, no precipitation, no streaks, no particles, no glass droplets. No fireplace, candle, lantern, steam, smoke, fog or flame. No text, logo, watermark or panels. Peaceful distinctive room.",
+    "path": "run/20261023-three-weeks/scenes/30-woodland-night/master.png",
+    "generation_file": "exec-20fc612f-c37b-4ed9-96a9-47f5dc6f4a7c.png"
+  },
+  {
+    "id": "29-tea-atelier",
+    "prompt": "Original wide 16:9 cozy anime interior illustration. Empty cozy Japanese-inspired tea atelier with low walnut table and one ceramic cup on left, floor cushion and warm paper lamp, broad right window overlooking bamboo garden. NO PEOPLE OR ANIMALS, empty room. Amber electric lamps indoors, cool blue-purple evening outdoors. Polished clean linework and soft cel shading. Static wide camera, subject left, broad completely clear and dry window panes right. Outside air is completely CLEAR, no precipitation, no streaks, no particles, no glass droplets. No fireplace, candle, lantern, steam, smoke, fog or flame. No text, logo, watermark or panels. Peaceful distinctive room.",
+    "path": "run/20261023-three-weeks/scenes/29-tea-atelier/master.png",
+    "generation_file": "exec-bcdf1862-cf9e-41b4-a509-16a119780f60.png"
+  },
+  {
+    "id": "28-garden-reader",
+    "prompt": "Original wide 16:9 cozy anime interior illustration. Young adult woman in teal sweater reading on a left bench in a country garden room, ceramic mug and amber lamp on small table, broad right window overlooking leafy garden and stone wall. One specified human only; natural hands and legs, no animals. Amber electric lamps indoors, cool blue-purple evening outdoors. Polished clean linework and soft cel shading. Static wide camera, subject left, broad completely clear and dry window panes right. Outside air is completely CLEAR, no precipitation, no streaks, no particles, no glass droplets. No fireplace, candle, lantern, steam, smoke, fog or flame. No text, logo, watermark or panels. Peaceful distinctive room.",
+    "path": "run/20261023-three-weeks/scenes/28-garden-reader/master.png",
+    "generation_file": "exec-d7e378bc-663f-4c49-8c04-91e57c5a76da.png"
+  },
+  {
+    "id": "26-map-room",
+    "revision": "clean",
+    "prompt": "Edit only the weather marks: remove ALL drawn rain streaks and ALL glass droplets/condensation from the window and outdoor view. Make the air and glass completely clear, showing the same scenery unobstructed. Keep the room, animal (if any), furnishings, lamp, mug, light, color, architecture, composition and 16:9 dimensions exactly unchanged. Do not add any particles, precipitation, steam, flames, text, people or objects.",
+    "path": "run/20261023-three-weeks/scenes/26-map-room/master-clean.png",
+    "generation_file": "exec-e66b4992-be90-4da8-975f-967a683f2919.png"
+  },
+  {
+    "id": "25-cottage-dog",
+    "revision": "clean",
+    "prompt": "Edit only the weather marks: remove ALL drawn rain streaks and ALL glass droplets/condensation from the window and outdoor view. Make the air and glass completely clear, showing the same scenery unobstructed. Keep the room, animal (if any), furnishings, lamp, mug, light, color, architecture, composition and 16:9 dimensions exactly unchanged. Do not add any particles, precipitation, steam, flames, text, people or objects.",
+    "path": "run/20261023-three-weeks/scenes/25-cottage-dog/master-clean.png",
+    "generation_file": "exec-ffc8845b-288c-4ac8-b1c5-725a6d8fb300.png"
+  },
+  {
+    "id": "20-ranger-storm",
+    "revision": "clean",
+    "prompt": "Edit only the visible fire-related details: replace the lit oil lamp on the side table with a shaded amber electric table lamp, and replace the lit stove/fireplace at far left with a closed solid dark cupboard. Remove all flames. Keep everything else exactly unchanged: architecture, chair, mug, window and outdoor view, composition, style, color and 16:9 size. No new person, animal, text or weather.",
+    "path": "run/20261023-three-weeks/scenes/20-ranger-storm/master-clean.png",
+    "generation_file": "exec-a4c72a58-3cd3-4716-a149-b620c9836349.png"
+  },
+  {
+    "id": "27-city-cat",
+    "revision": "clean",
+    "prompt": "Edit only the weather marks: remove ALL drawn rain streaks and ALL glass droplets/condensation from the window and outdoor view. Make the air and glass completely clear, showing the same scenery unobstructed. Keep the room, animal (if any), furnishings, lamp, mug, light, color, architecture, composition and 16:9 dimensions exactly unchanged. Do not add any particles, precipitation, steam, flames, text, people or objects.",
+    "path": "run/20261023-three-weeks/scenes/27-city-cat/master-clean.png",
+    "generation_file": "exec-7939256c-00fe-4e36-8688-f9f2fcb5e7ab.png"
+  },
+  {
+    "id": "06-forest-loft",
+    "revision": "clean",
+    "prompt": "Precise small object edit only. Replace EVERY flame-containing lantern or candle in this image with an amber shaded ELECTRIC lamp or a plain closed decorative jar. There must be absolutely no visible flames anywhere. Keep all other elements exactly unchanged: the room, furnishings, person or animal if present, mug, windows, scenery, composition, warm light, anime style, and wide 16:9 dimensions. No new weather, steam, text, people or animals.",
+    "path": "run/20261023-three-weeks/scenes/06-forest-loft/master-clean.png",
+    "generation_file": "exec-b05033de-7724-4fb0-8be3-76ee3c1619d4.png"
+  },
+  {
+    "id": "09-attic-stars",
+    "revision": "clean",
+    "prompt": "Precise small object edit only. Replace EVERY flame-containing lantern or candle in this image with an amber shaded ELECTRIC lamp or a plain closed decorative jar. There must be absolutely no visible flames anywhere. Keep all other elements exactly unchanged: the room, furnishings, person or animal if present, mug, windows, scenery, composition, warm light, anime style, and wide 16:9 dimensions. No new weather, steam, text, people or animals.",
+    "path": "run/20261023-three-weeks/scenes/09-attic-stars/master-clean.png",
+    "generation_file": "exec-aa63d1fe-2d7a-434e-b600-08a1b9d01535.png"
+  },
+  {
+    "id": "16-train-dog",
+    "revision": "clean",
+    "prompt": "Precise small object edit only. Replace EVERY flame-containing lantern or candle in this image with an amber shaded ELECTRIC lamp or a plain closed decorative jar. There must be absolutely no visible flames anywhere. Keep all other elements exactly unchanged: the room, furnishings, person or animal if present, mug, windows, scenery, composition, warm light, anime style, and wide 16:9 dimensions. No new weather, steam, text, people or animals.",
+    "path": "run/20261023-three-weeks/scenes/16-train-dog/master-clean.png",
+    "generation_file": "exec-339bffd8-8135-4f65-bc83-828758e7875a.png"
+  },
+  {
+    "id": "30-woodland-night",
+    "revision": "clean",
+    "prompt": "Precise small object edit only. Replace EVERY flame-containing lantern or candle in this image with an amber shaded ELECTRIC lamp or a plain closed decorative jar. There must be absolutely no visible flames anywhere. Keep all other elements exactly unchanged: the room, furnishings, person or animal if present, mug, windows, scenery, composition, warm light, anime style, and wide 16:9 dimensions. No new weather, steam, text, people or animals.",
+    "path": "run/20261023-three-weeks/scenes/30-woodland-night/master-clean.png",
+    "generation_file": "exec-d11e03b4-c7f8-4453-bc00-02529a857cc4.png"
+  }
+]
