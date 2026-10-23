@@ -33,6 +33,10 @@ SCOPES = [
     # Needed for channels().list(mine=True) in verify_target_channel().
     "https://www.googleapis.com/auth/youtube.readonly",
 ]
+# Posting the standard comment (post_pinned_comment.py) needs youtube.force-ssl.
+# Uploads keep requesting only SCOPES, so a token without it still uploads.
+COMMENT_SCOPES = SCOPES + ["https://www.googleapis.com/auth/youtube.force-ssl"]
+SETTINGS_PATH = ROOT / "data" / "upload_settings.json"
 CHUNK_SIZE = 8 * 1024 * 1024
 MAX_RETRIES = 5
 RETRIABLE_STATUS_CODES = {500, 502, 503, 504}
@@ -52,7 +56,7 @@ if PRIVACY_STATUS not in VALID_PRIVACY_STATUSES:
     )
 
 
-def get_credentials():
+def get_credentials(scopes=SCOPES):
     client_id = os.environ["YT_CLIENT_ID"]
     client_secret = os.environ["YT_CLIENT_SECRET"]
     refresh_token = os.environ["YT_REFRESH_TOKEN"]
@@ -62,7 +66,7 @@ def get_credentials():
         token_uri="https://oauth2.googleapis.com/token",
         client_id=client_id,
         client_secret=client_secret,
-        scopes=SCOPES,
+        scopes=scopes,
     )
 
 
@@ -154,24 +158,37 @@ def scheduled_release():
     return api_timestamp(next_publish_at())
 
 
-def upload_video(youtube, assets, publish_at=None):
+def upload_body(assets, publish_at=None):
+    preset = json.loads(SETTINGS_PATH.read_text(encoding="utf-8"))
     body = {
         "snippet": {
+            **preset.get("snippet", {}),
             "title": assets["title"][:100],  # YouTube title limit
             "description": assets["description"][:5000],
             "tags": assets["tags"],
             "categoryId": assets.get("category_id", "10"),
         },
+        # Presets cannot override visibility, scheduling or audience.
         "status": {
+            **preset.get("status", {}),
             "privacyStatus": PRIVACY_STATUS,
             "selfDeclaredMadeForKids": False,
         },
     }
+    if preset.get("recordingDetails"):
+        body["recordingDetails"] = dict(preset["recordingDetails"])
+        if assets.get("date"):
+            body["recordingDetails"]["recordingDate"] = f"{assets['date']}T00:00:00Z"
     if publish_at:
         # YouTube accepts publishAt only on private videos and makes them public then.
         body["status"].update(privacyStatus="private", publishAt=publish_at)
+    return body
+
+
+def upload_video(youtube, assets, publish_at=None):
+    body = upload_body(assets, publish_at)
     media = MediaFileUpload(str(VIDEO_PATH), chunksize=CHUNK_SIZE, resumable=True, mimetype="video/mp4")
-    request = youtube.videos().insert(part="snippet,status", body=body, media_body=media)
+    request = youtube.videos().insert(part=",".join(body), body=body, media_body=media)
 
     response = None
     retries = 0
