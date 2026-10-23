@@ -52,6 +52,9 @@ on:
       resume_video_id:
         description: "Required in resume mode: existing YouTube video identifier recorded in history"
         type: string
+      inspect_video_id:
+        description: "Verify mode only: read-only settings report for one of the channel's videos"
+        type: string
 concurrency:
   group: daily-rain-video
   cancel-in-progress: false
@@ -64,6 +67,7 @@ jobs:
     env:
       PIPELINE_MODE: ${{ inputs.mode || 'publish' }}
       RESUME_VIDEO_ID: ${{ inputs.resume_video_id }}
+      INSPECT_VIDEO_ID: ${{ inputs.inspect_video_id }}
       ASSET_SELECTION: ${{ inputs.asset_selection || 'channel' }}
       VISUAL_STYLE: ${{ inputs.visual_style || 'any' }}
       VIDEO_ID: ${{ inputs.video_id }}
@@ -84,6 +88,7 @@ jobs:
       - name: Validate controls
         run: |
           python -c "import os; m=os.environ['PIPELINE_MODE']; r=os.environ['RESUME_VIDEO_ID']; assert (m == 'resume') == bool(r), 'Supply resume_video_id only in resume mode'"
+          python -c "import os; assert os.environ['PIPELINE_MODE'] == 'verify' or not os.environ['INSPECT_VIDEO_ID'], 'Supply inspect_video_id only in verify mode'"
       - name: Verify YouTube channel
         if: env.PIPELINE_MODE != 'preview'
         env:
