@@ -14,10 +14,18 @@ def package(library, root=ROOT, tag='custom-scenes-2026-10-17'):
     registry = read_json(library / 'run/image-scene-library.json', {})
     if not registry:
         raise ValueError('Missing reviewed scene registry')
-    records, manifest = [], []
+    records = []
+    manifest = read_json(root / 'data/channel_asset_manifest.json', [])
+    for item in manifest:
+        source = (root / item['path']).resolve()
+        source.relative_to(root.resolve())
+        if digest(source) != item['sha256']:
+            raise ValueError('Existing bundle source changed: ' + item['path'])
     root.joinpath('run').mkdir(exist_ok=True)
     bundle_path = root / 'run/custom-channel-assets.zip'
     with zipfile.ZipFile(bundle_path, 'w', compression=zipfile.ZIP_STORED) as bundle:
+        for item in manifest:
+            bundle.write(root / item['path'], item['path'])
         for scene_id, entry in registry.items():
             if entry.get('status') != 'approve' or entry.get('package_checked') is not True:
                 continue
@@ -30,7 +38,9 @@ def package(library, root=ROOT, tag='custom-scenes-2026-10-17'):
                 raise ValueError(f'{scene_id}: approved preview and checksum required')
             source = (folder / preview).resolve()
             source.relative_to(folder)
-            if digest(source) != expected or digest(folder / 'master.png') != spec.get('master_sha256'):
+            master = (folder / spec.get('master', 'master.png')).resolve()
+            master.relative_to(folder)
+            if digest(source) != expected or digest(master) != spec.get('master_sha256'):
                 raise ValueError(f'{scene_id}: reviewed media changed')
             info = probe(source)
             stream = next(s for s in info['streams'] if s['codec_type'] == 'video')
@@ -43,8 +53,12 @@ def package(library, root=ROOT, tag='custom-scenes-2026-10-17'):
                 raise ValueError(f'Preserve and resolve existing changed media: {relative}')
             if not target.exists():
                 shutil.copy2(source, target)
-            bundle.write(source, relative)
-            manifest.append({'path': relative, 'sha256': expected, 'bytes': source.stat().st_size})
+            previous = next((item for item in manifest if item['path'] == relative), None)
+            if previous and previous['sha256'] != expected:
+                raise ValueError('Existing manifest differs: ' + relative)
+            if not previous:
+                bundle.write(source, relative)
+                manifest.append({'path': relative, 'sha256': expected, 'bytes': source.stat().st_size})
             records.append({'asset_id': f'custom:{scene_id}', 'local_path': relative,
                 'source_url': f'https://github.com/shmop/rain-sounds-assets/releases/tag/{tag}',
                 'license_url': 'https://openai.com/policies/terms-of-use/',
