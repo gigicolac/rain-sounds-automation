@@ -2166,7 +2166,7 @@
     "last_error": "Video FQRWfqcIC6g is still processing. Resume it later; do not upload again."
   },
   "3f79ca3a1a5456d2c6460c6feeb0d784006e6b84ce83a05c2c60f7833ea8cc24": {
-    "state": "reserved",
+    "state": "uploaded",
     "assets": {
       "date": "2026-10-23",
       "day_number": 739912,
@@ -2328,6 +2328,8 @@
       }
     },
     "requested_privacy": "public",
-    "run_id": "39889505749"
+    "run_id": "39889505749",
+    "video_id": "RfRAEIL5U6Y",
+    "url": "https://www.youtube.com/watch?v=RfRAEIL5U6Y"
   }
 }
