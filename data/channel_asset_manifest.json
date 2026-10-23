@@ -33,5 +33,45 @@
     "path": "scenes/custom-10-mug-window.mp4",
     "sha256": "e3adc46f6a986c5e99977631cff2fddf9cf0bb75ecc7c76169d40474157b4147",
     "bytes": 6138379
+  },
+  {
+    "path": "audio/custom/v2-light-blend.flac",
+    "sha256": "bdf8c63753b06e017fa34ed9001c75f92d1a2139f2e0a81fb54416e79782ef34",
+    "bytes": 16153434
+  },
+  {
+    "path": "audio/custom/v2-changing-shower.flac",
+    "sha256": "0c95e63f16e389121ff93d6e63ac1455e9091d5a16e164fc4b4917a43cf54ab0",
+    "bytes": 16707711
+  },
+  {
+    "path": "audio/custom/v2-building-rain.flac",
+    "sha256": "577ed9e2dabef3d762be4619a0f4b33d1909bab9e9df2276966ffb59e1f050b7",
+    "bytes": 17942982
+  },
+  {
+    "path": "audio/custom/v2-moderate-rain.flac",
+    "sha256": "1ca4c197a818dfa786eecc00e3bb867900e9870b180f881fa2b2e5bc36e3bfb5",
+    "bytes": 18708050
+  },
+  {
+    "path": "audio/custom/window-drizzle-417-20261017-011856-714260.flac",
+    "sha256": "4dc849411db5fa660957b06ed629bce7d64e3c139e20bbfc1f6867aba62c5172",
+    "bytes": 14733862
+  },
+  {
+    "path": "audio/custom/forest-steady-417-20261017-011914-932410.flac",
+    "sha256": "0207eb4b3aabf2eb304ce19058751e03e622d4650381376ce45d12c98f9c54c3",
+    "bytes": 18058877
+  },
+  {
+    "path": "audio/custom/city-rain-417-20261017-011933-891051.flac",
+    "sha256": "fb06e0eaf7360c09890048e6ae33943152a19ad3021c75a23d29b6a749ec2ac4",
+    "bytes": 17167005
+  },
+  {
+    "path": "audio/custom/cabin-evening-123-20261017-012120-376343.flac",
+    "sha256": "2e8bdc6cbfcac64e285bd0c10ecc67dbb38dfd71fccd81863e9a86ae45749f42",
+    "bytes": 14076380
   }
 ]

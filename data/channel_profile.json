@@ -12,9 +12,17 @@
     "custom:10-mug-window"
   ],
   "audio_ids": [
-    "695619",
     "651189",
-    "788146"
+    "695619",
+    "788146",
+    "custom-audio:cabin-evening-123-20261017-012120-376343",
+    "custom-audio:city-rain-417-20261017-011933-891051",
+    "custom-audio:forest-steady-417-20261017-011914-932410",
+    "custom-audio:v2-building-rain",
+    "custom-audio:v2-changing-shower",
+    "custom-audio:v2-light-blend",
+    "custom-audio:v2-moderate-rain",
+    "custom-audio:window-drizzle-417-20261017-011856-714260"
   ],
   "audio_selection_note": "User selected all recordings labelled sounds solid. This includes the city recording with traffic; do not claim traffic-free audio.",
   "scope": "user-selected channel pool; automatic technical checks and source records required for publishing"

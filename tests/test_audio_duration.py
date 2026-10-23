@@ -11,6 +11,24 @@ import build_video
 
 
 class AudioDurationTests(unittest.TestCase):
+    def test_custom_loudness_target_survives_preparation(self):
+        report = {'loudness': {'input_i': '-29', 'input_tp': '-4', 'input_lra': '3',
+                              'input_thresh': '-39', 'target_offset': '0'}}
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder); (root/'audio-loop.wav').write_bytes(b'intermediate')
+            with patch('media_quality.probe', side_effect=[{'format':{'duration':'90'}},{'format':{'duration':'30'}}]), \
+                    patch('media_quality.audio_report', side_effect=[copy.deepcopy(report) for _ in range(3)]), \
+                    patch('media_quality.subprocess.run') as run:
+                media_quality.prepare_audio(Path('rain.flac'), root/'prepared.wav', 30, target_lufs=-29)
+            filters=[call.args[0][call.args[0].index('-af')+1] for call in run.call_args_list if '-af' in call.args[0]]
+            self.assertTrue(any('loudnorm=I=-29:' in f for f in filters))
+            self.assertEqual(json.loads((root/'prepared.quality.json').read_text())['target_lufs'],-29)
+
+    def test_invalid_loudness_target_fails_before_media_work(self):
+        for target in (-45,-10,float('nan'),float('inf'),'loud'):
+            with self.assertRaisesRegex(ValueError,'loudness target'):
+                media_quality.prepare_audio(Path('rain.flac'),Path('prepared.wav'),30,target_lufs=target)
+
     def test_short_normalized_audio_cannot_pass(self):
         report = {'loudness': {'input_i': '-20', 'input_tp': '-2', 'input_lra': '7',
                               'input_thresh': '-30', 'target_offset': '0'}}

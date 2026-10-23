@@ -27,7 +27,7 @@ on:
         description: "Optional Pexels search phrase"
         type: string
       audio_id:
-        description: "Optional Freesound identifier from audio/metadata.json"
+        description: "Optional cached audio identifier from audio/metadata.json (Freesound or custom asset)"
         type: string
       title:
         description: "Optional title (unsupported content claims are rejected)"

@@ -1,5 +1,8 @@
 # Rain Sounds YouTube Automation
 
+See [RAIN_AUDIO_WORKFLOW.md](RAIN_AUDIO_WORKFLOW.md) for the local rain audio
+creation/review library, presets, approved/pass/rejected categories and exports.
+
 See [CUSTOM_CHANNEL_LAUNCH.md](CUSTOM_CHANNEL_LAUNCH.md) for the custom scene
 launch branch, thumbnail treatments, title rotation, audio listening candidates
 and deployment evidence.
