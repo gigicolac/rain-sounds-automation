@@ -2336,7 +2336,7 @@
     "thumbnail": "set"
   },
   "bcfd62a4bf05b477c3118a5df61e42e918203330d59dd76b351d3a71ab095873": {
-    "state": "processed",
+    "state": "complete",
     "assets": {
       "date": "2026-10-24",
       "day_number": 739913,
@@ -2571,6 +2571,7 @@
     "publish_at": "2026-10-24T13:00:00.000Z",
     "video_id": "4TZDFeruMko",
     "url": "https://www.youtube.com/watch?v=4TZDFeruMko",
-    "actual_privacy": "private"
+    "actual_privacy": "private",
+    "thumbnail": "set"
   }
 }
