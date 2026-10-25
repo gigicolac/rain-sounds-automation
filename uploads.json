@@ -2573,5 +2573,240 @@
     "url": "https://www.youtube.com/watch?v=4TZDFeruMko",
     "actual_privacy": "private",
     "thumbnail": "set"
+  },
+  "98a0e6286240ffbd8211b0018ad5fe5dc723323d838c48d86a06a76e2412bdd7": {
+    "state": "reserved",
+    "assets": {
+      "date": "2026-10-25",
+      "day_number": 739914,
+      "scene_term": "anime window rain ambience",
+      "video": {
+        "asset_id": "custom:19-city-journal",
+        "local_path": "scenes/custom-19-city-journal.mp4",
+        "source_url": "https://github.com/shmop/rain-sounds-assets/releases/tag/three-week-approved-2026-10-23",
+        "license_url": "https://openai.com/policies/terms-of-use/",
+        "source_record_origin": "User-created image_gen scene and exact user-approved animation preview",
+        "generator": "built-in image_gen",
+        "sha256": "9ee1c303b0ab1dd1de4cde0615e49d6f5d293f2f9f2a0d229eee2c877dd41678",
+        "width": 1920,
+        "height": 1080,
+        "duration": 10.0,
+        "thumbnail_text_side": "right",
+        "review": {
+          "approved": true,
+          "status": "approved",
+          "labels": {},
+          "notes": "User approved the revised video in chat on 23 October 2026.",
+          "approval_scope": "master and exact animation preview; content labels remain unknown"
+        },
+        "custom_scene": {
+          "scene_id": "19-city-journal",
+          "preview": "preview-panes-v2.mp4",
+          "master_sha256": "65ead3056b35c260445551500c9ae8231c8a701c92206d12ad6329b28780b082"
+        },
+        "scene_term": "anime window rain ambience"
+      },
+      "audio": {
+        "asset_id": "custom-audio:three-weeks-24-print-studio",
+        "source_url": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+        "components": [
+          {
+            "kind": "procedural",
+            "seed": 2026102324,
+            "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+            "profile": {
+              "rate": 25,
+              "target": -26,
+              "bed_db": -16.9,
+              "lowpass": 7137,
+              "name": "three-weeks-24-print-studio",
+              "source": "695619",
+              "intensity": "changing",
+              "curve": [
+                0.174,
+                0.489,
+                0.894,
+                0.432,
+                0.288
+              ],
+              "highpass": 450
+            },
+            "event_count": 1148
+          },
+          {
+            "kind": "licensed_recording",
+            "id": "695619",
+            "source_url": "https://freesound.org/s/695619/",
+            "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+            "source_sha256": "bd7b7ec882cc4d2edc11527bd5693bed31abf2c55e1f64a76ca14102dd525400",
+            "original_title": "Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav"
+          }
+        ],
+        "sha256": "c1c5b6e9069c776bb30f525318383d8c7175d9a43da1e919799933ca52b33296",
+        "target_lufs": -26.05,
+        "filename": "custom/three-weeks-24-print-studio.flac",
+        "path": "audio/custom/three-weeks-24-print-studio.flac",
+        "title": "Week 3 / 24 - Print studio evening",
+        "freesound_id": "custom-audio:three-weeks-24-print-studio",
+        "freesound_url": null,
+        "license": "Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)",
+        "review": {
+          "approved": true,
+          "status": "approved",
+          "notes": "light, sparse | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+          "reviewed_at": "2026-10-23T09:05:20.460520+00:00",
+          "labels": {},
+          "quality": {
+            "full_playback": true,
+            "loop_checked": true
+          }
+        }
+      },
+      "duration_minutes": 180,
+      "duration_seconds": 10800,
+      "title": "Rain Sounds for Studying | Cozy Ambience | 3 Hours",
+      "title_options": [
+        "Rain Sounds for Studying | Cozy Ambience | 3 Hours",
+        "Rain Sounds for Studying | Rain Ambience | 3 Hours",
+        "Rain Sounds for Studying | Cozy Rain | 3 Hours"
+      ],
+      "description": "Rain sounds for sleep, study and relaxation. Enjoy 3 hours of cozy rain ambience.\n\nSubscribe to Calming Rain Sounds (@calmingrainsoundssss) for more rain ambience.\n\nThis session pairs the selected visual scene with the recording \"Week 3 / 24 - Print studio evening\". The source details below identify the footage and audio used for this upload.\n\n#rainsounds #rain #sleep #relaxation #ambience #whitenoise #study\n\n---\nVideo source: https://github.com/shmop/rain-sounds-assets/releases/tag/three-week-approved-2026-10-23\nVideo license: https://openai.com/policies/terms-of-use/\nAudio recording: \"Week 3 / 24 - Print studio evening\"\nAudio source: https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py\nAudio license: Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)\n",
+      "thumbnail_headline": "STUDY\nRAIN",
+      "thumbnail_style": "stacked",
+      "thumbnail_side": "right",
+      "thumbnail_variants": [
+        {
+          "headline": "STUDY\nRAIN",
+          "style": "stacked",
+          "side": "right"
+        },
+        {
+          "headline": "STUDY\nRAIN",
+          "style": "accent",
+          "side": "right"
+        },
+        {
+          "headline": "STUDY\nRAIN",
+          "style": "panel",
+          "side": "right"
+        }
+      ],
+      "tags": [
+        "rain sounds",
+        "rain sounds for sleeping",
+        "rain ambience",
+        "sleep sounds",
+        "relaxing rain",
+        "white noise",
+        "rain sounds for studying",
+        "calming rain",
+        "ambient rain",
+        "deep sleep"
+      ],
+      "review_approved": false,
+      "selection_explanation": {
+        "policy": "channel_profile",
+        "strict_review": false,
+        "rotation": "Use every available scene once per cycle before repeating; prefer less recent and less-used scenes within a cycle; never reuse a reserved pair."
+      },
+      "category_id": "10",
+      "variety": {
+        "scene_id": "custom:19-city-journal",
+        "scene_source": "https://github.com/shmop/rain-sounds-assets/releases/tag/three-week-approved-2026-10-23",
+        "audio_id": "custom-audio:three-weeks-24-print-studio",
+        "audio_source": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+        "audio_components": [
+          {
+            "kind": "procedural",
+            "seed": 2026102324,
+            "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+            "profile": {
+              "rate": 25,
+              "target": -26,
+              "bed_db": -16.9,
+              "lowpass": 7137,
+              "name": "three-weeks-24-print-studio",
+              "source": "695619",
+              "intensity": "changing",
+              "curve": [
+                0.174,
+                0.489,
+                0.894,
+                0.432,
+                0.288
+              ],
+              "highpass": 450
+            },
+            "event_count": 1148
+          },
+          {
+            "kind": "licensed_recording",
+            "id": "695619",
+            "source_url": "https://freesound.org/s/695619/",
+            "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+            "source_sha256": "bd7b7ec882cc4d2edc11527bd5693bed31abf2c55e1f64a76ca14102dd525400",
+            "original_title": "Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav"
+          }
+        ],
+        "duration_seconds": 10800,
+        "title": "Rain Sounds for Studying | Cozy Ambience | 3 Hours",
+        "keyword": "Rain Sounds for Studying",
+        "thumbnail_headline": "STUDY\nRAIN",
+        "thumbnail_style": "stacked",
+        "description_opening": "Rain sounds for sleep, study and relaxation. Enjoy 3 hours of cozy rain ambience.",
+        "verified_video_labels": {},
+        "verified_audio_labels": {}
+      }
+    },
+    "variety": {
+      "scene_id": "custom:19-city-journal",
+      "scene_source": "https://github.com/shmop/rain-sounds-assets/releases/tag/three-week-approved-2026-10-23",
+      "audio_id": "custom-audio:three-weeks-24-print-studio",
+      "audio_source": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+      "audio_components": [
+        {
+          "kind": "procedural",
+          "seed": 2026102324,
+          "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+          "profile": {
+            "rate": 25,
+            "target": -26,
+            "bed_db": -16.9,
+            "lowpass": 7137,
+            "name": "three-weeks-24-print-studio",
+            "source": "695619",
+            "intensity": "changing",
+            "curve": [
+              0.174,
+              0.489,
+              0.894,
+              0.432,
+              0.288
+            ],
+            "highpass": 450
+          },
+          "event_count": 1148
+        },
+        {
+          "kind": "licensed_recording",
+          "id": "695619",
+          "source_url": "https://freesound.org/s/695619/",
+          "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+          "source_sha256": "bd7b7ec882cc4d2edc11527bd5693bed31abf2c55e1f64a76ca14102dd525400",
+          "original_title": "Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav"
+        }
+      ],
+      "duration_seconds": 10800,
+      "title": "Rain Sounds for Studying | Cozy Ambience | 3 Hours",
+      "keyword": "Rain Sounds for Studying",
+      "thumbnail_headline": "STUDY\nRAIN",
+      "thumbnail_style": "stacked",
+      "description_opening": "Rain sounds for sleep, study and relaxation. Enjoy 3 hours of cozy rain ambience.",
+      "verified_video_labels": {},
+      "verified_audio_labels": {}
+    },
+    "requested_privacy": "public",
+    "run_id": "40153459955",
+    "publish_at": "2026-10-25T13:00:00.000Z"
   }
 }
