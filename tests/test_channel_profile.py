@@ -7,7 +7,9 @@ import unittest
 import os
 from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from channel_profile import choose, publication_ready, digest, title_allowed
+from channel_profile import choose, publication_ready, digest, title_allowed, clean_rain
+
+CLEAN = {'traffic': False, 'voices': False, 'music': False, 'thunder': False, 'animals': False}
 
 
 class ChannelTests(unittest.TestCase):
@@ -18,7 +20,8 @@ class ChannelTests(unittest.TestCase):
             (self.root / folder).mkdir()
         self.video = {'asset_id': 'local:a', 'local_path': 'scenes/a.mp4',
                       'source_url': 'https://example.com/a', 'license_url': 'https://example.com/license'}
-        self.audio = {'id': 1, 'filename': 'rain.mp3', 'freesound_url': 'https://freesound.org/s/1/', 'license': 'CC0'}
+        self.audio = {'id': 1, 'filename': 'rain.mp3', 'freesound_url': 'https://freesound.org/s/1/', 'license': 'CC0',
+                      'title': 'Steady rain', 'review': {'approved': True, 'labels': CLEAN}}
         (self.root / 'scenes/a.mp4').write_bytes(b'video')
         (self.root / 'audio/rain.mp3').write_bytes(b'audio')
         self.write('data/video_library.json', [self.video])

@@ -53,6 +53,16 @@ class CommentTests(unittest.TestCase):
         self.assertEqual(post_due_comments(youtube, Ledger(), 'Hi', 'UC1', NOW), ([], []))
         youtube.commentThreads.return_value.insert.assert_called_once()
 
+    def test_uses_the_uploads_own_question_when_recorded(self):
+        ledger = Ledger()
+        ledger.entries = {'a': dict(entry(), assets={'pinned_comment': "💬 What's keeping you up tonight?"}),
+                          'b': dict(entry(), video_id='vid2')}
+        youtube = youtube_with()
+        post_due_comments(youtube, ledger, 'Hi', 'UC1', NOW)
+        texts = [c.kwargs['body']['snippet']['topLevelComment']['snippet']['textOriginal']
+                 for c in youtube.commentThreads.return_value.insert.call_args_list]
+        self.assertEqual(texts, ["💬 What's keeping you up tonight?", 'Hi'])
+
     def test_waits_while_still_private(self):
         ledger = Ledger(); ledger.entries = {'a': entry()}
         youtube = youtube_with('private')
@@ -99,7 +109,7 @@ class SettingsTests(unittest.TestCase):
         self.assertFalse(body['status']['selfDeclaredMadeForKids'])
         self.assertEqual(body['recordingDetails']['locationDescription'], 'Melbourne')
         self.assertEqual(body['recordingDetails']['recordingDate'], '2026-10-24T00:00:00Z')
-        self.assertEqual(','.join(body), 'snippet,status,recordingDetails')
+        self.assertEqual(','.join(body), 'snippet,status,recordingDetails,paidProductPlacementDetails')
 
     def test_presets_cannot_set_visibility(self):
         settings = json.loads((ROOT / 'data/upload_settings.json').read_text(encoding='utf-8'))

@@ -13,7 +13,8 @@ from pathlib import Path
 import requests
 from asset_matching import compatible, title_allowed, labels_for
 from upload_history import Ledger
-from upload_presentation import presentation, unique_title, variety_record, length_label
+from upload_presentation import (presentation, unique_title, variety_record, length_label,
+                                 description_parts, pinned_comment, overlay_title, HASHTAGS, TAGS)
 from asset_library import curated_videos, choose_pair, pair_reasons
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -33,14 +34,6 @@ SEED_SCENE = 7919
 SEED_AUDIO = 104729
 SEED_TITLE = 15485863
 SEED_DURATION = 32452867
-
-HASHTAGS = "#rainsounds #rain #sleep #relaxation #ambience #whitenoise #study"
-
-TAGS = [
-    "rain sounds", "rain sounds for sleeping", "rain ambience", "sleep sounds",
-    "relaxing rain", "study music", "white noise", "thunderstorm sounds",
-    "rain sounds for studying", "calming rain", "ambient rain", "deep sleep",
-]
 
 CHANNEL_NAME = "Calming Rain Sounds"
 CHANNEL_HANDLE = "@calmingrainsoundssss"
@@ -141,10 +134,11 @@ def pick_audio_track(rng, video=None):
     return track
 
 
-def build_description(scene_term, audio_title, duration_minutes, video=None, audio=None, opening=None):
+def build_description(scene_term, audio_title, duration_minutes, video=None, audio=None, parts=None):
     template = (DATA_DIR / "description_template.txt").read_text(encoding="utf-8")
-    return template.format(
-        opening=opening or f"{length_label(duration_minutes)} of {scene_term} for sleep, study and relaxation.",
+    parts = dict(parts or {})
+    parts.setdefault("opening", f"{length_label(duration_minutes)} of {scene_term} for sleep, study and relaxation.")
+    text = template.format(
         duration=duration_minutes,
         scene_term=scene_term,
         channel_name=CHANNEL_NAME,
@@ -155,7 +149,26 @@ def build_description(scene_term, audio_title, duration_minutes, video=None, aud
         video_license=(video or {}).get("license_url", "https://www.pexels.com/license/"),
         audio_source=(audio or {}).get("source_url") or (audio or {}).get("freesound_url", "Freesound.org"),
         audio_license=(audio or {}).get("license", "License not recorded"),
+        **parts,
     )
+    # Optional sections (chapters, clean-audio line) leave gaps when empty.
+    while "\n\n\n" in text:
+        text = text.replace("\n\n\n", "\n\n")
+    return text.strip() + "\n"
+
+
+def thumbnail_scene(profile_root):
+    """The locked thumbnail background: one approved scene, every upload."""
+    from asset_library import read_json
+    profile = read_json(profile_root / "data/channel_profile.json", {})
+    scene_id = profile.get("thumbnail_scene_id")
+    record = next((v for v in read_json(profile_root / "data/video_library.json", [])
+                   if v.get("asset_id") == scene_id), None)
+    if not record or not record.get("local_path"):
+        return None
+    return {"asset_id": scene_id, "local_path": record["local_path"],
+            "frame_seconds": float(profile.get("thumbnail_frame_seconds", 4.0)),
+            "thumbnail_text_side": record.get("thumbnail_text_side", "left")}
 
 
 def main():
@@ -247,7 +260,7 @@ def main():
         raise RuntimeError("No title is compatible with the reviewed asset labels")
     title_template = rng_title.choice(title_templates)
     title = title_template.format(duration=duration_minutes)
-    title_options, thumbnail_headline, detail = presentation(video, audio, duration_minutes, ledger.entries, rng_title)
+    title_options, thumbnail_headline, _ = presentation(video, audio, duration_minutes, ledger.entries, rng_title)
     if selection == 'channel':
         # Reviewed shared labels may support settings; retain conservative claim checks.
         allowed = lambda t: title_allowed(t, audio, video) and not any(
@@ -258,11 +271,16 @@ def main():
     title = unique_title(title_options, ledger.entries, rng_title, os.environ.get("TITLE_OVERRIDE", "").strip())
     if len(title) > 100 or not allowed(title):
         raise ValueError("Title exceeds 100 characters or makes unsupported claims about the assets")
-    opening = f'Rain sounds for sleep, study and relaxation. Enjoy {length_label(duration_minutes).lower()} of {detail.lower()}.'
-    description = build_description("rain ambience", audio.get("title", "rain sounds"), duration_minutes, video, audio, opening)
+    from channel_profile import confirmed_clean
+    parts = description_parts(thumbnail_headline, duration_minutes, audio, rng_title, confirmed_clean(audio))
+    description = build_description("rain ambience", audio.get("title", "rain sounds"), duration_minutes, video, audio, parts)
 
     from upload_presentation import thumbnail_variants
-    variants = thumbnail_variants(thumbnail_headline, video, ledger.entries, rng_title)
+    background = thumbnail_scene(ROOT) if selection == 'channel' else None
+    from asset_library import read_json
+    from upload_presentation import choose_thumbnail_style
+    style = choose_thumbnail_style(read_json(ROOT / "data/channel_profile.json", {}), ledger.entries, rng_title)
+    variants = thumbnail_variants(thumbnail_headline, background or video, ledger.entries, rng_title, style)
     assets = {
         "date": date.isoformat(),
         "day_number": day,
@@ -282,12 +300,15 @@ def main():
         "duration_seconds": duration_minutes * 60,
         "title": title,
         "title_options": [title] + [t for t in title_options if t != title][:2],
+        "overlay_title": overlay_title(title),
         "description": description,
         "thumbnail_headline": thumbnail_headline,
         "thumbnail_style": variants[0]['style'],
         "thumbnail_side": variants[0]['side'],
         "thumbnail_variants": variants,
-        "tags": [t for t in TAGS if "thunder" not in t and (selection != 'channel' or 'music' not in t)],
+        "thumbnail_background": background,
+        "pinned_comment": pinned_comment(thumbnail_headline, rng_title),
+        "tags": list(TAGS),
         "review_approved": selection != 'channel' and not pair_reasons(audio, video, strict=True),
         "selection_explanation": explanation,
         "category_id": "10",  # Music

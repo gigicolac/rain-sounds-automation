@@ -37,6 +37,8 @@ SCOPES = [
 # Uploads keep requesting only SCOPES, so a token without it still uploads.
 COMMENT_SCOPES = SCOPES + ["https://www.googleapis.com/auth/youtube.force-ssl"]
 SETTINGS_PATH = ROOT / "data" / "upload_settings.json"
+# A three-hour upload can take well over 15 minutes to process.
+PROCESSING_TIMEOUT = int(os.environ.get("PROCESSING_TIMEOUT_SECONDS") or 3600)
 CHUNK_SIZE = 8 * 1024 * 1024
 MAX_RETRIES = 5
 RETRIABLE_STATUS_CODES = {500, 502, 503, 504}
@@ -179,6 +181,8 @@ def upload_body(assets, publish_at=None):
         body["recordingDetails"] = dict(preset["recordingDetails"])
         if assets.get("date"):
             body["recordingDetails"]["recordingDate"] = f"{assets['date']}T00:00:00Z"
+    if preset.get("paidProductPlacementDetails"):
+        body["paidProductPlacementDetails"] = dict(preset["paidProductPlacementDetails"])
     if publish_at:
         # YouTube accepts publishAt only on private videos and makes them public then.
         body["status"].update(privacyStatus="private", publishAt=publish_at)
@@ -223,7 +227,33 @@ def set_thumbnail(youtube, video_id):
         raise RuntimeError(f"Video uploaded, but thumbnail failed. Resume this video instead of re-uploading: {video_id}") from exc
 
 
-def wait_for_processing(youtube, video_id, timeout=900, interval=15):
+def studio_checklist(entry, assets):
+    """Settings the YouTube API cannot set; done by hand in Studio for each upload."""
+    options = "\n".join(f"  - {t}" for t in assets.get("title_options", [])) or "  - (none recorded)"
+    return "\n".join([
+        f"## Studio checklist for {entry.get('url', 'this upload')}",
+        f"Goes public: {entry.get('publish_at') or 'now'}",
+        "",
+        "- [ ] Pin the channel comment once it is posted (post_pinned_comment.py links it)",
+        "- [ ] Add to the playlist that matches this video's theme",
+        "- [ ] End screen: link the playlist or video most relevant to this theme",
+        "- [ ] Caption certification: This content has never aired on television in the U.S.",
+        "- [ ] Shorts remixing: allowed",
+        "- [ ] Optional title A/B test (Test & Compare) with:",
+        options,
+    ])
+
+
+def write_summary(entry, assets):
+    text = studio_checklist(entry, assets)
+    print(text)
+    summary = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summary:
+        with open(summary, "a", encoding="utf-8") as handle:
+            handle.write(text + "\n")
+
+
+def wait_for_processing(youtube, video_id, timeout=PROCESSING_TIMEOUT, interval=15):
     deadline = time.monotonic() + timeout
     while True:
         response = youtube.videos().list(
@@ -281,17 +311,20 @@ def main():
         save_result(entry)
         ledger.save()
     try:
+        # Set the cover before waiting: a processing timeout must not leave an auto-picked frame (Oct 20).
+        if entry.get("thumbnail") != "set":
+            set_thumbnail(youtube, video_id)
+            entry["thumbnail"] = "set"
+            save_result(entry)
+            ledger.save()
         status = wait_for_processing(youtube, video_id)
-        entry.update(state="processed", actual_privacy=status.get("privacyStatus"))
-        save_result(entry)
-        ledger.save()
-        set_thumbnail(youtube, video_id)
-        entry.update(state="complete", thumbnail="set")
+        entry.update(state="complete", actual_privacy=status.get("privacyStatus"))
         entry.pop("last_error", None)
         save_result(entry)
         ledger.save()
         release = f"; scheduled to go public at {entry['publish_at']}" if entry.get("publish_at") else ""
         print(f"Processed successfully: {entry['url']} (visibility: {entry.get('actual_privacy')}{release})")
+        write_summary(entry, assets)
     except Exception as exc:
         entry["last_error"] = str(exc)
         save_result(entry)

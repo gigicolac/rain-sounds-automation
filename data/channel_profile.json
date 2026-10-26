@@ -1,7 +1,7 @@
 {
   "name": "Custom illustrated rain scenes",
   "visual_direction": "User-approved custom animated scenes; original scene pool retained in the catalogue for recovery",
-  "audio_direction": "User-approved custom rain mixes; future generation prioritizes full, dense rain like sound 10 with fewer light, puddly and traffic-heavy treatments.",
+  "audio_direction": "User-approved custom rain mixes; future generation prioritizes full, dense rain like sound 10 with fewer light, puddly and traffic-heavy treatments. Publishing excludes mixes containing the city traffic-and-siren recording (788146) or whose listening notes mention traffic, sirens, voices, music or thunder.",
   "video_ids": [
     "custom:01-bookshop",
     "custom:02-mountain-cabin",
@@ -61,5 +61,10 @@
     "custom-audio:three-weeks-30-woodland-night"
   ],
   "audio_selection_note": "Only the 27 approved sounds in the three-week batch are active; three pass/spare candidates and legacy sources remain preserved outside the active pool. Content labels remain unknown unless separately verified.",
-  "scope": "user-selected channel pool; automatic technical checks and source records required for publishing"
+  "scope": "user-selected channel pool; automatic technical checks and source records required for publishing",
+  "thumbnail_scene_id": "custom:10-mug-window",
+  "thumbnail_frame_seconds": 4.0,
+  "thumbnail_style": "pixel",
+  "thumbnail_alternate_style": "soft",
+  "thumbnail_alternate_share": 0.25
 }

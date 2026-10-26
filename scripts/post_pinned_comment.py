@@ -42,10 +42,16 @@ def existing_comment(youtube, video_id, channel_id, text):
     return None
 
 
-def post_due_comments(youtube, ledger, text, channel_id, now):
+def comment_text(entry, default):
+    # Each upload's own question gets more replies than a generic thank-you.
+    return (entry.get("assets", {}).get("pinned_comment") or "").strip() or default
+
+
+def post_due_comments(youtube, ledger, default_text, channel_id, now):
     links, errors = [], []
     for _, entry in due(ledger.entries, now):
         video_id = entry["video_id"]
+        text = comment_text(entry, default_text)
         try:
             items = youtube.videos().list(part="status", id=video_id).execute().get("items", [])
             if not items or items[0]["status"].get("privacyStatus") != "public":

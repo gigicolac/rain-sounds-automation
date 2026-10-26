@@ -136,7 +136,8 @@ class UploadRecoveryTests(unittest.TestCase):
                 with self.assertRaisesRegex(RuntimeError,'thumbnail failed'):
                     upload.main()
                 self.assertEqual(json.loads((run/'upload_result.json').read_text())['video_id'],'existing')
-                self.assertEqual(Ledger().find_video('existing')[1]['state'],'processed')
+                # The cover is set before processing, so a failure leaves the upload resumable.
+                self.assertEqual(Ledger().find_video('existing')[1]['state'],'uploaded')
                 with patch.dict(os.environ,{'RESUME_VIDEO_ID':'existing'}), patch.object(upload,'set_thumbnail'):
                     upload.main()
                 insert.assert_called_once()

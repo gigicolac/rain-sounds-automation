@@ -29,14 +29,27 @@ LINE_SPACING = 12
 MAX_LINES = 3
 
 
-def extract_frame(duration_seconds):
+def frame_source(assets, mode=None):
+    """The locked channel cover uses one fixed scene, whatever plays in the video."""
+    background = assets.get("thumbnail_background")
+    if background:
+        path = (ROOT / background["local_path"]).resolve()
+        path.relative_to(ROOT.resolve())
+        if path.is_file():
+            return path, background.get("frame_seconds", 4.0)
+        if (mode or os.environ.get("PIPELINE_MODE")) == "publish":
+            raise RuntimeError(f"Locked thumbnail scene is missing: {background['local_path']}")
+        print(f"Thumbnail scene {background['local_path']} missing; preview uses a frame from this video.")
     # A frame a few minutes in tends to look better than t=0 (title-overlay
     # frame) or the very end; clamp so it also works on short test videos.
-    timestamp = max(1, min(300, duration_seconds // 3))
+    return VIDEO_PATH, max(1, min(300, assets["duration_seconds"] // 3))
+
+
+def extract_frame(source, timestamp):
     cmd = [
         ffmpeg(), "-y",
         "-ss", str(timestamp),
-        "-i", str(VIDEO_PATH),
+        "-i", str(source),
         "-frames:v", "1", "-q:v", "2",
         "-loglevel", "warning",
         str(RAW_FRAME_PATH),
@@ -98,7 +111,7 @@ def main():
         raise RuntimeError(f"{VIDEO_PATH} not found — run build_video.py first")
 
     assets = json.loads(ASSETS_PATH.read_text(encoding="utf-8"))
-    extract_frame(assets["duration_seconds"])
+    extract_frame(*frame_source(assets))
     compose_thumbnail(assets['title'], assets['duration_seconds'], assets.get('thumbnail_headline', 'COZY\nRAIN'),
                       assets.get('thumbnail_style', 'stacked'), assets.get('thumbnail_side', 'left'))
     for index, variant in enumerate(assets.get('thumbnail_variants', []), 1):

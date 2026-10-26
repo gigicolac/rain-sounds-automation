@@ -1,5 +1,5 @@
 {
-  "note": "Copied from reference video EXjpeDzwuAs (2 Oct 2026) via the read-only verify-mode settings report on 23 Oct 2026. recordingDate is set to each upload's date. Privacy, scheduling and Made for Kids are controlled by the pipeline, not this file.",
+  "note": "Copied from reference video EXjpeDzwuAs (2 Oct 2026) via the read-only verify-mode settings report on 23 Oct 2026. recordingDate is set to each upload's date. Privacy, scheduling and Made for Kids are controlled by the pipeline, not this file. containsSyntheticMedia (AI use: yes, the scenes are AI-generated) and paid promotion: no were added on 26 Oct 2026 from the channel's upload checklist.",
   "snippet": {
     "defaultLanguage": "en-AU",
     "defaultAudioLanguage": "en-AU"
@@ -7,7 +7,8 @@
   "status": {
     "embeddable": true,
     "license": "youtube",
-    "publicStatsViewable": true
+    "publicStatsViewable": true,
+    "containsSyntheticMedia": true
   },
   "recordingDetails": {
     "location": {
@@ -16,5 +17,8 @@
       "altitude": 0
     },
     "locationDescription": "Melbourne"
+  },
+  "paidProductPlacementDetails": {
+    "hasPaidProductPlacement": false
   }
 }

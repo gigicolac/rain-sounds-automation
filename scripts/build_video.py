@@ -51,6 +51,11 @@ def truncate(text, max_len=MAX_OVERLAY_TITLE_LEN):
     return text[: max_len - 1].rstrip() + "…"
 
 
+def on_screen_title(assets):
+    from upload_presentation import overlay_title
+    return assets.get("overlay_title") or overlay_title(assets["title"])
+
+
 def build_filter_complex(title):
     overlay_text = escape_drawtext(truncate(title))
     font = escape_drawtext(FONT_PATH.replace("\\", "/"))
@@ -122,7 +127,7 @@ def run_ffmpeg(assets):
         ffmpeg(), "-y",
         "-stream_loop", "-1", "-i", str(scene),
         "-i", str(prepared),
-        "-filter_complex", build_filter_complex(assets["title"]),
+        "-filter_complex", build_filter_complex(on_screen_title(assets)),
         "-map", "[v]", "-map", "1:a",
         "-t", str(duration_seconds),
         "-c:v", "libx264", "-preset", "fast", "-crf", "20", "-pix_fmt", "yuv420p",
