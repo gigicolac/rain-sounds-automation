@@ -1,43 +1,39 @@
-# Upload settings and packaging
+# Upload packaging: titles, thumbnails, descriptions
 
 Prepared on `claude/improve-upload-process` (October 2026). Not deployed until merged.
 Supersedes the title, thumbnail and description parts of FUTURE_UPLOAD_PACKAGING.md.
+Scheduling (`data/publish_schedule.json`), upload presets (`data/upload_settings.json`) and
+comment posting (`scripts/post_pinned_comment.py`) come from main and are unchanged except
+where noted below.
 
-## What every upload now does
+## What changes
 
 | Area | Behaviour | Where to change it |
 |---|---|---|
-| Audio | Channel publishing requires listening review to confirm no traffic, voices, music, thunder or animals (unknown is not absent), plus no siren/traffic/horn words in the title. Previews are not restricted, so new recordings can still be reviewed. | `CLEAN_RAIN_ABSENT` in `scripts/channel_profile.py` |
-| Audio pool | 788146 (city rain with traffic and a siren, used on Oct 20) removed. Pool is 7 scenes × 2 recordings = 14 pairs; 3 were used by Oct 20, so about 11 uploads remain before new clean audio is needed. | `data/channel_profile.json` |
-| Titles | Outcome first, like the channel's winners: `{Opener} 🌧️ {Rain Sounds for Sleeping/Sleep phrase} & {benefit} | 3 Hours`, e.g. `Fall Asleep Fast 🌧️ Cozy Night Rain Sounds for Sleeping & Restorative Rest | 3 Hours`. 90 titles (30 per thumbnail headline), at most 95 characters, search keyword within the first 45. Exact titles never repeat; an opener is not reused within 7 uploads. The on-screen title drops the emoji and benefit (the video font has no emoji). | `THEMES` in `scripts/upload_presentation.py` |
-| Thumbnail | Lo-fi style: centred white headline with a soft shadow and a small "3 hours" line, no badge or panel, over a frame of `custom:10-mug-window` (4.0 s) whatever scene the video shows. Default font is Pixelify Sans in Title Case ("Cozy Rain"); about 1 upload in 4 uses Nunito in lowercase ("cozy rain"), never two in a row. Headlines rotate between cozy, deep sleep and insomnia rain. Fonts are SIL Open Font License, bundled in `fonts/`. | `thumbnail_scene_id`, `thumbnail_frame_seconds`, `thumbnail_style`, `thumbnail_alternate_style`, `thumbnail_alternate_share` in `data/channel_profile.json` |
-| Description | Brand voice taken from the channel's own examples, search keyword in the first two lines. Every description includes restorative, relaxation, flow, drift, calm your nervous system, focus, improve and productivity (enforced by tests), with no em dashes or repeated phrases. Chapters for videos of 30 minutes or more, CC0 credit, relaxation disclaimer and hashtags. "No music, no voices, no distractions" appears only when listening review confirmed it. | `data/description_copy.json`, `data/description_template.txt` |
+| Titles | Outcome first, like the channel's winners: `{Opener} 🌧️ {Rain Sounds for Sleeping/Sleep phrase} & {benefit} | 3 Hours`, e.g. `Fall Asleep Fast 🌧️ Cozy Night Rain Sounds for Sleeping & Restorative Rest | 3 Hours`. 90 titles (30 per thumbnail headline), at most 95 characters, search keyword within the first 45. Exact titles never repeat; an opener is not reused within 7 uploads. A warning appears when 14 or fewer remain. | `THEMES` in `scripts/upload_presentation.py` |
+| On-screen title | The first 12 seconds show a short, emoji-free version (the video font cannot draw emoji), e.g. `Can't Sleep? · Rain Sounds for Sleeping`. | `overlay_title` in `scripts/upload_presentation.py` |
+| Thumbnail | Lo-fi style: centred white headline with a soft shadow and a small "3 hours" line, no badge or panel, always over a frame of `custom:10-mug-window` (4.0 s) whatever scene the video shows. Pixelify Sans in Title Case by default; about 1 upload in 4 uses Nunito lowercase, never two in a row. Headlines: cozy, deep sleep, insomnia rain. Fonts are SIL Open Font License, bundled in `fonts/`. | `thumbnail_*` keys in `data/channel_profile.json` |
+| Description | Brand voice from the channel's own examples, search keyword in the first two lines. Every description includes restorative, relaxation, flow, drift, calm your nervous system, focus, improve and productivity; tests reject em dashes and repeated phrases. Chapters, CC0 credits, volume tip, disclaimer, hashtags. "No music, no voices, no distractions" appears only when listening labels confirm it (none of the current mixes have labels yet). | `data/description_copy.json`, `data/description_template.txt` |
 | Tags | 10 tags from the top keyword searches. | `TAGS` in `scripts/upload_presentation.py` |
-| Upload fields | Category Music, language English (Australia), AI disclosure yes (scenes are AI-generated), paid promotion no, recording date = today in Melbourne, location Melbourne, Australia. | `data/upload_settings.json` |
-| Timing | Public runs upload as private with `publishAt` set to the next US Eastern posting window that starts at least 2 hours later (HD processing and checks). Manual runs can choose `publish_timing: immediate`. | `WINDOWS` in `scripts/publish_schedule.py` |
-| Thumbnail timing | The cover is set straight after upload, before the processing wait. Previously a processing timeout (Oct 20) left YouTube's auto-picked frame. Processing wait raised from 15 to 60 minutes. | `PROCESSING_TIMEOUT_SECONDS` |
-| Playlists | Added automatically once a playlist ID is filled in for the video's headline. This needs the extra "manage" permission, so redo the refresh-token helper (it now requests it) before filling in IDs. | `playlists` in `data/upload_settings.json` |
+| Comment | The automatic comment uses each upload's own question (e.g. "💬 What's keeping you up tonight? You're not the only one awake.") instead of the generic thank-you, which remains the fallback. | `pinned_comments` in `data/description_copy.json` |
+| Audio | Publishing skips mixes that contain the city traffic-and-siren recording (788146) or whose listening notes mention traffic, sirens, voices, music or thunder. This removes 3 of the 27 active mixes (04 rooftop cat, 12 bakery cat, 27 city cat), whose own notes say "traffic". Previews still include them. | `clean_rain` in `scripts/channel_profile.py` |
+| Upload presets | Added AI disclosure (`containsSyntheticMedia: true`, the scenes are AI-generated) and paid promotion: no. | `data/upload_settings.json` |
+| Thumbnail timing | The cover is set straight after upload, before the processing wait, so a processing timeout no longer leaves YouTube's auto-picked frame (Oct 20). Processing wait raised from 15 to 60 minutes. | `PROCESSING_TIMEOUT_SECONDS` |
 
-Black Screen and No Ads are deliberately left out of titles: the videos show animated
-scenes, and ad placement is not something the channel controls.
+Black Screen and No Ads are left out of titles: the videos show animated scenes and
+ad placement is not controlled by the channel. "Beat insomnia" is avoided because the
+description states the sounds are not a treatment.
 
 ## Still manual in YouTube Studio
 
-The YouTube Data API has no fields for these (checked against the API discovery document).
-Each publish run lists them in the job summary with that video's pinned-comment text:
-
-- Pin the generated comment once the video is public.
-- End screen pointing to the most relevant playlist or video.
-- Caption certification: "This content has never aired on television in the U.S."
-- Shorts remixing allowed.
-- Optional title A/B test (Test & Compare) using the three recorded `title_options`.
+The YouTube Data API has no fields for these. Each publish run lists them in the job summary:
+pin the posted comment, add to the matching playlist, end screen, caption certification
+("This content has never aired on television in the U.S."), Shorts remixing, and an optional
+title A/B test using the three recorded `title_options`.
 
 ## Validation
 
-- 110 unit tests pass with simulated YouTube and GitHub services.
-- Every new upload field name was checked against the discovery document bundled with
-  google-api-python-client 2.201.0.
-- Thumbnails rendered locally on a drawn stand-in scene and approved from that mockup.
-  The real mug-window frame was not available locally, so check the first preview's cover.
-- Not yet done: a hosted preview and a live private upload. The API accepting `en-AU`,
-  recording location and scheduled publishing is not proven until that test runs.
+- 139 unit tests pass after merging current main (simulated YouTube and GitHub services).
+- Thumbnails were reviewed as mockups on a drawn stand-in scene; the real mug-window frame
+  was not available locally, so check the first preview's cover.
+- Not yet done: a hosted preview of this branch and one live private upload.

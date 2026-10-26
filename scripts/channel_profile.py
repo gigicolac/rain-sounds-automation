@@ -6,15 +6,29 @@ from asset_matching import labels_for
 
 # Sleep viewers leave at the first siren or car horn, which cuts watch time.
 CLEAN_RAIN_ABSENT = ('traffic', 'voices', 'music', 'thunder', 'animals')
-UNSAFE_AUDIO_TITLE = re.compile(r'traffic|siren|horn|\bcars?\b|voices?|crowd|people|music|thunder', re.I)
+UNSAFE_AUDIO = re.compile(r'traffic|siren|horn|\bcars?\b|voices?|crowd|people|music|thunder', re.I)
 
 
 def clean_rain(audio):
-    """Listening review must confirm each distraction is absent; unknown is not absent."""
+    """Publishable: no known distraction in labels, listening notes or source recordings.
+
+    Custom mixes are checked through their source recordings, because their own
+    titles are scene names (e.g. "Quiet music room").
+    """
     labels = labels_for(audio)
-    if not all(labels.get(key) is False for key in CLEAN_RAIN_ABSENT):
+    if any(labels.get(key) is True for key in CLEAN_RAIN_ABSENT):
         return False
-    return not UNSAFE_AUDIO_TITLE.search(audio.get('title') or '')
+    if UNSAFE_AUDIO.search(audio.get('review', {}).get('notes') or ''):
+        return False
+    sources = [c.get('original_title') or '' for c in audio.get('components', [])
+               if c.get('kind') == 'licensed_recording'] if audio.get('components') else [audio.get('title') or '']
+    return not any(UNSAFE_AUDIO.search(source) for source in sources)
+
+
+def confirmed_clean(audio):
+    """Only listening-confirmed absences support a "no distractions" claim; unknown is not absent."""
+    labels = labels_for(audio)
+    return clean_rain(audio) and all(labels.get(key) is False for key in CLEAN_RAIN_ABSENT)
 
 
 def digest(path):

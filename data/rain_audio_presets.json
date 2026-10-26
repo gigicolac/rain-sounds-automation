@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "reference": "custom-audio:v2-changing-shower",
+  "note": "Design intents require listening review; they do not automatically become verified content labels. Natural recordings are required; no pure synthetic droplet presets.",
+  "presets": [
+    {"id":"window-drizzle","title":"Soft rain by a window","heaviness":"light","environment":"window","vibes":["cozy","sleep"],"source_ids":["695619"],"rate":10,"target":-29,"bed_db":-12,"lowpass":3600,"curve":[0.3,0.6,0.35,0.65,0.4]},
+    {"id":"window-changing","title":"Changing window shower","heaviness":"changing","environment":"window","vibes":["cozy","focus"],"source_ids":["695619"],"rate":28,"target":-26,"bed_db":-16,"lowpass":7200,"curve":[0.2,0.45,0.9,0.4,0.25]},
+    {"id":"cabin-evening","title":"Muted cabin rain","heaviness":"light","environment":"cabin","vibes":["warm","unwind"],"source_ids":["695619"],"rate":8,"target":-28,"bed_db":-10,"lowpass":2400,"curve":[0.35,0.55,0.3,0.6,0.4]},
+    {"id":"forest-soft","title":"Soft woodland rain","heaviness":"light","environment":"forest","vibes":["calm","focus"],"source_ids":["651189"],"rate":12,"target":-28,"bed_db":-12,"lowpass":5600,"curve":[0.3,0.6,0.35,0.65,0.4]},
+    {"id":"forest-steady","title":"Steady woodland shower","heaviness":"moderate","environment":"forest","vibes":["immersive","focus"],"source_ids":["651189"],"rate":30,"target":-25,"bed_db":-12,"lowpass":7200,"curve":[0.5,0.7,0.55,0.75,0.6]},
+    {"id":"forest-downpour","title":"Woodland downpour","heaviness":"heavy","environment":"forest","vibes":["dramatic","immersive"],"source_ids":["651189"],"rate":60,"target":-22,"bed_db":-8,"lowpass":8500,"curve":[0.6,0.9,0.65,1,0.7]},
+    {"id":"lake-calm","title":"Calm lakeside rain","heaviness":"moderate","environment":"lake","vibes":["calm","unwind"],"source_ids":["695619"],"rate":20,"target":-27,"bed_db":-12,"lowpass":6500,"curve":[0.45,0.65,0.4,0.7,0.5]},
+    {"id":"city-rain","title":"Urban rain ambience","heaviness":"moderate","environment":"city","vibes":["urban","evening"],"source_ids":["788146"],"rate":18,"target":-25,"bed_db":-10,"lowpass":6000,"curve":[0.4,0.7,0.5,0.8,0.45],"notes":"Existing recording contains traffic and a siren. Never claim traffic-free or no sudden sounds."},
+    {"id":"roof-light","title":"Light rain on a roof","heaviness":"light","environment":"roof","vibes":["cozy","sleep"],"required_source_setting":"roof","source_ids":[],"rate":10,"target":-29,"bed_db":-10,"lowpass":5000,"curve":[0.3,0.6,0.3,0.55,0.4]},
+    {"id":"tent-shower","title":"Rain around a tent","heaviness":"moderate","environment":"tent","vibes":["sheltered","immersive"],"required_source_setting":"tent","excluded_source_ids":["592996"],"source_ids":[],"rate":24,"target":-26,"bed_db":-10,"lowpass":6000,"curve":[0.4,0.7,0.5,0.8,0.45],"notes":"The existing tent recording was described as static-like; find a better reviewed source."}
+  ]
+}

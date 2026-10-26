@@ -1,0 +1,848 @@
+{
+  "batch": "20261023-three-weeks",
+  "scope": "Exact reviewed media; pass/spare records are preserved but excluded from the active channel profile.",
+  "videos": [
+    {
+      "scene_id": "01-bookshop",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "d272d7b9763a99c0435e61773da0977caff80981e814f34125cd6b99cd2f3b98",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/01-bookshop",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "02-mountain-cabin",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "e03bf8fcaee578c35a13142dfefc23a0b5476126f6a711c10d789389907fd314",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/02-mountain-cabin",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "03-greenhouse",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "fc844ebffbe64b2f3e38e2402b708530d5265034985732c72570200aad7fbe55",
+      "status": "pass",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/03-greenhouse",
+      "notes": "Pass/spare: user reports slightly awkward rain on the smaller window panes."
+    },
+    {
+      "scene_id": "04-rooftop-cat",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "c03edbeb43761b8e5c8a596c8bd3ca4db82e0e7b890fbca44e4d73936910da01",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/04-rooftop-cat",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "05-lake-writing",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "068087beb7faca8e599cfb3a223cb106308ca5ed2c8378902a2ca2d1f68dfb53",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/05-lake-writing",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "06-forest-loft",
+      "preview": "preview-panes-v3.mp4",
+      "preview_sha256": "92903b630019e8c4ec5884055b3e0cde43083fd818a9e2ef34ff2ff6fbf9c2cc",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/06-forest-loft",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "07-pottery",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "7e40bb105268e9d16b611d85559f9f7d28f3d8f94bef2771545cba7cc5b4c481",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/07-pottery",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "08-dog-veranda",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "e01b43e74f816c0441bfa83b0c506ec997428ed82e33e3319520fed6dfa88eda",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/08-dog-veranda",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "09-attic-stars",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "f36130ccd28978ce54b4c81689ebb1bcfc9d9074bc7206cb5ae5f4cc4e36dacc",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/09-attic-stars",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "10-storm-library",
+      "preview": "preview-panes-v3.mp4",
+      "preview_sha256": "029e4ecc8c18462a00c43435489b518643df9a455d6d288633bfe129679a586e",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/10-storm-library",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "11-coastal-room",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "2aee156d2dd15fa36a273518c8abc7cad8d06098a24adefe2eb19835b0200b54",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/11-coastal-room",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "12-bakery-cat",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "4a499f6cc51fb5422f605c20081f50ab44d2145ff51f50a6d91a380c7b89df26",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/12-bakery-cat",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "13-botanical-desk",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "62fcea88c42057edd7bf515a50792ac95bf351415173229ac828b2c15bf94cba",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/13-botanical-desk",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "14-cedar-bedroom",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "42fe2dcfbf8e86f11bef33a39ac716c4dc5eb24bfeefaf4fe3f6e52cadf54941",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/14-cedar-bedroom",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "15-sewing-room",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "3164e48b4eeeb551124600982d07c172e9f1f5bcb48d4fb4053e21cea9a76093",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/15-sewing-room",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "16-train-dog",
+      "preview": "preview-panes-v3.mp4",
+      "preview_sha256": "185e1302e0eb69b074febad41bbd77a4bf5615b5d51cfc28fef64fee3b7a95fc",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/16-train-dog",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "17-forest-study",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "39d8eb5ccd26a0bf5f457256d7d6ca49fcab8831bc6c9ef27e316a8f8fbc43be",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/17-forest-study",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "18-orchard-window",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "e46daf67a4bea91af2173f2b868a133f0cdf36af7808dd3a1271132965077e60",
+      "status": "pass",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/18-orchard-window",
+      "notes": "Pass/spare: user reports the fruit trees look slightly awkward."
+    },
+    {
+      "scene_id": "19-city-journal",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "9ee1c303b0ab1dd1de4cde0615e49d6f5d293f2f9f2a0d229eee2c877dd41678",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/19-city-journal",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "20-ranger-storm",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "26eb1c513c361066c31e5a2d10c05c3b8a783e48f0085250e131842ed11fe7f6",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/20-ranger-storm",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "21-music-room",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "1b15e3cf75c8960c9677ab09a04305ed9ca17092c8befb6aab0f4f91322efbba",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/21-music-room",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "22-conservatory-cat",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "6e2ed305b165c911d0579d3ab25766f82193344a5a1a112a31e15a292021f935",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/22-conservatory-cat",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "23-lake-reader",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "905a3efe248ed506a8b4c11c057ed1fc02d31176e82a9d7fd48ea57bd92ab6ea",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/23-lake-reader",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "24-print-studio",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "132c772d4c9aa77f4bdab07172bc7d42d946f6efc2945d0bcc265ecd4e1e87ed",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/24-print-studio",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "25-cottage-dog",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "3d2e3229733838914eec924cf2e5b7edbfca0a09040f020e9fedd5de3a77d2e9",
+      "status": "pass",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/25-cottage-dog",
+      "notes": "Pass/spare: user reports the mug has two handles."
+    },
+    {
+      "scene_id": "26-map-room",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "b8b0f1aec0dd329b0a1cf63eb1e9c056c9ee791537755109aaab27b6e1dfc368",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/26-map-room",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "27-city-cat",
+      "preview": "preview-panes-v3.mp4",
+      "preview_sha256": "a2a1d7a27b96d20cc1768962b688b12dc5af7dfdecbe9d33d528671ad59b5c24",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/27-city-cat",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "28-garden-reader",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "526048a29d1c979770e347c57758204099c5c666abe7c5018f8bc6cab6d2d39e",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/28-garden-reader",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "29-tea-atelier",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "f041b921ba21e2879ce929440e77205693b0782051dda1dcf1597e4a9c5aa97a",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/29-tea-atelier",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    },
+    {
+      "scene_id": "30-woodland-night",
+      "preview": "preview-panes-v2.mp4",
+      "preview_sha256": "3c91bab9198b19419c657299391109bb1e51c6483f3316161c4493092ea3422d",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/20261023-three-weeks/scenes/30-woodland-night",
+      "notes": "User approved the revised video in chat on 23 October 2026."
+    }
+  ],
+  "audio": [
+    {
+      "id": "custom-audio:three-weeks-01-bookshop",
+      "title": "Week 1 / 01 - Midnight bookshop",
+      "status": "approved",
+      "sha256": "afceef8c674fdd5ffe18e4da40e8b455256de90826184d1957818445d1d23073",
+      "listen_sha256": "591a14b1e60fb0361b5e544d62a797cb24590822b062728bc7e82510b4a60b6c",
+      "loop_sha256": "7d3466be350f783b167ee70c1d8ea8fbe2a412ddff448c9f24e04a7e39d67781",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "light trickly | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:19.834186+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-02-mountain-cabin",
+      "title": "Week 1 / 02 - Mountain cabin journal",
+      "status": "approved",
+      "sha256": "893c3df14a0dc76cf1437af8a43e2f007fdcf595ce5d0cba39b8e731c4f68ec6",
+      "listen_sha256": "a693f3ad55f4301033c5eef7a6349c83163f648b04cf8e514f498e3523690cc0",
+      "loop_sha256": "9e677a138c9a340735375de9113e04a8767043d7ddd4409e569f8c614cc04ef5",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "light trickly | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:19.864094+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-03-greenhouse",
+      "title": "Week 1 / 03 - Greenhouse tea corner",
+      "status": "approved",
+      "sha256": "1274370ccad68a77c22341acd2b2e9d88185b97a5075af74e75e8d8c6b17589a",
+      "listen_sha256": "9d3c7f7f2458b9c66063f4844de5d40732fa9f712741cb706557a2cefc2cc4ee",
+      "loop_sha256": "3bdb9db608ca3cf40b29f263e671f1368c8500acfc915444aa71d67d7ccce15e",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "light, full | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:19.894650+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-04-rooftop-cat",
+      "title": "Week 1 / 04 - Rooftop cat nap",
+      "status": "approved",
+      "sha256": "131fd7ee888ad4ce0e33cf6128e86809d57203228e88fdaebf910b3a4eb2acf1",
+      "listen_sha256": "3d949ebc65114984d97857f2084eeff44ddb7e4e70e7e1915e052463f683ce47",
+      "loop_sha256": "a9f7af4e87ff4ff8de40d0482688f8b47ee58bc288ea917923e48a0d55e5fd88",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "windy, traffic-y, light | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:19.923675+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-05-lake-writing",
+      "title": "Week 1 / 05 - Lakeside letter",
+      "status": "approved",
+      "sha256": "49a24e5508f5d9b7de4c71985e5556479d6afd1877ebc181fe446b3d9c03961c",
+      "listen_sha256": "35cf33b38dd6b0221114669bead7a472337d737ba4687a1e120447c149233817",
+      "loop_sha256": "60a8ad1ef4b2e46cc92cbb55078bb01881a6c3ac889bb5c7efc0dc6276536b10",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "moderate, trickly | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:19.952794+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-06-forest-loft",
+      "title": "Week 1 / 06 - Forest loft retreat",
+      "status": "approved",
+      "sha256": "3d88138b6c17dbc629f2184c5a801c5b10343d7d8dca0d54543d646903a233b6",
+      "listen_sha256": "5e71ebc89fcc633fae1777f04d744598ad6c6bf88974841327d26524383b4103",
+      "loop_sha256": "b0a2e5bbf1ba4e2254c6eb1991f7a6eb895f98b1d31b69d998fc8ecfa858890a",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "foresty, moderate | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:19.981418+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-07-pottery",
+      "title": "Week 1 / 07 - Pottery studio after hours",
+      "status": "approved",
+      "sha256": "ed19a18d0d44c7c6fee102731d7d263a54c24229ce9e63b07f7186f85cc89617",
+      "listen_sha256": "d7a1148c12842c23fa0e4d1117eb775227fd64371e071a3a9bbd0a201f360915",
+      "loop_sha256": "d398b7cc37ebf0eee593b1846772b2398c3ce0672022d42ec861ee401fe7c1f9",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "light, trickly, puddly | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.014403+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-08-dog-veranda",
+      "title": "Week 1 / 08 - Dog by the garden",
+      "status": "approved",
+      "sha256": "b1a9d9670165b39ca30e7cbec2b894406fc0640301c7d395c0bcacd3d9da4f14",
+      "listen_sha256": "e6ed8f341121c35e8b4cd5611f5f90d2a1af3916c8bc9b1c6e4fc76421b88e4a",
+      "loop_sha256": "2aa527b0b7fe0dbfe3b0b075a3675528c4527337def54528108b337995755ca6",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "moderate, full | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.047154+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-09-attic-stars",
+      "title": "Week 1 / 09 - Attic reading nook",
+      "status": "approved",
+      "sha256": "c59722bc27a798aa43a5c8aa980ebd30821dbdf5cf1f62cff2f661bc6902586e",
+      "listen_sha256": "b5681e3aa2ab95a95750f201e9303f51bf2af320f30accd14916a2917ea91361",
+      "loop_sha256": "e5c4c129db59653ae99d2199f75914e3e4e5f7900867c523eb7064e1271f64f8",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "moderate, puddly, trickly | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.077744+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-10-storm-library",
+      "title": "Week 1 / 10 - Library in the downpour",
+      "status": "approved",
+      "sha256": "94a6c0477e5bd1346846cc9ca9a952618dfd7a8141b63bb24f8778bd51ba6336",
+      "listen_sha256": "2d5368779ed95d42395e2fef754177569d04005e851cb501c37d5f8b5e4919e6",
+      "loop_sha256": "76dbfb21b7e57bea7ff3ec0bfd76296873680d5b101859672ae51e4cbefec833",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "heavy, filled | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.116053+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-11-coastal-room",
+      "title": "Week 2 / 11 - Coastal reading room",
+      "status": "approved",
+      "sha256": "6dc45095faec5366cc3fb7a3bbe12f00c53df4b62341510414663afe89e1334e",
+      "listen_sha256": "c7c4658173963f936ff4b1c47ad35b4de7e52ac3d2cfc615f79d20b24c23ff94",
+      "loop_sha256": "939d4f450de545fe6c14f7f5dda01904a36ebfb389f4ea33f00790cd50447681",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "light, puddly, trickly | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.149725+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-12-bakery-cat",
+      "title": "Week 2 / 12 - Bakery cat after closing",
+      "status": "approved",
+      "sha256": "1e325115293c534093fddab6b33fca56c6b5d70d8b5f7f89955734860fd8fdb8",
+      "listen_sha256": "d63d97e24eb1eec33aab6ced0abceb6193cd3a16ad6fdd4ffeb225551507f058",
+      "loop_sha256": "5800669df8cf54ac3b06206ea91cb21c5e1f750a933de8cdb5893bd63a4ebcc2",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "traffic, light, | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.179849+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-13-botanical-desk",
+      "title": "Week 2 / 13 - Botanical sketchbook",
+      "status": "approved",
+      "sha256": "764ea2509a637f747dcfd260d41b1bda4fc4e6e9966c82e0f60f4cd87ff62317",
+      "listen_sha256": "95895ffc5a5dcfd8d5f9f1b8283657e179fb8bbf34cacb633016035c2d1417b8",
+      "loop_sha256": "6b9d30f33a19b0630b1b341ab068d8b470ed3e3b55e0c4fe75353741ea983753",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "dense, light, forest | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.210423+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-14-cedar-bedroom",
+      "title": "Week 2 / 14 - Cedar bedroom retreat",
+      "status": "pass",
+      "sha256": "5224bcf21ee927096512fb2fa94cb491ec8507559c037d45d6513d198b0bdf9f",
+      "listen_sha256": "74499484e4b8cdc3057e8cbabc5512d56be131f724229761d5061fb909389e33",
+      "loop_sha256": "62ba33d8fce227bf8c2124a9d3da97c4256ce2b5faaa3527bad51e30365f0f3e",
+      "review": {
+        "approved": false,
+        "status": "pass",
+        "notes": "muffled, soft",
+        "reviewed_at": "2026-10-23T05:56:36.904234+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": false,
+          "loop_checked": false
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-15-sewing-room",
+      "title": "Week 2 / 15 - Evening sewing room",
+      "status": "approved",
+      "sha256": "374eb7093e1db2476e190870972a7fd56218cc8ffd94173490809530f52cbcd4",
+      "listen_sha256": "6e9e97278ba6009beb009b0c28b567a3844c49f63be84f73fe8bb27a85dfdacc",
+      "loop_sha256": "e7851a07a2297b01a302491016616b314edf556e5d6e8ac3e63e3ed3ef82913e",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "moderate, dense | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.240250+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-16-train-dog",
+      "title": "Week 2 / 16 - Station cottage dog",
+      "status": "pass",
+      "sha256": "2e51fb739de3fe1d8c5911d8d35a2ad719e0913c271c37657f63439ba0dd9710",
+      "listen_sha256": "e7c2c49159788569832ecb674fbf42be72e396e8a527b79afeed4941ae8b728a",
+      "loop_sha256": "5d1a026afde9c66350c02e0ecfc2fcab96bf24479695e15e0e3370d216d4b156",
+      "review": {
+        "approved": false,
+        "status": "pass",
+        "notes": "moderate, puddly",
+        "reviewed_at": "2026-10-23T05:56:09.461719+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": false,
+          "loop_checked": false
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-17-forest-study",
+      "title": "Week 2 / 17 - Woodland study hour",
+      "status": "approved",
+      "sha256": "64684f19a39b4a5217f9c559a6e6ec4f250b011cbbbcdcf49764b8644292db30",
+      "listen_sha256": "29ef522556b4d2292f9480cb14b9b0affbb8a90c894702c2dfe2bd9f32e42a66",
+      "loop_sha256": "285ace981d09df530cf9583ce2432de15f0f1eefc85a73ee6f20e23eaf3b19a9",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "moderate, dense, forest | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.267704+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-18-orchard-window",
+      "title": "Week 2 / 18 - Orchard window tea",
+      "status": "approved",
+      "sha256": "3861b33a71a0b1777ad5799f3f0482c350bb6fc3ad7e919b5b904a8fc913900e",
+      "listen_sha256": "62a193cb7d786516d5644d76fae01934679d21a63839e7651553a361c33fe2ad",
+      "loop_sha256": "735eae33ef4382806165478e1e9cc9799ada91b3c20d288ac52a5eab0ec6ed22",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "muffled, soft, | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.295195+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-19-city-journal",
+      "title": "Week 2 / 19 - City journal at dusk",
+      "status": "approved",
+      "sha256": "6fc929f3580b0d094bfd85e6b8bb21ddb65f74d979159bcc8a2f8316fe20cdc8",
+      "listen_sha256": "33fb2b2951a1eacb2fcf7fc11af0befbe35ee9aab904f8cfa8b8615522246462",
+      "loop_sha256": "bb0e212d2139792b2b1239e9d0449a66b66b73189511f02395c2ea252785eac3",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "puddly, light | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.322157+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-20-ranger-storm",
+      "title": "Week 2 / 20 - Ranger cabin shelter",
+      "status": "approved",
+      "sha256": "a207d91ceee83376f45c23c1022806b5d77516439543c08cbb437eba4036e8bb",
+      "listen_sha256": "6891dc8589334d20e35d0f31b17d393b0bff13771b833575d282cef4261a4019",
+      "loop_sha256": "31f57a0be5393ae4e555c3112a18c8789029982fb06001de374bbc566099c011",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "heavy, dense, foresty | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.352599+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-21-music-room",
+      "title": "Week 3 / 21 - Quiet music room",
+      "status": "approved",
+      "sha256": "e3be1482ec2213f83a46d9d1af8a23723d7d788685739d122b38ab5124230af0",
+      "listen_sha256": "0e166836ccf41bb8d2ed3412fe56478a93c96882bc17105e0c590bd653682462",
+      "loop_sha256": "d03049f600ae5af70f5e0d1f87a592f5d0f8de23c1f276c9e737a6779aac4e62",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "puddl-y, light, | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.378644+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-22-conservatory-cat",
+      "title": "Week 3 / 22 - Conservatory cat rest",
+      "status": "approved",
+      "sha256": "b13efafcffcfb0a24edf7efd1eb411fdf883c9b344cea118acd02d8fbe8a5437",
+      "listen_sha256": "58d781852c7cad149b4bdd238185eb439f632338dd3dad865c4094e2c72094e4",
+      "loop_sha256": "a8f9560d06f9ca1aeafc4c973f53fc8e06ceba1189e48168752ce4c6bb05142c",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "dense, moderate | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.407082+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-23-lake-reader",
+      "title": "Week 3 / 23 - Lakeside reading evening",
+      "status": "approved",
+      "sha256": "d69b01ff02281ef94fb20c1f5cfcd184315376408db00d251e58803a361c4704",
+      "listen_sha256": "1b5ceec97212e9cd9b3ee003b5bda7d8ce4bfcb3aa284da39809124a1d5aeac2",
+      "loop_sha256": "92507000cbaedc3b9df274b203216d2da87e424062c1725302c276d9059c1eaa",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "moderate, puddles | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.433681+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-24-print-studio",
+      "title": "Week 3 / 24 - Print studio evening",
+      "status": "approved",
+      "sha256": "c1c5b6e9069c776bb30f525318383d8c7175d9a43da1e919799933ca52b33296",
+      "listen_sha256": "9c10fc83d934532da3e6b1d3c4fea8030962ae35fc6bc86a1984c445b5d51f53",
+      "loop_sha256": "514f8c407fdd6b6f0913fb28b35d7558d382689aa202fdc8a4ae22bb55b36b0b",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "light, sparse | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.460520+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-25-cottage-dog",
+      "title": "Week 3 / 25 - Cottage dog beside the rain",
+      "status": "pass",
+      "sha256": "19a0ebbdb87f7488ff8b871a7b30d00fe9514d5bc15261a065bd4878e0a34c0f",
+      "listen_sha256": "e54df47a301a4ee6b46148ac5c10f96183eb0be0b70a1d5eb20b0d8f54241cdd",
+      "loop_sha256": "8fdb5a1774dbc002dcb39ebbc3a498025cbbcbf1a86047d99eaadcba82396cca",
+      "review": {
+        "approved": false,
+        "status": "pass",
+        "notes": "muffled",
+        "reviewed_at": "2026-10-23T05:53:45.607916+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": false,
+          "loop_checked": false
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-26-map-room",
+      "title": "Week 3 / 26 - Cabin map room",
+      "status": "approved",
+      "sha256": "ef664bcf5f44f7b9efb29df9dbf93c6c9a3083f897221f6f67096ee7f3331535",
+      "listen_sha256": "34bf39d8a47de6bd853389ae6dbcb0ea79041a561f39cb4181e80eac26710e9a",
+      "loop_sha256": "bd962c1874f23621b03acc8919e0ad41919d135f1308b4f6259a09a29455fdb5",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "foresty, moderate, full | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.489680+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-27-city-cat",
+      "title": "Week 3 / 27 - City cat and lamplight",
+      "status": "approved",
+      "sha256": "a48c76abff62cdde48f04320c486423f467cbf8f23c5b2e52f7243c20bf03089",
+      "listen_sha256": "1e3c7ccdf61a6f5639663604215c3313b5cacbce9d311277bc2574d970db205b",
+      "loop_sha256": "52aaa61b8a87f61c8aaae43d9e31c5a4c9296d5f4e777d1b90eddb5b801b86a7",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "traffic-y, windy, light | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.515581+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-28-garden-reader",
+      "title": "Week 3 / 28 - Garden room reader",
+      "status": "approved",
+      "sha256": "d5330d7e44ca5bc3849df92173bc5248a8bf860fc24bece95abd5f7c1668b971",
+      "listen_sha256": "87e1855600b27f2a515bc7125145c54805f4d6c66cbd631478dfc558cbda7429",
+      "loop_sha256": "6c274b47e203da416ce19c9a124b07aee1a25288a0c305a6d4906b6dedcd0411",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "moderate, calm | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.541546+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-29-tea-atelier",
+      "title": "Week 3 / 29 - Tea atelier at night",
+      "status": "approved",
+      "sha256": "8e98faa7cb70f58341fd12dd37b43e9be0f7f6ad0416df0f6aefd56b8087adcd",
+      "listen_sha256": "f6f71176bfdf02683096628cf9de6fffe08ee7305ad4b45df01ffcfd80652949",
+      "loop_sha256": "06177afc68b941559df4cec2294a520696c037a9c2a733d2fd9da4dfd0a5d481",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "calm, moderate | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.567587+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    },
+    {
+      "id": "custom-audio:three-weeks-30-woodland-night",
+      "title": "Week 3 / 30 - Woodland night shelter",
+      "status": "approved",
+      "sha256": "ad8c3dcd6f6b971c910d712a6a9ff9797be46c8f45bb156c1c2011163da6bcd8",
+      "listen_sha256": "d81802f36d4ea8ce1f1da4574653438c9f0713993c08af402b6df5f5c25f7460",
+      "loop_sha256": "a9440dc80c6355992b35b699028ce1f90c4c503c8d4f5b28a340ea1df5533ce9",
+      "review": {
+        "approved": true,
+        "status": "approved",
+        "notes": "heavy, forest, great | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.596679+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    }
+  ]
+}

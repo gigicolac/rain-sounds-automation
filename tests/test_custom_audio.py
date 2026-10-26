@@ -6,7 +6,7 @@ import wave
 import json
 import random
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from create_custom_audio import droplets, create
+from create_custom_audio import droplets, create, density_at, PROFILES
 from stage_custom_audio import stage
 from channel_profile import choose, digest
 from upload_history import fingerprint
@@ -30,6 +30,18 @@ class CustomAudioTests(unittest.TestCase):
                 create(Path(tmp), Path(tmp))
             self.assertEqual(marker.read_bytes(), b'keep')
 
+    def test_light_and_moderate_have_distinct_density_and_loudness(self):
+        self.assertLess(PROFILES[0]['rate'], PROFILES[-1]['rate'])
+        self.assertLessEqual(PROFILES[0]['target'], PROFILES[-1]['target']-6)
+        curve=[.2,.8,.3,.9,.2]
+        self.assertEqual(density_at(0,90,curve),.2)
+        self.assertEqual(density_at(22.5,90,curve),.8)
+        self.assertAlmostEqual(density_at(90,90,curve),.2)
+        with tempfile.TemporaryDirectory() as tmp:
+            light=droplets(Path(tmp)/'light.wav',1,123,rate=5,curve=curve)
+            moderate=droplets(Path(tmp)/'moderate.wav',1,123,rate=80,curve=curve)
+            self.assertLess(len(light),len(moderate))
+
     def test_pending_custom_audio_cannot_publish_even_if_enabled_in_profile(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp); (root/'data').mkdir(); (root/'audio').mkdir(); (root/'scenes').mkdir()
@@ -46,7 +58,7 @@ class CustomAudioTests(unittest.TestCase):
             root = Path(tmp); (root/'data').mkdir(); (root/'audio').mkdir()
             candidates=root/'candidates'; candidates.mkdir(); source=candidates/'sound.flac';source.write_bytes(b'audio')
             record={'id':'custom-audio:a','path':'sound.flac','sha256':digest(source),'technical_pass':True,
-                    'title':'Custom rain','duration':90,'components':[{'kind':'procedural'}],
+                    'title':'Custom rain','duration':90,'components':[{'kind':'procedural','seed':123,'event_times_seconds':[1.2,2.3]}],
                     'review':{'approved':False,'status':'pending'}}
             (candidates/'candidates.json').write_text(json.dumps([record]))
             with self.assertRaisesRegex(ValueError,'Full listening'):
@@ -54,6 +66,7 @@ class CustomAudioTests(unittest.TestCase):
             self.assertFalse((root/'audio/metadata.json').exists())
             record['review']={'approved':True,'status':'approved','notes':'User approved full playback and repeat boundaries',
                               'reviewed_at':'2026-10-17','quality':{'full_playback':True,'loop_checked':True}}
+            record['target_lufs']=-29
             (candidates/'candidates.json').write_text(json.dumps([record]))
             legacy={'id':1,'review':{'notes':'keep'}}
             (root/'audio/metadata.json').write_text(json.dumps([legacy]))
@@ -62,6 +75,10 @@ class CustomAudioTests(unittest.TestCase):
             metadata=json.loads((root/'audio/metadata.json').read_text())
             self.assertEqual(metadata[0],legacy)
             self.assertEqual(metadata[1]['asset_id'],'custom-audio:a')
+            self.assertEqual(metadata[1]['target_lufs'],-29)
+            self.assertEqual(metadata[1]['components'][0]['event_count'],2)
+            self.assertNotIn('event_times_seconds',metadata[1]['components'][0])
+            self.assertEqual(json.loads((candidates/'candidates.json').read_text())[0]['components'][0]['event_times_seconds'],[1.2,2.3])
             a={'video':{'asset_id':'custom:v'},'audio':{'asset_id':'custom-audio:a','freesound_id':None}}
             b={'video':{'asset_id':'custom:v'},'audio':{'asset_id':'custom-audio:b','freesound_id':None}}
             self.assertNotEqual(fingerprint(a),fingerprint(b))

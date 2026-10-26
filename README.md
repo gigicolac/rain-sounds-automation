@@ -1,5 +1,11 @@
 # Rain Sounds YouTube Automation
 
+See [COMMENT_AND_SETTINGS.md](COMMENT_AND_SETTINGS.md) for preset video settings,
+the automatic channel comment and the one-time login update it needs.
+
+See [RAIN_AUDIO_WORKFLOW.md](RAIN_AUDIO_WORKFLOW.md) for the local rain audio
+creation/review library, presets, approved/pass/rejected categories and exports.
+
 See [CUSTOM_CHANNEL_LAUNCH.md](CUSTOM_CHANNEL_LAUNCH.md) for the custom scene
 launch branch, thumbnail treatments, title rotation, audio listening candidates
 and deployment evidence.

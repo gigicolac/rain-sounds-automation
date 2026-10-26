@@ -4,9 +4,19 @@ User authorized a public three-hour upload using scene `local:study-room`
 (Pixabay 330062) and recording 695619, with the approved COZY RAIN thumbnail
 layout. Future scheduled posts use three hours as well.
 
-The daily action starts at 11am Australia/Sydney, including daylight saving.
-Build and YouTube processing finish later; this is not an exact 11am release
-guarantee. Manual runs still default to preview. Scheduled runs publish publicly.
+The daily action starts at 11am Australia/Sydney, including daylight saving
+(8pm US Eastern the previous day). Public uploads are sent to YouTube as
+private with a scheduled `publishAt`, and YouTube makes them public at that
+weekday's time in `data/publish_schedule.json` (US Eastern, daylight saving
+handled): Mon 12:00, Tue 13:00, Wed 12:00, Thu 09:00, Fri 11:00, Sat/Sun
+09:00. These are the starts of the user-supplied suggested posting windows;
+edit the file to change them. The next slot at least 60 minutes away is used,
+so a daily run releases on the same calendar date in US Eastern time.
+History records `publish_at`. Until release, the video's actual visibility is
+private, and it still blocks another upload for that date. Manual runs can
+choose `publish_timing: now` for an immediate public release. Explicit
+`private`/`unlisted` uploads are never scheduled. Manual runs still default to
+preview. Scheduled runs publish publicly.
 
 Long-form output encodes the normalized 1080p seamless visual cycle once, then
 copies compressed frames while encoding the full crossfaded rain soundtrack.

@@ -1,17 +1,24 @@
 {
-  "language": "en-AU",
-  "category_id": "10",
-  "contains_synthetic_media": true,
-  "has_paid_product_placement": false,
-  "recording_timezone": "Australia/Melbourne",
-  "recording_location": {
-    "description": "Melbourne, Australia",
-    "latitude": -37.8136,
-    "longitude": 144.9631
+  "note": "Copied from reference video EXjpeDzwuAs (2 Oct 2026) via the read-only verify-mode settings report on 23 Oct 2026. recordingDate is set to each upload's date. Privacy, scheduling and Made for Kids are controlled by the pipeline, not this file. containsSyntheticMedia (AI use: yes, the scenes are AI-generated) and paid promotion: no were added on 26 Oct 2026 from the channel's upload checklist.",
+  "snippet": {
+    "defaultLanguage": "en-AU",
+    "defaultAudioLanguage": "en-AU"
   },
-  "playlists": {
-    "COZY\nRAIN": "",
-    "DEEP SLEEP\nRAIN": "",
-    "INSOMNIA\nRAIN": ""
+  "status": {
+    "embeddable": true,
+    "license": "youtube",
+    "publicStatsViewable": true,
+    "containsSyntheticMedia": true
+  },
+  "recordingDetails": {
+    "location": {
+      "latitude": -37.8136276,
+      "longitude": 144.9630576,
+      "altitude": 0
+    },
+    "locationDescription": "Melbourne"
+  },
+  "paidProductPlacementDetails": {
+    "hasPaidProductPlacement": false
   }
 }

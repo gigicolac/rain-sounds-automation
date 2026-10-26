@@ -33,5 +33,315 @@
     "path": "scenes/custom-10-mug-window.mp4",
     "sha256": "e3adc46f6a986c5e99977631cff2fddf9cf0bb75ecc7c76169d40474157b4147",
     "bytes": 6138379
+  },
+  {
+    "path": "audio/custom/v2-light-blend.flac",
+    "sha256": "bdf8c63753b06e017fa34ed9001c75f92d1a2139f2e0a81fb54416e79782ef34",
+    "bytes": 16153434
+  },
+  {
+    "path": "audio/custom/v2-changing-shower.flac",
+    "sha256": "0c95e63f16e389121ff93d6e63ac1455e9091d5a16e164fc4b4917a43cf54ab0",
+    "bytes": 16707711
+  },
+  {
+    "path": "audio/custom/v2-building-rain.flac",
+    "sha256": "577ed9e2dabef3d762be4619a0f4b33d1909bab9e9df2276966ffb59e1f050b7",
+    "bytes": 17942982
+  },
+  {
+    "path": "audio/custom/v2-moderate-rain.flac",
+    "sha256": "1ca4c197a818dfa786eecc00e3bb867900e9870b180f881fa2b2e5bc36e3bfb5",
+    "bytes": 18708050
+  },
+  {
+    "path": "audio/custom/window-drizzle-417-20261017-011856-714260.flac",
+    "sha256": "4dc849411db5fa660957b06ed629bce7d64e3c139e20bbfc1f6867aba62c5172",
+    "bytes": 14733862
+  },
+  {
+    "path": "audio/custom/forest-steady-417-20261017-011914-932410.flac",
+    "sha256": "0207eb4b3aabf2eb304ce19058751e03e622d4650381376ce45d12c98f9c54c3",
+    "bytes": 18058877
+  },
+  {
+    "path": "audio/custom/city-rain-417-20261017-011933-891051.flac",
+    "sha256": "fb06e0eaf7360c09890048e6ae33943152a19ad3021c75a23d29b6a749ec2ac4",
+    "bytes": 17167005
+  },
+  {
+    "path": "audio/custom/cabin-evening-123-20261017-012120-376343.flac",
+    "sha256": "2e8bdc6cbfcac64e285bd0c10ecc67dbb38dfd71fccd81863e9a86ae45749f42",
+    "bytes": 14076380
+  },
+  {
+    "path": "scenes/custom-01-bookshop.mp4",
+    "sha256": "d272d7b9763a99c0435e61773da0977caff80981e814f34125cd6b99cd2f3b98",
+    "bytes": 2875465
+  },
+  {
+    "path": "scenes/custom-02-mountain-cabin.mp4",
+    "sha256": "e03bf8fcaee578c35a13142dfefc23a0b5476126f6a711c10d789389907fd314",
+    "bytes": 2885091
+  },
+  {
+    "path": "scenes/custom-04-rooftop-cat.mp4",
+    "sha256": "c03edbeb43761b8e5c8a596c8bd3ca4db82e0e7b890fbca44e4d73936910da01",
+    "bytes": 3147042
+  },
+  {
+    "path": "scenes/custom-05-lake-writing.mp4",
+    "sha256": "068087beb7faca8e599cfb3a223cb106308ca5ed2c8378902a2ca2d1f68dfb53",
+    "bytes": 2049147
+  },
+  {
+    "path": "scenes/custom-06-forest-loft.mp4",
+    "sha256": "92903b630019e8c4ec5884055b3e0cde43083fd818a9e2ef34ff2ff6fbf9c2cc",
+    "bytes": 2449078
+  },
+  {
+    "path": "scenes/custom-07-pottery.mp4",
+    "sha256": "7e40bb105268e9d16b611d85559f9f7d28f3d8f94bef2771545cba7cc5b4c481",
+    "bytes": 1839964
+  },
+  {
+    "path": "scenes/custom-08-dog-veranda.mp4",
+    "sha256": "e01b43e74f816c0441bfa83b0c506ec997428ed82e33e3319520fed6dfa88eda",
+    "bytes": 2522846
+  },
+  {
+    "path": "scenes/custom-09-attic-stars.mp4",
+    "sha256": "f36130ccd28978ce54b4c81689ebb1bcfc9d9074bc7206cb5ae5f4cc4e36dacc",
+    "bytes": 1876148
+  },
+  {
+    "path": "scenes/custom-10-storm-library.mp4",
+    "sha256": "029e4ecc8c18462a00c43435489b518643df9a455d6d288633bfe129679a586e",
+    "bytes": 1752235
+  },
+  {
+    "path": "scenes/custom-11-coastal-room.mp4",
+    "sha256": "2aee156d2dd15fa36a273518c8abc7cad8d06098a24adefe2eb19835b0200b54",
+    "bytes": 2152119
+  },
+  {
+    "path": "scenes/custom-12-bakery-cat.mp4",
+    "sha256": "4a499f6cc51fb5422f605c20081f50ab44d2145ff51f50a6d91a380c7b89df26",
+    "bytes": 2065182
+  },
+  {
+    "path": "scenes/custom-13-botanical-desk.mp4",
+    "sha256": "62fcea88c42057edd7bf515a50792ac95bf351415173229ac828b2c15bf94cba",
+    "bytes": 2158655
+  },
+  {
+    "path": "scenes/custom-14-cedar-bedroom.mp4",
+    "sha256": "42fe2dcfbf8e86f11bef33a39ac716c4dc5eb24bfeefaf4fe3f6e52cadf54941",
+    "bytes": 2370919
+  },
+  {
+    "path": "scenes/custom-15-sewing-room.mp4",
+    "sha256": "3164e48b4eeeb551124600982d07c172e9f1f5bcb48d4fb4053e21cea9a76093",
+    "bytes": 1612322
+  },
+  {
+    "path": "scenes/custom-16-train-dog.mp4",
+    "sha256": "185e1302e0eb69b074febad41bbd77a4bf5615b5d51cfc28fef64fee3b7a95fc",
+    "bytes": 1981423
+  },
+  {
+    "path": "scenes/custom-17-forest-study.mp4",
+    "sha256": "39d8eb5ccd26a0bf5f457256d7d6ca49fcab8831bc6c9ef27e316a8f8fbc43be",
+    "bytes": 2161593
+  },
+  {
+    "path": "scenes/custom-19-city-journal.mp4",
+    "sha256": "9ee1c303b0ab1dd1de4cde0615e49d6f5d293f2f9f2a0d229eee2c877dd41678",
+    "bytes": 1859626
+  },
+  {
+    "path": "scenes/custom-20-ranger-storm.mp4",
+    "sha256": "26eb1c513c361066c31e5a2d10c05c3b8a783e48f0085250e131842ed11fe7f6",
+    "bytes": 2267476
+  },
+  {
+    "path": "scenes/custom-21-music-room.mp4",
+    "sha256": "1b15e3cf75c8960c9677ab09a04305ed9ca17092c8befb6aab0f4f91322efbba",
+    "bytes": 1917558
+  },
+  {
+    "path": "scenes/custom-22-conservatory-cat.mp4",
+    "sha256": "6e2ed305b165c911d0579d3ab25766f82193344a5a1a112a31e15a292021f935",
+    "bytes": 2857281
+  },
+  {
+    "path": "scenes/custom-23-lake-reader.mp4",
+    "sha256": "905a3efe248ed506a8b4c11c057ed1fc02d31176e82a9d7fd48ea57bd92ab6ea",
+    "bytes": 2252657
+  },
+  {
+    "path": "scenes/custom-24-print-studio.mp4",
+    "sha256": "132c772d4c9aa77f4bdab07172bc7d42d946f6efc2945d0bcc265ecd4e1e87ed",
+    "bytes": 1776252
+  },
+  {
+    "path": "scenes/custom-26-map-room.mp4",
+    "sha256": "b8b0f1aec0dd329b0a1cf63eb1e9c056c9ee791537755109aaab27b6e1dfc368",
+    "bytes": 2172197
+  },
+  {
+    "path": "scenes/custom-27-city-cat.mp4",
+    "sha256": "a2a1d7a27b96d20cc1768962b688b12dc5af7dfdecbe9d33d528671ad59b5c24",
+    "bytes": 2700044
+  },
+  {
+    "path": "scenes/custom-28-garden-reader.mp4",
+    "sha256": "526048a29d1c979770e347c57758204099c5c666abe7c5018f8bc6cab6d2d39e",
+    "bytes": 2340623
+  },
+  {
+    "path": "scenes/custom-29-tea-atelier.mp4",
+    "sha256": "f041b921ba21e2879ce929440e77205693b0782051dda1dcf1597e4a9c5aa97a",
+    "bytes": 2470561
+  },
+  {
+    "path": "scenes/custom-30-woodland-night.mp4",
+    "sha256": "3c91bab9198b19419c657299391109bb1e51c6483f3316161c4493092ea3422d",
+    "bytes": 2855606
+  },
+  {
+    "path": "audio/custom/three-weeks-01-bookshop.flac",
+    "sha256": "afceef8c674fdd5ffe18e4da40e8b455256de90826184d1957818445d1d23073",
+    "bytes": 14570865
+  },
+  {
+    "path": "audio/custom/three-weeks-02-mountain-cabin.flac",
+    "sha256": "893c3df14a0dc76cf1437af8a43e2f007fdcf595ce5d0cba39b8e731c4f68ec6",
+    "bytes": 14096365
+  },
+  {
+    "path": "audio/custom/three-weeks-03-greenhouse.flac",
+    "sha256": "1274370ccad68a77c22341acd2b2e9d88185b97a5075af74e75e8d8c6b17589a",
+    "bytes": 16850023
+  },
+  {
+    "path": "audio/custom/three-weeks-04-rooftop-cat.flac",
+    "sha256": "131fd7ee888ad4ce0e33cf6128e86809d57203228e88fdaebf910b3a4eb2acf1",
+    "bytes": 17121798
+  },
+  {
+    "path": "audio/custom/three-weeks-05-lake-writing.flac",
+    "sha256": "49a24e5508f5d9b7de4c71985e5556479d6afd1877ebc181fe446b3d9c03961c",
+    "bytes": 16214502
+  },
+  {
+    "path": "audio/custom/three-weeks-06-forest-loft.flac",
+    "sha256": "3d88138b6c17dbc629f2184c5a801c5b10343d7d8dca0d54543d646903a233b6",
+    "bytes": 17906768
+  },
+  {
+    "path": "audio/custom/three-weeks-07-pottery.flac",
+    "sha256": "ed19a18d0d44c7c6fee102731d7d263a54c24229ce9e63b07f7186f85cc89617",
+    "bytes": 16660040
+  },
+  {
+    "path": "audio/custom/three-weeks-08-dog-veranda.flac",
+    "sha256": "b1a9d9670165b39ca30e7cbec2b894406fc0640301c7d395c0bcacd3d9da4f14",
+    "bytes": 16871153
+  },
+  {
+    "path": "audio/custom/three-weeks-09-attic-stars.flac",
+    "sha256": "c59722bc27a798aa43a5c8aa980ebd30821dbdf5cf1f62cff2f661bc6902586e",
+    "bytes": 14580558
+  },
+  {
+    "path": "audio/custom/three-weeks-10-storm-library.flac",
+    "sha256": "94a6c0477e5bd1346846cc9ca9a952618dfd7a8141b63bb24f8778bd51ba6336",
+    "bytes": 18817050
+  },
+  {
+    "path": "audio/custom/three-weeks-11-coastal-room.flac",
+    "sha256": "6dc45095faec5366cc3fb7a3bbe12f00c53df4b62341510414663afe89e1334e",
+    "bytes": 16426074
+  },
+  {
+    "path": "audio/custom/three-weeks-12-bakery-cat.flac",
+    "sha256": "1e325115293c534093fddab6b33fca56c6b5d70d8b5f7f89955734860fd8fdb8",
+    "bytes": 17020958
+  },
+  {
+    "path": "audio/custom/three-weeks-13-botanical-desk.flac",
+    "sha256": "764ea2509a637f747dcfd260d41b1bda4fc4e6e9966c82e0f60f4cd87ff62317",
+    "bytes": 16845046
+  },
+  {
+    "path": "audio/custom/three-weeks-15-sewing-room.flac",
+    "sha256": "374eb7093e1db2476e190870972a7fd56218cc8ffd94173490809530f52cbcd4",
+    "bytes": 16661161
+  },
+  {
+    "path": "audio/custom/three-weeks-17-forest-study.flac",
+    "sha256": "64684f19a39b4a5217f9c559a6e6ec4f250b011cbbbcdcf49764b8644292db30",
+    "bytes": 18101849
+  },
+  {
+    "path": "audio/custom/three-weeks-18-orchard-window.flac",
+    "sha256": "3861b33a71a0b1777ad5799f3f0482c350bb6fc3ad7e919b5b904a8fc913900e",
+    "bytes": 13929946
+  },
+  {
+    "path": "audio/custom/three-weeks-19-city-journal.flac",
+    "sha256": "6fc929f3580b0d094bfd85e6b8bb21ddb65f74d979159bcc8a2f8316fe20cdc8",
+    "bytes": 16516289
+  },
+  {
+    "path": "audio/custom/three-weeks-20-ranger-storm.flac",
+    "sha256": "a207d91ceee83376f45c23c1022806b5d77516439543c08cbb437eba4036e8bb",
+    "bytes": 18918174
+  },
+  {
+    "path": "audio/custom/three-weeks-21-music-room.flac",
+    "sha256": "e3be1482ec2213f83a46d9d1af8a23723d7d788685739d122b38ab5124230af0",
+    "bytes": 14627268
+  },
+  {
+    "path": "audio/custom/three-weeks-22-conservatory-cat.flac",
+    "sha256": "b13efafcffcfb0a24edf7efd1eb411fdf883c9b344cea118acd02d8fbe8a5437",
+    "bytes": 16973666
+  },
+  {
+    "path": "audio/custom/three-weeks-23-lake-reader.flac",
+    "sha256": "d69b01ff02281ef94fb20c1f5cfcd184315376408db00d251e58803a361c4704",
+    "bytes": 16206606
+  },
+  {
+    "path": "audio/custom/three-weeks-24-print-studio.flac",
+    "sha256": "c1c5b6e9069c776bb30f525318383d8c7175d9a43da1e919799933ca52b33296",
+    "bytes": 16648593
+  },
+  {
+    "path": "audio/custom/three-weeks-26-map-room.flac",
+    "sha256": "ef664bcf5f44f7b9efb29df9dbf93c6c9a3083f897221f6f67096ee7f3331535",
+    "bytes": 17952677
+  },
+  {
+    "path": "audio/custom/three-weeks-27-city-cat.flac",
+    "sha256": "a48c76abff62cdde48f04320c486423f467cbf8f23c5b2e52f7243c20bf03089",
+    "bytes": 17030699
+  },
+  {
+    "path": "audio/custom/three-weeks-28-garden-reader.flac",
+    "sha256": "d5330d7e44ca5bc3849df92173bc5248a8bf860fc24bece95abd5f7c1668b971",
+    "bytes": 16613399
+  },
+  {
+    "path": "audio/custom/three-weeks-29-tea-atelier.flac",
+    "sha256": "8e98faa7cb70f58341fd12dd37b43e9be0f7f6ad0416df0f6aefd56b8087adcd",
+    "bytes": 14625785
+  },
+  {
+    "path": "audio/custom/three-weeks-30-woodland-night.flac",
+    "sha256": "ad8c3dcd6f6b971c910d712a6a9ff9797be46c8f45bb156c1c2011163da6bcd8",
+    "bytes": 18889384
   }
 ]

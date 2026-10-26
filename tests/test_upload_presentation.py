@@ -3,6 +3,7 @@ import sys
 import unittest
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
+from channel_profile import title_allowed as channel_title_allowed
 from upload_presentation import (presentation, unique_title, variety_record, thumbnail_variants,
                                  chapters, description_parts, pinned_comment, overlay_title,
                                  theme_titles, KEYWORDS, EMOJI, THEMES, TAGS)
@@ -63,6 +64,7 @@ class PresentationTests(unittest.TestCase):
             title = unique_title(options, entries, random.Random(seed))
             self.assertNotIn(title, [e['assets']['title'] for e in entries.values()])
             self.assertLessEqual(len(title), 100)
+            self.assertTrue(channel_title_allowed(title), title)
             entries[str(seed)] = {'assets': {'date': str(seed).zfill(3), 'title': title, 'thumbnail_headline': headline}}
         with self.assertRaisesRegex(ValueError, 'catalogue exhausted'):
             presentation({}, {}, 180, entries, random.Random(100))

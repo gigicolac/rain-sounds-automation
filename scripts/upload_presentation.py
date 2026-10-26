@@ -96,6 +96,10 @@ def presentation(video, audio, minutes, entries, rng):
     eligible = {h: titles for h, titles in eligible.items() if titles}
     if not eligible:
         raise ValueError('Title catalogue exhausted; add new truthful titles before publishing.')
+    remaining = sum(len(titles) for titles in eligible.values())
+    if remaining <= 14:
+        print(f'::warning::Only {remaining} unused automatic titles remain for {length}; '
+              'add new openers or benefits in scripts/upload_presentation.py before they run out.')
     headline = rng.choice([h for h in eligible if h != previous] or list(eligible))
     fresh = [t for t in eligible[headline] if _outcome(t) not in recent_outcomes]
     return fresh or eligible[headline], headline, detail

@@ -27,7 +27,7 @@ on:
         description: "Optional Pexels search phrase"
         type: string
       audio_id:
-        description: "Optional Freesound identifier from audio/metadata.json"
+        description: "Optional cached audio identifier from audio/metadata.json (Freesound or custom asset)"
         type: string
       title:
         description: "Optional title (unsupported content claims are rejected)"
@@ -41,16 +41,19 @@ on:
         options: [public, unlisted, private]
         default: public
       publish_timing:
-        description: "Public uploads: go live in the next US audience window (scheduled) or as soon as processed"
+        description: "Public uploads: release at the weekday time in data/publish_schedule.json, or immediately"
         type: choice
-        options: [scheduled, immediate]
-        default: scheduled
+        options: [schedule, now]
+        default: schedule
       allow_unreviewed:
         description: "Allow unreviewed assets for private/unlisted testing only"
         type: boolean
         default: false
       resume_video_id:
         description: "Required in resume mode: existing YouTube video identifier recorded in history"
+        type: string
+      inspect_video_id:
+        description: "Verify mode only: read-only settings report for one of the channel's videos"
         type: string
 concurrency:
   group: daily-rain-video
@@ -64,6 +67,7 @@ jobs:
     env:
       PIPELINE_MODE: ${{ inputs.mode || 'publish' }}
       RESUME_VIDEO_ID: ${{ inputs.resume_video_id }}
+      INSPECT_VIDEO_ID: ${{ inputs.inspect_video_id }}
       ASSET_SELECTION: ${{ inputs.asset_selection || 'channel' }}
       VISUAL_STYLE: ${{ inputs.visual_style || 'any' }}
       VIDEO_ID: ${{ inputs.video_id }}
@@ -72,8 +76,8 @@ jobs:
       TITLE_OVERRIDE: ${{ inputs.title }}
       DURATION_MINUTES: ${{ inputs.duration_minutes }}
       UPLOAD_PRIVACY_STATUS: ${{ inputs.upload_privacy_status || 'public' }}
-      PUBLISH_TIMING: ${{ inputs.publish_timing || 'scheduled' }}
       ALLOW_UNREVIEWED: ${{ inputs.allow_unreviewed || 'false' }}
+      PUBLISH_TIMING: ${{ inputs.publish_timing || 'schedule' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -84,6 +88,7 @@ jobs:
       - name: Validate controls
         run: |
           python -c "import os; m=os.environ['PIPELINE_MODE']; r=os.environ['RESUME_VIDEO_ID']; assert (m == 'resume') == bool(r), 'Supply resume_video_id only in resume mode'"
+          python -c "import os; assert os.environ['PIPELINE_MODE'] == 'verify' or not os.environ['INSPECT_VIDEO_ID'], 'Supply inspect_video_id only in verify mode'"
       - name: Verify YouTube channel
         if: env.PIPELINE_MODE != 'preview'
         env:

@@ -1,42 +1,44 @@
-"""Publish when the US audience is online, after YouTube has had time to finish HD processing."""
+"""Choose the YouTube scheduled release time from data/publish_schedule.json.
+
+The daily run still starts at 11am Sydney; public uploads are sent as private
+with status.publishAt, and YouTube makes them public at the next configured
+weekday time that is at least minimum_lead_minutes away.
+"""
 from datetime import datetime, time, timedelta, timezone
+import json
+from pathlib import Path
 from zoneinfo import ZoneInfo
 
-EASTERN = ZoneInfo('America/New_York')
-# Recommended posting windows in US Eastern time, Monday=0.
-WINDOWS = {
-    0: [(time(12), time(16))],
-    1: [(time(13), time(19))],
-    2: [(time(12), time(21))],
-    3: [(time(9), time(14))],
-    4: [(time(11), time(15))],
-    5: [(time(9), time(12)), (time(21), time(23))],
-    6: [(time(9), time(12)), (time(21), time(23))],
-}
-# HD/4K renditions plus copyright and ad-suitability checks take about two hours.
-PROCESSING_LEAD = timedelta(hours=2)
-MINIMUM_REMAINING = timedelta(minutes=30)
+ROOT = Path(__file__).resolve().parent.parent
+SCHEDULE_PATH = ROOT / "data" / "publish_schedule.json"
+DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
 
 
-def _round_up_quarter_hour(moment):
-    floored = moment.replace(minute=moment.minute - moment.minute % 15, second=0, microsecond=0)
-    return floored if floored == moment else floored + timedelta(minutes=15)
+def load_schedule(path=SCHEDULE_PATH):
+    schedule = json.loads(Path(path).read_text(encoding="utf-8"))
+    times = schedule["times"]
+    if sorted(times) != sorted(DAYS):
+        raise ValueError("publish_schedule.json must define a time for every weekday")
+    for value in times.values():
+        time.fromisoformat(value)
+    ZoneInfo(schedule["timezone"])
+    return schedule
 
 
-def next_publish_time(now=None, lead=PROCESSING_LEAD):
-    """Earliest moment inside a posting window that is at least `lead` from now, in UTC."""
+def next_publish_at(now=None, schedule=None):
+    """Next configured release time (UTC) at least the minimum lead ahead of now."""
+    schedule = schedule or load_schedule()
+    zone = ZoneInfo(schedule["timezone"])
     now = now or datetime.now(timezone.utc)
-    earliest = _round_up_quarter_hour((now + lead).astimezone(EASTERN))
+    earliest = now + timedelta(minutes=schedule.get("minimum_lead_minutes", 60))
+    local_today = now.astimezone(zone).date()
     for offset in range(8):
-        day = earliest.date() + timedelta(days=offset)
-        for start, end in WINDOWS[day.weekday()]:
-            opens = datetime.combine(day, start, EASTERN)
-            closes = datetime.combine(day, end, EASTERN)
-            candidate = max(opens, earliest)
-            if candidate + MINIMUM_REMAINING <= closes:
-                return candidate.astimezone(timezone.utc)
-    raise RuntimeError('No posting window found in the next week')
+        day = local_today + timedelta(days=offset)
+        slot = datetime.combine(day, time.fromisoformat(schedule["times"][DAYS[day.weekday()]]), zone)
+        if slot >= earliest:
+            return slot.astimezone(timezone.utc)
+    raise RuntimeError("No release time found in the next week")
 
 
-def rfc3339(moment):
-    return moment.astimezone(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+def api_timestamp(moment):
+    return moment.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z")

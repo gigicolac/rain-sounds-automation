@@ -1,13 +1,17 @@
 # Future upload packaging
 
-Superseded in part by UPLOAD_SETTINGS.md (titles, thumbnails, descriptions, upload fields and timing).
-
-Prepared on codex/searchable-packaging; not deployed.
+Deployed: merged to main through pull request #9. The first upload using it
+was the 23 Oct 2026 scheduled run (video RfRAEIL5U6Y), whose history record
+shows the new title, stacked thumbnail and description opening.
 
 Automatic titles lead with Rain Sounds for Sleeping, Sleep, Studying,
 Relaxation, Rest or Reading, followed by ambience wording and actual duration.
 History uniqueness and reviewed setting claim checks remain in force.
-The finite generic catalogue contains 36 titles; selection stops when exhausted.
+The finite generic catalogue contains 72 titles per duration (six purposes ×
+twelve moods; expanded from 36 on claude/bold-galileo-0w88q1). At one
+three-hour upload a day that lasts about ten weeks. Runs log a warning once
+14 or fewer remain, and selection stops when exhausted. Whether to add more
+titles or allow reuse after a gap is an open owner decision.
 Existing published videos are not edited.
 
 The primary thumbnail always uses the stacked Nunito layout and duration badge.

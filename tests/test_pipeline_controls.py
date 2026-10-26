@@ -79,6 +79,15 @@ class HistoryTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, 'this date'):
                 Ledger().check_new(changed)
 
+    def test_scheduled_public_release_blocks_same_day_while_private(self):
+        ledger = Ledger()
+        key = ledger.reserve(self.assets, '2026-10-24T15:00:00.000Z')
+        ledger.entries[key].update(state='complete', actual_privacy='private')
+        ledger.save()
+        self.assertEqual(Ledger().entries[key]['publish_at'], '2026-10-24T15:00:00.000Z')
+        with self.assertRaisesRegex(RuntimeError, 'this date'):
+            Ledger().check_new(dict(self.assets, video={'pexels_id':999}))
+
     def test_resume_only_known_upload(self):
         ledger=Ledger(); key=ledger.reserve(self.assets)
         ledger.entries[key]['video_id']='known'; ledger.save()

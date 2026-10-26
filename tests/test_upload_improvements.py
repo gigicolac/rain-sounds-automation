@@ -4,139 +4,74 @@ import shutil
 import sys
 import tempfile
 import unittest
-from datetime import date, datetime, timezone
 from pathlib import Path
 from unittest.mock import Mock, patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 import make_thumbnail
 import upload_youtube as upload
-from channel_profile import clean_rain, publication_ready
-from googleapiclient.errors import HttpError
-from publish_schedule import next_publish_time
+from channel_profile import clean_rain, confirmed_clean, publication_ready
 from upload_history import Ledger
 
 CLEAN = {'traffic': False, 'voices': False, 'music': False, 'thunder': False, 'animals': False}
 REPO = Path(__file__).resolve().parents[1]
+SIREN = 'WTHR-MIX_RAIN-Underneath Roof With City Traffic And A Siren'
 
 
-def utc(*parts):
-    return datetime(*parts, tzinfo=timezone.utc)
+def mix(notes='full, dense', sources=('Heavy Rain Forest',), labels=None):
+    return {'title': 'Week 3 / 21 - Quiet music room', 'review': {'approved': True, 'notes': notes, 'labels': labels or {}},
+            'components': [{'kind': 'procedural'}] + [{'kind': 'licensed_recording', 'original_title': t} for t in sources]}
 
 
 class CleanRainTests(unittest.TestCase):
-    def test_siren_recording_and_unknown_labels_are_not_clean(self):
-        self.assertTrue(clean_rain({'title': 'Steady rain', 'review': {'approved': True, 'labels': CLEAN}}))
-        traffic = {'title': 'Rain With City Traffic And A Siren',
-                   'review': {'approved': True, 'labels': dict(CLEAN, traffic=True)}}
-        self.assertFalse(clean_rain(traffic))
-        # A siren in the title is enough even if a label was missed.
-        self.assertFalse(clean_rain({'title': 'Rain and a siren', 'review': {'approved': True, 'labels': CLEAN}}))
-        # Unknown does not mean absent.
-        unknown = dict(CLEAN); del unknown['voices']
-        self.assertFalse(clean_rain({'title': 'Rain', 'review': {'approved': True, 'labels': unknown}}))
-        self.assertFalse(clean_rain({'title': 'Rain', 'review': {'approved': False, 'labels': CLEAN}}))
+    def test_custom_mix_checked_through_sources_and_notes_not_scene_name(self):
+        self.assertTrue(clean_rain(mix()))  # "music room" is a scene name, not audio content
+        self.assertFalse(clean_rain(mix(sources=('Heavy Rain Forest', SIREN))))
+        self.assertFalse(clean_rain(mix(notes='windy, traffic-y, light')))
+        self.assertFalse(clean_rain(mix(labels={'thunder': True})))
 
-    def test_live_channel_pool_contains_only_confirmed_clean_rain(self):
+    def test_single_recordings_checked_by_title_and_labels(self):
+        self.assertTrue(clean_rain({'title': 'Steady rain', 'review': {'approved': True, 'labels': CLEAN}}))
+        self.assertFalse(clean_rain({'title': SIREN, 'review': {'approved': True, 'labels': {}}}))
+        self.assertFalse(clean_rain({'title': 'Rain', 'review': {'approved': True, 'labels': dict(CLEAN, voices=True)}}))
+
+    def test_no_distractions_claim_needs_confirmed_labels(self):
+        self.assertFalse(confirmed_clean(mix()))  # unknown is not absent
+        self.assertTrue(confirmed_clean(mix(labels=CLEAN)))
+        self.assertFalse(confirmed_clean(mix(labels=CLEAN, notes='traffic')))
+
+    def test_live_pool_excludes_exactly_the_traffic_mixes(self):
         profile = json.loads((REPO / 'data/channel_profile.json').read_text())
         audio = {str(a['id']): a for a in json.loads((REPO / 'audio/metadata.json').read_text())}
-        self.assertNotIn('788146', profile['audio_ids'])
-        for audio_id in profile['audio_ids']:
-            self.assertTrue(clean_rain(audio[audio_id]), audio_id)
+        blocked = sorted(a for a in profile['audio_ids'] if not clean_rain(audio[a]))
+        self.assertEqual(blocked, ['custom-audio:three-weeks-04-rooftop-cat', 'custom-audio:three-weeks-12-bakery-cat',
+                                   'custom-audio:three-weeks-27-city-cat'])
+        self.assertGreaterEqual(len(profile['audio_ids']) - len(blocked), 20)
 
     def test_publication_gate_rejects_traffic_audio(self):
-        assets = {'selection_explanation': {'policy': 'channel_profile'},
-                  'video': {'asset_id': 'custom:a'},
-                  'audio': {'freesound_id': 788146, 'title': 'City Traffic And A Siren',
-                            'review': {'approved': True, 'labels': dict(CLEAN, traffic=True)}}}
+        assets = {'selection_explanation': {'policy': 'channel_profile'}, 'video': {'asset_id': 'custom:a'},
+                  'audio': dict(mix(sources=(SIREN,)), asset_id='custom-audio:x')}
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp); (root / 'data').mkdir()
             (root / 'data/channel_profile.json').write_text(json.dumps(
-                {'video_ids': ['custom:a'], 'audio_ids': ['788146']}))
+                {'video_ids': ['custom:a'], 'audio_ids': ['custom-audio:x']}))
             self.assertFalse(publication_ready(assets, root))
 
 
-class ScheduleTests(unittest.TestCase):
-    def test_evening_render_publishes_in_next_day_window(self):
-        # Tue 20:30 EDT; Tuesday's window has closed, Wednesday opens at 12:00 EDT.
-        self.assertEqual(next_publish_time(utc(2026, 10, 21, 0, 30)), utc(2026, 10, 21, 16, 0))
-
-    def test_upload_inside_a_window_keeps_two_hour_processing_lead(self):
-        # Wed 13:07 EDT + 2 hours = 15:07, rounded to 15:15 inside Wednesday's 12:00-21:00 window.
-        self.assertEqual(next_publish_time(utc(2026, 10, 21, 17, 7)), utc(2026, 10, 21, 19, 15))
-
-    def test_skips_a_window_that_would_close_within_thirty_minutes(self):
-        # Thu 11:45 EDT + 2 hours leaves under 30 minutes of Thursday's window; Friday opens 11:00 EDT.
-        self.assertEqual(next_publish_time(utc(2026, 10, 22, 15, 45)), utc(2026, 10, 23, 15, 0))
-
-    def test_weekend_evening_window(self):
-        # Sat 18:00 EDT + 2 hours: morning window gone, evening window opens 21:00 EDT.
-        self.assertEqual(next_publish_time(utc(2026, 10, 24, 22, 0)), utc(2026, 10, 25, 1, 0))
-
-    def test_daylight_saving_change(self):
-        # Sun 1 Nov 20:00 EST (after US clocks change) + 2 hours = 22:00, inside Sunday 21:00-23:00.
-        self.assertEqual(next_publish_time(utc(2026, 11, 2, 1, 0)), utc(2026, 11, 2, 3, 0))
-
-
 class UploadBodyTests(unittest.TestCase):
-    def setUp(self):
-        self.settings = json.loads((REPO / 'data/upload_settings.json').read_text())
-        self.assets = {'title': 'Rain Sounds for Sleep | Calm a Racing Mind | 3 Hours',
-                       'description': 'Rain sounds for sleep.', 'tags': ['rain sounds']}
-
-    def test_every_upload_carries_channel_defaults(self):
-        body = upload.video_body(self.assets, self.settings, today=date(2026, 10, 22))
-        self.assertEqual(body['snippet']['categoryId'], '10')
-        self.assertEqual(body['snippet']['defaultLanguage'], 'en-AU')
-        self.assertEqual(body['snippet']['defaultAudioLanguage'], 'en-AU')
+    def test_ai_disclosure_and_no_paid_promotion_on_every_upload(self):
+        assets = {'title': 'Rain', 'description': 'Rain', 'tags': [], 'date': '2026-10-26'}
+        body = upload.upload_body(assets)
         self.assertIs(body['status']['containsSyntheticMedia'], True)
-        self.assertIs(body['status']['selfDeclaredMadeForKids'], False)
         self.assertIs(body['paidProductPlacementDetails']['hasPaidProductPlacement'], False)
-        self.assertEqual(body['recordingDetails']['recordingDate'], '2026-10-22T00:00:00Z')
-        self.assertEqual(body['recordingDetails']['locationDescription'], 'Melbourne, Australia')
-
-    def test_scheduled_release_is_private_until_publish_time(self):
-        with patch.object(upload, 'PRIVACY_STATUS', 'public'):
-            body = upload.video_body(self.assets, self.settings, utc(2026, 10, 21, 16, 0), date(2026, 10, 21))
-        self.assertEqual(body['status']['privacyStatus'], 'private')
-        self.assertEqual(body['status']['publishAt'], '2026-10-21T16:00:00Z')
-
-    def test_only_public_scheduled_runs_get_a_publish_time(self):
-        cases = [('public', 'scheduled', True), ('public', 'immediate', False),
-                 ('unlisted', 'scheduled', False), ('private', 'scheduled', False)]
-        for privacy, timing, expected in cases:
-            with patch.object(upload, 'PRIVACY_STATUS', privacy), patch.object(upload, 'PUBLISH_TIMING', timing):
-                self.assertEqual(upload.scheduled_publish_at(utc(2026, 10, 21, 0, 30)) is not None, expected)
-
-    def test_playlist_scope_only_requested_once_configured(self):
-        with tempfile.TemporaryDirectory() as temp:
-            path = Path(temp) / 'settings.json'
-            settings = dict(self.settings, playlists={'COZY\nRAIN': ''})
-            path.write_text(json.dumps(settings))
-            with patch.object(upload, 'SETTINGS_PATH', path):
-                self.assertNotIn(upload.MANAGE_SCOPE, upload.runtime_scopes())
-                path.write_text(json.dumps(dict(settings, playlists={'COZY\nRAIN': 'PL123'})))
-                self.assertIn(upload.MANAGE_SCOPE, upload.runtime_scopes())
-                self.assertEqual(upload.playlist_for({'thumbnail_headline': 'COZY\nRAIN'}), 'PL123')
-                self.assertEqual(upload.playlist_for({'thumbnail_headline': 'INSOMNIA\nRAIN'}), '')
-
-    def test_channel_without_youtube_signup_explains_reauthorization(self):
-        youtube = Mock()
-        response = Mock(status=401, reason='Unauthorized')
-        youtube.channels.return_value.list.return_value.execute.side_effect = HttpError(
-            response, b'{"error": {"code": 401, "message": "Unauthorized", '
-                      b'"errors": [{"message": "Unauthorized", "domain": "youtube.header", "reason": "youtubeSignupRequired"}]}}')
-        with patch.dict(os.environ, {'EXPECTED_YOUTUBE_CHANNEL_ID': 'UCexpected'}):
-            with self.assertRaisesRegex(RuntimeError, 'has no channel'):
-                upload.verify_target_channel(youtube)
+        self.assertEqual(body['snippet']['categoryId'], '10')
 
 
 class UploadFlowTests(unittest.TestCase):
     def run_upload(self, run, **patches):
         defaults = dict(get_credentials=Mock(), build=Mock(), verify_target_channel=Mock(),
                         upload_video=Mock(return_value={'id': 'vid'}), set_thumbnail=Mock(),
-                        add_to_playlist=Mock(), playlist_for=Mock(return_value=''),
-                        scheduled_publish_at=Mock(return_value=utc(2026, 10, 21, 16, 0)),
+                        scheduled_release=Mock(return_value='2026-10-27T13:00:00.000Z'),
                         wait_for_processing=Mock(return_value={'privacyStatus': 'private'}))
         defaults.update(patches)
         targets = [patch.object(upload, name, value) for name, value in defaults.items()]
@@ -152,7 +87,7 @@ class UploadFlowTests(unittest.TestCase):
     def setUp(self):
         temp = tempfile.TemporaryDirectory(); self.addCleanup(temp.cleanup)
         self.root = Path(temp.name); self.run_dir = self.root / 'run'; self.run_dir.mkdir()
-        self.assets = {'date': '2026-10-21', 'video': {'pexels_id': 1}, 'audio': {'freesound_id': 2},
+        self.assets = {'date': '2026-10-27', 'video': {'pexels_id': 1}, 'audio': {'freesound_id': 2},
                        'review_approved': True, 'thumbnail_headline': 'COZY\nRAIN',
                        'pinned_comment': 'tell us', 'title_options': ['A', 'B']}
         (self.run_dir / 'assets.json').write_text(json.dumps(self.assets))
@@ -169,33 +104,23 @@ class UploadFlowTests(unittest.TestCase):
         entry = Ledger().find_video('vid')[1]
         self.assertEqual(calls, ['thumbnail'])
         self.assertEqual((entry['state'], entry['thumbnail']), ('uploaded', 'set'))
-        self.assertEqual(entry['publish_at'], '2026-10-21T16:00:00Z')
 
-    def test_scheduled_release_blocks_a_second_upload_that_day(self):
-        mocks = self.run_upload(self.run_dir)
-        entry = Ledger().find_video('vid')[1]
-        self.assertEqual((entry['state'], entry['actual_privacy']), ('complete', 'private'))
-        mocks['upload_video'].assert_called_once()
-        with self.assertRaisesRegex(RuntimeError, 'this date'):
-            Ledger().check_new(dict(self.assets, video={'pexels_id': 999}))
-        summary = (self.root / 'summary.md').read_text()
-        self.assertIn('2026-10-21T16:00:00Z', summary)
-        self.assertIn('tell us', summary)
-        self.assertIn('never aired on television', summary)
-
-    def test_playlist_added_once_and_resume_skips_finished_steps(self):
-        thumbnail, playlist = Mock(), Mock()
+    def test_resume_after_timeout_does_not_reset_the_thumbnail(self):
+        thumbnail = Mock()
         with self.assertRaises(TimeoutError):
-            self.run_upload(self.run_dir, playlist_for=Mock(return_value='PL1'), set_thumbnail=thumbnail,
-                            add_to_playlist=playlist, wait_for_processing=Mock(side_effect=TimeoutError('later')))
-        self.assertEqual(Ledger().find_video('vid')[1]['playlist'], 'PL1')
+            self.run_upload(self.run_dir, set_thumbnail=thumbnail, wait_for_processing=Mock(side_effect=TimeoutError('later')))
         with patch.dict(os.environ, {'RESUME_VIDEO_ID': 'vid'}):
-            mocks = self.run_upload(self.run_dir, playlist_for=Mock(return_value='PL1'), set_thumbnail=thumbnail,
-                                    add_to_playlist=playlist)
+            mocks = self.run_upload(self.run_dir, set_thumbnail=thumbnail)
         mocks['upload_video'].assert_not_called()
         thumbnail.assert_called_once()
-        playlist.assert_called_once()
         self.assertEqual(Ledger().find_video('vid')[1]['state'], 'complete')
+
+    def test_summary_lists_studio_only_steps(self):
+        self.run_upload(self.run_dir)
+        summary = (self.root / 'summary.md').read_text()
+        for step in ('2026-10-27T13:00:00.000Z', 'Pin the channel comment', 'End screen', 'never aired on television',
+                     'Shorts remixing', 'playlist'):
+            self.assertIn(step, summary)
 
 
 class BrandVoiceTests(unittest.TestCase):
@@ -312,8 +237,8 @@ class ChannelSelectionTests(unittest.TestCase):
         self.assertTrue(all(v['side'] == 'right' for v in assets['thumbnail_variants']))
         self.assertTrue(assets['pinned_comment'])
         description = assets['description']
-        self.assertTrue(description.lower().startswith('rain sounds for'))
-        self.assertIn('Just steady rain. No music, no voices, no distractions.', description)
+        self.assertIn('rain sounds for', description.splitlines()[0].lower())
+        self.assertIn('Just steady rain. No music, no voices, no distractions.', description)  # labels confirmed
         self.assertIn('·', assets['overlay_title'])
         self.assertNotIn('🌧', assets['overlay_title'])
         self.assertIn('0:00 Settle in and breathe', description)

@@ -11,12 +11,10 @@ import json
 import os
 import sys
 import time
-from datetime import datetime, timezone
 from pathlib import Path
-from zoneinfo import ZoneInfo
 
-from publish_schedule import next_publish_time, rfc3339
 from upload_history import Ledger
+from publish_schedule import api_timestamp, next_publish_at
 from google.oauth2.credentials import Credentials
 from google.auth.exceptions import RefreshError
 from googleapiclient.discovery import build
@@ -29,19 +27,19 @@ ASSETS_PATH = RUN_DIR / "assets.json"
 VIDEO_PATH = RUN_DIR / "output.mp4"
 THUMBNAIL_PATH = RUN_DIR / "thumbnail.jpg"
 RESULT_PATH = RUN_DIR / "upload_result.json"
-SETTINGS_PATH = ROOT / "data" / "upload_settings.json"
 
 SCOPES = [
     "https://www.googleapis.com/auth/youtube.upload",
     # Needed for channels().list(mine=True) in verify_target_channel().
     "https://www.googleapis.com/auth/youtube.readonly",
 ]
-# Playlist changes are not covered by youtube.upload.
-MANAGE_SCOPE = "https://www.googleapis.com/auth/youtube.force-ssl"
-AUTHORIZATION_SCOPES = SCOPES + [MANAGE_SCOPE]
-CHUNK_SIZE = 8 * 1024 * 1024
+# Posting the standard comment (post_pinned_comment.py) needs youtube.force-ssl.
+# Uploads keep requesting only SCOPES, so a token without it still uploads.
+COMMENT_SCOPES = SCOPES + ["https://www.googleapis.com/auth/youtube.force-ssl"]
+SETTINGS_PATH = ROOT / "data" / "upload_settings.json"
 # A three-hour upload can take well over 15 minutes to process.
 PROCESSING_TIMEOUT = int(os.environ.get("PROCESSING_TIMEOUT_SECONDS") or 3600)
+CHUNK_SIZE = 8 * 1024 * 1024
 MAX_RETRIES = 5
 RETRIABLE_STATUS_CODES = {500, 502, 503, 504}
 
@@ -58,29 +56,9 @@ if PRIVACY_STATUS not in VALID_PRIVACY_STATUSES:
         f"Invalid UPLOAD_PRIVACY_STATUS={PRIVACY_STATUS!r}; "
         f"must be one of {sorted(VALID_PRIVACY_STATUSES)}"
     )
-# Public uploads go live in the next audience window rather than when rendering ends.
-PUBLISH_TIMING = (os.environ.get("PUBLISH_TIMING") or "scheduled").strip().lower()
-if PUBLISH_TIMING not in {"scheduled", "immediate"}:
-    raise ValueError(f"Invalid PUBLISH_TIMING={PUBLISH_TIMING!r}; must be scheduled or immediate")
 
 
-def load_settings():
-    return json.loads(SETTINGS_PATH.read_text(encoding="utf-8"))
-
-
-def playlist_for(assets, settings=None):
-    playlists = (settings or load_settings()).get("playlists", {})
-    return (playlists.get(assets.get("thumbnail_headline", "")) or "").strip()
-
-
-def runtime_scopes():
-    # Requesting a scope the refresh token lacks fails authorization, so only
-    # ask for playlist access once playlists are configured.
-    configured = any((v or "").strip() for v in load_settings().get("playlists", {}).values())
-    return AUTHORIZATION_SCOPES if configured else SCOPES
-
-
-def get_credentials():
+def get_credentials(scopes=SCOPES):
     client_id = os.environ["YT_CLIENT_ID"]
     client_secret = os.environ["YT_CLIENT_SECRET"]
     refresh_token = os.environ["YT_REFRESH_TOKEN"]
@@ -90,8 +68,28 @@ def get_credentials():
         token_uri="https://oauth2.googleapis.com/token",
         client_id=client_id,
         client_secret=client_secret,
-        scopes=runtime_scopes(),
+        scopes=scopes,
     )
+
+
+def signup_required(exc):
+    body = exc.content.decode("utf-8", "replace") if isinstance(exc.content, bytes) else str(exc.content)
+    return "youtubeSignupRequired" in str(exc) or "youtubeSignupRequired" in body
+
+
+def list_own_channel(youtube, retry_delay=60):
+    """channels().list(mine=True), retried once on youtubeSignupRequired.
+    That 401 failed the 21 and 22 Oct 2026 scheduled runs, then cleared
+    on 23 Oct, so a single delayed retry absorbs a transient occurrence.
+    """
+    try:
+        return youtube.channels().list(part="id,snippet", mine=True).execute()
+    except HttpError as exc:
+        if not signup_required(exc):
+            raise
+        print(f"YouTube returned youtubeSignupRequired; retrying once in {retry_delay}s")
+        time.sleep(retry_delay)
+        return youtube.channels().list(part="id,snippet", mine=True).execute()
 
 
 def verify_target_channel(youtube):
@@ -114,27 +112,26 @@ def verify_target_channel(youtube):
         )
 
     try:
-        response = youtube.channels().list(part="id,snippet", mine=True).execute()
+        response = list_own_channel(youtube)
     except HttpError as exc:
-        content = exc.content.decode("utf-8", "replace") if isinstance(exc.content, bytes) else ""
-        if "youtubeSignupRequired" not in f"{exc} {content}":
+        if not signup_required(exc):
             raise
         raise RuntimeError(
-            "YouTube says the signed-in Google account has no channel (youtubeSignupRequired). "
-            "The refresh token was probably generated under a different Google or Brand Account, "
-            "or the channel is unavailable. Confirm the channel is live in YouTube Studio, then run "
-            "scripts/get_youtube_refresh_token.py --client-secrets client_secret.json --expected-channel-id "
-            + expected_channel_id + " locally, choosing the channel's account, and replace the three YT_* "
-            "repository secrets."
+            "YouTube reported youtubeSignupRequired twice: the Google account behind "
+            "YT_REFRESH_TOKEN did not resolve to a YouTube channel. Check that the channel "
+            "still exists and the app's access was not removed. If it persists, run "
+            "scripts/get_youtube_refresh_token.py --client-secrets client_secret.json "
+            "--expected-channel-id " + expected_channel_id + " locally, pick the channel "
+            "(not the personal account) when signing in, and replace the three YT_* "
+            "repository secrets with its output."
         ) from exc
     except RefreshError as exc:
         raise RuntimeError(
             "YouTube authorization could not be refreshed. If the error is invalid_scope, "
-            "the token may predate a required permission (youtube.readonly, or youtube.force-ssl "
-            "once playlists are configured in data/upload_settings.json). Run "
+            "the token may predate the required youtube.readonly permission. Run "
             "scripts/get_youtube_refresh_token.py --client-secrets client_secret.json "
-            "--expected-channel-id " + expected_channel_id + " locally, grant every requested "
-            "permission, and replace the three YT_* repository secrets with its output. "
+            "--expected-channel-id " + expected_channel_id + " locally, grant both "
+            "permissions, and replace the three YT_* repository secrets with its output. "
             "For invalid_grant, also check whether the token expired or was revoked."
         ) from exc
     items = response.get("items", [])
@@ -155,46 +152,45 @@ def verify_target_channel(youtube):
     print(f"Verified target channel: {actual_channel_title!r} ({actual_channel_id})")
 
 
-def scheduled_publish_at(now=None):
-    if PRIVACY_STATUS != "public" or PUBLISH_TIMING != "scheduled":
+def scheduled_release():
+    """Public uploads are released at the configured weekday time unless
+    PUBLISH_TIMING=now; explicit private/unlisted uploads are never scheduled."""
+    if PRIVACY_STATUS != "public" or (os.environ.get("PUBLISH_TIMING") or "schedule").strip().lower() == "now":
         return None
-    return next_publish_time(now)
+    return api_timestamp(next_publish_at())
 
 
-def video_body(assets, settings, publish_at=None, today=None):
-    location = settings["recording_location"]
-    today = today or datetime.now(ZoneInfo(settings["recording_timezone"])).date()
-    status = {
-        # YouTube only accepts publishAt on private videos; it flips them public then.
-        "privacyStatus": "private" if publish_at else PRIVACY_STATUS,
-        "selfDeclaredMadeForKids": False,
-        "containsSyntheticMedia": settings["contains_synthetic_media"],
-        "embeddable": True,
-        "license": "youtube",
-    }
-    if publish_at:
-        status["publishAt"] = rfc3339(publish_at)
-    return {
+def upload_body(assets, publish_at=None):
+    preset = json.loads(SETTINGS_PATH.read_text(encoding="utf-8"))
+    body = {
         "snippet": {
+            **preset.get("snippet", {}),
             "title": assets["title"][:100],  # YouTube title limit
             "description": assets["description"][:5000],
             "tags": assets["tags"],
-            "categoryId": settings["category_id"],
-            "defaultLanguage": settings["language"],
-            "defaultAudioLanguage": settings["language"],
+            "categoryId": assets.get("category_id", "10"),
         },
-        "status": status,
-        "recordingDetails": {
-            "recordingDate": f"{today.isoformat()}T00:00:00Z",
-            "locationDescription": location["description"],
-            "location": {"latitude": location["latitude"], "longitude": location["longitude"]},
+        # Presets cannot override visibility, scheduling or audience.
+        "status": {
+            **preset.get("status", {}),
+            "privacyStatus": PRIVACY_STATUS,
+            "selfDeclaredMadeForKids": False,
         },
-        "paidProductPlacementDetails": {"hasPaidProductPlacement": settings["has_paid_product_placement"]},
     }
+    if preset.get("recordingDetails"):
+        body["recordingDetails"] = dict(preset["recordingDetails"])
+        if assets.get("date"):
+            body["recordingDetails"]["recordingDate"] = f"{assets['date']}T00:00:00Z"
+    if preset.get("paidProductPlacementDetails"):
+        body["paidProductPlacementDetails"] = dict(preset["paidProductPlacementDetails"])
+    if publish_at:
+        # YouTube accepts publishAt only on private videos and makes them public then.
+        body["status"].update(privacyStatus="private", publishAt=publish_at)
+    return body
 
 
 def upload_video(youtube, assets, publish_at=None):
-    body = video_body(assets, load_settings(), publish_at)
+    body = upload_body(assets, publish_at)
     media = MediaFileUpload(str(VIDEO_PATH), chunksize=CHUNK_SIZE, resumable=True, mimetype="video/mp4")
     request = youtube.videos().insert(part=",".join(body), body=body, media_body=media)
 
@@ -231,24 +227,15 @@ def set_thumbnail(youtube, video_id):
         raise RuntimeError(f"Video uploaded, but thumbnail failed. Resume this video instead of re-uploading: {video_id}") from exc
 
 
-def add_to_playlist(youtube, video_id, playlist_id):
-    youtube.playlistItems().insert(part="snippet", body={"snippet": {
-        "playlistId": playlist_id, "resourceId": {"kind": "youtube#video", "videoId": video_id}}}).execute()
-    print(f"Added to playlist {playlist_id}.")
-
-
 def studio_checklist(entry, assets):
     """Settings the YouTube API cannot set; done by hand in Studio for each upload."""
-    when = entry.get("publish_at") or "now"
     options = "\n".join(f"  - {t}" for t in assets.get("title_options", [])) or "  - (none recorded)"
-    playlist = entry.get("playlist") or "not configured: add it by hand, or set its ID in data/upload_settings.json"
     return "\n".join([
         f"## Studio checklist for {entry.get('url', 'this upload')}",
-        f"Goes public: {when}",
-        f"Playlist: {playlist}",
+        f"Goes public: {entry.get('publish_at') or 'now'}",
         "",
-        "- [ ] Pin this comment once it is public:",
-        f"  > {assets.get('pinned_comment', '(none generated)')}",
+        "- [ ] Pin the channel comment once it is posted (post_pinned_comment.py links it)",
+        "- [ ] Add to the playlist that matches this video's theme",
         "- [ ] End screen: link the playlist or video most relevant to this theme",
         "- [ ] Caption certification: This content has never aired on television in the U.S.",
         "- [ ] Shorts remixing: allowed",
@@ -312,28 +299,22 @@ def main():
                 raise RuntimeError('Channel assets require source records, pool membership and successful automatic render checks')
             if os.environ.get("ALLOW_UNREVIEWED", "false").lower() != "true" or PRIVACY_STATUS == "public":
                 raise RuntimeError("Unreviewed assets require explicit allow_unreviewed and private/unlisted visibility")
-        key = ledger.reserve(assets)
+        publish_at = scheduled_release()
+        key = ledger.reserve(assets, publish_at)
         entry = ledger.entries[key]
-        publish_at = scheduled_publish_at()
+        if publish_at:
+            print(f"Scheduling public release for {publish_at}")
         response = upload_video(youtube, assets, publish_at)
         video_id = response["id"]
         entry.update(video_id=video_id, url=f"https://www.youtube.com/watch?v={video_id}", state="uploaded")
-        if publish_at:
-            entry["publish_at"] = rfc3339(publish_at)
         # Local recovery evidence first; remote persistence before any optional work.
         save_result(entry)
         ledger.save()
     try:
-        # Set the cover before waiting: a processing timeout must not leave an auto-picked frame.
+        # Set the cover before waiting: a processing timeout must not leave an auto-picked frame (Oct 20).
         if entry.get("thumbnail") != "set":
             set_thumbnail(youtube, video_id)
             entry["thumbnail"] = "set"
-            save_result(entry)
-            ledger.save()
-        playlist_id = playlist_for(assets)
-        if playlist_id and entry.get("playlist") != playlist_id:
-            add_to_playlist(youtube, video_id, playlist_id)
-            entry["playlist"] = playlist_id
             save_result(entry)
             ledger.save()
         status = wait_for_processing(youtube, video_id)
@@ -341,7 +322,8 @@ def main():
         entry.pop("last_error", None)
         save_result(entry)
         ledger.save()
-        print(f"Processed successfully: {entry['url']} (visibility: {entry.get('actual_privacy')})")
+        release = f"; scheduled to go public at {entry['publish_at']}" if entry.get("publish_at") else ""
+        print(f"Processed successfully: {entry['url']} (visibility: {entry.get('actual_privacy')}{release})")
         write_summary(entry, assets)
     except Exception as exc:
         entry["last_error"] = str(exc)
