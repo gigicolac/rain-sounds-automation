@@ -3053,7 +3053,7 @@
     "thumbnail": "set"
   },
   "9bab047830d026e9093e37148877b86496014bb447047e365c0e1eac175be321": {
-    "state": "uploaded",
+    "state": "complete",
     "assets": {
       "date": "2026-10-27",
       "day_number": 739916,
@@ -3296,6 +3296,7 @@
     "publish_at": "2026-10-27T17:00:00.000Z",
     "video_id": "az_bBy1k7K8",
     "url": "https://www.youtube.com/watch?v=az_bBy1k7K8",
-    "thumbnail": "set"
+    "thumbnail": "set",
+    "actual_privacy": "private"
   }
 }
