@@ -157,20 +157,6 @@ def build_description(scene_term, audio_title, duration_minutes, video=None, aud
     return text.strip() + "\n"
 
 
-def thumbnail_scene(profile_root):
-    """The locked thumbnail background: one approved scene, every upload."""
-    from asset_library import read_json
-    profile = read_json(profile_root / "data/channel_profile.json", {})
-    scene_id = profile.get("thumbnail_scene_id")
-    record = next((v for v in read_json(profile_root / "data/video_library.json", [])
-                   if v.get("asset_id") == scene_id), None)
-    if not record or not record.get("local_path"):
-        return None
-    return {"asset_id": scene_id, "local_path": record["local_path"],
-            "frame_seconds": float(profile.get("thumbnail_frame_seconds", 4.0)),
-            "thumbnail_text_side": record.get("thumbnail_text_side", "left")}
-
-
 def main():
     resume = os.environ.get("RESUME_VIDEO_ID", "").strip()
     if resume:
@@ -276,11 +262,10 @@ def main():
     description = build_description("rain ambience", audio.get("title", "rain sounds"), duration_minutes, video, audio, parts)
 
     from upload_presentation import thumbnail_variants
-    background = thumbnail_scene(ROOT) if selection == 'channel' else None
     from asset_library import read_json
     from upload_presentation import choose_thumbnail_style
     style = choose_thumbnail_style(read_json(ROOT / "data/channel_profile.json", {}), ledger.entries, rng_title)
-    variants = thumbnail_variants(thumbnail_headline, background or video, ledger.entries, rng_title, style)
+    variants = thumbnail_variants(thumbnail_headline, video, ledger.entries, rng_title, style)
     assets = {
         "date": date.isoformat(),
         "day_number": day,
@@ -306,7 +291,6 @@ def main():
         "thumbnail_style": variants[0]['style'],
         "thumbnail_side": variants[0]['side'],
         "thumbnail_variants": variants,
-        "thumbnail_background": background,
         "pinned_comment": pinned_comment(thumbnail_headline, rng_title),
         "tags": list(TAGS),
         "review_approved": selection != 'channel' and not pair_reasons(audio, video, strict=True),

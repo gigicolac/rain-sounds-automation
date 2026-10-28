@@ -30,16 +30,7 @@ MAX_LINES = 3
 
 
 def frame_source(assets, mode=None):
-    """The locked channel cover uses one fixed scene, whatever plays in the video."""
-    background = assets.get("thumbnail_background")
-    if background:
-        path = (ROOT / background["local_path"]).resolve()
-        path.relative_to(ROOT.resolve())
-        if path.is_file():
-            return path, background.get("frame_seconds", 4.0)
-        if (mode or os.environ.get("PIPELINE_MODE")) == "publish":
-            raise RuntimeError(f"Locked thumbnail scene is missing: {background['local_path']}")
-        print(f"Thumbnail scene {background['local_path']} missing; preview uses a frame from this video.")
+    """Always use the rendered video, including when resuming older assets."""
     # A frame a few minutes in tends to look better than t=0 (title-overlay
     # frame) or the very end; clamp so it also works on short test videos.
     return VIDEO_PATH, max(1, min(300, assets["duration_seconds"] // 3))

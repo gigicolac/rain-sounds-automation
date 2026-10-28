@@ -36,3 +36,21 @@ Full suite: 78 tests passed outside the restricted sandbox; the initial run had
 14 temporary-file access errors. Local still-image composition inspected:
 readable headline/badge and no clipping. This does not validate scene motion,
 audio, hosted rendering or publishing. No hosted preview was run.
+
+## Thumbnail/video matching fix (2026-10-28, awaiting review)
+
+PR #15 introduced a fixed mug-scene thumbnail background for every channel
+video. The matching fix removes that override: the primary thumbnail and all
+variants extract their background from the rendered `run/output.mp4`. Text
+placement follows the selected video. Existing saved metadata containing
+`thumbnail_background` is ignored when rebuilding thumbnails for resume.
+The headline and layout styling remain unchanged.
+
+Validation: all 139 unit tests pass, including all 17 upload-improvement tests
+and a regression that
+keeps an existing mug source available while requiring the rendered video as
+the frame source, and a channel-selection test with distinct video/mug scenes.
+No existing YouTube thumbnails have been changed. A hosted preview and visual
+comparison against actual channel media remain unverified locally because the
+private scene bundle is unavailable in this checkout. Merge is still required
+before scheduled runs use this fix.
