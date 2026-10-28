@@ -3300,7 +3300,7 @@
     "actual_privacy": "private"
   },
   "1a719149ecee24dd613a430547876d8053087199af2194512411de1b4dc0febf": {
-    "state": "reserved",
+    "state": "uploaded",
     "assets": {
       "date": "2026-10-28",
       "day_number": 739917,
@@ -3540,6 +3540,8 @@
     },
     "requested_privacy": "public",
     "run_id": "40623758690",
-    "publish_at": "2026-10-28T16:00:00.000Z"
+    "publish_at": "2026-10-28T16:00:00.000Z",
+    "video_id": "cTowTp_XM4E",
+    "url": "https://www.youtube.com/watch?v=cTowTp_XM4E"
   }
 }
