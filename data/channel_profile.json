@@ -62,8 +62,6 @@
   ],
   "audio_selection_note": "Only the 27 approved sounds in the three-week batch are active; three pass/spare candidates and legacy sources remain preserved outside the active pool. Content labels remain unknown unless separately verified.",
   "scope": "user-selected channel pool; automatic technical checks and source records required for publishing",
-  "thumbnail_scene_id": "custom:10-mug-window",
-  "thumbnail_frame_seconds": 4.0,
   "thumbnail_style": "pixel",
   "thumbnail_alternate_style": "soft",
   "thumbnail_alternate_share": 0.25

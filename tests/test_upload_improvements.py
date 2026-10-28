@@ -188,22 +188,23 @@ class ThumbnailDesignTests(unittest.TestCase):
 
 
 class ThumbnailSourceTests(unittest.TestCase):
-    def test_locked_scene_used_and_required_for_publish(self):
+    def test_rendered_video_used_even_with_legacy_locked_background(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp); (root / 'scenes').mkdir()
+            root = Path(temp)
+            (root / 'mug.mp4').write_bytes(b'old fixed cover')
             assets = {'duration_seconds': 10800, 'thumbnail_background': {
-                'local_path': 'scenes/mug.mp4', 'frame_seconds': 4.0}}
+                'local_path': 'mug.mp4', 'frame_seconds': 4.0}}
             with patch.object(make_thumbnail, 'ROOT', root), \
                     patch.object(make_thumbnail, 'VIDEO_PATH', root / 'run/output.mp4'):
-                with self.assertRaisesRegex(RuntimeError, 'Locked thumbnail scene is missing'):
-                    make_thumbnail.frame_source(assets, 'publish')
-                self.assertEqual(make_thumbnail.frame_source(assets, 'preview'), (root / 'run/output.mp4', 300))
-                (root / 'scenes/mug.mp4').write_bytes(b'video')
-                self.assertEqual(make_thumbnail.frame_source(assets, 'publish'), ((root / 'scenes/mug.mp4').resolve(), 4.0))
+                for mode in ('publish', 'preview', 'resume'):
+                    self.assertEqual(make_thumbnail.frame_source(assets, mode),
+                                     (root / 'run/output.mp4', 300))
+                assets['duration_seconds'] = 60
+                self.assertEqual(make_thumbnail.frame_source(assets), (root / 'run/output.mp4', 20))
 
 
 class ChannelSelectionTests(unittest.TestCase):
-    def test_channel_assets_carry_locked_cover_comment_and_truthful_description(self):
+    def test_channel_assets_match_video_cover_and_truthful_description(self):
         import select_assets
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
@@ -233,8 +234,8 @@ class ChannelSelectionTests(unittest.TestCase):
                 select_assets.main()
             assets = json.loads((root / 'run/assets.json').read_text())
         self.assertEqual(assets['video']['asset_id'], 'custom:a')
-        self.assertEqual(assets['thumbnail_background']['asset_id'], 'custom:mug')
-        self.assertTrue(all(v['side'] == 'right' for v in assets['thumbnail_variants']))
+        self.assertNotIn('thumbnail_background', assets)
+        self.assertTrue(all(v['side'] == 'left' for v in assets['thumbnail_variants']))
         self.assertTrue(assets['pinned_comment'])
         description = assets['description']
         self.assertIn('rain sounds for', description.splitlines()[0].lower())
