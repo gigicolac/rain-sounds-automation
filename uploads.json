@@ -3298,5 +3298,248 @@
     "url": "https://www.youtube.com/watch?v=az_bBy1k7K8",
     "thumbnail": "set",
     "actual_privacy": "private"
+  },
+  "1a719149ecee24dd613a430547876d8053087199af2194512411de1b4dc0febf": {
+    "state": "reserved",
+    "assets": {
+      "date": "2026-10-28",
+      "day_number": 739917,
+      "scene_term": "anime window rain ambience",
+      "video": {
+        "asset_id": "custom:07-pottery",
+        "local_path": "scenes/custom-07-pottery.mp4",
+        "source_url": "https://github.com/shmop/rain-sounds-assets/releases/tag/three-week-approved-2026-10-23",
+        "license_url": "https://openai.com/policies/terms-of-use/",
+        "source_record_origin": "User-created image_gen scene and exact user-approved animation preview",
+        "generator": "built-in image_gen",
+        "sha256": "7e40bb105268e9d16b611d85559f9f7d28f3d8f94bef2771545cba7cc5b4c481",
+        "width": 1920,
+        "height": 1080,
+        "duration": 10.0,
+        "thumbnail_text_side": "right",
+        "review": {
+          "approved": true,
+          "status": "approved",
+          "labels": {},
+          "notes": "User approved the revised video in chat on 23 October 2026.",
+          "approval_scope": "master and exact animation preview; content labels remain unknown"
+        },
+        "custom_scene": {
+          "scene_id": "07-pottery",
+          "preview": "preview-panes-v2.mp4",
+          "master_sha256": "aab9d3e26c8aac6777d4fac1820caf154343c2ec38de0756c20746681286f8d8"
+        },
+        "scene_term": "anime window rain ambience"
+      },
+      "audio": {
+        "asset_id": "custom-audio:three-weeks-03-greenhouse",
+        "source_url": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+        "components": [
+          {
+            "kind": "procedural",
+            "seed": 2026102303,
+            "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+            "profile": {
+              "rate": 11,
+              "target": -28,
+              "bed_db": -11.9,
+              "lowpass": 5302,
+              "name": "three-weeks-03-greenhouse",
+              "source": "651189",
+              "intensity": "light",
+              "curve": [
+                0.268,
+                0.682,
+                0.388,
+                0.549,
+                0.455
+              ],
+              "highpass": 450
+            },
+            "event_count": 519
+          },
+          {
+            "kind": "licensed_recording",
+            "id": "651189",
+            "source_url": "https://freesound.org/s/651189/",
+            "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+            "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+            "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+          }
+        ],
+        "sha256": "1274370ccad68a77c22341acd2b2e9d88185b97a5075af74e75e8d8c6b17589a",
+        "target_lufs": -28.0,
+        "filename": "custom/three-weeks-03-greenhouse.flac",
+        "path": "audio/custom/three-weeks-03-greenhouse.flac",
+        "title": "Week 1 / 03 - Greenhouse tea corner",
+        "freesound_id": "custom-audio:three-weeks-03-greenhouse",
+        "freesound_url": null,
+        "license": "Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)",
+        "review": {
+          "approved": true,
+          "status": "approved",
+          "notes": "light, full | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+          "reviewed_at": "2026-10-23T09:05:19.894650+00:00",
+          "labels": {},
+          "quality": {
+            "full_playback": true,
+            "loop_checked": true
+          }
+        }
+      },
+      "duration_minutes": 180,
+      "duration_seconds": 10800,
+      "title": "Let the Day Melt Away \ud83c\udf27\ufe0f Cozy Rain Sounds for Sleep & Restorative Rest | 3 Hours",
+      "title_options": [
+        "Let the Day Melt Away \ud83c\udf27\ufe0f Cozy Rain Sounds for Sleep & Restorative Rest | 3 Hours",
+        "Fall Asleep Fast \ud83c\udf27\ufe0f Cozy Night Rain Sounds for Sleeping & Deep Relaxation | 3 Hours",
+        "Fall Asleep Fast \ud83c\udf27\ufe0f Cozy Night Rain Sounds for Sleeping & Restorative Rest | 3 Hours"
+      ],
+      "overlay_title": "Let the Day Melt Away \u00b7 Cozy Rain Sounds for Sleep",
+      "description": "Cozy rain sounds for sleeping, to help the day's stressors and worries melt away. 3 hours of calming rain for rest and relaxation.\n\nAllow your thoughts to float away with each calming breath. Find stillness in the soft rhythm of the rainfall and let it gently reset your nervous system.\n\nNobody sees how much you're carrying. The work. The people who need you. The version of you that's \"fine\"...\n\nGive yourself this time. You deserve it.\n\nCalming Rain Sounds. Rest. Focus. Reset.\n\n\ud83c\udf19 Sleep: let your thoughts float away and drift into a restful, restorative sleep.\n\ud83d\udcda Focus: wake up your tired brain and settle into flow with the rain. Lock in and improve your focus and productivity.\n\ud83e\udd0d Calm: let the day's worries melt away, calm your nervous system and sink into deep relaxation.\n\nThis is your quiet place, where you don't owe anyone anything.\n\nPress play. Let the rain carry the weight for a while \u2764\ufe0f\n\nNew calming rain videos every day. Subscribe so tonight's rain is ready when you are: https://www.youtube.com/@calmingrainsoundssss\n\nChapters\n0:00 Settle in and breathe\n1:00:00 Drift deeper\n2:00:00 Deep, restorative rest\n\nAbout Calming Rain Sounds\nMade by GUMA.\nVideo: https://github.com/shmop/rain-sounds-assets/releases/tag/three-week-approved-2026-10-23\nVideo license: https://openai.com/policies/terms-of-use/\nAudio: \"Week 1 / 03 - Greenhouse tea corner\" sourced from https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py, released under Original procedural sound design; licensed recording components are Creative Commons Zero (see component records).\nAudio source: https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py\n\nTip: keep the volume low enough that you could talk over it comfortably.\nThese sounds are for relaxation only and aren't a treatment for sleep problems.\n\n#rainsounds #rainsoundsforsleeping #sleepsounds #rainasmr #rainforstudy #rainforfocus\n\nQuiet the mind, drift to sleep, or focus with our restorative rain sound videos.\n",
+      "thumbnail_headline": "COZY\nRAIN",
+      "thumbnail_style": "soft",
+      "thumbnail_side": "right",
+      "thumbnail_variants": [
+        {
+          "headline": "COZY\nRAIN",
+          "style": "soft",
+          "side": "right"
+        },
+        {
+          "headline": "COZY\nRAIN",
+          "style": "pixel",
+          "side": "right"
+        },
+        {
+          "headline": "COZY\nRAIN",
+          "style": "stacked",
+          "side": "right"
+        }
+      ],
+      "thumbnail_background": {
+        "asset_id": "custom:10-mug-window",
+        "local_path": "scenes/custom-10-mug-window.mp4",
+        "frame_seconds": 4.0,
+        "thumbnail_text_side": "right"
+      },
+      "pinned_comment": "\ud83d\udcac Where are you listening from tonight? Tell us below \ud83c\udf27\ufe0f",
+      "tags": [
+        "rain sounds for sleeping",
+        "rain sounds for sleep",
+        "rain sounds",
+        "sleep sounds",
+        "calming rain sounds",
+        "rain ambience",
+        "cozy rain",
+        "rain for insomnia",
+        "deep sleep rain",
+        "rain asmr"
+      ],
+      "review_approved": false,
+      "selection_explanation": {
+        "policy": "channel_profile",
+        "strict_review": false,
+        "rotation": "Use every available scene once per cycle before repeating; prefer less recent and less-used scenes within a cycle; never reuse a reserved pair."
+      },
+      "category_id": "10",
+      "variety": {
+        "scene_id": "custom:07-pottery",
+        "scene_source": "https://github.com/shmop/rain-sounds-assets/releases/tag/three-week-approved-2026-10-23",
+        "audio_id": "custom-audio:three-weeks-03-greenhouse",
+        "audio_source": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+        "audio_components": [
+          {
+            "kind": "procedural",
+            "seed": 2026102303,
+            "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+            "profile": {
+              "rate": 11,
+              "target": -28,
+              "bed_db": -11.9,
+              "lowpass": 5302,
+              "name": "three-weeks-03-greenhouse",
+              "source": "651189",
+              "intensity": "light",
+              "curve": [
+                0.268,
+                0.682,
+                0.388,
+                0.549,
+                0.455
+              ],
+              "highpass": 450
+            },
+            "event_count": 519
+          },
+          {
+            "kind": "licensed_recording",
+            "id": "651189",
+            "source_url": "https://freesound.org/s/651189/",
+            "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+            "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+            "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+          }
+        ],
+        "duration_seconds": 10800,
+        "title": "Let the Day Melt Away \ud83c\udf27\ufe0f Cozy Rain Sounds for Sleep & Restorative Rest | 3 Hours",
+        "keyword": "Let the Day Melt Away \ud83c\udf27\ufe0f Cozy Rain Sounds for Sleep & Restorative Rest",
+        "thumbnail_headline": "COZY\nRAIN",
+        "thumbnail_style": "soft",
+        "description_opening": "Cozy rain sounds for sleeping, to help the day's stressors and worries melt away. 3 hours of calming rain for rest and relaxation.",
+        "verified_video_labels": {},
+        "verified_audio_labels": {}
+      }
+    },
+    "variety": {
+      "scene_id": "custom:07-pottery",
+      "scene_source": "https://github.com/shmop/rain-sounds-assets/releases/tag/three-week-approved-2026-10-23",
+      "audio_id": "custom-audio:three-weeks-03-greenhouse",
+      "audio_source": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+      "audio_components": [
+        {
+          "kind": "procedural",
+          "seed": 2026102303,
+          "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+          "profile": {
+            "rate": 11,
+            "target": -28,
+            "bed_db": -11.9,
+            "lowpass": 5302,
+            "name": "three-weeks-03-greenhouse",
+            "source": "651189",
+            "intensity": "light",
+            "curve": [
+              0.268,
+              0.682,
+              0.388,
+              0.549,
+              0.455
+            ],
+            "highpass": 450
+          },
+          "event_count": 519
+        },
+        {
+          "kind": "licensed_recording",
+          "id": "651189",
+          "source_url": "https://freesound.org/s/651189/",
+          "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+          "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+          "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+        }
+      ],
+      "duration_seconds": 10800,
+      "title": "Let the Day Melt Away \ud83c\udf27\ufe0f Cozy Rain Sounds for Sleep & Restorative Rest | 3 Hours",
+      "keyword": "Let the Day Melt Away \ud83c\udf27\ufe0f Cozy Rain Sounds for Sleep & Restorative Rest",
+      "thumbnail_headline": "COZY\nRAIN",
+      "thumbnail_style": "soft",
+      "description_opening": "Cozy rain sounds for sleeping, to help the day's stressors and worries melt away. 3 hours of calming rain for rest and relaxation.",
+      "verified_video_labels": {},
+      "verified_audio_labels": {}
+    },
+    "requested_privacy": "public",
+    "run_id": "40623758690",
+    "publish_at": "2026-10-28T16:00:00.000Z"
   }
 }
