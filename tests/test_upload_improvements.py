@@ -40,13 +40,15 @@ class CleanRainTests(unittest.TestCase):
         self.assertTrue(confirmed_clean(mix(labels=CLEAN)))
         self.assertFalse(confirmed_clean(mix(labels=CLEAN, notes='traffic')))
 
-    def test_live_pool_excludes_exactly_the_traffic_mixes(self):
+    def test_new_channel_quarantines_all_legacy_mixes(self):
+        from content_policy import enabled, exclusion_tokens, allowed
         profile = json.loads((REPO / 'data/channel_profile.json').read_text())
         audio = {str(a['id']): a for a in json.loads((REPO / 'audio/metadata.json').read_text())}
-        blocked = sorted(a for a in profile['audio_ids'] if not clean_rain(audio[a]))
-        self.assertEqual(blocked, ['custom-audio:three-weeks-04-rooftop-cat', 'custom-audio:three-weeks-12-bakery-cat',
-                                   'custom-audio:three-weeks-27-city-cat'])
-        self.assertGreaterEqual(len(profile['audio_ids']) - len(blocked), 20)
+        self.assertTrue(enabled(REPO))
+        used = exclusion_tokens(REPO, {})
+        self.assertTrue(all(allowed(REPO, audio[a], 'audio', used) for a in profile['audio_ids']))
+        self.assertTrue(all(not allowed(REPO, a, 'audio', used) for a in audio.values()
+                            if not str(a['id']).startswith('custom-audio:forest-launch-')))
 
     def test_publication_gate_rejects_traffic_audio(self):
         assets = {'selection_explanation': {'policy': 'channel_profile'}, 'video': {'asset_id': 'custom:a'},
@@ -93,6 +95,7 @@ class UploadFlowTests(unittest.TestCase):
         (self.run_dir / 'assets.json').write_text(json.dumps(self.assets))
         (self.run_dir / 'output.mp4').write_bytes(b'video')
         for target in (patch('upload_history.ROOT', self.root),
+                       patch.object(upload, 'ROOT', self.root),
                        patch.dict(os.environ, {'GITHUB_STEP_SUMMARY': str(self.root / 'summary.md')}, clear=True)):
             target.start(); self.addCleanup(target.stop)
 

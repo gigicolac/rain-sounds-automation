@@ -36,10 +36,8 @@ def stage(candidates, ids, root=ROOT):
         if not isinstance(target_lufs, (int, float)) or not -40 <= target_lufs <= -20:
             raise ValueError('Candidate loudness target must be between -40 and -20 LUFS')
         review = record.get('review', {})
-        if (review.get('approved') is not True or review.get('status') != 'approved'
-                or not review.get('notes') or not review.get('reviewed_at')
-                or review.get('quality', {}).get('full_playback') is not True
-                or review.get('quality', {}).get('loop_checked') is not True):
+        from content_policy import approved_review
+        if not approved_review(review):
             raise ValueError('Full listening and loop approval with dated notes required: ' + record['id'])
         source = (candidates / record['path']).resolve(); source.relative_to(candidates)
         if not record.get('technical_pass') or digest(source) != record['sha256']:
@@ -53,7 +51,9 @@ def stage(candidates, ids, root=ROOT):
             'filename': filename, 'title': record['title'], 'duration': record['duration'],
             'source_url': record.get('generator_source_url') or 'https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py',
             **{k: record[k] for k in ('generator_sha256', 'generator_source_url') if k in record},
-            'license': 'Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)',
+            'license': ('Original procedural sound design; no recording components'
+                        if all(c.get('kind') == 'procedural' for c in record['components'])
+                        else 'Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)'),
             'components': catalogue_components(record['components']), 'sha256': record['sha256'], 'review': review,
             'target_lufs': target_lufs}))
     # Check every existing manifest item before changing the catalogue or profile.

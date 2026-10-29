@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-10-29",
+  "target_channel": "UCaMtUdYVy9bIW1xYsWJHjXg",
+  "new_channel_studio_inventory": "Videos tab: No content available, verified through manager access",
+  "old_channel_publishing": "Daily Rain Video workflow disabled_manually; scheduled lOundwDDmAE saved as Private",
+  "scene_check": "18 selected scene IDs, render hashes and master hashes checked against pipeline-history; exact source files restored by checksum",
+  "source_exception": "User explicitly authorized recording-based mixes reusing 651189 and automatic approval on 29 October 2026",
+  "weekly_generation": "App automation generate-three-forest-rain-mixes: Monday 09:00 Australia/Sydney",
+  "activation_required": [
+    "Owner authorizes new channel uploader",
+    "Verify exact channel ID with new credentials",
+    "Explicit approval to merge launch branch",
+    "Re-enable workflow after merge and credential verification"
+  ]
+}

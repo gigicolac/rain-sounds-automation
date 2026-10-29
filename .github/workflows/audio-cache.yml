@@ -6,8 +6,6 @@ name: Refresh Audio Cache
 # any given day never blocks that day's video.
 
 on:
-  schedule:
-    - cron: "0 3 1 * *" # 03:00 UTC on the 1st of each month
   workflow_dispatch: {}
 
 permissions:
@@ -15,6 +13,8 @@ permissions:
 
 jobs:
   refresh-audio-cache:
+    # Preserve legacy recovery tooling, but never fetch stock audio for the new channel.
+    if: ${{ false }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

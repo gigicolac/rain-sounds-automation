@@ -18,7 +18,7 @@ NOW = datetime(2026, 10, 24, 13, 20, tzinfo=timezone.utc)
 
 
 def entry(**extra):
-    return dict({'state': 'complete', 'video_id': 'vid', 'publish_at': '2026-10-24T13:00:00.000Z',
+    return dict({'state': 'complete', 'video_id': 'vid', 'channel_id': 'UC1', 'publish_at': '2026-10-24T13:00:00.000Z',
                  'assets': {'date': '2026-10-24'}}, **extra)
 
 
@@ -69,6 +69,14 @@ class CommentTests(unittest.TestCase):
         self.assertEqual(post_due_comments(youtube, ledger, 'Hi', 'UC1', NOW), ([], []))
         youtube.commentThreads.return_value.insert.assert_not_called()
 
+    def test_old_channel_and_unidentified_uploads_are_never_commented(self):
+        ledger = Ledger()
+        ledger.entries = {'old': entry(channel_id='UCold'), 'unknown': entry(channel_id=None)}
+        youtube = youtube_with()
+        self.assertEqual(post_due_comments(youtube, ledger, 'Hi', 'UC1', NOW), ([], []))
+        youtube.videos.assert_not_called()
+        youtube.commentThreads.assert_not_called()
+
     def test_interrupted_post_is_recovered_not_duplicated(self):
         ledger = Ledger(); ledger.entries = {'a': entry(comment_state='posting')}
         thread = {'snippet': {'topLevelComment': {'id': 'old', 'snippet': {
@@ -80,7 +88,7 @@ class CommentTests(unittest.TestCase):
 
     def test_comment_text_links_to_channel(self):
         text = (ROOT / 'data/pinned_comment.txt').read_text(encoding='utf-8')
-        self.assertIn('youtube.com/@calmingrainsoundssss', text)
+        self.assertIn('youtube.com/channel/UCaMtUdYVy9bIW1xYsWJHjXg', text)
         self.assertLess(len(text), 10000)
 
     def test_workflow_runs_after_every_release_time(self):

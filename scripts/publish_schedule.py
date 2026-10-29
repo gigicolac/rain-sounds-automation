@@ -22,6 +22,9 @@ def load_schedule(path=SCHEDULE_PATH):
     for value in times.values():
         time.fromisoformat(value)
     ZoneInfo(schedule["timezone"])
+    days = schedule.get('days', DAYS)
+    if not days or len(days) != len(set(days)) or any(day not in DAYS for day in days):
+        raise ValueError('Release days must be distinct weekday names')
     return schedule
 
 
@@ -34,6 +37,8 @@ def next_publish_at(now=None, schedule=None):
     local_today = now.astimezone(zone).date()
     for offset in range(8):
         day = local_today + timedelta(days=offset)
+        if DAYS[day.weekday()] not in schedule.get('days', DAYS):
+            continue
         slot = datetime.combine(day, time.fromisoformat(schedule["times"][DAYS[day.weekday()]]), zone)
         if slot >= earliest:
             return slot.astimezone(timezone.utc)

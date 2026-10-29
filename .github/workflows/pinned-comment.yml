@@ -35,6 +35,6 @@ jobs:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
-          EXPECTED_YOUTUBE_CHANNEL_ID: ${{ vars.EXPECTED_YOUTUBE_CHANNEL_ID }}
+          EXPECTED_YOUTUBE_CHANNEL_ID: UCaMtUdYVy9bIW1xYsWJHjXg
           GH_TOKEN: ${{ github.token }}
         run: python scripts/post_pinned_comment.py

@@ -281,12 +281,17 @@ def save_result(entry):
 
 def main():
     assets = json.loads(ASSETS_PATH.read_text(encoding="utf-8"))
+    from content_policy import enabled, profile
+    if enabled(ROOT) and os.environ.get('EXPECTED_YOUTUBE_CHANNEL_ID', '').strip() != profile(ROOT)['youtube_channel_id']:
+        raise RuntimeError('Expected channel must match the configured new channel before uploading or resuming')
     ledger = Ledger()
     youtube = build("youtube", "v3", credentials=get_credentials())
     verify_target_channel(youtube)
     resume = os.environ.get("RESUME_VIDEO_ID", "").strip()
     if resume:
         key, entry = ledger.find_video(resume)
+        from content_policy import check_resume
+        check_resume(ROOT, entry)
         if entry["assets"] != assets:
             raise RuntimeError("Resume assets differ from the original upload")
         video_id = resume

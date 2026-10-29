@@ -104,7 +104,7 @@ class DiscoveryTests(unittest.TestCase):
         import select_assets
         with patch.dict(os.environ, {"PIPELINE_MODE": "publish", "ASSET_SELECTION": "search"}, clear=True), \
              patch.object(select_assets, "Ledger"), patch.object(select_assets, "pick_scene_video") as pick:
-            with self.assertRaisesRegex(ValueError, "preview-only"):
+            with self.assertRaisesRegex(ValueError, "Generated-only channel"):
                 select_assets.main()
             pick.assert_not_called()
 
@@ -112,7 +112,7 @@ class DiscoveryTests(unittest.TestCase):
         import select_assets
         with patch.dict(os.environ, {"PIPELINE_MODE": "preview", "ASSET_SELECTION": "search", "VIDEO_ID": "pexels:1"}, clear=True), \
              patch.object(select_assets, "Ledger"), patch.object(select_assets, "pick_scene_video") as pick:
-            with self.assertRaisesRegex(ValueError, "require curated"):
+            with self.assertRaisesRegex(ValueError, "Generated-only channel"):
                 select_assets.main()
             pick.assert_not_called()
 

@@ -1,7 +1,7 @@
 name: Daily Rain Video
 on:
   schedule:
-    - cron: "0 11 * * *"
+    - cron: "0 11 * * 1,3,5"
       timezone: "Australia/Sydney"
   workflow_dispatch:
     inputs:
@@ -95,7 +95,7 @@ jobs:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
-          EXPECTED_YOUTUBE_CHANNEL_ID: ${{ vars.EXPECTED_YOUTUBE_CHANNEL_ID }}
+          EXPECTED_YOUTUBE_CHANNEL_ID: UCaMtUdYVy9bIW1xYsWJHjXg
         run: python scripts/verify_youtube_channel.py
       - name: Restore private channel scenes
         if: env.PIPELINE_MODE != 'verify' && env.ASSET_SELECTION == 'channel'
@@ -131,7 +131,7 @@ jobs:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
-          EXPECTED_YOUTUBE_CHANNEL_ID: ${{ vars.EXPECTED_YOUTUBE_CHANNEL_ID }}
+          EXPECTED_YOUTUBE_CHANNEL_ID: UCaMtUdYVy9bIW1xYsWJHjXg
           UPLOAD_PRIVACY_STATUS: ${{ inputs.upload_privacy_status || 'public' }}
           GH_TOKEN: ${{ github.token }}
         run: python scripts/upload_youtube.py

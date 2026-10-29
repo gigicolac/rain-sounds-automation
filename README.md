@@ -1,5 +1,9 @@
 # Rain Sounds YouTube Automation
 
+The generated-only new-channel migration and three-times-weekly schedule are
+documented in [NEW_CHANNEL_MIGRATION.md](NEW_CHANNEL_MIGRATION.md). This branch
+keeps publishing gated while fresh assets and both channel inventories are reviewed.
+
 See [COMMENT_AND_SETTINGS.md](COMMENT_AND_SETTINGS.md) for preset video settings,
 the automatic channel comment and the one-time login update it needs.
 
@@ -239,3 +243,5 @@ still be triggered manually any time from the Actions tab.
   into a `scenes/` folder, rotated the same way `audio/` is, with FFmpeg's
   `zoompan` filter for a Ken-Burns pan/zoom instead of Pexels video. Ask for
   this as a follow-up build.
+
+Current launch setup: see [NEW_CHANNEL_LAUNCH.md](NEW_CHANNEL_LAUNCH.md).

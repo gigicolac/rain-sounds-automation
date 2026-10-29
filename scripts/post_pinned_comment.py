@@ -50,6 +50,8 @@ def comment_text(entry, default):
 def post_due_comments(youtube, ledger, default_text, channel_id, now):
     links, errors = [], []
     for _, entry in due(ledger.entries, now):
+        if (entry.get('channel_id') or entry.get('assets', {}).get('channel_id')) != channel_id:
+            continue  # Preserve old history without posting from the new channel on old videos.
         video_id = entry["video_id"]
         text = comment_text(entry, default_text)
         try:
