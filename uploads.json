@@ -3547,7 +3547,7 @@
     "actual_privacy": "private"
   },
   "cbec79c9baa5ad1b25428f27eba00bcc70e419c15e425a6744515dd31c591a84": {
-    "state": "reserved",
+    "state": "uploaded",
     "assets": {
       "date": "2026-10-29",
       "day_number": 739918,
@@ -3781,6 +3781,8 @@
     },
     "requested_privacy": "public",
     "run_id": "40811690948",
-    "publish_at": "2026-10-29T13:00:00.000Z"
+    "publish_at": "2026-10-29T13:00:00.000Z",
+    "video_id": "lOundwDDmAE",
+    "url": "https://www.youtube.com/watch?v=lOundwDDmAE"
   }
 }
