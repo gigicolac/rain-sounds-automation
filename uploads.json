@@ -3545,5 +3545,242 @@
     "url": "https://www.youtube.com/watch?v=cTowTp_XM4E",
     "thumbnail": "set",
     "actual_privacy": "private"
+  },
+  "cbec79c9baa5ad1b25428f27eba00bcc70e419c15e425a6744515dd31c591a84": {
+    "state": "reserved",
+    "assets": {
+      "date": "2026-10-29",
+      "day_number": 739918,
+      "scene_term": "anime window rain ambience",
+      "video": {
+        "asset_id": "custom:27-city-cat",
+        "local_path": "scenes/custom-27-city-cat.mp4",
+        "source_url": "https://github.com/shmop/rain-sounds-assets/releases/tag/three-week-approved-2026-10-23",
+        "license_url": "https://openai.com/policies/terms-of-use/",
+        "source_record_origin": "User-created image_gen scene and exact user-approved animation preview",
+        "generator": "built-in image_gen",
+        "sha256": "a2a1d7a27b96d20cc1768962b688b12dc5af7dfdecbe9d33d528671ad59b5c24",
+        "width": 1920,
+        "height": 1080,
+        "duration": 10.0,
+        "thumbnail_text_side": "right",
+        "review": {
+          "approved": true,
+          "status": "approved",
+          "labels": {},
+          "notes": "User approved the revised video in chat on 23 October 2026.",
+          "approval_scope": "master and exact animation preview; content labels remain unknown"
+        },
+        "custom_scene": {
+          "scene_id": "27-city-cat",
+          "preview": "preview-panes-v3.mp4",
+          "master_sha256": "a6b6abeea6da06c1689fa48debf4df5344f3ca0d719d4ccf5dc905d0f9734829"
+        },
+        "scene_term": "anime window rain ambience"
+      },
+      "audio": {
+        "asset_id": "custom-audio:three-weeks-24-print-studio",
+        "source_url": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+        "components": [
+          {
+            "kind": "procedural",
+            "seed": 2026102324,
+            "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+            "profile": {
+              "rate": 25,
+              "target": -26,
+              "bed_db": -16.9,
+              "lowpass": 7137,
+              "name": "three-weeks-24-print-studio",
+              "source": "695619",
+              "intensity": "changing",
+              "curve": [
+                0.174,
+                0.489,
+                0.894,
+                0.432,
+                0.288
+              ],
+              "highpass": 450
+            },
+            "event_count": 1148
+          },
+          {
+            "kind": "licensed_recording",
+            "id": "695619",
+            "source_url": "https://freesound.org/s/695619/",
+            "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+            "source_sha256": "bd7b7ec882cc4d2edc11527bd5693bed31abf2c55e1f64a76ca14102dd525400",
+            "original_title": "Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav"
+          }
+        ],
+        "sha256": "c1c5b6e9069c776bb30f525318383d8c7175d9a43da1e919799933ca52b33296",
+        "target_lufs": -26.05,
+        "filename": "custom/three-weeks-24-print-studio.flac",
+        "path": "audio/custom/three-weeks-24-print-studio.flac",
+        "title": "Week 3 / 24 - Print studio evening",
+        "freesound_id": "custom-audio:three-weeks-24-print-studio",
+        "freesound_url": null,
+        "license": "Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)",
+        "review": {
+          "approved": true,
+          "status": "approved",
+          "notes": "light, sparse | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+          "reviewed_at": "2026-10-23T09:05:20.460520+00:00",
+          "labels": {},
+          "quality": {
+            "full_playback": true,
+            "loop_checked": true
+          }
+        }
+      },
+      "duration_minutes": 180,
+      "duration_seconds": 10800,
+      "title": "Calm a Racing Mind \ud83c\udf27\ufe0f Rain Sounds for Sleeping & a Nervous System Reset | 3 Hours",
+      "title_options": [
+        "Calm a Racing Mind \ud83c\udf27\ufe0f Rain Sounds for Sleeping & a Nervous System Reset | 3 Hours",
+        "Stop Overthinking \ud83c\udf27\ufe0f Rain Sounds for Sleeping & Insomnia Nights | 3 Hours",
+        "Stop Overthinking \ud83c\udf27\ufe0f Rain Sounds for Sleeping & Restless Nights | 3 Hours"
+      ],
+      "overlay_title": "Calm a Racing Mind \u00b7 Rain Sounds for Sleeping",
+      "description": "Rain sounds for sleeping on the nights your mind won't switch off. 3 hours of calming rain for insomnia nights and quiet minds.\n\nFor the nights your thoughts won't slow down. Let the steady rhythm of the rain carry them away, one breath at a time.\n\nYou're allowed to slow down. It doesn't mean you're falling behind \u2764\ufe0f\n\nClose your eyes. Breathe in for four and out for six. Let the rain do the rest.\n\nCalming Rain Sounds. Rest. Focus. Reset.\n\n\ud83c\udf19 Sleep: let your thoughts float away and drift into a restful, restorative sleep.\n\ud83d\udcda Focus: wake up your tired brain and settle into flow with the rain. Lock in and improve your focus and productivity.\n\ud83e\udd0d Calm: let the day's worries melt away, calm your nervous system and sink into deep relaxation.\n\nThis is your quiet place, where you don't owe anyone anything.\n\nPress play. Let the rain carry the weight for a while \u2764\ufe0f\n\nNew calming rain videos every day. Subscribe so tonight's rain is ready when you are: https://www.youtube.com/@calmingrainsoundssss\n\nChapters\n0:00 Settle in and breathe\n1:00:00 Drift deeper\n2:00:00 Deep, restorative rest\n\nAbout Calming Rain Sounds\nMade by GUMA.\nVideo: https://github.com/shmop/rain-sounds-assets/releases/tag/three-week-approved-2026-10-23\nVideo license: https://openai.com/policies/terms-of-use/\nAudio: \"Week 3 / 24 - Print studio evening\" sourced from https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py, released under Original procedural sound design; licensed recording components are Creative Commons Zero (see component records).\nAudio source: https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py\n\nTip: keep the volume low enough that you could talk over it comfortably.\nThese sounds are for relaxation only and aren't a treatment for sleep problems.\n\n#rainsounds #rainsoundsforsleeping #sleepsounds #rainasmr #rainforstudy #rainforfocus\n\nQuiet the mind, drift to sleep, or focus with our restorative rain sound videos.\n",
+      "thumbnail_headline": "INSOMNIA\nRAIN",
+      "thumbnail_style": "pixel",
+      "thumbnail_side": "right",
+      "thumbnail_variants": [
+        {
+          "headline": "INSOMNIA\nRAIN",
+          "style": "pixel",
+          "side": "right"
+        },
+        {
+          "headline": "INSOMNIA\nRAIN",
+          "style": "soft",
+          "side": "right"
+        },
+        {
+          "headline": "INSOMNIA\nRAIN",
+          "style": "stacked",
+          "side": "right"
+        }
+      ],
+      "pinned_comment": "\ud83d\udcac Night owls, what time is it where you are? \ud83c\udf19",
+      "tags": [
+        "rain sounds for sleeping",
+        "rain sounds for sleep",
+        "rain sounds",
+        "sleep sounds",
+        "calming rain sounds",
+        "rain ambience",
+        "cozy rain",
+        "rain for insomnia",
+        "deep sleep rain",
+        "rain asmr"
+      ],
+      "review_approved": false,
+      "selection_explanation": {
+        "policy": "channel_profile",
+        "strict_review": false,
+        "rotation": "Use every available scene once per cycle before repeating; prefer less recent and less-used scenes within a cycle; never reuse a reserved pair."
+      },
+      "category_id": "10",
+      "variety": {
+        "scene_id": "custom:27-city-cat",
+        "scene_source": "https://github.com/shmop/rain-sounds-assets/releases/tag/three-week-approved-2026-10-23",
+        "audio_id": "custom-audio:three-weeks-24-print-studio",
+        "audio_source": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+        "audio_components": [
+          {
+            "kind": "procedural",
+            "seed": 2026102324,
+            "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+            "profile": {
+              "rate": 25,
+              "target": -26,
+              "bed_db": -16.9,
+              "lowpass": 7137,
+              "name": "three-weeks-24-print-studio",
+              "source": "695619",
+              "intensity": "changing",
+              "curve": [
+                0.174,
+                0.489,
+                0.894,
+                0.432,
+                0.288
+              ],
+              "highpass": 450
+            },
+            "event_count": 1148
+          },
+          {
+            "kind": "licensed_recording",
+            "id": "695619",
+            "source_url": "https://freesound.org/s/695619/",
+            "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+            "source_sha256": "bd7b7ec882cc4d2edc11527bd5693bed31abf2c55e1f64a76ca14102dd525400",
+            "original_title": "Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav"
+          }
+        ],
+        "duration_seconds": 10800,
+        "title": "Calm a Racing Mind \ud83c\udf27\ufe0f Rain Sounds for Sleeping & a Nervous System Reset | 3 Hours",
+        "keyword": "Calm a Racing Mind \ud83c\udf27\ufe0f Rain Sounds for Sleeping & a Nervous System Reset",
+        "thumbnail_headline": "INSOMNIA\nRAIN",
+        "thumbnail_style": "pixel",
+        "description_opening": "Rain sounds for sleeping on the nights your mind won't switch off. 3 hours of calming rain for insomnia nights and quiet minds.",
+        "verified_video_labels": {},
+        "verified_audio_labels": {}
+      }
+    },
+    "variety": {
+      "scene_id": "custom:27-city-cat",
+      "scene_source": "https://github.com/shmop/rain-sounds-assets/releases/tag/three-week-approved-2026-10-23",
+      "audio_id": "custom-audio:three-weeks-24-print-studio",
+      "audio_source": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+      "audio_components": [
+        {
+          "kind": "procedural",
+          "seed": 2026102324,
+          "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+          "profile": {
+            "rate": 25,
+            "target": -26,
+            "bed_db": -16.9,
+            "lowpass": 7137,
+            "name": "three-weeks-24-print-studio",
+            "source": "695619",
+            "intensity": "changing",
+            "curve": [
+              0.174,
+              0.489,
+              0.894,
+              0.432,
+              0.288
+            ],
+            "highpass": 450
+          },
+          "event_count": 1148
+        },
+        {
+          "kind": "licensed_recording",
+          "id": "695619",
+          "source_url": "https://freesound.org/s/695619/",
+          "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+          "source_sha256": "bd7b7ec882cc4d2edc11527bd5693bed31abf2c55e1f64a76ca14102dd525400",
+          "original_title": "Forestia_RainOnLeaves_Field-Recording_ThinkingFish.wav"
+        }
+      ],
+      "duration_seconds": 10800,
+      "title": "Calm a Racing Mind \ud83c\udf27\ufe0f Rain Sounds for Sleeping & a Nervous System Reset | 3 Hours",
+      "keyword": "Calm a Racing Mind \ud83c\udf27\ufe0f Rain Sounds for Sleeping & a Nervous System Reset",
+      "thumbnail_headline": "INSOMNIA\nRAIN",
+      "thumbnail_style": "pixel",
+      "description_opening": "Rain sounds for sleeping on the nights your mind won't switch off. 3 hours of calming rain for insomnia nights and quiet minds.",
+      "verified_video_labels": {},
+      "verified_audio_labels": {}
+    },
+    "requested_privacy": "public",
+    "run_id": "40811690948",
+    "publish_at": "2026-10-29T13:00:00.000Z"
   }
 }
