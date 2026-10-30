@@ -96,3 +96,65 @@ Daily Rain Video remains disabled_manually. No workflow was dispatched, no video
 was uploaded and pull request #17 remains unmerged. Remaining activation steps
 are explicit merge approval, post-merge verification/hosted preview, and enabling
 the configured new-channel publishing workflow.
+
+## Deeper hosted readiness check - 30 October 2026
+
+Nonpublishing run 40982897643 succeeded on branch commit 2879d38:
+https://github.com/gigicolac/rain-sounds-automation/actions/runs/40982897643
+
+- The installed GitHub Actions YT_* secrets resolved to exactly
+  UCaMtUdYVy9bIW1xYsWJHjXg. This verifies the hosted secrets, not only local auth.
+- CHANNEL_ASSET_TOKEN restored the configured private bundle successfully, with
+  bundle and manifest checks, on a fresh Ubuntu runner.
+- Selection checked remote history and selected custom:04-rooftop-cat and
+  custom-audio:forest-launch-2026102960-07 without reserving either asset.
+- A 60-second 1920x1080 preview rendered and decoded successfully, with matching
+  audio duration, no detected black intervals and no quality warnings. The
+  downloaded output hash matched the report. A frame and thumbnail were visually
+  inspected. This does not establish full playback or listening approval.
+- Both Pipeline checks runs for 2879d38 succeeded.
+- The new readiness workflow has no schedule and no upload or reservation step;
+  permissions are contents:read. Daily Rain Video remains disabled_manually.
+
+Live channel checks: longUploadsStatus=allowed, uploads playlist empty. Studio
+Settings > Channel > Feature eligibility shows intermediate features Enabled,
+including videos over 15 minutes and custom thumbnails. Advanced features show
+Eligible, not Enabled. The remote ledger still has 27 entries and none assigned
+to the new channel.
+
+The original daily workflow's preview skips credential verification, and verify
+skips asset restoration. The separate readiness workflow checks both together
+without enabling the scheduled publisher. The launch PR remains unmerged.
+
+## Concrete unlisted acceptance test - pending upload authorization
+
+Use the reviewed launch branch, mode=publish, asset_selection=channel,
+duration_minutes=180, upload_privacy_status=unlisted, allow_unreviewed=false,
+with a fresh approved visual and mix. Keep Daily Rain Video disabled; use an
+isolated manual path after authorization rather than enabling the old default
+branch workflow. Do not upload merely to investigate readiness.
+
+Acceptance requires an exact new-channel match; recorded video ID and unlisted
+visibility; successful processing; accepted custom thumbnail; three-hour playback
+and opening/middle/end/loop-boundary inspection; and a separate Studio copyright
+and restrictions check after checks finish. Record restrictions, claimant and
+matched segment if any. Resume the recorded video if processing times out;
+never retry by creating another upload.
+
+The current uploader checks upload/processing status and thumbnail acceptance;
+it does not read Content ID claims. Processing success therefore does not mean
+copyright clearance. Even a clean Studio check is not a guarantee against later
+claims. An unlisted test also does not test timed public release: scheduled
+public uploads use private visibility plus publishAt, while unlisted uploads
+intentionally have no publishAt.
+
+The test reserves its visual and finished mix in persistent history. Do not
+re-upload that pair as a fresh public video. If accepted, a separately authorized
+visibility/scheduling update can promote the same video; otherwise leave it
+unlisted and use different unused assets for launch. A one-minute upload would
+test transfer but would not validate the three-hour render/processing path.
+
+References:
+https://developers.google.com/youtube/v3/docs/channels#status.longUploadsStatus
+https://support.google.com/youtube/answer/157177
+https://support.google.com/youtube/answer/6013276
