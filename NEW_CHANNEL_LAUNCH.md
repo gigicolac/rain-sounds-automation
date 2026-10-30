@@ -1,0 +1,160 @@
+# New rain channel: ready-for-authorization setup
+
+Prepared 29 October 2026; authentication updated 30 October 2026.
+For Calming Rain Sounds, @calming_rain_soundss,
+channel UCaMtUdYVy9bIW1xYsWJHjXg. This guide supersedes the earlier generated-only
+proposal in NEW_CHANNEL_MIGRATION.md; that file retains the investigation history.
+
+## Completed
+
+- Old Daily Rain Video workflow disabled on GitHub and verified disabled_manually.
+- Old-channel scheduled video lOundwDDmAE changed from Scheduled to Private in
+  YouTube Studio and saved. Existing published videos remain untouched.
+- Claimed source 695619 and all 18 known derived mixes excluded. Prior records,
+  files and upload history preserved. The new pool contains none of those mixes.
+- Ten new 90-second recording-based mixes: five using the Ranger cabin shelter
+  recipe, five using Woodland night shelter. Both recipes use recording 651189,
+  checksum 035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66.
+- The user explicitly allowed that shared source and automatic approval. Records
+  state user_authorized_automatic plus technical_checked; full_playback and
+  loop_checked remain false because no new listening review was asserted.
+- Finished mix identities/hashes/seeds and visual identities/master hashes are
+  single-use. Sharing approved recording 651189 is an explicit exception.
+- Eighteen generated illustrated scenes restored by checksum and checked against
+  recorded used visual identities, render hashes and master hashes. New-channel
+  Studio Videos inventory was checked through manager access: No content available.
+- Private storage release new-channel-forest-2026-10-29 contains asset 688356401:
+  18 scenes plus 10 mixes, 230953801 bytes. Manifest and bundle hash configured.
+- Expected-channel repository variable changed to the exact new channel ID.
+  Existing YouTube secrets have NOT been replaced or reused for the new channel.
+- Publishing configuration: three-hour videos; builds Monday/Wednesday/Friday
+  11am Australia/Sydney; public releases Monday/Wednesday noon and Friday 11am
+  America/New_York. Delayed scheduled runs skip disabled weekdays. Manual
+  immediate/private/unlisted overrides remain explicit choices.
+- Active local app automation generate-three-forest-rain-mixes: Monday 09:00
+  Australia/Sydney, creates three fresh mixes and records user-authorized automatic
+  approval only on successful checks. Keep the local host available for execution.
+  It does not publish videos or enable the paused workflow.
+
+## Verification
+
+153 tests passed, including source eligibility, auto-approval truthfulness,
+selection, scheduling and recovery. A one-minute 1920x1080 preview was rendered,
+fully decoded, checked for black frames/audio duration/peaks, and its frame and
+thumbnail visually inspected. All automatic checks passed. This was local-only,
+not a YouTube upload and not a listening approval. Windows preview used a local
+Arial font override; production retains its existing Linux font configuration.
+
+Preview: run/output.mp4. Report: run/channel-quality.json.
+Batch: run/new-channel-forest-ten-20261029.
+Library: run/window-rain-library-20261029, vibe new-channel-batch.
+Bundle: run/reviewed-channel-assets.zip.
+
+## Weekly replenishment procedure
+
+Run create_approved_forest_batch.py with --count 3, a new date-based seed and
+output directory, using the verified source in the primary checkout audio/.
+The script rejects changed source bytes and never reads source 695619. Add the
+approved output via stage_custom_audio.py, upload the new private bundle under a
+new immutable asset name, update the storage configuration and preserve old files.
+Update the deployed catalogue/storage through the normal reviewed branch process.
+The local generation automation prepares these updates; it does not silently
+merge or publish them. Repeat visual provisioning before the unused scene pool
+runs out: 18 scenes currently support six weeks at three releases per week.
+
+## Owner authorization and final activation
+
+Manager access through YouTube Studio cannot authorize the YouTube APIs. The
+attempt signed in as Shoma resolved to personal channel UCI5XKmwUVQS_qGO4zfpYaMg;
+the guard rejected it, saved no credentials and uploaded nothing.
+The account that owns the new channel must complete the existing local OAuth
+(Open Authorization) flow for the uploader and verify the returned channel ID.
+No password or tokens should be pasted into chat. Then update all three YT_*
+secrets together, retaining the existing comment/read/upload permissions.
+
+After owner authorization and explicit merge approval:
+1. Merge the reviewed launch change while keeping the workflow disabled.
+2. Run verify against the new credentials and confirm the exact new channel ID.
+3. Run a hosted preview; inspect its media and source report.
+4. Re-enable Daily Rain Video for the configured new channel and schedule.
+Do not re-enable with old credentials. Check long-upload/custom-thumbnail feature
+eligibility during activation. No new-channel video has been uploaded yet.
+
+YouTube manager limitation:
+https://support.google.com/youtube/answer/9481328?hl=en
+
+
+## Authentication completed - 30 October 2026
+
+The retry verified the exact new channel UCaMtUdYVy9bIW1xYsWJHjXg through the
+YouTube API. All three YT_* secrets were then encrypted and updated together in
+GitHub Actions. Credential values were not printed or committed. This resolves
+the owner-authorization blocker described above. A separate read-only channel
+check succeeded immediately before installing the secrets.
+
+Daily Rain Video remains disabled_manually. No workflow was dispatched, no video
+was uploaded and pull request #17 remains unmerged. Remaining activation steps
+are explicit merge approval, post-merge verification/hosted preview, and enabling
+the configured new-channel publishing workflow.
+
+## Deeper hosted readiness check - 30 October 2026
+
+Nonpublishing run 40982897643 succeeded on branch commit 2879d38:
+https://github.com/gigicolac/rain-sounds-automation/actions/runs/40982897643
+
+- The installed GitHub Actions YT_* secrets resolved to exactly
+  UCaMtUdYVy9bIW1xYsWJHjXg. This verifies the hosted secrets, not only local auth.
+- CHANNEL_ASSET_TOKEN restored the configured private bundle successfully, with
+  bundle and manifest checks, on a fresh Ubuntu runner.
+- Selection checked remote history and selected custom:04-rooftop-cat and
+  custom-audio:forest-launch-2026102960-07 without reserving either asset.
+- A 60-second 1920x1080 preview rendered and decoded successfully, with matching
+  audio duration, no detected black intervals and no quality warnings. The
+  downloaded output hash matched the report. A frame and thumbnail were visually
+  inspected. This does not establish full playback or listening approval.
+- Both Pipeline checks runs for 2879d38 succeeded.
+- The new readiness workflow has no schedule and no upload or reservation step;
+  permissions are contents:read. Daily Rain Video remains disabled_manually.
+
+Live channel checks: longUploadsStatus=allowed, uploads playlist empty. Studio
+Settings > Channel > Feature eligibility shows intermediate features Enabled,
+including videos over 15 minutes and custom thumbnails. Advanced features show
+Eligible, not Enabled. The remote ledger still has 27 entries and none assigned
+to the new channel.
+
+The original daily workflow's preview skips credential verification, and verify
+skips asset restoration. The separate readiness workflow checks both together
+without enabling the scheduled publisher. The launch PR remains unmerged.
+
+## Concrete unlisted acceptance test - pending upload authorization
+
+Use the reviewed launch branch, mode=publish, asset_selection=channel,
+duration_minutes=180, upload_privacy_status=unlisted, allow_unreviewed=false,
+with a fresh approved visual and mix. Keep Daily Rain Video disabled; use an
+isolated manual path after authorization rather than enabling the old default
+branch workflow. Do not upload merely to investigate readiness.
+
+Acceptance requires an exact new-channel match; recorded video ID and unlisted
+visibility; successful processing; accepted custom thumbnail; three-hour playback
+and opening/middle/end/loop-boundary inspection; and a separate Studio copyright
+and restrictions check after checks finish. Record restrictions, claimant and
+matched segment if any. Resume the recorded video if processing times out;
+never retry by creating another upload.
+
+The current uploader checks upload/processing status and thumbnail acceptance;
+it does not read Content ID claims. Processing success therefore does not mean
+copyright clearance. Even a clean Studio check is not a guarantee against later
+claims. An unlisted test also does not test timed public release: scheduled
+public uploads use private visibility plus publishAt, while unlisted uploads
+intentionally have no publishAt.
+
+The test reserves its visual and finished mix in persistent history. Do not
+re-upload that pair as a fresh public video. If accepted, a separately authorized
+visibility/scheduling update can promote the same video; otherwise leave it
+unlisted and use different unused assets for launch. A one-minute upload would
+test transfer but would not validate the three-hour render/processing path.
+
+References:
+https://developers.google.com/youtube/v3/docs/channels#status.longUploadsStatus
+https://support.google.com/youtube/answer/157177
+https://support.google.com/youtube/answer/6013276

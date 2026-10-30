@@ -18,20 +18,20 @@ class ScheduleTests(unittest.TestCase):
         self.assertEqual(load_schedule()['timezone'], 'America/New_York')
 
     def test_daily_run_releases_next_eastern_day(self):
-        # 11am Sydney Saturday = 8pm Eastern Friday; release Saturday 9am EDT.
-        self.assertEqual(next_publish_at(utc(2026, 10, 24, 0, 0)), utc(2026, 10, 24, 13, 0))
+        # Weekend builds skip to Monday noon EDT.
+        self.assertEqual(next_publish_at(utc(2026, 10, 24, 0, 0)), utc(2026, 10, 26, 16, 0))
         # 11am Sydney Friday = 8pm Eastern Thursday; release Friday 11am EDT.
         self.assertEqual(next_publish_at(utc(2026, 10, 23, 0, 0)), utc(2026, 10, 23, 15, 0))
-        # 11am Sydney Thursday = 8pm Eastern Wednesday; release Thursday 9am EDT.
-        self.assertEqual(next_publish_at(utc(2026, 10, 22, 0, 0)), utc(2026, 10, 22, 13, 0))
+        # Thursday is no longer a release day.
+        self.assertEqual(next_publish_at(utc(2026, 10, 22, 0, 0)), utc(2026, 10, 23, 15, 0))
 
     def test_too_close_slot_moves_to_next_day(self):
         # Thursday 8:30am EDT is within the 60-minute lead of 9am.
         self.assertEqual(next_publish_at(utc(2026, 10, 22, 12, 30)), utc(2026, 10, 23, 15, 0))
 
     def test_daylight_saving_change(self):
-        # Sunday 1 Nov 2026 9am is EST (UTC-5) after the change.
-        self.assertEqual(next_publish_at(utc(2026, 11, 1, 0, 0)), utc(2026, 11, 1, 14, 0))
+        # Monday noon is EST (UTC-5) after the Sunday change.
+        self.assertEqual(next_publish_at(utc(2026, 11, 1, 0, 0)), utc(2026, 11, 2, 17, 0))
 
     def test_api_timestamp_format(self):
         self.assertEqual(api_timestamp(utc(2026, 10, 24, 15, 0)), '2026-10-24T15:00:00.000Z')

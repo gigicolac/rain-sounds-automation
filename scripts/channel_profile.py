@@ -47,6 +47,9 @@ def audio_key(audio):
 
 def choose(root, entries, rng, mode, video_id='', audio_id=''):
     profile = read_json(root / 'data/channel_profile.json', {})
+    from content_policy import enabled, exclusion_tokens, allowed
+    original_only = enabled(root)
+    exclusions = exclusion_tokens(root, entries) if original_only else None
     videos = [v for v in read_json(root / 'data/video_library.json', [])
               if v['asset_id'] in profile.get('video_ids', []) and (not video_id or v['asset_id'] == video_id)]
     audios = [a for a in read_json(root / 'audio/metadata.json', [])
@@ -61,6 +64,9 @@ def choose(root, entries, rng, mode, video_id='', audio_id=''):
     pairs = []
     for video in videos:
         for audio in audios:
+            if original_only and not all(allowed(root, asset, kind, exclusions)
+                                         for asset, kind in ((video, 'video'), (audio, 'audio'))):
+                continue
             if any(x.get('review', {}).get('status') == 'rejected' for x in (video, audio)):
                 continue
             # Previews stay open so new recordings can be listened to before review.
@@ -82,6 +88,8 @@ def choose(root, entries, rng, mode, video_id='', audio_id=''):
                 continue
             pairs.append((int(vid in recent_ids), counts.get(vid, 0), rng.random(), video, audio))
     if not pairs:
+        if original_only:
+            raise RuntimeError('No unused generated-only channel assets available. Review and stage new original visuals and fully procedural audio; no stock or used fallback is permitted.')
         raise RuntimeError('No unused channel pair with available files, required source records and listening-confirmed clean rain '
                            '(no traffic, voices, music, thunder or animals). Check storage, source links, audio reviews and history; '
                            'no unrelated fallback is used.')
@@ -106,6 +114,12 @@ def title_allowed(title):
 
 
 def publication_ready(assets, root):
+    from content_policy import enabled, check_assets
+    if enabled(root):
+        try:
+            check_assets(root, assets, {})
+        except (RuntimeError, ValueError, KeyError):
+            return False
     if assets.get('selection_explanation', {}).get('policy') != 'channel_profile':
         return assets.get('review_approved') is True
     profile = read_json(root / 'data/channel_profile.json', {})

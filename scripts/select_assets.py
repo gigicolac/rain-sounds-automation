@@ -36,7 +36,7 @@ SEED_TITLE = 15485863
 SEED_DURATION = 32452867
 
 CHANNEL_NAME = "Calming Rain Sounds"
-CHANNEL_HANDLE = "@calmingrainsoundssss"
+CHANNEL_HANDLE = "@calming_rain_soundss"
 
 
 def load_json(path):
@@ -161,6 +161,8 @@ def main():
     resume = os.environ.get("RESUME_VIDEO_ID", "").strip()
     if resume:
         _, entry = Ledger().find_video(resume)
+        from content_policy import check_resume
+        check_resume(ROOT, entry)
         RUN_DIR.mkdir(exist_ok=True)
         (RUN_DIR / "assets.json").write_text(json.dumps(entry["assets"], indent=2), encoding="utf-8")
         return
@@ -178,6 +180,9 @@ def main():
     ledger = Ledger()
     mode = os.environ.get("PIPELINE_MODE", "preview")
     selection = os.environ.get("ASSET_SELECTION", "channel")
+    from content_policy import enabled, profile as content_profile
+    if enabled(ROOT) and selection != 'channel':
+        raise ValueError('Generated-only channel requires channel selection; stock discovery is disabled')
     requested_video = os.environ.get("VIDEO_ID", "").strip()
     requested_audio = os.environ.get("AUDIO_ID", "").strip()
     style = os.environ.get("VISUAL_STYLE", "any")
@@ -272,7 +277,7 @@ def main():
         "scene_term": video["scene_term"],
         "video": video,
         "audio": {
-            **{k: audio[k] for k in ('asset_id', 'source_url', 'components', 'sha256', 'target_lufs') if k in audio},
+            **{k: audio[k] for k in ('asset_id', 'source_url', 'components', 'sha256', 'target_lufs', 'generator_sha256') if k in audio},
             "filename": audio["filename"],
             "path": str((AUDIO_DIR / audio["filename"]).relative_to(ROOT)),
             "title": audio.get("title"),
@@ -299,6 +304,9 @@ def main():
     }
 
     assets["variety"] = variety_record(assets)
+    if enabled(ROOT):
+        assets['channel_id'] = content_profile(ROOT)['youtube_channel_id']
+        assets['selection_explanation']['rotation'] = 'Each generated visual and audio source is single-use across both channels; reservations count; stop when exhausted.'
     if mode == "publish":
         ledger.check_new(assets)
     RUN_DIR.mkdir(exist_ok=True)

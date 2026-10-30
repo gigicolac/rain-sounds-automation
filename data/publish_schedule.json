@@ -1,7 +1,7 @@
 {
   "timezone": "America/New_York",
   "minimum_lead_minutes": 60,
-  "note": "Daily public release time (24-hour, US Eastern) at the start of each weekday's suggested posting window. Saturday/Sunday use the morning window; the alternative is 21:00.",
+  "note": "Three public release days per week, preserving the existing US Eastern times for those days.",
   "times": {
     "monday": "12:00",
     "tuesday": "13:00",
@@ -10,5 +10,10 @@
     "friday": "11:00",
     "saturday": "09:00",
     "sunday": "09:00"
-  }
+  },
+  "days": [
+    "monday",
+    "wednesday",
+    "friday"
+  ]
 }

@@ -132,7 +132,7 @@ class UploadRecoveryTests(unittest.TestCase):
             assets={'date':'2026-09-19','video':{'pexels_id':1},'audio':{'freesound_id':2},'review_approved':True}
             (run/'assets.json').write_text(json.dumps(assets))
             (run/'output.mp4').write_bytes(b'test')
-            with patch('upload_history.ROOT',root), patch.object(upload,'RUN_DIR',run), patch.object(upload,'ASSETS_PATH',run/'assets.json'), patch.object(upload,'VIDEO_PATH',run/'output.mp4'), patch.object(upload,'RESULT_PATH',run/'upload_result.json'), patch.object(upload,'get_credentials'), patch.object(upload,'build'), patch.object(upload,'verify_target_channel'), patch.object(upload,'wait_for_processing',return_value={'privacyStatus':'unlisted'}), patch.object(upload,'upload_video',return_value={'id':'existing'}) as insert, patch.object(upload,'set_thumbnail',side_effect=RuntimeError('thumbnail failed')):
+            with patch('upload_history.ROOT',root), patch.object(upload,'ROOT',root), patch.object(upload,'RUN_DIR',run), patch.object(upload,'ASSETS_PATH',run/'assets.json'), patch.object(upload,'VIDEO_PATH',run/'output.mp4'), patch.object(upload,'RESULT_PATH',run/'upload_result.json'), patch.object(upload,'get_credentials'), patch.object(upload,'build'), patch.object(upload,'verify_target_channel'), patch.object(upload,'wait_for_processing',return_value={'privacyStatus':'unlisted'}), patch.object(upload,'upload_video',return_value={'id':'existing'}) as insert, patch.object(upload,'set_thumbnail',side_effect=RuntimeError('thumbnail failed')):
                 with self.assertRaisesRegex(RuntimeError,'thumbnail failed'):
                     upload.main()
                 self.assertEqual(json.loads((run/'upload_result.json').read_text())['video_id'],'existing')
@@ -147,32 +147,28 @@ class UploadRecoveryTests(unittest.TestCase):
         import upload_youtube as upload
         with tempfile.TemporaryDirectory() as temp:
             path=Path(temp)/'assets.json'; path.write_text(json.dumps({'review_approved':True}))
-            with patch.object(upload,'ASSETS_PATH',path), patch.object(upload,'VIDEO_PATH',path), patch.object(upload,'Ledger') as ledger, patch.object(upload,'get_credentials'), patch.object(upload,'build'), patch.object(upload,'verify_target_channel'), patch.object(upload,'upload_video') as insert, patch.dict(os.environ,{},clear=True):
+            with patch.object(upload,'ROOT',Path(temp)), patch.object(upload,'ASSETS_PATH',path), patch.object(upload,'VIDEO_PATH',path), patch.object(upload,'Ledger') as ledger, patch.object(upload,'get_credentials'), patch.object(upload,'build'), patch.object(upload,'verify_target_channel'), patch.object(upload,'upload_video') as insert, patch.dict(os.environ,{},clear=True):
                 ledger.return_value.reserve.side_effect=RuntimeError('history unavailable')
                 with self.assertRaisesRegex(RuntimeError,'history unavailable'):
                     upload.main()
                 insert.assert_not_called()
 
 class SelectionTests(unittest.TestCase):
-    def test_manual_controls_reach_generated_assets(self):
+    def test_stock_search_controls_cannot_override_generated_only_channel(self):
         import select_assets as select
         with tempfile.TemporaryDirectory() as temp, patch.dict(os.environ, {
             'ASSET_SELECTION':'search', 'SCENE_QUERY':'rain window', 'AUDIO_ID':'651189', 'TITLE_OVERRIDE':'My Rain Preview',
             'DURATION_MINUTES':'2'}, clear=True), patch.object(select,'RUN_DIR',Path(temp)), \
                 patch.object(select,'pick_scene_video',return_value={'pexels_id':123,'scene_term':'rain window'}) as pick, \
                 patch.object(select,'Ledger'):
-            select.main()
-            data=json.loads((Path(temp)/'assets.json').read_text())
-            self.assertEqual(data['duration_seconds'],120)
-            self.assertEqual(data['audio']['freesound_id'],651189)
-            self.assertEqual(data['title'],'My Rain Preview')
-            self.assertFalse(data['review_approved'])
-            self.assertEqual(pick.call_args.args[0],['rain window'])
+            with self.assertRaisesRegex(ValueError, 'Generated-only channel'):
+                select.main()
+            pick.assert_not_called()
 
     def test_resume_restores_original_selection(self):
         import select_assets as select
         with tempfile.TemporaryDirectory() as temp, patch.dict(os.environ,{'RESUME_VIDEO_ID':'known'},clear=True), \
-                patch.object(select,'RUN_DIR',Path(temp)), patch.object(select,'Ledger') as ledger, \
+                patch.object(select,'ROOT',Path(temp)), patch.object(select,'RUN_DIR',Path(temp)), patch.object(select,'Ledger') as ledger, \
                 patch.object(select,'pick_scene_video') as pick:
             ledger.return_value.find_video.return_value=('key',{'assets':{'title':'original'}})
             select.main()

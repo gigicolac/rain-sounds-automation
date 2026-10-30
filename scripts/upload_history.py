@@ -32,10 +32,16 @@ class Ledger:
             self.base = f'https://api.github.com/repos/{self.repo}'
             ref = self.request('GET', f'/git/ref/heads/{BRANCH}')
             if ref.status_code == 404:
+                from content_policy import enabled
+                if enabled(ROOT):
+                    raise RuntimeError('Upload history is missing; refusing to assume the new channel has no used assets')
                 return
             ref.raise_for_status()
             response = self.request('GET', f'/contents/uploads.json?ref={BRANCH}')
             if response.status_code == 404:
+                from content_policy import enabled
+                if enabled(ROOT):
+                    raise RuntimeError('Upload history file is missing; restore it before publishing')
                 return
             response.raise_for_status()
             data = response.json()
@@ -72,6 +78,9 @@ class Ledger:
         temp.replace(self.path)
 
     def check_new(self, assets):
+        from content_policy import check_assets, check_history_audit
+        check_history_audit(ROOT)
+        check_assets(ROOT, assets, self.entries)
         key = fingerprint(assets)
         if key in self.entries:
             raise RuntimeError('This source video/audio pair is already reserved or uploaded. Use resume_video_id for an existing upload.')
@@ -88,6 +97,7 @@ class Ledger:
         key = self.check_new(assets)
         from upload_presentation import variety_record
         self.entries[key] = {'state': 'reserved', 'assets': assets,
+                             'channel_id': assets.get('channel_id') or os.environ.get('EXPECTED_YOUTUBE_CHANNEL_ID'),
                              'variety': variety_record(assets),
                              'requested_privacy': os.environ.get('UPLOAD_PRIVACY_STATUS') or 'public',
                              'run_id': os.environ.get('GITHUB_RUN_ID')}

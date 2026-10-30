@@ -25,7 +25,7 @@
     "username": "thinkingfish",
     "freesound_url": "https://freesound.org/s/695619/",
     "review": {
-      "approved": true,
+      "approved": false,
       "labels": {
         "setting": "lake",
         "intensity": "moderate",
@@ -37,16 +37,45 @@
         "music": false,
         "voices": false
       },
-      "notes": "sounds solid",
+      "notes": "Excluded from publishing after copyright claim involving source 695619. Prior listening assessment preserved in review_history.",
       "quality": {
         "full_playback": true,
         "loop_checked": true,
         "clean_recording": true,
         "no_clipping": true
       },
-      "status": "approved",
+      "status": "rejected",
       "reviewed_at": "2026-10-01T04:47:29.990552+00:00"
-    }
+    },
+    "publication_exclusion": {
+      "reason": "Confirmed copyright claim involving source recording 695619; excluded at user request on 2026-10-29",
+      "source_id": "695619"
+    },
+    "review_history": [
+      {
+        "approved": true,
+        "labels": {
+          "setting": "lake",
+          "intensity": "moderate",
+          "surface": "mixed",
+          "perspective": "outdoors",
+          "thunder": false,
+          "traffic": false,
+          "animals": false,
+          "music": false,
+          "voices": false
+        },
+        "notes": "sounds solid",
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true,
+          "clean_recording": true,
+          "no_clipping": true
+        },
+        "status": "approved",
+        "reviewed_at": "2026-10-01T04:47:29.990552+00:00"
+      }
+    ]
   },
   {
     "id": 717876,
@@ -331,9 +360,9 @@
     ],
     "sha256": "bdf8c63753b06e017fa34ed9001c75f92d1a2139f2e0a81fb54416e79782ef34",
     "review": {
-      "approved": true,
-      "status": "approved",
-      "notes": "much better - mixture of rain on puddles and on some material",
+      "approved": false,
+      "status": "rejected",
+      "notes": "Excluded from publishing after copyright claim involving source 695619. Prior listening assessment preserved in review_history.",
       "reviewed_at": "2026-10-17T02:52:48.633854+00:00",
       "labels": {},
       "quality": {
@@ -341,7 +370,24 @@
         "loop_checked": true
       }
     },
-    "target_lufs": -29.07
+    "target_lufs": -29.07,
+    "publication_exclusion": {
+      "reason": "Confirmed copyright claim involving source recording 695619; excluded at user request on 2026-10-29",
+      "source_id": "695619"
+    },
+    "review_history": [
+      {
+        "approved": true,
+        "status": "approved",
+        "notes": "much better - mixture of rain on puddles and on some material",
+        "reviewed_at": "2026-10-17T02:52:48.633854+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    ]
   },
   {
     "id": "custom-audio:v2-changing-shower",
@@ -386,9 +432,9 @@
     ],
     "sha256": "0c95e63f16e389121ff93d6e63ac1455e9091d5a16e164fc4b4917a43cf54ab0",
     "review": {
-      "approved": true,
-      "status": "approved",
-      "notes": "this is good",
+      "approved": false,
+      "status": "rejected",
+      "notes": "Excluded from publishing after copyright claim involving source 695619. Prior listening assessment preserved in review_history.",
       "reviewed_at": "2026-10-17T02:52:48.633854+00:00",
       "labels": {},
       "quality": {
@@ -396,7 +442,24 @@
         "loop_checked": true
       }
     },
-    "target_lufs": -26.07
+    "target_lufs": -26.07,
+    "publication_exclusion": {
+      "reason": "Confirmed copyright claim involving source recording 695619; excluded at user request on 2026-10-29",
+      "source_id": "695619"
+    },
+    "review_history": [
+      {
+        "approved": true,
+        "status": "approved",
+        "notes": "this is good",
+        "reviewed_at": "2026-10-17T02:52:48.633854+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    ]
   },
   {
     "id": "custom-audio:v2-building-rain",
@@ -552,9 +615,9 @@
     ],
     "sha256": "4dc849411db5fa660957b06ed629bce7d64e3c139e20bbfc1f6867aba62c5172",
     "review": {
-      "approved": true,
-      "status": "approved",
-      "notes": "puddles muffled is good",
+      "approved": false,
+      "status": "rejected",
+      "notes": "Excluded from publishing after copyright claim involving source 695619. Prior listening assessment preserved in review_history.",
       "reviewed_at": "2026-10-17T02:52:48.633854+00:00",
       "labels": {},
       "quality": {
@@ -562,7 +625,24 @@
         "loop_checked": true
       }
     },
-    "target_lufs": -29.08
+    "target_lufs": -29.08,
+    "publication_exclusion": {
+      "reason": "Confirmed copyright claim involving source recording 695619; excluded at user request on 2026-10-29",
+      "source_id": "695619"
+    },
+    "review_history": [
+      {
+        "approved": true,
+        "status": "approved",
+        "notes": "puddles muffled is good",
+        "reviewed_at": "2026-10-17T02:52:48.633854+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    ]
   },
   {
     "id": "custom-audio:forest-steady-417-20261017-011914-932410",
@@ -720,9 +800,9 @@
     ],
     "sha256": "2e8bdc6cbfcac64e285bd0c10ecc67dbb38dfd71fccd81863e9a86ae45749f42",
     "review": {
-      "approved": true,
-      "status": "approved",
-      "notes": "muffled, sounds a little bit underwatery but still solid",
+      "approved": false,
+      "status": "rejected",
+      "notes": "Excluded from publishing after copyright claim involving source 695619. Prior listening assessment preserved in review_history.",
       "reviewed_at": "2026-10-17T02:52:48.633854+00:00",
       "labels": {},
       "quality": {
@@ -730,7 +810,24 @@
         "loop_checked": true
       }
     },
-    "target_lufs": -28.11
+    "target_lufs": -28.11,
+    "publication_exclusion": {
+      "reason": "Confirmed copyright claim involving source recording 695619; excluded at user request on 2026-10-29",
+      "source_id": "695619"
+    },
+    "review_history": [
+      {
+        "approved": true,
+        "status": "approved",
+        "notes": "muffled, sounds a little bit underwatery but still solid",
+        "reviewed_at": "2026-10-17T02:52:48.633854+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    ]
   },
   {
     "id": "custom-audio:three-weeks-01-bookshop",
@@ -776,9 +873,9 @@
     ],
     "sha256": "afceef8c674fdd5ffe18e4da40e8b455256de90826184d1957818445d1d23073",
     "review": {
-      "approved": true,
-      "status": "approved",
-      "notes": "light trickly | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+      "approved": false,
+      "status": "rejected",
+      "notes": "Excluded from publishing after copyright claim involving source 695619. Prior listening assessment preserved in review_history.",
       "reviewed_at": "2026-10-23T09:05:19.834186+00:00",
       "labels": {},
       "quality": {
@@ -786,7 +883,24 @@
         "loop_checked": true
       }
     },
-    "target_lufs": -29.09
+    "target_lufs": -29.09,
+    "publication_exclusion": {
+      "reason": "Confirmed copyright claim involving source recording 695619; excluded at user request on 2026-10-29",
+      "source_id": "695619"
+    },
+    "review_history": [
+      {
+        "approved": true,
+        "status": "approved",
+        "notes": "light trickly | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:19.834186+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    ]
   },
   {
     "id": "custom-audio:three-weeks-02-mountain-cabin",
@@ -832,9 +946,9 @@
     ],
     "sha256": "893c3df14a0dc76cf1437af8a43e2f007fdcf595ce5d0cba39b8e731c4f68ec6",
     "review": {
-      "approved": true,
-      "status": "approved",
-      "notes": "light trickly | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+      "approved": false,
+      "status": "rejected",
+      "notes": "Excluded from publishing after copyright claim involving source 695619. Prior listening assessment preserved in review_history.",
       "reviewed_at": "2026-10-23T09:05:19.864094+00:00",
       "labels": {},
       "quality": {
@@ -842,7 +956,24 @@
         "loop_checked": true
       }
     },
-    "target_lufs": -28.1
+    "target_lufs": -28.1,
+    "publication_exclusion": {
+      "reason": "Confirmed copyright claim involving source recording 695619; excluded at user request on 2026-10-29",
+      "source_id": "695619"
+    },
+    "review_history": [
+      {
+        "approved": true,
+        "status": "approved",
+        "notes": "light trickly | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:19.864094+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    ]
   },
   {
     "id": "custom-audio:three-weeks-03-greenhouse",
@@ -1000,9 +1131,9 @@
     ],
     "sha256": "49a24e5508f5d9b7de4c71985e5556479d6afd1877ebc181fe446b3d9c03961c",
     "review": {
-      "approved": true,
-      "status": "approved",
-      "notes": "moderate, trickly | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+      "approved": false,
+      "status": "rejected",
+      "notes": "Excluded from publishing after copyright claim involving source 695619. Prior listening assessment preserved in review_history.",
       "reviewed_at": "2026-10-23T09:05:19.952794+00:00",
       "labels": {},
       "quality": {
@@ -1010,7 +1141,24 @@
         "loop_checked": true
       }
     },
-    "target_lufs": -27.01
+    "target_lufs": -27.01,
+    "publication_exclusion": {
+      "reason": "Confirmed copyright claim involving source recording 695619; excluded at user request on 2026-10-29",
+      "source_id": "695619"
+    },
+    "review_history": [
+      {
+        "approved": true,
+        "status": "approved",
+        "notes": "moderate, trickly | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:19.952794+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    ]
   },
   {
     "id": "custom-audio:three-weeks-06-forest-loft",
@@ -1112,9 +1260,9 @@
     ],
     "sha256": "ed19a18d0d44c7c6fee102731d7d263a54c24229ce9e63b07f7186f85cc89617",
     "review": {
-      "approved": true,
-      "status": "approved",
-      "notes": "light, trickly, puddly | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+      "approved": false,
+      "status": "rejected",
+      "notes": "Excluded from publishing after copyright claim involving source 695619. Prior listening assessment preserved in review_history.",
       "reviewed_at": "2026-10-23T09:05:20.014403+00:00",
       "labels": {},
       "quality": {
@@ -1122,7 +1270,24 @@
         "loop_checked": true
       }
     },
-    "target_lufs": -26.05
+    "target_lufs": -26.05,
+    "publication_exclusion": {
+      "reason": "Confirmed copyright claim involving source recording 695619; excluded at user request on 2026-10-29",
+      "source_id": "695619"
+    },
+    "review_history": [
+      {
+        "approved": true,
+        "status": "approved",
+        "notes": "light, trickly, puddly | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.014403+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    ]
   },
   {
     "id": "custom-audio:three-weeks-08-dog-veranda",
@@ -1224,9 +1389,9 @@
     ],
     "sha256": "c59722bc27a798aa43a5c8aa980ebd30821dbdf5cf1f62cff2f661bc6902586e",
     "review": {
-      "approved": true,
-      "status": "approved",
-      "notes": "moderate, puddly, trickly | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+      "approved": false,
+      "status": "rejected",
+      "notes": "Excluded from publishing after copyright claim involving source 695619. Prior listening assessment preserved in review_history.",
       "reviewed_at": "2026-10-23T09:05:20.077744+00:00",
       "labels": {},
       "quality": {
@@ -1234,7 +1399,24 @@
         "loop_checked": true
       }
     },
-    "target_lufs": -29.06
+    "target_lufs": -29.06,
+    "publication_exclusion": {
+      "reason": "Confirmed copyright claim involving source recording 695619; excluded at user request on 2026-10-29",
+      "source_id": "695619"
+    },
+    "review_history": [
+      {
+        "approved": true,
+        "status": "approved",
+        "notes": "moderate, puddly, trickly | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.077744+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    ]
   },
   {
     "id": "custom-audio:three-weeks-10-storm-library",
@@ -1336,9 +1518,9 @@
     ],
     "sha256": "6dc45095faec5366cc3fb7a3bbe12f00c53df4b62341510414663afe89e1334e",
     "review": {
-      "approved": true,
-      "status": "approved",
-      "notes": "light, puddly, trickly | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+      "approved": false,
+      "status": "rejected",
+      "notes": "Excluded from publishing after copyright claim involving source 695619. Prior listening assessment preserved in review_history.",
       "reviewed_at": "2026-10-23T09:05:20.149725+00:00",
       "labels": {},
       "quality": {
@@ -1346,7 +1528,24 @@
         "loop_checked": true
       }
     },
-    "target_lufs": -27.0
+    "target_lufs": -27.0,
+    "publication_exclusion": {
+      "reason": "Confirmed copyright claim involving source recording 695619; excluded at user request on 2026-10-29",
+      "source_id": "695619"
+    },
+    "review_history": [
+      {
+        "approved": true,
+        "status": "approved",
+        "notes": "light, puddly, trickly | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.149725+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    ]
   },
   {
     "id": "custom-audio:three-weeks-12-bakery-cat",
@@ -1504,9 +1703,9 @@
     ],
     "sha256": "374eb7093e1db2476e190870972a7fd56218cc8ffd94173490809530f52cbcd4",
     "review": {
-      "approved": true,
-      "status": "approved",
-      "notes": "moderate, dense | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+      "approved": false,
+      "status": "rejected",
+      "notes": "Excluded from publishing after copyright claim involving source 695619. Prior listening assessment preserved in review_history.",
       "reviewed_at": "2026-10-23T09:05:20.240250+00:00",
       "labels": {},
       "quality": {
@@ -1514,7 +1713,24 @@
         "loop_checked": true
       }
     },
-    "target_lufs": -26.02
+    "target_lufs": -26.02,
+    "publication_exclusion": {
+      "reason": "Confirmed copyright claim involving source recording 695619; excluded at user request on 2026-10-29",
+      "source_id": "695619"
+    },
+    "review_history": [
+      {
+        "approved": true,
+        "status": "approved",
+        "notes": "moderate, dense | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.240250+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    ]
   },
   {
     "id": "custom-audio:three-weeks-17-forest-study",
@@ -1616,9 +1832,9 @@
     ],
     "sha256": "3861b33a71a0b1777ad5799f3f0482c350bb6fc3ad7e919b5b904a8fc913900e",
     "review": {
-      "approved": true,
-      "status": "approved",
-      "notes": "muffled, soft, | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+      "approved": false,
+      "status": "rejected",
+      "notes": "Excluded from publishing after copyright claim involving source 695619. Prior listening assessment preserved in review_history.",
       "reviewed_at": "2026-10-23T09:05:20.295195+00:00",
       "labels": {},
       "quality": {
@@ -1626,7 +1842,24 @@
         "loop_checked": true
       }
     },
-    "target_lufs": -28.11
+    "target_lufs": -28.11,
+    "publication_exclusion": {
+      "reason": "Confirmed copyright claim involving source recording 695619; excluded at user request on 2026-10-29",
+      "source_id": "695619"
+    },
+    "review_history": [
+      {
+        "approved": true,
+        "status": "approved",
+        "notes": "muffled, soft, | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.295195+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    ]
   },
   {
     "id": "custom-audio:three-weeks-19-city-journal",
@@ -1672,9 +1905,9 @@
     ],
     "sha256": "6fc929f3580b0d094bfd85e6b8bb21ddb65f74d979159bcc8a2f8316fe20cdc8",
     "review": {
-      "approved": true,
-      "status": "approved",
-      "notes": "puddly, light | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+      "approved": false,
+      "status": "rejected",
+      "notes": "Excluded from publishing after copyright claim involving source 695619. Prior listening assessment preserved in review_history.",
       "reviewed_at": "2026-10-23T09:05:20.322157+00:00",
       "labels": {},
       "quality": {
@@ -1682,7 +1915,24 @@
         "loop_checked": true
       }
     },
-    "target_lufs": -26.1
+    "target_lufs": -26.1,
+    "publication_exclusion": {
+      "reason": "Confirmed copyright claim involving source recording 695619; excluded at user request on 2026-10-29",
+      "source_id": "695619"
+    },
+    "review_history": [
+      {
+        "approved": true,
+        "status": "approved",
+        "notes": "puddly, light | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.322157+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    ]
   },
   {
     "id": "custom-audio:three-weeks-20-ranger-storm",
@@ -1784,9 +2034,9 @@
     ],
     "sha256": "e3be1482ec2213f83a46d9d1af8a23723d7d788685739d122b38ab5124230af0",
     "review": {
-      "approved": true,
-      "status": "approved",
-      "notes": "puddl-y, light, | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+      "approved": false,
+      "status": "rejected",
+      "notes": "Excluded from publishing after copyright claim involving source 695619. Prior listening assessment preserved in review_history.",
       "reviewed_at": "2026-10-23T09:05:20.378644+00:00",
       "labels": {},
       "quality": {
@@ -1794,7 +2044,24 @@
         "loop_checked": true
       }
     },
-    "target_lufs": -29.08
+    "target_lufs": -29.08,
+    "publication_exclusion": {
+      "reason": "Confirmed copyright claim involving source recording 695619; excluded at user request on 2026-10-29",
+      "source_id": "695619"
+    },
+    "review_history": [
+      {
+        "approved": true,
+        "status": "approved",
+        "notes": "puddl-y, light, | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.378644+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    ]
   },
   {
     "id": "custom-audio:three-weeks-22-conservatory-cat",
@@ -1896,9 +2163,9 @@
     ],
     "sha256": "d69b01ff02281ef94fb20c1f5cfcd184315376408db00d251e58803a361c4704",
     "review": {
-      "approved": true,
-      "status": "approved",
-      "notes": "moderate, puddles | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+      "approved": false,
+      "status": "rejected",
+      "notes": "Excluded from publishing after copyright claim involving source 695619. Prior listening assessment preserved in review_history.",
       "reviewed_at": "2026-10-23T09:05:20.433681+00:00",
       "labels": {},
       "quality": {
@@ -1906,7 +2173,24 @@
         "loop_checked": true
       }
     },
-    "target_lufs": -26.99
+    "target_lufs": -26.99,
+    "publication_exclusion": {
+      "reason": "Confirmed copyright claim involving source recording 695619; excluded at user request on 2026-10-29",
+      "source_id": "695619"
+    },
+    "review_history": [
+      {
+        "approved": true,
+        "status": "approved",
+        "notes": "moderate, puddles | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.433681+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    ]
   },
   {
     "id": "custom-audio:three-weeks-24-print-studio",
@@ -1952,9 +2236,9 @@
     ],
     "sha256": "c1c5b6e9069c776bb30f525318383d8c7175d9a43da1e919799933ca52b33296",
     "review": {
-      "approved": true,
-      "status": "approved",
-      "notes": "light, sparse | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+      "approved": false,
+      "status": "rejected",
+      "notes": "Excluded from publishing after copyright claim involving source 695619. Prior listening assessment preserved in review_history.",
       "reviewed_at": "2026-10-23T09:05:20.460520+00:00",
       "labels": {},
       "quality": {
@@ -1962,7 +2246,24 @@
         "loop_checked": true
       }
     },
-    "target_lufs": -26.05
+    "target_lufs": -26.05,
+    "publication_exclusion": {
+      "reason": "Confirmed copyright claim involving source recording 695619; excluded at user request on 2026-10-29",
+      "source_id": "695619"
+    },
+    "review_history": [
+      {
+        "approved": true,
+        "status": "approved",
+        "notes": "light, sparse | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.460520+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    ]
   },
   {
     "id": "custom-audio:three-weeks-26-map-room",
@@ -2120,9 +2421,9 @@
     ],
     "sha256": "d5330d7e44ca5bc3849df92173bc5248a8bf860fc24bece95abd5f7c1668b971",
     "review": {
-      "approved": true,
-      "status": "approved",
-      "notes": "moderate, calm | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+      "approved": false,
+      "status": "rejected",
+      "notes": "Excluded from publishing after copyright claim involving source 695619. Prior listening assessment preserved in review_history.",
       "reviewed_at": "2026-10-23T09:05:20.541546+00:00",
       "labels": {},
       "quality": {
@@ -2130,7 +2431,24 @@
         "loop_checked": true
       }
     },
-    "target_lufs": -26.07
+    "target_lufs": -26.07,
+    "publication_exclusion": {
+      "reason": "Confirmed copyright claim involving source recording 695619; excluded at user request on 2026-10-29",
+      "source_id": "695619"
+    },
+    "review_history": [
+      {
+        "approved": true,
+        "status": "approved",
+        "notes": "moderate, calm | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.541546+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    ]
   },
   {
     "id": "custom-audio:three-weeks-29-tea-atelier",
@@ -2176,9 +2494,9 @@
     ],
     "sha256": "8e98faa7cb70f58341fd12dd37b43e9be0f7f6ad0416df0f6aefd56b8087adcd",
     "review": {
-      "approved": true,
-      "status": "approved",
-      "notes": "calm, moderate | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+      "approved": false,
+      "status": "rejected",
+      "notes": "Excluded from publishing after copyright claim involving source 695619. Prior listening assessment preserved in review_history.",
       "reviewed_at": "2026-10-23T09:05:20.567587+00:00",
       "labels": {},
       "quality": {
@@ -2186,7 +2504,24 @@
         "loop_checked": true
       }
     },
-    "target_lufs": -29.09
+    "target_lufs": -29.09,
+    "publication_exclusion": {
+      "reason": "Confirmed copyright claim involving source recording 695619; excluded at user request on 2026-10-29",
+      "source_id": "695619"
+    },
+    "review_history": [
+      {
+        "approved": true,
+        "status": "approved",
+        "notes": "calm, moderate | User confirmed complete 90-second playback and repeat-boundary review in chat on 23 October 2026.",
+        "reviewed_at": "2026-10-23T09:05:20.567587+00:00",
+        "labels": {},
+        "quality": {
+          "full_playback": true,
+          "loop_checked": true
+        }
+      }
+    ]
   },
   {
     "id": "custom-audio:three-weeks-30-woodland-night",
@@ -2240,6 +2575,596 @@
       "quality": {
         "full_playback": true,
         "loop_checked": true
+      }
+    },
+    "target_lufs": -22.02
+  },
+  {
+    "id": "custom-audio:forest-launch-2026102960-01",
+    "asset_id": "custom-audio:forest-launch-2026102960-01",
+    "filename": "custom/forest-launch-2026102960-01.flac",
+    "title": "Launch forest 01 - Ranger shelter variation",
+    "duration": 90,
+    "source_url": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+    "generator_sha256": "7dbe91e7a87cb4f99ef2216a50e9420f1af6ed526724b245f750f2c5f9a09119",
+    "license": "Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)",
+    "components": [
+      {
+        "kind": "procedural",
+        "seed": 2026102960,
+        "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+        "profile": {
+          "rate": 72,
+          "target": -22,
+          "bed_db": -9.6,
+          "lowpass": 8365,
+          "name": "forest-launch-2026102960-01",
+          "source": "651189",
+          "intensity": "heavy",
+          "curve": [
+            0.584,
+            0.726,
+            0.51,
+            0.975,
+            0.765
+          ],
+          "highpass": 500
+        },
+        "event_count": 4659
+      },
+      {
+        "kind": "licensed_recording",
+        "id": "651189",
+        "source_url": "https://freesound.org/s/651189/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+        "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+      }
+    ],
+    "sha256": "817a08b86513734b9b05821521723971c38d2b8e35132c3e9f35a9a0132dfc34",
+    "review": {
+      "approved": true,
+      "status": "approved",
+      "approval_method": "user_authorized_automatic",
+      "approval_authorization": "User explicitly authorized automatic approval and reuse of source 651189 on 29 October 2026",
+      "reviewed_at": "2026-10-29T11:30:36.982459+00:00",
+      "notes": "Automatically approved at user direction after technical checks; no new listening assessment asserted.",
+      "labels": {},
+      "quality": {
+        "full_playback": false,
+        "loop_checked": false,
+        "technical_checked": true
+      }
+    },
+    "target_lufs": -22.02
+  },
+  {
+    "id": "custom-audio:forest-launch-2026102960-02",
+    "asset_id": "custom-audio:forest-launch-2026102960-02",
+    "filename": "custom/forest-launch-2026102960-02.flac",
+    "title": "Launch forest 02 - Ranger shelter variation",
+    "duration": 90,
+    "source_url": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+    "generator_sha256": "7dbe91e7a87cb4f99ef2216a50e9420f1af6ed526724b245f750f2c5f9a09119",
+    "license": "Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)",
+    "components": [
+      {
+        "kind": "procedural",
+        "seed": 2026102961,
+        "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+        "profile": {
+          "rate": 66,
+          "target": -22,
+          "bed_db": -9.1,
+          "lowpass": 8146,
+          "name": "forest-launch-2026102960-02",
+          "source": "651189",
+          "intensity": "heavy",
+          "curve": [
+            0.607,
+            0.69,
+            0.554,
+            1,
+            0.769
+          ],
+          "highpass": 500
+        },
+        "event_count": 4370
+      },
+      {
+        "kind": "licensed_recording",
+        "id": "651189",
+        "source_url": "https://freesound.org/s/651189/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+        "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+      }
+    ],
+    "sha256": "b082b21d7d8fcbe31b9b4a38ebe0b873dadda45b59ab66d6b0e5458cc3d72e28",
+    "review": {
+      "approved": true,
+      "status": "approved",
+      "approval_method": "user_authorized_automatic",
+      "approval_authorization": "User explicitly authorized automatic approval and reuse of source 651189 on 29 October 2026",
+      "reviewed_at": "2026-10-29T11:30:36.982459+00:00",
+      "notes": "Automatically approved at user direction after technical checks; no new listening assessment asserted.",
+      "labels": {},
+      "quality": {
+        "full_playback": false,
+        "loop_checked": false,
+        "technical_checked": true
+      }
+    },
+    "target_lufs": -22.02
+  },
+  {
+    "id": "custom-audio:forest-launch-2026102960-03",
+    "asset_id": "custom-audio:forest-launch-2026102960-03",
+    "filename": "custom/forest-launch-2026102960-03.flac",
+    "title": "Launch forest 03 - Ranger shelter variation",
+    "duration": 90,
+    "source_url": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+    "generator_sha256": "7dbe91e7a87cb4f99ef2216a50e9420f1af6ed526724b245f750f2c5f9a09119",
+    "license": "Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)",
+    "components": [
+      {
+        "kind": "procedural",
+        "seed": 2026102962,
+        "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+        "profile": {
+          "rate": 62,
+          "target": -22,
+          "bed_db": -9.12,
+          "lowpass": 8189,
+          "name": "forest-launch-2026102960-03",
+          "source": "651189",
+          "intensity": "heavy",
+          "curve": [
+            0.593,
+            0.684,
+            0.519,
+            1,
+            0.764
+          ],
+          "highpass": 500
+        },
+        "event_count": 4067
+      },
+      {
+        "kind": "licensed_recording",
+        "id": "651189",
+        "source_url": "https://freesound.org/s/651189/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+        "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+      }
+    ],
+    "sha256": "2c3a2f94db2a7e600696b4ff207733cffc566cc5605fb26eeb236ae0268f7b4a",
+    "review": {
+      "approved": true,
+      "status": "approved",
+      "approval_method": "user_authorized_automatic",
+      "approval_authorization": "User explicitly authorized automatic approval and reuse of source 651189 on 29 October 2026",
+      "reviewed_at": "2026-10-29T11:30:36.982459+00:00",
+      "notes": "Automatically approved at user direction after technical checks; no new listening assessment asserted.",
+      "labels": {},
+      "quality": {
+        "full_playback": false,
+        "loop_checked": false,
+        "technical_checked": true
+      }
+    },
+    "target_lufs": -22.03
+  },
+  {
+    "id": "custom-audio:forest-launch-2026102960-04",
+    "asset_id": "custom-audio:forest-launch-2026102960-04",
+    "filename": "custom/forest-launch-2026102960-04.flac",
+    "title": "Launch forest 04 - Ranger shelter variation",
+    "duration": 90,
+    "source_url": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+    "generator_sha256": "7dbe91e7a87cb4f99ef2216a50e9420f1af6ed526724b245f750f2c5f9a09119",
+    "license": "Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)",
+    "components": [
+      {
+        "kind": "procedural",
+        "seed": 2026102963,
+        "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+        "profile": {
+          "rate": 66,
+          "target": -22,
+          "bed_db": -9.73,
+          "lowpass": 8520,
+          "name": "forest-launch-2026102960-04",
+          "source": "651189",
+          "intensity": "heavy",
+          "curve": [
+            0.59,
+            0.685,
+            0.557,
+            1,
+            0.799
+          ],
+          "highpass": 500
+        },
+        "event_count": 4336
+      },
+      {
+        "kind": "licensed_recording",
+        "id": "651189",
+        "source_url": "https://freesound.org/s/651189/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+        "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+      }
+    ],
+    "sha256": "09b146d3f121126a82a289ee664306a3ce0bc9441ddba52ad222640bbf2113fd",
+    "review": {
+      "approved": true,
+      "status": "approved",
+      "approval_method": "user_authorized_automatic",
+      "approval_authorization": "User explicitly authorized automatic approval and reuse of source 651189 on 29 October 2026",
+      "reviewed_at": "2026-10-29T11:30:36.982459+00:00",
+      "notes": "Automatically approved at user direction after technical checks; no new listening assessment asserted.",
+      "labels": {},
+      "quality": {
+        "full_playback": false,
+        "loop_checked": false,
+        "technical_checked": true
+      }
+    },
+    "target_lufs": -22.03
+  },
+  {
+    "id": "custom-audio:forest-launch-2026102960-05",
+    "asset_id": "custom-audio:forest-launch-2026102960-05",
+    "filename": "custom/forest-launch-2026102960-05.flac",
+    "title": "Launch forest 05 - Ranger shelter variation",
+    "duration": 90,
+    "source_url": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+    "generator_sha256": "7dbe91e7a87cb4f99ef2216a50e9420f1af6ed526724b245f750f2c5f9a09119",
+    "license": "Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)",
+    "components": [
+      {
+        "kind": "procedural",
+        "seed": 2026102964,
+        "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+        "profile": {
+          "rate": 54,
+          "target": -22,
+          "bed_db": -9.3,
+          "lowpass": 8012,
+          "name": "forest-launch-2026102960-05",
+          "source": "651189",
+          "intensity": "heavy",
+          "curve": [
+            0.601,
+            0.719,
+            0.503,
+            1,
+            0.733
+          ],
+          "highpass": 500
+        },
+        "event_count": 3496
+      },
+      {
+        "kind": "licensed_recording",
+        "id": "651189",
+        "source_url": "https://freesound.org/s/651189/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+        "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+      }
+    ],
+    "sha256": "543d81dcdd90bed0f5324f31b4eb9450899d568c996e9d86114ec9f9743b2870",
+    "review": {
+      "approved": true,
+      "status": "approved",
+      "approval_method": "user_authorized_automatic",
+      "approval_authorization": "User explicitly authorized automatic approval and reuse of source 651189 on 29 October 2026",
+      "reviewed_at": "2026-10-29T11:30:36.982459+00:00",
+      "notes": "Automatically approved at user direction after technical checks; no new listening assessment asserted.",
+      "labels": {},
+      "quality": {
+        "full_playback": false,
+        "loop_checked": false,
+        "technical_checked": true
+      }
+    },
+    "target_lufs": -22.02
+  },
+  {
+    "id": "custom-audio:forest-launch-2026102960-06",
+    "asset_id": "custom-audio:forest-launch-2026102960-06",
+    "filename": "custom/forest-launch-2026102960-06.flac",
+    "title": "Launch forest 06 - Woodland night variation",
+    "duration": 90,
+    "source_url": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+    "generator_sha256": "7dbe91e7a87cb4f99ef2216a50e9420f1af6ed526724b245f750f2c5f9a09119",
+    "license": "Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)",
+    "components": [
+      {
+        "kind": "procedural",
+        "seed": 2026102965,
+        "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+        "profile": {
+          "rate": 42,
+          "target": -22,
+          "bed_db": -8.12,
+          "lowpass": 8157,
+          "name": "forest-launch-2026102960-06",
+          "source": "651189",
+          "intensity": "heavy",
+          "curve": [
+            0.739,
+            0.861,
+            0.676,
+            0.975,
+            0.855
+          ],
+          "highpass": 500
+        },
+        "event_count": 3130
+      },
+      {
+        "kind": "licensed_recording",
+        "id": "651189",
+        "source_url": "https://freesound.org/s/651189/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+        "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+      }
+    ],
+    "sha256": "f6184733e3df4e7cc9ead165855c167b01dc60ad2a867c99bd7a00c73b92faa2",
+    "review": {
+      "approved": true,
+      "status": "approved",
+      "approval_method": "user_authorized_automatic",
+      "approval_authorization": "User explicitly authorized automatic approval and reuse of source 651189 on 29 October 2026",
+      "reviewed_at": "2026-10-29T11:30:36.982459+00:00",
+      "notes": "Automatically approved at user direction after technical checks; no new listening assessment asserted.",
+      "labels": {},
+      "quality": {
+        "full_playback": false,
+        "loop_checked": false,
+        "technical_checked": true
+      }
+    },
+    "target_lufs": -22.01
+  },
+  {
+    "id": "custom-audio:forest-launch-2026102960-07",
+    "asset_id": "custom-audio:forest-launch-2026102960-07",
+    "filename": "custom/forest-launch-2026102960-07.flac",
+    "title": "Launch forest 07 - Woodland night variation",
+    "duration": 90,
+    "source_url": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+    "generator_sha256": "7dbe91e7a87cb4f99ef2216a50e9420f1af6ed526724b245f750f2c5f9a09119",
+    "license": "Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)",
+    "components": [
+      {
+        "kind": "procedural",
+        "seed": 2026102966,
+        "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+        "profile": {
+          "rate": 42,
+          "target": -22,
+          "bed_db": -8.71,
+          "lowpass": 8408,
+          "name": "forest-launch-2026102960-07",
+          "source": "651189",
+          "intensity": "heavy",
+          "curve": [
+            0.695,
+            0.837,
+            0.668,
+            1,
+            0.858
+          ],
+          "highpass": 500
+        },
+        "event_count": 3079
+      },
+      {
+        "kind": "licensed_recording",
+        "id": "651189",
+        "source_url": "https://freesound.org/s/651189/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+        "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+      }
+    ],
+    "sha256": "8623a6b4ce8f1c68833c790f912ef669e716369ce6bcab8a39b9243d17448e56",
+    "review": {
+      "approved": true,
+      "status": "approved",
+      "approval_method": "user_authorized_automatic",
+      "approval_authorization": "User explicitly authorized automatic approval and reuse of source 651189 on 29 October 2026",
+      "reviewed_at": "2026-10-29T11:30:36.982459+00:00",
+      "notes": "Automatically approved at user direction after technical checks; no new listening assessment asserted.",
+      "labels": {},
+      "quality": {
+        "full_playback": false,
+        "loop_checked": false,
+        "technical_checked": true
+      }
+    },
+    "target_lufs": -22.02
+  },
+  {
+    "id": "custom-audio:forest-launch-2026102960-08",
+    "asset_id": "custom-audio:forest-launch-2026102960-08",
+    "filename": "custom/forest-launch-2026102960-08.flac",
+    "title": "Launch forest 08 - Woodland night variation",
+    "duration": 90,
+    "source_url": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+    "generator_sha256": "7dbe91e7a87cb4f99ef2216a50e9420f1af6ed526724b245f750f2c5f9a09119",
+    "license": "Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)",
+    "components": [
+      {
+        "kind": "procedural",
+        "seed": 2026102967,
+        "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+        "profile": {
+          "rate": 47,
+          "target": -22,
+          "bed_db": -8.76,
+          "lowpass": 8383,
+          "name": "forest-launch-2026102960-08",
+          "source": "651189",
+          "intensity": "heavy",
+          "curve": [
+            0.665,
+            0.839,
+            0.755,
+            1,
+            0.778
+          ],
+          "highpass": 500
+        },
+        "event_count": 3505
+      },
+      {
+        "kind": "licensed_recording",
+        "id": "651189",
+        "source_url": "https://freesound.org/s/651189/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+        "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+      }
+    ],
+    "sha256": "eb883f80b134f58b3bf7fba6748228f842d2965dc3aab3f8551a809c91ecd726",
+    "review": {
+      "approved": true,
+      "status": "approved",
+      "approval_method": "user_authorized_automatic",
+      "approval_authorization": "User explicitly authorized automatic approval and reuse of source 651189 on 29 October 2026",
+      "reviewed_at": "2026-10-29T11:30:36.982459+00:00",
+      "notes": "Automatically approved at user direction after technical checks; no new listening assessment asserted.",
+      "labels": {},
+      "quality": {
+        "full_playback": false,
+        "loop_checked": false,
+        "technical_checked": true
+      }
+    },
+    "target_lufs": -22.02
+  },
+  {
+    "id": "custom-audio:forest-launch-2026102960-09",
+    "asset_id": "custom-audio:forest-launch-2026102960-09",
+    "filename": "custom/forest-launch-2026102960-09.flac",
+    "title": "Launch forest 09 - Woodland night variation",
+    "duration": 90,
+    "source_url": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+    "generator_sha256": "7dbe91e7a87cb4f99ef2216a50e9420f1af6ed526724b245f750f2c5f9a09119",
+    "license": "Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)",
+    "components": [
+      {
+        "kind": "procedural",
+        "seed": 2026102968,
+        "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+        "profile": {
+          "rate": 44,
+          "target": -22,
+          "bed_db": -9.28,
+          "lowpass": 8704,
+          "name": "forest-launch-2026102960-09",
+          "source": "651189",
+          "intensity": "heavy",
+          "curve": [
+            0.714,
+            0.825,
+            0.676,
+            1,
+            0.786
+          ],
+          "highpass": 500
+        },
+        "event_count": 3188
+      },
+      {
+        "kind": "licensed_recording",
+        "id": "651189",
+        "source_url": "https://freesound.org/s/651189/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+        "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+      }
+    ],
+    "sha256": "b5e78cab097e80f1dc22b048f124e5027a085318687015ad3f846757a29215f9",
+    "review": {
+      "approved": true,
+      "status": "approved",
+      "approval_method": "user_authorized_automatic",
+      "approval_authorization": "User explicitly authorized automatic approval and reuse of source 651189 on 29 October 2026",
+      "reviewed_at": "2026-10-29T11:30:36.982459+00:00",
+      "notes": "Automatically approved at user direction after technical checks; no new listening assessment asserted.",
+      "labels": {},
+      "quality": {
+        "full_playback": false,
+        "loop_checked": false,
+        "technical_checked": true
+      }
+    },
+    "target_lufs": -22.01
+  },
+  {
+    "id": "custom-audio:forest-launch-2026102960-10",
+    "asset_id": "custom-audio:forest-launch-2026102960-10",
+    "filename": "custom/forest-launch-2026102960-10.flac",
+    "title": "Launch forest 10 - Woodland night variation",
+    "duration": 90,
+    "source_url": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+    "generator_sha256": "7dbe91e7a87cb4f99ef2216a50e9420f1af6ed526724b245f750f2c5f9a09119",
+    "license": "Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)",
+    "components": [
+      {
+        "kind": "procedural",
+        "seed": 2026102969,
+        "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+        "profile": {
+          "rate": 43,
+          "target": -22,
+          "bed_db": -8.5,
+          "lowpass": 8620,
+          "name": "forest-launch-2026102960-10",
+          "source": "651189",
+          "intensity": "heavy",
+          "curve": [
+            0.726,
+            0.924,
+            0.666,
+            1,
+            0.786
+          ],
+          "highpass": 500
+        },
+        "event_count": 3252
+      },
+      {
+        "kind": "licensed_recording",
+        "id": "651189",
+        "source_url": "https://freesound.org/s/651189/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+        "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+      }
+    ],
+    "sha256": "c82b866ca6774c6a9cfcfb6cd634f9dcfab62ea10621fe9c4d9d3beafcded661",
+    "review": {
+      "approved": true,
+      "status": "approved",
+      "approval_method": "user_authorized_automatic",
+      "approval_authorization": "User explicitly authorized automatic approval and reuse of source 651189 on 29 October 2026",
+      "reviewed_at": "2026-10-29T11:30:36.982459+00:00",
+      "notes": "Automatically approved at user direction after technical checks; no new listening assessment asserted.",
+      "labels": {},
+      "quality": {
+        "full_playback": false,
+        "loop_checked": false,
+        "technical_checked": true
       }
     },
     "target_lufs": -22.02

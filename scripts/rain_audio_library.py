@@ -265,8 +265,8 @@ def export_ready(root, destination, ids=()):
         assets = [a for a in assets if a['id'] in ids]
         if {a['id'] for a in assets} != set(ids):
             raise ValueError('Only approved assets can be exported')
-    ready = [a for a in assets if all(a['review']['quality'].get(k) is True
-                                     for k in ('full_playback', 'loop_checked'))]
+    from content_policy import approved_review
+    ready = [a for a in assets if approved_review(a['review'])]
     if ids and len(ready) != len(assets):
         raise ValueError('Full playback and loop review still required')
     if not ready:

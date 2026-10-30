@@ -5,7 +5,7 @@ from pathlib import Path
 from asset_matching import labels_for
 
 COPY_PATH = Path(__file__).resolve().parents[1] / 'data' / 'description_copy.json'
-CHANNEL_URL = 'https://www.youtube.com/@calmingrainsoundssss'
+CHANNEL_URL = 'https://www.youtube.com/channel/UCaMtUdYVy9bIW1xYsWJHjXg'
 HASHTAGS = '#rainsounds #rainsoundsforsleeping #sleepsounds #rainasmr #rainforstudy #rainforfocus'
 TAGS = ['rain sounds for sleeping', 'rain sounds for sleep', 'rain sounds', 'sleep sounds',
         'calming rain sounds', 'rain ambience', 'cozy rain', 'rain for insomnia',
