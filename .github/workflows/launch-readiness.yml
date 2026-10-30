@@ -1,0 +1,65 @@
+name: New channel readiness (no upload)
+on:
+  push:
+    branches: [codex/generated-only-new-channel]
+    paths:
+      - .github/workflows/launch-readiness.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-and-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PIPELINE_MODE: preview
+      ASSET_SELECTION: channel
+      DURATION_MINUTES: '1'
+      ALLOW_UNREVIEWED: 'false'
+      EXPECTED_YOUTUBE_CHANNEL_ID: UCaMtUdYVy9bIW1xYsWJHjXg
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+      - name: Verify hosted YouTube credentials (read only)
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+        run: python scripts/verify_youtube_channel.py
+      - name: Restore and verify private media bundle
+        env:
+          CHANNEL_ASSET_TOKEN: ${{ secrets.CHANNEL_ASSET_TOKEN }}
+        run: python scripts/channel_storage.py --download
+      - name: Select unused approved assets (no reservation)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/select_assets.py
+      - name: Render preview
+        run: python scripts/build_video.py
+      - name: Render thumbnail
+        run: python scripts/make_thumbnail.py
+      - name: Check publication eligibility without uploading
+        run: |
+          python -c "import json,sys; from pathlib import Path; sys.path.insert(0,'scripts'); from channel_profile import publication_ready; assert publication_ready(json.load(open('run/assets.json')),Path.cwd()), 'Preview did not pass publication checks'"
+      # No uploader, history reservation, visibility change or schedule activation.
+      - name: Save readiness evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: new-channel-readiness-${{ github.run_id }}
+          path: |
+            run/output.mp4
+            run/assets.json
+            run/thumbnail.jpg
+            run/channel-source-quality.json
+            run/channel-quality.json
+            run/prepared-audio.quality.json
+          retention-days: 7
+          if-no-files-found: ignore
