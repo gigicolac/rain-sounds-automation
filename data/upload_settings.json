@@ -1,5 +1,5 @@
 {
-  "note": "Copied from reference video EXjpeDzwuAs (2 Oct 2026) via the read-only verify-mode settings report on 23 Oct 2026. recordingDate is set to each upload's date. Privacy, scheduling and Made for Kids are controlled by the pipeline, not this file. containsSyntheticMedia (AI use: yes, the scenes are AI-generated) and paid promotion: no were added on 26 Oct 2026 from the channel's upload checklist.",
+  "note": "Copied from reference video EXjpeDzwuAs (2 Oct 2026) via the read-only verify-mode settings report on 23 Oct 2026. recordingDate is set to each upload's date. Privacy, scheduling and Made for Kids are controlled by the pipeline, not this file. User requested AI use: No on 30 Oct 2026 for the current clearly illustrated animation and recording-based rain sound design. This disclosure is about realistic, meaningfully altered or synthetic content, not whether any AI tool was used. Reassess before introducing realistic AI scenes, people, events or AI-generated music. Existing uploads are unchanged. Paid promotion remains No.",
   "snippet": {
     "defaultLanguage": "en-AU",
     "defaultAudioLanguage": "en-AU"
@@ -8,7 +8,7 @@
     "embeddable": true,
     "license": "youtube",
     "publicStatsViewable": true,
-    "containsSyntheticMedia": true
+    "containsSyntheticMedia": false
   },
   "recordingDetails": {
     "location": {
