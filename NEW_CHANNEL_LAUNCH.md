@@ -1,6 +1,7 @@
 # New rain channel: ready-for-authorization setup
 
-Prepared 29 October 2026 for Calming Rain Sounds, @calming_rain_soundss,
+Prepared 29 October 2026; authentication updated 30 October 2026.
+For Calming Rain Sounds, @calming_rain_soundss,
 channel UCaMtUdYVy9bIW1xYsWJHjXg. This guide supersedes the earlier generated-only
 proposal in NEW_CHANNEL_MIGRATION.md; that file retains the investigation history.
 
@@ -81,3 +82,17 @@ eligibility during activation. No new-channel video has been uploaded yet.
 
 YouTube manager limitation:
 https://support.google.com/youtube/answer/9481328?hl=en
+
+
+## Authentication completed - 30 October 2026
+
+The retry verified the exact new channel UCaMtUdYVy9bIW1xYsWJHjXg through the
+YouTube API. All three YT_* secrets were then encrypted and updated together in
+GitHub Actions. Credential values were not printed or committed. This resolves
+the owner-authorization blocker described above. A separate read-only channel
+check succeeded immediately before installing the secrets.
+
+Daily Rain Video remains disabled_manually. No workflow was dispatched, no video
+was uploaded and pull request #17 remains unmerged. Remaining activation steps
+are explicit merge approval, post-merge verification/hosted preview, and enabling
+the configured new-channel publishing workflow.
