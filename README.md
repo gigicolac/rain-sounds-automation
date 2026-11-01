@@ -1,5 +1,10 @@
 # Rain Sounds YouTube Automation
 
+See [UPLOAD_RELEASE_BUFFER.md](UPLOAD_RELEASE_BUFFER.md) for the proposed
+release-anchored upload jobs and mandatory 24-hour private buffer. Public release
+times stay Monday/Wednesday noon and Friday 11am New York. This supersedes the
+historical 11am Sydney build and 60-minute lead descriptions below after merge.
+
 The generated-only new-channel migration and three-times-weekly schedule are
 documented in [NEW_CHANNEL_MIGRATION.md](NEW_CHANNEL_MIGRATION.md). This branch
 keeps publishing gated while fresh assets and both channel inventories are reviewed.

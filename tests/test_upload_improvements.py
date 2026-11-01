@@ -74,6 +74,7 @@ class UploadFlowTests(unittest.TestCase):
         defaults = dict(get_credentials=Mock(), build=Mock(), verify_target_channel=Mock(),
                         upload_video=Mock(return_value={'id': 'vid'}), set_thumbnail=Mock(),
                         scheduled_release=Mock(return_value='2026-10-27T13:00:00.000Z'),
+                        schedule_publication=Mock(return_value={'privacyStatus': 'private'}),
                         wait_for_processing=Mock(return_value={'privacyStatus': 'private'}))
         defaults.update(patches)
         targets = [patch.object(upload, name, value) for name, value in defaults.items()]
@@ -124,6 +125,24 @@ class UploadFlowTests(unittest.TestCase):
         for step in ('2026-10-27T13:00:00.000Z', 'Pin the channel comment', 'End screen', 'never aired on television',
                      'Shorts remixing', 'playlist'):
             self.assertIn(step, summary)
+
+    def test_transfer_is_recorded_before_processing_and_scheduling(self):
+        calls = []
+        def processed(*args):
+            saved = Ledger().find_video('vid')[1]
+            self.assertIn('upload_completed_at', saved)
+            self.assertEqual(saved['state'], 'uploaded')
+            calls.append('processed')
+            return {'privacyStatus': 'private'}
+        def scheduled(youtube, video_id, entry, ledger, status):
+            self.assertEqual(calls, ['processed'])
+            calls.append('scheduled')
+            return status
+        mocks = self.run_upload(self.run_dir, wait_for_processing=Mock(side_effect=processed),
+                               schedule_publication=Mock(side_effect=scheduled))
+        self.assertEqual(calls, ['processed', 'scheduled'])
+        self.assertEqual(len(mocks['upload_video'].call_args.args), 2)
+        mocks['get_credentials'].assert_called_once_with(upload.COMMENT_SCOPES)
 
 
 class BrandVoiceTests(unittest.TestCase):
