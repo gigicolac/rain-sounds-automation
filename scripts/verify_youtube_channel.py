@@ -13,11 +13,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from googleapiclient.discovery import build  # noqa: E402
 
-from upload_youtube import get_credentials, verify_target_channel  # noqa: E402
+from upload_youtube import COMMENT_SCOPES, PRIVACY_STATUS, SCOPES, get_credentials, verify_target_channel  # noqa: E402
 
 
 def main():
-    creds = get_credentials()
+    creds = get_credentials(COMMENT_SCOPES if PRIVACY_STATUS == 'public' else SCOPES)
     youtube = build("youtube", "v3", credentials=creds)
     verify_target_channel(youtube)
     inspect_id = os.environ.get("INSPECT_VIDEO_ID", "").strip()

@@ -11,6 +11,7 @@ import json
 import os
 import sys
 import time
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from upload_history import Ledger
@@ -34,7 +35,8 @@ SCOPES = [
     "https://www.googleapis.com/auth/youtube.readonly",
 ]
 # Posting the standard comment (post_pinned_comment.py) needs youtube.force-ssl.
-# Uploads keep requesting only SCOPES, so a token without it still uploads.
+# Scheduled public releases also need force-ssl for the post-upload status update.
+# Private/unlisted tests continue to request only SCOPES.
 COMMENT_SCOPES = SCOPES + ["https://www.googleapis.com/auth/youtube.force-ssl"]
 SETTINGS_PATH = ROOT / "data" / "upload_settings.json"
 # A three-hour upload can take well over 15 minutes to process.
@@ -153,11 +155,19 @@ def verify_target_channel(youtube):
 
 
 def scheduled_release():
-    """Public uploads are released at the configured weekday time unless
-    PUBLISH_TIMING=now; explicit private/unlisted uploads are never scheduled."""
-    if PRIVACY_STATUS != "public" or (os.environ.get("PUBLISH_TIMING") or "schedule").strip().lower() == "now":
+    """Provisional public slot with a mandatory 24-hour lead; tests stay unscheduled."""
+    if PRIVACY_STATUS != "public":
         return None
+    if (os.environ.get("PUBLISH_TIMING") or "schedule").strip().lower() != "schedule":
+        raise RuntimeError('Immediate public release is disabled: uploads require a 24-hour buffer')
     return api_timestamp(next_publish_at())
+
+
+def upload_status(preset=None):
+    preset = preset if preset is not None else json.loads(SETTINGS_PATH.read_text(encoding='utf-8'))
+    return {**preset.get('status', {}),
+            'privacyStatus': 'private' if PRIVACY_STATUS == 'public' else PRIVACY_STATUS,
+            'selfDeclaredMadeForKids': False}
 
 
 def upload_body(assets, publish_at=None):
@@ -171,11 +181,7 @@ def upload_body(assets, publish_at=None):
             "categoryId": assets.get("category_id", "10"),
         },
         # Presets cannot override visibility, scheduling or audience.
-        "status": {
-            **preset.get("status", {}),
-            "privacyStatus": PRIVACY_STATUS,
-            "selfDeclaredMadeForKids": False,
-        },
+        "status": upload_status(preset),
     }
     if preset.get("recordingDetails"):
         body["recordingDetails"] = dict(preset["recordingDetails"])
@@ -190,7 +196,8 @@ def upload_body(assets, publish_at=None):
 
 
 def upload_video(youtube, assets, publish_at=None):
-    body = upload_body(assets, publish_at)
+    # A provisional ledger slot must never schedule an upload still in flight.
+    body = upload_body(assets)
     media = MediaFileUpload(str(VIDEO_PATH), chunksize=CHUNK_SIZE, resumable=True, mimetype="video/mp4")
     request = youtube.videos().insert(part=",".join(body), body=body, media_body=media)
 
@@ -279,14 +286,56 @@ def save_result(entry):
     temp.replace(RESULT_PATH)
 
 
+def schedule_publication(youtube, video_id, entry, ledger, status, now=None):
+    """Schedule only after transfer/processing; reconcile an interrupted update."""
+    if entry.get('requested_privacy') != 'public' and not entry.get('publish_at'):
+        return status
+    completed = entry.get('upload_completed_at')
+    if not completed:
+        raise RuntimeError('Missing upload completion time; keep this video private and reconcile history')
+    uploaded_at = datetime.fromisoformat(completed.replace('Z', '+00:00'))
+    now = now or datetime.now(timezone.utc)
+    earliest = uploaded_at + timedelta(hours=24)
+    actual = status.get('publishAt')
+    planned = entry.get('publish_at')
+    if actual:
+        actual_time = datetime.fromisoformat(actual.replace('Z', '+00:00'))
+        planned_time = datetime.fromisoformat(planned.replace('Z', '+00:00')) if planned else None
+        if actual_time < earliest or actual_time != planned_time:
+            raise RuntimeError('Existing release does not match the recorded 24-hour schedule; reconcile before resuming')
+        entry['publication_scheduled_at'] = entry.get('publication_scheduled_at') or api_timestamp(now)
+        return status
+    if status.get('privacyStatus') != 'private':
+        if status.get('privacyStatus') == 'public' and entry.get('publication_scheduled_at'):
+            return status  # Already released through the previously confirmed schedule.
+        raise RuntimeError('Only private videos can receive a release schedule')
+    occupied = [datetime.fromisoformat(e['publish_at'].replace('Z', '+00:00'))
+                for e in ledger.entries.values()
+                if e is not entry and e.get('publish_at') and e.get('channel_id') == entry.get('channel_id')]
+    release = next_publish_at(now=max(now, uploaded_at), excluded=occupied)
+    entry['publish_at'] = api_timestamp(release)
+    save_result(entry)
+    ledger.save()  # Persist intent before updating YouTube for crash-safe recovery.
+    writable = ('license', 'embeddable', 'publicStatsViewable', 'selfDeclaredMadeForKids', 'containsSyntheticMedia')
+    # Resume must preserve the settings used for this upload, even if presets changed.
+    settings = entry.get('upload_status', {})
+    updated = {k: status.get(k, settings.get(k)) for k in writable if k in status or k in settings}
+    updated.update(privacyStatus='private', publishAt=entry['publish_at'])
+    response = youtube.videos().update(part='status', body={'id': video_id, 'status': updated}).execute()
+    confirmed = response.get('status', {})
+    confirmed_time = datetime.fromisoformat(confirmed.get('publishAt', '').replace('Z', '+00:00'))
+    if confirmed.get('privacyStatus') != 'private' or confirmed_time != release:
+        raise RuntimeError('YouTube did not confirm the private release schedule; resume the same video')
+    entry['publication_scheduled_at'] = api_timestamp(now)
+    return confirmed
+
+
 def main():
     assets = json.loads(ASSETS_PATH.read_text(encoding="utf-8"))
     from content_policy import enabled, profile
     if enabled(ROOT) and os.environ.get('EXPECTED_YOUTUBE_CHANNEL_ID', '').strip() != profile(ROOT)['youtube_channel_id']:
         raise RuntimeError('Expected channel must match the configured new channel before uploading or resuming')
     ledger = Ledger()
-    youtube = build("youtube", "v3", credentials=get_credentials())
-    verify_target_channel(youtube)
     resume = os.environ.get("RESUME_VIDEO_ID", "").strip()
     if resume:
         key, entry = ledger.find_video(resume)
@@ -295,7 +344,12 @@ def main():
         if entry["assets"] != assets:
             raise RuntimeError("Resume assets differ from the original upload")
         video_id = resume
-    else:
+    needs_schedule = ((entry.get('requested_privacy') == 'public' or bool(entry.get('publish_at')))
+                      if resume else PRIVACY_STATUS == 'public')
+    # videos.update needs force-ssl; this grant is already installed for comments.
+    youtube = build("youtube", "v3", credentials=get_credentials(COMMENT_SCOPES if needs_schedule else SCOPES))
+    verify_target_channel(youtube)
+    if not resume:
         if not VIDEO_PATH.exists():
             raise RuntimeError("Build the video before uploading")
         from channel_profile import publication_ready
@@ -308,10 +362,12 @@ def main():
         key = ledger.reserve(assets, publish_at)
         entry = ledger.entries[key]
         if publish_at:
-            print(f"Scheduling public release for {publish_at}")
-        response = upload_video(youtube, assets, publish_at)
+            print(f"Provisional release slot {publish_at}; upload remains private until processing succeeds")
+        response = upload_video(youtube, assets)
         video_id = response["id"]
-        entry.update(video_id=video_id, url=f"https://www.youtube.com/watch?v={video_id}", state="uploaded")
+        entry.update(video_id=video_id, url=f"https://www.youtube.com/watch?v={video_id}", state="uploaded",
+                     upload_completed_at=api_timestamp(datetime.now(timezone.utc)),
+                     upload_status=upload_status())
         # Local recovery evidence first; remote persistence before any optional work.
         save_result(entry)
         ledger.save()
@@ -323,6 +379,7 @@ def main():
             save_result(entry)
             ledger.save()
         status = wait_for_processing(youtube, video_id)
+        status = schedule_publication(youtube, video_id, entry, ledger, status)
         entry.update(state="complete", actual_privacy=status.get("privacyStatus"))
         entry.pop("last_error", None)
         save_result(entry)

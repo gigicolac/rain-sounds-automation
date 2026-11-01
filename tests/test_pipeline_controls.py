@@ -127,7 +127,7 @@ class ProcessingTests(unittest.TestCase):
 class UploadRecoveryTests(unittest.TestCase):
     def test_thumbnail_failure_then_resume_never_reinserts(self):
         import upload_youtube as upload
-        with tempfile.TemporaryDirectory() as temp, patch.dict(os.environ, {'ALLOW_UNREVIEWED':'true'}, clear=True):
+        with tempfile.TemporaryDirectory() as temp, patch.dict(os.environ, {'ALLOW_UNREVIEWED':'true', 'UPLOAD_PRIVACY_STATUS':'unlisted'}, clear=True), patch.object(upload, 'PRIVACY_STATUS', 'unlisted'):
             root=Path(temp); run=root/'run'; run.mkdir()
             assets={'date':'2026-09-19','video':{'pexels_id':1},'audio':{'freesound_id':2},'review_approved':True}
             (run/'assets.json').write_text(json.dumps(assets))

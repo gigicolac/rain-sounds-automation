@@ -1,8 +1,8 @@
 """Choose the YouTube scheduled release time from data/publish_schedule.json.
 
-The daily run still starts at 11am Sydney; public uploads are sent as private
-with status.publishAt, and YouTube makes them public at the next configured
-weekday time that is at least minimum_lead_minutes away.
+Build jobs are anchored 28 hours before the fixed Eastern release slots.
+Uploads stay private until processing succeeds, then receive a publishAt
+at least 24 hours ahead. Delayed jobs skip slots that are too close or occupied.
 """
 from datetime import datetime, time, timedelta, timezone
 import json
@@ -28,19 +28,20 @@ def load_schedule(path=SCHEDULE_PATH):
     return schedule
 
 
-def next_publish_at(now=None, schedule=None):
+def next_publish_at(now=None, schedule=None, excluded=()):
     """Next configured release time (UTC) at least the minimum lead ahead of now."""
     schedule = schedule or load_schedule()
     zone = ZoneInfo(schedule["timezone"])
     now = now or datetime.now(timezone.utc)
-    earliest = now + timedelta(minutes=schedule.get("minimum_lead_minutes", 60))
+    earliest = now + timedelta(minutes=max(1440, schedule.get("minimum_lead_minutes", 1440)))
+    excluded = set(excluded)
     local_today = now.astimezone(zone).date()
     for offset in range(8):
         day = local_today + timedelta(days=offset)
         if DAYS[day.weekday()] not in schedule.get('days', DAYS):
             continue
         slot = datetime.combine(day, time.fromisoformat(schedule["times"][DAYS[day.weekday()]]), zone)
-        if slot >= earliest:
+        if slot >= earliest and slot.astimezone(timezone.utc) not in excluded:
             return slot.astimezone(timezone.utc)
     raise RuntimeError("No release time found in the next week")
 

@@ -1,7 +1,7 @@
 {
   "timezone": "America/New_York",
-  "minimum_lead_minutes": 60,
-  "note": "Three public release days per week, preserving the existing US Eastern times for those days.",
+  "minimum_lead_minutes": 1440,
+  "note": "Keep existing US Eastern release times. Upload privately first; assign a public release only after transfer and processing, at least 24 hours ahead. Build jobs start 28 hours before the intended release.",
   "times": {
     "monday": "12:00",
     "tuesday": "13:00",
