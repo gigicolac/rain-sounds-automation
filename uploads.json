@@ -4034,7 +4034,7 @@
     "actual_privacy": "private"
   },
   "85622c48e431da7df1fb67d658bcbde389b53ab76af259887d2513c3cd44dc0f": {
-    "state": "uploaded",
+    "state": "complete",
     "assets": {
       "date": "2026-11-01",
       "day_number": 739921,
@@ -4286,6 +4286,8 @@
       "privacyStatus": "private",
       "selfDeclaredMadeForKids": false
     },
-    "thumbnail": "set"
+    "thumbnail": "set",
+    "publication_scheduled_at": "2026-11-01T18:43:11.000Z",
+    "actual_privacy": "private"
   }
 }
