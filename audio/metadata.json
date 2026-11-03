@@ -3168,5 +3168,182 @@
       }
     },
     "target_lufs": -22.02
+  },
+  {
+    "id": "custom-audio:forest-launch-2026110201-01",
+    "asset_id": "custom-audio:forest-launch-2026110201-01",
+    "filename": "custom/forest-launch-2026110201-01.flac",
+    "title": "Launch forest 01 - Ranger shelter variation",
+    "duration": 90,
+    "source_url": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+    "generator_sha256": "7dbe91e7a87cb4f99ef2216a50e9420f1af6ed526724b245f750f2c5f9a09119",
+    "license": "Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)",
+    "components": [
+      {
+        "kind": "procedural",
+        "seed": 2026110201,
+        "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+        "profile": {
+          "rate": 59,
+          "target": -22,
+          "bed_db": -9.12,
+          "lowpass": 8604,
+          "name": "forest-launch-2026110201-01",
+          "source": "651189",
+          "intensity": "heavy",
+          "curve": [
+            0.54,
+            0.742,
+            0.521,
+            1,
+            0.767
+          ],
+          "highpass": 500
+        },
+        "event_count": 3868
+      },
+      {
+        "kind": "licensed_recording",
+        "id": "651189",
+        "source_url": "https://freesound.org/s/651189/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+        "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+      }
+    ],
+    "sha256": "db7aa39b41604a155cf731849bdf29193b0b30c2b10954c10aa93e1d8b545860",
+    "review": {
+      "approved": true,
+      "status": "approved",
+      "approval_method": "user_authorized_automatic",
+      "approval_authorization": "User explicitly authorized automatic approval and reuse of source 651189 on 29 October 2026",
+      "reviewed_at": "2026-11-03T00:35:58.136744+00:00",
+      "notes": "Automatically approved at user direction after technical checks; no new listening assessment asserted.",
+      "labels": {},
+      "quality": {
+        "full_playback": false,
+        "loop_checked": false,
+        "technical_checked": true
+      }
+    },
+    "target_lufs": -22.02
+  },
+  {
+    "id": "custom-audio:forest-launch-2026110201-02",
+    "asset_id": "custom-audio:forest-launch-2026110201-02",
+    "filename": "custom/forest-launch-2026110201-02.flac",
+    "title": "Launch forest 02 - Ranger shelter variation",
+    "duration": 90,
+    "source_url": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+    "generator_sha256": "7dbe91e7a87cb4f99ef2216a50e9420f1af6ed526724b245f750f2c5f9a09119",
+    "license": "Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)",
+    "components": [
+      {
+        "kind": "procedural",
+        "seed": 2026110202,
+        "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+        "profile": {
+          "rate": 65,
+          "target": -22,
+          "bed_db": -9.06,
+          "lowpass": 8492,
+          "name": "forest-launch-2026110201-02",
+          "source": "651189",
+          "intensity": "heavy",
+          "curve": [
+            0.537,
+            0.701,
+            0.501,
+            0.986,
+            0.775
+          ],
+          "highpass": 500
+        },
+        "event_count": 4166
+      },
+      {
+        "kind": "licensed_recording",
+        "id": "651189",
+        "source_url": "https://freesound.org/s/651189/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+        "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+      }
+    ],
+    "sha256": "74ee383dc081ae6903a549fffc2e1e3c37cb4b820daaac4b277be71fbe424d52",
+    "review": {
+      "approved": true,
+      "status": "approved",
+      "approval_method": "user_authorized_automatic",
+      "approval_authorization": "User explicitly authorized automatic approval and reuse of source 651189 on 29 October 2026",
+      "reviewed_at": "2026-11-03T00:35:58.136744+00:00",
+      "notes": "Automatically approved at user direction after technical checks; no new listening assessment asserted.",
+      "labels": {},
+      "quality": {
+        "full_playback": false,
+        "loop_checked": false,
+        "technical_checked": true
+      }
+    },
+    "target_lufs": -22.02
+  },
+  {
+    "id": "custom-audio:forest-launch-2026110201-03",
+    "asset_id": "custom-audio:forest-launch-2026110201-03",
+    "filename": "custom/forest-launch-2026110201-03.flac",
+    "title": "Launch forest 03 - Woodland night variation",
+    "duration": 90,
+    "source_url": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+    "generator_sha256": "7dbe91e7a87cb4f99ef2216a50e9420f1af6ed526724b245f750f2c5f9a09119",
+    "license": "Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)",
+    "components": [
+      {
+        "kind": "procedural",
+        "seed": 2026110203,
+        "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+        "profile": {
+          "rate": 53,
+          "target": -22,
+          "bed_db": -8.87,
+          "lowpass": 8446,
+          "name": "forest-launch-2026110201-03",
+          "source": "651189",
+          "intensity": "heavy",
+          "curve": [
+            0.703,
+            0.827,
+            0.759,
+            0.972,
+            0.853
+          ],
+          "highpass": 500
+        },
+        "event_count": 3987
+      },
+      {
+        "kind": "licensed_recording",
+        "id": "651189",
+        "source_url": "https://freesound.org/s/651189/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+        "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+      }
+    ],
+    "sha256": "3354e0a7e331d76cb82ca0d528fd2d4dde3dc6b88d1ecc0b3f4d2024a30db88a",
+    "review": {
+      "approved": true,
+      "status": "approved",
+      "approval_method": "user_authorized_automatic",
+      "approval_authorization": "User explicitly authorized automatic approval and reuse of source 651189 on 29 October 2026",
+      "reviewed_at": "2026-11-03T00:35:58.136744+00:00",
+      "notes": "Automatically approved at user direction after technical checks; no new listening assessment asserted.",
+      "labels": {},
+      "quality": {
+        "full_playback": false,
+        "loop_checked": false,
+        "technical_checked": true
+      }
+    },
+    "target_lufs": -22.01
   }
 ]
