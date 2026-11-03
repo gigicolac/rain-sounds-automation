@@ -4274,7 +4274,6 @@
     },
     "requested_privacy": "public",
     "run_id": "41335287478",
-    "publish_at": "2026-11-04T17:00:00.000Z",
     "video_id": "aKAciGfJJ8A",
     "url": "https://www.youtube.com/watch?v=aKAciGfJJ8A",
     "upload_completed_at": "2026-11-01T18:35:01.000Z",
@@ -4288,6 +4287,8 @@
     },
     "thumbnail": "set",
     "publication_scheduled_at": "2026-11-01T18:43:11.000Z",
-    "actual_privacy": "private"
+    "actual_privacy": "public",
+    "original_publish_at": "2026-11-04T17:00:00.000Z",
+    "manual_publication_note": "User published manually before scheduled release; YouTube Studio verified Public on 2026-11-03 Australia/Sydney. Original schedule preserved; no new upload or reservation removed."
   }
 }
