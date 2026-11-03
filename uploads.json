@@ -4543,6 +4543,7 @@
       "containsSyntheticMedia": true,
       "privacyStatus": "private",
       "selfDeclaredMadeForKids": false
-    }
+    },
+    "thumbnail": "set"
   }
 }
