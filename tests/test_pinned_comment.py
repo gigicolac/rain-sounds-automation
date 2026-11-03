@@ -101,9 +101,10 @@ class CommentTests(unittest.TestCase):
         youtube.commentThreads.return_value.insert.assert_not_called()
         self.assertEqual(ledger.entries['a']['comment_id'], 'manual')
 
-    def test_workflow_polls_for_manual_release(self):
+    def test_workflow_uses_release_slots_and_daily_catchup_without_polling(self):
         workflow = (ROOT / '.github/workflows/pinned-comment.yml').read_text()
-        self.assertIn('cron: "*/15 * * * *"', workflow)
+        self.assertNotIn('cron: "*/15 * * * *"', workflow)
+        self.assertIn('cron: "45 17 * * *"', workflow)
 
     def test_comment_text_links_to_channel(self):
         text = (ROOT / 'data/pinned_comment.txt').read_text(encoding='utf-8')

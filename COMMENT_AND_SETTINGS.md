@@ -41,8 +41,9 @@ pinning remains one tap:
 
 1. **Post Pinned Comment** runs 15 minutes after each weekday release time in
    `data/publish_schedule.json` (US Eastern), plus a daily catch-up at
-   5:45pm ET. It also polls every 15 minutes for early/manual publication;
-   GitHub scheduling delays mean this is not an exact publication-time guarantee.
+   5:45pm ET. There is no continuous polling. Early/manual publication is picked
+   up by the next release-slot check or daily catch-up; GitHub scheduling delays
+   mean this is not an exact publication-time guarantee.
 2. For each new-channel scheduled upload that is now public and has no recorded
    comment, it posts that upload's selected question, falling back to
    `data/pinned_comment.txt`, as the channel. It records
@@ -99,3 +100,7 @@ reviewed/merged before scheduled uploads receive it. Recent comment workflow run
 are successful, but an empty successful run is not proof of a newly posted comment.
 Automatic pinning is unavailable through the public YouTube Data API; pin in Studio
 or the watch page after the comment job. No unattended browser pinning is installed.
+
+The user approved merging this request on 3 November 2026 after removing
+15-minute polling. Existing release-slot checks and daily catch-up are retained.
+Validation: 30 targeted comment/settings and upload tests pass.
