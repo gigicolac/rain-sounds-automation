@@ -19,18 +19,30 @@ class ScheduleTests(unittest.TestCase):
 
     def test_release_slots_keep_at_least_24_hours(self):
         self.assertEqual(next_publish_at(utc(2026, 10, 24, 0, 0)), utc(2026, 10, 26, 16, 0))
-        # A Friday upload cannot be released later the same day.
-        self.assertEqual(next_publish_at(utc(2026, 10, 23, 0, 0)), utc(2026, 10, 26, 16, 0))
+        # A short Friday lead delays release until Saturday, without skipping to Monday.
+        self.assertEqual(next_publish_at(utc(2026, 10, 23, 0, 0)), utc(2026, 10, 24, 0, 0))
         self.assertEqual(next_publish_at(utc(2026, 10, 22, 0, 0)), utc(2026, 10, 23, 15, 0))
 
-    def test_too_close_slot_moves_to_next_day(self):
+    def test_too_close_slot_delays_only_by_missing_buffer(self):
         # Friday 11am is less than 24 hours from Thursday noon Eastern.
-        self.assertEqual(next_publish_at(utc(2026, 10, 22, 16, 0)), utc(2026, 10, 26, 16, 0))
+        self.assertEqual(next_publish_at(utc(2026, 10, 22, 16, 0)), utc(2026, 10, 23, 16, 0))
 
     def test_exact_boundary_and_occupied_slot(self):
         self.assertEqual(next_publish_at(utc(2026, 11, 1, 17)), utc(2026, 11, 2, 17))
-        self.assertEqual(next_publish_at(utc(2026, 11, 1, 17, 0, 1)), utc(2026, 11, 4, 17))
+        self.assertEqual(next_publish_at(utc(2026, 11, 1, 17, 0, 1)), utc(2026, 11, 2, 17, 0, 1))
         self.assertEqual(next_publish_at(utc(2026, 11, 1, 13), excluded=[utc(2026, 11, 2, 17)]), utc(2026, 11, 4, 17))
+
+    def test_late_processing_keeps_intended_slot_and_transfer_cooldown(self):
+        self.assertEqual(next_publish_at(utc(2026, 11, 2, 18),
+                         intended=utc(2026, 11, 2, 17), uploaded_at=utc(2026, 11, 1, 19)),
+                         utc(2026, 11, 2, 19))
+        self.assertEqual(next_publish_at(utc(2026, 11, 3, 20),
+                         intended=utc(2026, 11, 2, 17), uploaded_at=utc(2026, 11, 1, 19)),
+                         utc(2026, 11, 3, 20, 1))
+
+    def test_delayed_release_still_reserves_its_release_day(self):
+        self.assertEqual(next_publish_at(utc(2026, 11, 1, 18),
+                         excluded=[utc(2026, 11, 2, 19)]), utc(2026, 11, 4, 17))
 
     def test_workflow_starts_28_hours_before_release_in_both_dst_seasons(self):
         from zoneinfo import ZoneInfo
@@ -56,7 +68,7 @@ class ScheduleTests(unittest.TestCase):
 class UploadSchedulingTests(unittest.TestCase):
     def test_only_public_scheduled_runs_get_release_time(self):
         with patch.object(upload_youtube, 'PRIVACY_STATUS', 'public'), patch.dict(os.environ, {'PUBLISH_TIMING': ''}):
-            self.assertRegex(upload_youtube.scheduled_release(), r'^\d{4}-\d\d-\d\dT\d\d:00:00\.000Z$')
+            self.assertRegex(upload_youtube.scheduled_release(), r'^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.000Z$')
         with patch.object(upload_youtube, 'PRIVACY_STATUS', 'public'), patch.dict(os.environ, {'PUBLISH_TIMING': 'now'}):
             with self.assertRaisesRegex(RuntimeError, '24-hour buffer'):
                 upload_youtube.scheduled_release()
@@ -102,10 +114,10 @@ class UploadSchedulingTests(unittest.TestCase):
         ledger = Mock(entries={'test': entry})
         youtube = Mock()
         youtube.videos.return_value.update.return_value.execute.return_value = {
-            'status': {'privacyStatus': 'private', 'publishAt': '2026-11-04T17:00:00Z'}}
+            'status': {'privacyStatus': 'private', 'publishAt': '2026-11-02T17:00:00Z'}}
         with patch.object(upload_youtube, 'save_result'):
             upload_youtube.schedule_publication(youtube, 'test', entry, ledger, {'privacyStatus': 'private'}, utc(2026, 11, 1, 18))
-        self.assertEqual(entry['publish_at'], '2026-11-04T17:00:00.000Z')
+        self.assertEqual(entry['publish_at'], '2026-11-02T17:00:00.000Z')
 
     def test_resume_reconciles_schedule_without_moving_it_or_updating_youtube(self):
         entry = {'requested_privacy': 'public', 'upload_completed_at': '2026-11-01T13:30:00Z',

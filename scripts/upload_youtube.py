@@ -312,7 +312,8 @@ def schedule_publication(youtube, video_id, entry, ledger, status, now=None):
     occupied = [datetime.fromisoformat(e['publish_at'].replace('Z', '+00:00'))
                 for e in ledger.entries.values()
                 if e is not entry and e.get('publish_at') and e.get('channel_id') == entry.get('channel_id')]
-    release = next_publish_at(now=max(now, uploaded_at), excluded=occupied)
+    intended = datetime.fromisoformat(planned.replace('Z', '+00:00')) if planned else None
+    release = next_publish_at(now=now, excluded=occupied, intended=intended, uploaded_at=uploaded_at)
     entry['publish_at'] = api_timestamp(release)
     save_result(entry)
     ledger.save()  # Persist intent before updating YouTube for crash-safe recovery.
