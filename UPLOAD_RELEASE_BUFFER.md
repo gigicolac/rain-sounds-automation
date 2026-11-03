@@ -19,10 +19,11 @@ conversions change when either region changes its clocks. Actions can start late
 
 Every intended public upload is transferred as **Private without publishAt**.
 The response time is recorded as upload_completed_at before thumbnail or
-processing work. Once processing succeeds, the pipeline selects the next free
-configured release slot at least 24 hours from the scheduling check. That is at
-least 24 hours after transfer, even if transfer or processing was delayed.
-Occupied same-channel release slots are skipped. The chosen slot is saved in
+processing work. Once processing succeeds, the pipeline retains the intended
+release and delays it only until 24 hours after transfer if necessary. Processing
+does not restart the cooldown. If that time has passed, scheduling uses a
+one-minute future margin. Occupied same-channel release days are skipped; a
+delayed release still reserves its release day. The chosen slot is saved in
 history before YouTube is updated, and confirmation is required before the run
 is marked complete. Status updates preserve writable audience, disclosure,
 licence, embedding and statistics settings.
@@ -42,9 +43,14 @@ needed. Authentication verification checks this scope before rendering.
 
 The 28-hour job lead allows four hours for the normal build/upload/processing
 path. A job delayed beyond that allowance can miss its intended slot, in which
-case it moves to a later free release slot; the 24-hour minimum wins. This buffer
+case it delays that release by the missing buffer instead of skipping to the
+next release day. The recorded provisional release is retained during resume. This buffer
 does not certify copyright clearance or prevent later claims. Studio review of
 copyright notices remains separate from processing success.
 
 API status update and permission reference:
 https://developers.google.com/youtube/v3/docs/videos/update
+
+3 November change: implemented on codex/cooldown-delay, pending review and merge.
+Existing videos are not rescheduled. The user manually published aKAciGfJJ8A;
+Studio showed Public, with standard and high definition processing complete.

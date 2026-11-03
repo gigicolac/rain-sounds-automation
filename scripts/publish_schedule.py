@@ -2,7 +2,8 @@
 
 Build jobs are anchored 28 hours before the fixed Eastern release slots.
 Uploads stay private until processing succeeds, then receive a publishAt
-at least 24 hours ahead. Delayed jobs skip slots that are too close or occupied.
+at least 24 hours after transfer. A short lead delays the intended release instead of
+skipping it. Occupied release days remain reserved for their existing video.
 """
 from datetime import datetime, time, timedelta, timezone
 import json
@@ -28,21 +29,29 @@ def load_schedule(path=SCHEDULE_PATH):
     return schedule
 
 
-def next_publish_at(now=None, schedule=None, excluded=()):
-    """Next configured release time (UTC) at least the minimum lead ahead of now."""
+def next_publish_at(now=None, schedule=None, excluded=(), intended=None, uploaded_at=None):
+    """Keep the next intended slot, delaying only enough to meet the lead time."""
     schedule = schedule or load_schedule()
     zone = ZoneInfo(schedule["timezone"])
     now = now or datetime.now(timezone.utc)
-    earliest = now + timedelta(minutes=max(1440, schedule.get("minimum_lead_minutes", 1440)))
+    earliest = (uploaded_at or now) + timedelta(minutes=max(1440, schedule.get("minimum_lead_minutes", 1440)))
+    if uploaded_at is not None:
+        earliest = max(earliest, now + timedelta(minutes=1))
     excluded = set(excluded)
-    local_today = now.astimezone(zone).date()
+    local_today = (intended or now).astimezone(zone).date()
+    occupied_days = {moment.astimezone(zone).date() for moment in excluded}
     for offset in range(8):
         day = local_today + timedelta(days=offset)
         if DAYS[day.weekday()] not in schedule.get('days', DAYS):
             continue
         slot = datetime.combine(day, time.fromisoformat(schedule["times"][DAYS[day.weekday()]]), zone)
-        if slot >= earliest and slot.astimezone(timezone.utc) not in excluded:
-            return slot.astimezone(timezone.utc)
+        slot = slot.astimezone(timezone.utc)
+        if day in occupied_days or (intended is None and slot < now):
+            continue
+        release = max(slot, earliest)
+        if release.astimezone(zone).date() in occupied_days:
+            continue
+        return release
     raise RuntimeError("No release time found in the next week")
 
 
