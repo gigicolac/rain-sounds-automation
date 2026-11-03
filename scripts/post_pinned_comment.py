@@ -25,21 +25,30 @@ def parse_time(value):
 
 
 def due(entries, now):
-    """Completed scheduled uploads whose release time has passed and have no comment yet."""
+    """Completed scheduled uploads without a recorded comment; live visibility decides readiness."""
     return [(key, e) for key, e in entries.items()
             if e.get("state") == "complete" and e.get("video_id") and e.get("publish_at")
-            and not e.get("comment_id") and parse_time(e["publish_at"]) <= now]
+            and not e.get("comment_id")]
 
 
 def existing_comment(youtube, video_id, channel_id, text):
     """Recover a comment posted by an earlier run that stopped before recording it."""
-    page = youtube.commentThreads().list(part="snippet", videoId=video_id, maxResults=100).execute()
-    for thread in page.get("items", []):
-        top = thread["snippet"]["topLevelComment"]
-        snippet = top["snippet"]
-        if snippet.get("authorChannelId", {}).get("value") == channel_id and snippet.get("textOriginal", "").strip() == text:
-            return top["id"]
-    return None
+    token = None
+    texts = {text} if isinstance(text, str) else set(text)
+    while True:
+        params = dict(part="snippet", videoId=video_id, maxResults=100)
+        if token:
+            params["pageToken"] = token
+        page = youtube.commentThreads().list(**params).execute()
+        for thread in page.get("items", []):
+            top = thread["snippet"]["topLevelComment"]
+            snippet = top["snippet"]
+            if (snippet.get("authorChannelId", {}).get("value") == channel_id
+                    and snippet.get("textOriginal", "").strip() in texts):
+                return top["id"]
+        token = page.get("nextPageToken")
+        if not token:
+            return None
 
 
 def comment_text(entry, default):
@@ -60,9 +69,7 @@ def post_due_comments(youtube, ledger, default_text, channel_id, now):
                 print(f"{video_id} is not public yet; the next run will retry.")
                 continue
             entry["actual_privacy"] = "public"
-            comment_id = None
-            if entry.get("comment_state") == "posting":
-                comment_id = existing_comment(youtube, video_id, channel_id, text)
+            comment_id = existing_comment(youtube, video_id, channel_id, {text, default_text})
             if not comment_id:
                 entry["comment_state"] = "posting"
                 ledger.save()  # Recorded before posting so a crash cannot cause a duplicate.

@@ -61,10 +61,10 @@ class CleanRainTests(unittest.TestCase):
 
 
 class UploadBodyTests(unittest.TestCase):
-    def test_ai_disclosure_and_no_paid_promotion_on_every_upload(self):
+    def test_current_illustrated_rain_disclosure_no_and_no_paid_promotion(self):
         assets = {'title': 'Rain', 'description': 'Rain', 'tags': [], 'date': '2026-10-26'}
         body = upload.upload_body(assets)
-        self.assertIs(body['status']['containsSyntheticMedia'], True)
+        self.assertIs(body['status']['containsSyntheticMedia'], False)
         self.assertIs(body['paidProductPlacementDetails']['hasPaidProductPlacement'], False)
         self.assertEqual(body['snippet']['categoryId'], '10')
 

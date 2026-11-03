@@ -38,10 +38,10 @@ class CommentTests(unittest.TestCase):
         for p in (patch.dict(os.environ, {}, clear=True), patch('upload_history.ROOT', Path(temp.name))):
             p.start(); self.addCleanup(p.stop)
 
-    def test_due_skips_unreleased_commented_and_unscheduled(self):
+    def test_candidates_include_early_manual_releases_but_skip_commented_and_unscheduled(self):
         entries = {'a': entry(), 'b': entry(comment_id='x'), 'c': entry(publish_at='2026-10-25T13:00:00.000Z'),
                    'd': {k: v for k, v in entry().items() if k != 'publish_at'}, 'e': entry(state='uploaded')}
-        self.assertEqual([k for k, _ in due(entries, NOW)], ['a'])
+        self.assertEqual([k for k, _ in due(entries, NOW)], ['a', 'c'])
 
     def test_posts_once_and_records_link(self):
         ledger = Ledger(); ledger.entries = {'a': entry()}
@@ -85,6 +85,26 @@ class CommentTests(unittest.TestCase):
         links, _ = post_due_comments(youtube, ledger, 'Hi', 'UC1', NOW)
         self.assertEqual(links, ['https://www.youtube.com/watch?v=vid&lc=old'])
         youtube.commentThreads.return_value.insert.assert_not_called()
+
+    def test_manual_fallback_comment_is_recovered_before_scheduled_release(self):
+        ledger = Ledger()
+        ledger.entries = {'a': entry(publish_at='2026-10-25T13:00:00Z',
+                                     assets={'pinned_comment': 'Question?'})}
+        thread = {'snippet': {'topLevelComment': {'id': 'manual', 'snippet': {
+            'authorChannelId': {'value': 'UC1'}, 'textOriginal': 'Hi'}}}}
+        youtube = youtube_with(threads=[thread])
+        youtube.commentThreads.return_value.list.return_value.execute.side_effect = [
+            {'items': [], 'nextPageToken': 'next'}, {'items': [thread]}]
+        links, errors = post_due_comments(youtube, ledger, 'Hi', 'UC1', NOW)
+        self.assertEqual(errors, [])
+        self.assertEqual(links, ['https://www.youtube.com/watch?v=vid&lc=manual'])
+        youtube.commentThreads.return_value.insert.assert_not_called()
+        self.assertEqual(ledger.entries['a']['comment_id'], 'manual')
+
+    def test_workflow_uses_release_slots_and_daily_catchup_without_polling(self):
+        workflow = (ROOT / '.github/workflows/pinned-comment.yml').read_text()
+        self.assertNotIn('cron: "*/15 * * * *"', workflow)
+        self.assertIn('cron: "45 17 * * *"', workflow)
 
     def test_comment_text_links_to_channel(self):
         text = (ROOT / 'data/pinned_comment.txt').read_text(encoding='utf-8')
