@@ -4292,7 +4292,7 @@
     "manual_publication_note": "User published manually before scheduled release; YouTube Studio verified Public on 2026-11-03 Australia/Sydney. Original schedule preserved; no new upload or reservation removed."
   },
   "8928848fc0b8d0376bb4759adc84729eeb747ae247de81ae16458a943763879e": {
-    "state": "reserved",
+    "state": "uploaded",
     "assets": {
       "date": "2026-11-03",
       "day_number": 739923,
@@ -4532,6 +4532,17 @@
     },
     "requested_privacy": "public",
     "run_id": "41557124235",
-    "publish_at": "2026-11-04T17:00:00.000Z"
+    "publish_at": "2026-11-04T17:00:00.000Z",
+    "video_id": "LKyP2PrxCmw",
+    "url": "https://www.youtube.com/watch?v=LKyP2PrxCmw",
+    "upload_completed_at": "2026-11-03T01:34:32.000Z",
+    "upload_status": {
+      "embeddable": true,
+      "license": "youtube",
+      "publicStatsViewable": true,
+      "containsSyntheticMedia": true,
+      "privacyStatus": "private",
+      "selfDeclaredMadeForKids": false
+    }
   }
 }
