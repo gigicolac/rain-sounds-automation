@@ -1,8 +1,11 @@
 name: Daily Rain Video
 on:
   schedule:
-    - cron: "0 11 * * 1,3,5"
-      timezone: "Australia/Sydney"
+    # Start 28 hours before the fixed Eastern public release slots.
+    - cron: "0 8 * * 0,2"
+      timezone: "America/New_York"
+    - cron: "0 7 * * 4"
+      timezone: "America/New_York"
   workflow_dispatch:
     inputs:
       mode:
@@ -41,9 +44,9 @@ on:
         options: [public, unlisted, private]
         default: public
       publish_timing:
-        description: "Public uploads: release at the weekday time in data/publish_schedule.json, or immediately"
+        description: "Public releases require at least 24 hours after upload; immediate release is disabled"
         type: choice
-        options: [schedule, now]
+        options: [schedule]
         default: schedule
       allow_unreviewed:
         description: "Allow unreviewed assets for private/unlisted testing only"

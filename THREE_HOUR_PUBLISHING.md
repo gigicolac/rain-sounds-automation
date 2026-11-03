@@ -4,7 +4,13 @@ User authorized a public three-hour upload using scene `local:study-room`
 (Pixabay 330062) and recording 695619, with the approved COZY RAIN thumbnail
 layout. Future scheduled posts use three hours as well.
 
-The daily action starts at 11am Australia/Sydney, including daylight saving
+The current proposed timing is documented in [UPLOAD_RELEASE_BUFFER.md](UPLOAD_RELEASE_BUFFER.md):
+builds start 28 hours before the existing Monday/Wednesday/Friday release slots,
+and releases are assigned only after transfer and processing with at least
+24 hours remaining. Immediate public release is disabled after that change is
+merged. The paragraph below records the earlier configuration.
+
+Historically, the daily action started at 11am Australia/Sydney, including daylight saving
 (8pm US Eastern the previous day). Public uploads are sent to YouTube as
 private with a scheduled `publishAt`, and YouTube makes them public at that
 weekday's time in `data/publish_schedule.json` (US Eastern, daylight saving
