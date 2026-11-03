@@ -41,12 +41,15 @@ pinning remains one tap:
 
 1. **Post Pinned Comment** runs 15 minutes after each weekday release time in
    `data/publish_schedule.json` (US Eastern), plus a daily catch-up at
-   5:45pm ET.
+   5:45pm ET. It also polls every 15 minutes for early/manual publication;
+   GitHub scheduling delays mean this is not an exact publication-time guarantee.
 2. For each new-channel scheduled upload that is now public and has no recorded
    comment, it posts that upload's selected question, falling back to
    `data/pinned_comment.txt`, as the channel. It records
    `comment_id` in upload history, so a video is never commented on twice, and
-   recovers a comment if a run stops mid-post.
+   recovers matching channel comments (including manually posted fallback text)
+   before posting, scanning every comment page. Live public visibility is checked
+   even before the planned release time, so early manual releases are covered.
 3. The run's **Summary** page lists an "Open and pin" link for each new
    comment. Open it, then use the comment's ⋮ menu → **Pin**.
 
@@ -86,3 +89,13 @@ Uploads request only upload and read-only permissions.
    Secrets and variables → Actions → YT_REFRESH_TOKEN → Update**. Never paste
    it into chat or commit it.
 4. Optionally run **Post Pinned Comment** manually to confirm it succeeds.
+
+## 3 November 2026 follow-up
+
+The user manually changed aKAciGfJJ8A to AI use No and published it. The standard
+channel comment UgzY-5XrWJNl_FiqZGF4AaABAg was posted and pinned in the browser.
+Main still uses AI use Yes; this branch sets No for future uploads and must be
+reviewed/merged before scheduled uploads receive it. Recent comment workflow runs
+are successful, but an empty successful run is not proof of a newly posted comment.
+Automatic pinning is unavailable through the public YouTube Data API; pin in Studio
+or the watch page after the comment job. No unattended browser pinning is installed.

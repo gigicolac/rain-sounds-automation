@@ -1,8 +1,9 @@
 name: Post Pinned Comment
 # Runs 15 minutes after each weekday release time in data/publish_schedule.json
-# (kept in sync by tests/test_pinned_comment.py), plus a daily catch-up.
+# (kept in sync by tests/test_pinned_comment.py), plus polling for manual releases.
 on:
   schedule:
+    - cron: "*/15 * * * *"
     - cron: "15 12 * * 1,3"
       timezone: "America/New_York"
     - cron: "15 13 * * 2"
