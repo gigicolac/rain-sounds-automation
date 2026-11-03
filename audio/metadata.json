@@ -3224,6 +3224,11 @@
         "full_playback": false,
         "loop_checked": false,
         "technical_checked": true
+      },
+      "user_confirmation": {
+        "confirmed_at": "2026-11-03T11:49:16.155976+11:00",
+        "decision": "approved",
+        "statement": "User explicitly approved all three samples and authorized merge after they were presented inline. No full-playback or loop-completion claim is added."
       }
     },
     "target_lufs": -22.02
@@ -3283,6 +3288,11 @@
         "full_playback": false,
         "loop_checked": false,
         "technical_checked": true
+      },
+      "user_confirmation": {
+        "confirmed_at": "2026-11-03T11:49:16.155976+11:00",
+        "decision": "approved",
+        "statement": "User explicitly approved all three samples and authorized merge after they were presented inline. No full-playback or loop-completion claim is added."
       }
     },
     "target_lufs": -22.02
@@ -3342,6 +3352,11 @@
         "full_playback": false,
         "loop_checked": false,
         "technical_checked": true
+      },
+      "user_confirmation": {
+        "confirmed_at": "2026-11-03T11:49:16.155976+11:00",
+        "decision": "approved",
+        "statement": "User explicitly approved all three samples and authorized merge after they were presented inline. No full-playback or loop-completion claim is added."
       }
     },
     "target_lufs": -22.01

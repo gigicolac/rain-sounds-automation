@@ -27,3 +27,11 @@ Candidate IDs:
 - custom-audio:forest-launch-2026110201-01
 - custom-audio:forest-launch-2026110201-02
 - custom-audio:forest-launch-2026110201-03
+
+## User approval - 3 November 2026
+
+The user explicitly approved all three samples after they were presented inline
+and authorized merging PR #20. The asset catalogue and Rain Atelier library
+record that confirmation. Technical approval history and the false full_playback
+and loop_checked flags are preserved; no listening-completion claim is inferred.
+Audio bytes, hashes and the verified private storage bundle are unchanged.
