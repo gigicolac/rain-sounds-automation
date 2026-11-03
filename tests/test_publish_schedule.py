@@ -109,15 +109,16 @@ class UploadSchedulingTests(unittest.TestCase):
         self.assertEqual(entry['publish_at'], '2026-11-04T17:00:00.000Z')
         ledger.save.assert_called_once()
 
-    def test_long_processing_delay_uses_later_release(self):
-        entry = {'requested_privacy': 'public', 'upload_completed_at': '2026-11-01T13:30:00Z'}
+    def test_processing_past_slot_delays_original_release_only_until_cooldown_ends(self):
+        entry = {'requested_privacy': 'public', 'upload_completed_at': '2026-11-01T19:00:00Z',
+                 'publish_at': '2026-11-02T17:00:00Z'}
         ledger = Mock(entries={'test': entry})
         youtube = Mock()
         youtube.videos.return_value.update.return_value.execute.return_value = {
-            'status': {'privacyStatus': 'private', 'publishAt': '2026-11-02T17:00:00Z'}}
+            'status': {'privacyStatus': 'private', 'publishAt': '2026-11-02T19:00:00Z'}}
         with patch.object(upload_youtube, 'save_result'):
-            upload_youtube.schedule_publication(youtube, 'test', entry, ledger, {'privacyStatus': 'private'}, utc(2026, 11, 1, 18))
-        self.assertEqual(entry['publish_at'], '2026-11-02T17:00:00.000Z')
+            upload_youtube.schedule_publication(youtube, 'test', entry, ledger, {'privacyStatus': 'private'}, utc(2026, 11, 2, 18))
+        self.assertEqual(entry['publish_at'], '2026-11-02T19:00:00.000Z')
 
     def test_resume_reconciles_schedule_without_moving_it_or_updating_youtube(self):
         entry = {'requested_privacy': 'public', 'upload_completed_at': '2026-11-01T13:30:00Z',
