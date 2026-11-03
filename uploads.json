@@ -4292,7 +4292,7 @@
     "manual_publication_note": "User published manually before scheduled release; YouTube Studio verified Public on 2026-11-03 Australia/Sydney. Original schedule preserved; no new upload or reservation removed."
   },
   "8928848fc0b8d0376bb4759adc84729eeb747ae247de81ae16458a943763879e": {
-    "state": "uploaded",
+    "state": "complete",
     "assets": {
       "date": "2026-11-03",
       "day_number": 739923,
@@ -4544,6 +4544,8 @@
       "privacyStatus": "private",
       "selfDeclaredMadeForKids": false
     },
-    "thumbnail": "set"
+    "thumbnail": "set",
+    "publication_scheduled_at": "2026-11-03T01:48:29.000Z",
+    "actual_privacy": "private"
   }
 }
