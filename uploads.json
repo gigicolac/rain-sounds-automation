@@ -4546,6 +4546,7 @@
     },
     "thumbnail": "set",
     "publication_scheduled_at": "2026-11-03T01:48:29.000Z",
-    "actual_privacy": "private"
+    "actual_privacy": "public",
+    "comment_state": "posting"
   }
 }
