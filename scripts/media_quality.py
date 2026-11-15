@@ -38,10 +38,12 @@ def audio_report(path):
             "silence_seconds": silence, "warnings": warnings,
             "limitation": "Measurements do not identify setting, thunder, voices or prove a clean recording."}
 
-def prepare_audio(source, destination, duration, fade=2.0, target_lufs=-20):
+def prepare_audio(source, destination, duration, fade=2.0, target_lufs=-20, edge_fade=3.0):
     """Crossfade repeated copies, then measure and normalize the finished loop in two passes."""
     if not isinstance(target_lufs, (int, float)) or not -40 <= target_lufs <= -20:
         raise ValueError('Audio loudness target must be between -40 and -20 LUFS')
+    if not isinstance(edge_fade, (int, float)) or not 0 <= edge_fade <= duration / 2:
+        raise ValueError("Invalid outer edge fade")
     info = probe(source)
     print(f'Preparing {duration} seconds of crossfaded audio', flush=True)
     length = float(info["format"]["duration"])
@@ -67,7 +69,7 @@ def prepare_audio(source, destination, duration, fade=2.0, target_lufs=-20):
         previous = "a0"
         for i in range(1, count):
             output = f"x{i}"
-            graph.append(f"[{previous}][a{i}]acrossfade=d={fade}:c1=tri:c2=tri[{output}]")
+            graph.append(f"[{previous}][a{i}]acrossfade=d={fade}:c1=qsin:c2=qsin[{output}]")
             previous = output
         graph.append(f"[{previous}]atrim=duration={duration},asetpts=PTS-STARTPTS[out]")
     if duration >= 3600 and count > 1:
@@ -78,7 +80,7 @@ def prepare_audio(source, destination, duration, fade=2.0, target_lufs=-20):
             f'[0:a]atrim=start={fade}:end={length-fade},asetpts=PTS-STARTPTS[b];'
             f'[1:a]atrim=start={length-fade}:end={length},asetpts=PTS-STARTPTS[t];'
             f'[2:a]atrim=start=0:end={fade},asetpts=PTS-STARTPTS[h];'
-            f'[t][h]acrossfade=d={fade}:c1=tri:c2=tri[x];'
+            f'[t][h]acrossfade=d={fade}:c1=qsin:c2=qsin[x];'
             '[b][x]concat=n=2:v=0:a=1[out]')
         subprocess.run([ffmpeg(), '-y', '-loglevel', 'error', '-i', str(source),
                         '-i', str(source), '-i', str(source), '-filter_complex', graph,
@@ -103,7 +105,7 @@ def prepare_audio(source, destination, duration, fade=2.0, target_lufs=-20):
                      "linear=true")
     print('Normalizing the complete audio loop', flush=True)
     subprocess.run([ffmpeg(), "-hide_banner", "-loglevel", "error", "-y", "-i", str(raw),
-                    "-af", normalization + f",afade=t=in:d=3,afade=t=out:st={max(0,duration-3)}:d=3",
+                    "-af", normalization + (f",afade=t=in:d={edge_fade},afade=t=out:st={max(0,duration-edge_fade)}:d={edge_fade}" if edge_fade else ""),
                     "-ar", "48000", "-c:a", "pcm_s24le", '-rf64', 'auto', str(destination)], check=True)
     print('Checking normalized audio loudness and peaks', flush=True)
     report["normalized_output"] = audio_report(destination)
@@ -114,6 +116,29 @@ def prepare_audio(source, destination, duration, fade=2.0, target_lufs=-20):
         raise ValueError(f'Prepared audio duration {actual} does not match target {duration}')
     write_json(destination.with_suffix(".quality.json"), report)
     raw.unlink()  # Reclaim the multi-gigabyte intermediate before video muxing.
+
+
+def seamless_cycle(source, destination, duration, overlap=2.0):
+    """Fold extra tail onto the head using equal-power overlap, with no fade to silence.
+
+    Input must contain duration + overlap seconds. The body follows the overlap's
+    head endpoint, so ordinary concatenation of the resulting PCM is continuous.
+    """
+    if duration <= overlap or overlap <= 0:
+        raise ValueError("Cycle duration must exceed its positive overlap")
+    if float(probe(source)['format']['duration']) < duration + overlap - .001:
+        raise ValueError("Cycle source needs the extra overlap handle")
+    graph = (
+        f'[0:a]atrim=start={overlap}:end={duration},asetpts=PTS-STARTPTS[b];'
+        f'[1:a]atrim=start={duration}:end={duration+overlap},asetpts=PTS-STARTPTS[t];'
+        f'[2:a]atrim=start=0:end={overlap},asetpts=PTS-STARTPTS[h];'
+        f'[t][h]acrossfade=d={overlap}:c1=qsin:c2=qsin[x];'
+        '[b][x]concat=n=2:v=0:a=1[out]')
+    subprocess.run([ffmpeg(), '-y', '-loglevel', 'error',
+                    '-i', str(source), '-i', str(source), '-i', str(source),
+                    '-filter_complex', graph, '-map', '[out]',
+                    '-ar', '48000', '-c:a', 'flac', str(destination)], check=True)
+
 
 def main():
     import argparse
