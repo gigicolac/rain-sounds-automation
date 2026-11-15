@@ -173,3 +173,39 @@ no detected black intervals. Its mastering target was -29.07 LUFS and the
 prepared audio measured -28.82 LUFS, retaining the quieter level. All 90
 regression tests and the final five staging tests passed. This preview uploaded
 nothing to YouTube; scheduled use of the expanded pool still awaits PR #8 merge.
+
+
+## Constant-level loop assets (16 November 2026)
+
+New create_custom_audio.py output renders a two-second extra handle, disables
+outer fades on its recording bed, and folds tail onto head with an equal-power
+crossfade. Finished assets keep the requested duration and carry
+loop_method=equal_power_cyclic_v1. Final long-video preparation retains only
+its outer start/end fades, using equal-power internal overlaps. Rain Atelier
+repeat previews now concatenate the final six and first six seconds directly,
+so the preview does not hide a faulty boundary with another crossfade.
+
+Existing masters, identities and approvals are preserved. Repaired media must
+use new revision IDs and be reviewed/imported separately; changing code cannot
+remove fades baked into an existing file or a published YouTube video.
+Six -constant-r2 revisions for the 9 and 16 November batches are local review
+candidates, not deployed replacements. Their original approvals are not copied.
+Source restrictions, channel gates, publishing schedules and upload history
+are unchanged. The code change requires normal pull-request review and explicit
+merge authorization before scheduled generation uses it.
+
+Validation: 21 targeted tests passed, including real decoded-noise measurements
+across cyclic boundaries and chained overlaps, duration checks, source-library
+review preservation and staging. The synthetic regression permits at most
+0.7 decibels of noise-power deviation through joins; this is technical evidence,
+not a listening approval of rain assets.
+
+Local repair verification: all six 90-second revisions passed technical checks
+and source 651189 checksum verification. A 200-second multi-repeat preparation
+fully decoded and passed duration/loudness/peak checks. Fourteen review/media
+links loaded. At the measured 250 ms asset edges, the original 21-29 decibel
+attenuation improved to approximately 0.2-2.6 decibels relative to nearby rain;
+normal texture variation remains. Revisions remain pending listening approval.
+The user explicitly authorized pushing this fix to the existing GitHub repository
+on 16 November 2026. The task branch is codex/constant-rain-loops; merge and
+YouTube publication remain separate actions.

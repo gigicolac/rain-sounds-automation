@@ -153,5 +153,35 @@
     "path": "audio/custom/forest-launch-2026110201-03.flac",
     "sha256": "3354e0a7e331d76cb82ca0d528fd2d4dde3dc6b88d1ecc0b3f4d2024a30db88a",
     "bytes": 18874487
+  },
+  {
+    "path": "scenes/custom-weekly-20261109-cedar-reading.mp4",
+    "sha256": "10aa39301fbece8f149dc5a3dc1319dc46945839991e8e0bb11d51e8cb1515ee",
+    "bytes": 3017202
+  },
+  {
+    "path": "scenes/custom-weekly-20261109-pottery-shelter.mp4",
+    "sha256": "202c1c5c2a74e552cb1b43e43791469f6bf0032026f4a20fbf9f363889f5b741",
+    "bytes": 2302986
+  },
+  {
+    "path": "scenes/custom-weekly-20261109-attic-rain.mp4",
+    "sha256": "4ba539069e33e4dd3d45842bafd6f0eb4ceec1dc46c1f84967393f6e2d1a5365",
+    "bytes": 2306124
+  },
+  {
+    "path": "scenes/custom-weekly-20261116-forest-music.mp4",
+    "sha256": "28f70060ba7c3c75a7d80da91531c8331d202ad9be931c4b7ba78dd2a50487e7",
+    "bytes": 2651142
+  },
+  {
+    "path": "scenes/custom-weekly-20261116-quilting-room.mp4",
+    "sha256": "5ce294875f80c43f07b27e385bed703103467484daeec0b2b28769878a26e2ae",
+    "bytes": 2172738
+  },
+  {
+    "path": "scenes/custom-weekly-20261116-map-cabin.mp4",
+    "sha256": "f60028b263f0fb5ca0992f29a9ba1ac48c36d3f393a138d5fd80194b27549804",
+    "bytes": 2463172
   }
 ]

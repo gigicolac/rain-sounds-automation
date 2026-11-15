@@ -50,7 +50,7 @@ def stage(candidates, ids, root=ROOT):
         staged.append((source, destination, {'id': record['id'], 'asset_id': record['id'],
             'filename': filename, 'title': record['title'], 'duration': record['duration'],
             'source_url': record.get('generator_source_url') or 'https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py',
-            **{k: record[k] for k in ('generator_sha256', 'generator_source_url') if k in record},
+            **{k: record[k] for k in ('generator_sha256', 'generator_source_url', 'loop_method') if k in record},
             'license': ('Original procedural sound design; no recording components'
                         if all(c.get('kind') == 'procedural' for c in record['components'])
                         else 'Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)'),
