@@ -5843,6 +5843,7 @@
       "containsSyntheticMedia": false,
       "privacyStatus": "private",
       "selfDeclaredMadeForKids": false
-    }
+    },
+    "thumbnail": "set"
   }
 }
