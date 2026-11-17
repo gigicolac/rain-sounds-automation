@@ -5846,6 +5846,7 @@
     },
     "thumbnail": "set",
     "publication_scheduled_at": "2026-11-15T19:44:39.000Z",
-    "actual_privacy": "private"
+    "actual_privacy": "public",
+    "comment_state": "posting"
   }
 }
