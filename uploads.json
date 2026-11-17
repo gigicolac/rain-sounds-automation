@@ -5851,7 +5851,7 @@
     "comment_id": "Ugxa4XGneQF5w7EU3KJ4AaABAg"
   },
   "50a2161f72ad8ae7ef5b38ecfbcbd0685309fbf986bf8f5ca88680a9ca3a68f9": {
-    "state": "uploaded",
+    "state": "complete",
     "assets": {
       "date": "2026-11-17",
       "day_number": 739937,
@@ -6103,6 +6103,8 @@
       "privacyStatus": "private",
       "selfDeclaredMadeForKids": false
     },
-    "thumbnail": "set"
+    "thumbnail": "set",
+    "publication_scheduled_at": "2026-11-17T21:57:12.000Z",
+    "actual_privacy": "private"
   }
 }
