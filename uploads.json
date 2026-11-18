@@ -6105,6 +6105,7 @@
     },
     "thumbnail": "set",
     "publication_scheduled_at": "2026-11-17T21:57:12.000Z",
-    "actual_privacy": "private"
+    "actual_privacy": "public",
+    "comment_state": "posting"
   }
 }
