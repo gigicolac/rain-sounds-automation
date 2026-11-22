@@ -6374,7 +6374,7 @@
     "comment_id": "UgwZT1_HKFuf_BIq-954AaABAg"
   },
   "86f7da9081b73a86966beeac8e0b8f8a94881878669d3f0db0b86d0f73ba4f9e": {
-    "state": "reserved",
+    "state": "uploaded",
     "assets": {
       "date": "2026-11-22",
       "day_number": 739942,
@@ -6614,6 +6614,17 @@
     },
     "requested_privacy": "public",
     "run_id": "45064130902",
-    "publish_at": "2026-11-23T20:22:26.000Z"
+    "publish_at": "2026-11-23T20:22:26.000Z",
+    "video_id": "NMzrN4XnUco",
+    "url": "https://www.youtube.com/watch?v=NMzrN4XnUco",
+    "upload_completed_at": "2026-11-22T20:24:26.000Z",
+    "upload_status": {
+      "embeddable": true,
+      "license": "youtube",
+      "publicStatsViewable": true,
+      "containsSyntheticMedia": false,
+      "privacyStatus": "private",
+      "selfDeclaredMadeForKids": false
+    }
   }
 }
