@@ -16,7 +16,7 @@ import subprocess
 import wave
 from asset_library import ROOT, read_json, write_json
 from channel_profile import digest
-from media_quality import ffmpeg, probe, audio_report, prepare_audio
+from media_quality import ffmpeg, probe, audio_report, prepare_audio, seamless_cycle
 
 PROFILES = [
     dict(name='v2-sparse-drizzle', source=None, rate=5, target=-30, bed_db=-60, intensity='light', curve=[.3,.55,.25,.7,.35]),
@@ -93,6 +93,7 @@ def create(output, audio_root, duration=90, seed=20261017, profiles=None):
     profiles = PROFILES if profiles is None else profiles
     if not profiles:
         raise ValueError('At least one audio profile is required')
+    render_duration = duration + 2  # Extra handle folded into a constant-power cyclic join.
     prepared = {}
     for source_id in sorted({p['source'] for p in profiles if p['source']}):
         source = next(t for t in metadata if str(t['id']) == source_id)
@@ -104,7 +105,7 @@ def create(output, audio_root, duration=90, seed=20261017, profiles=None):
             raise ValueError('Blend requires a recorded Creative Commons Zero licence')
         folder = output / ('source-' + source_id); folder.mkdir()
         prepared[source_id] = folder / 'crossfaded.wav'
-        prepare_audio(audio_root / source['filename'], prepared[source_id], duration)
+        prepare_audio(audio_root / source['filename'], prepared[source_id], render_duration, edge_fade=0)
     for index, profile in enumerate(profiles):
         name, source_id = profile['name'], profile['source']
         print('Rendering ' + name, flush=True)
@@ -112,7 +113,7 @@ def create(output, audio_root, duration=90, seed=20261017, profiles=None):
         destination = folder / (name + '.flac')
         raw = folder / 'unmastered.flac'
         drops = folder / 'droplets.wav'
-        events = droplets(drops, duration, seed+index, profile['rate'], profile['curve'])
+        events = droplets(drops, render_duration, seed+index, profile['rate'], profile['curve'])
         command = [ffmpeg(), '-y', '-loglevel', 'error', '-i', str(drops)]
         components = [{'kind': 'procedural', 'seed': seed+index,
                        'method': 'sparse unpitched stereo rain transients; no continuous noise generator',
@@ -131,16 +132,16 @@ def create(output, audio_root, duration=90, seed=20261017, profiles=None):
             command += ['-i', str(prepared[source_id])]
             graph.append(f'[1:a]highpass=f={highpass}:p=2,highpass=f={highpass}:p=2,'
                          f'lowpass=f={lowpass}:p=2,volume={profile["bed_db"]}dB,'
-                         f"volume='{density_expression(duration, profile['curve'])}':eval=frame,"
+                         f"volume='{density_expression(render_duration, profile['curve'])}':eval=frame,"
                          'aformat=sample_rates=48000:channel_layouts=stereo[recording]')
             inputs += '[recording]'
             components.append({'kind': 'licensed_recording', 'id': source_id,
                 'source_url': source['freesound_url'], 'license': source['license'],
                 'source_sha256': digest(source_path), 'original_title': source['title']})
         graph.append(f'{inputs}amix=inputs={2 if source_id else 1}:duration=first:normalize=0,'
-                     f'atrim=duration={duration}[out]')
+                     f'atrim=duration={render_duration}[out]')
         subprocess.run(command + ['-filter_complex', ';'.join(graph), '-map', '[out]',
-                       '-t', str(duration), '-ar', '48000', '-c:a', 'flac', str(raw)], check=True)
+                       '-t', str(render_duration), '-ar', '48000', '-c:a', 'flac', str(raw)], check=True)
         measured = audio_report(raw)
         loudness = float(measured['loudness']['input_i'])
         if not math.isfinite(loudness):
@@ -149,10 +150,11 @@ def create(output, audio_root, duration=90, seed=20261017, profiles=None):
         # targets preserve the range across profiles instead of equalizing it.
         gain = profile['target'] - loudness
         peak_limit = 10 ** ((-12 if profile['intensity']=='light' else -7)/20)
+        mastered = folder / 'mastered-with-handle.flac'
         subprocess.run([ffmpeg(), '-y', '-loglevel', 'error', '-i', str(raw),
-                        '-af', f'volume={gain}dB,alimiter=limit={peak_limit}:level=false,'
-                        f'afade=t=in:d=1,afade=t=out:st={duration-1}:d=1',
-                        '-ar', '48000', '-c:a', 'flac', str(destination)], check=True)
+                        '-af', f'volume={gain}dB,alimiter=limit={peak_limit}:level=false',
+                        '-ar', '48000', '-c:a', 'flac', str(mastered)], check=True)
+        seamless_cycle(mastered, destination, duration)
         report = audio_report(destination)
         info = probe(destination)
         report['duration_seconds'] = float(info['format']['duration'])
@@ -167,6 +169,7 @@ def create(output, audio_root, duration=90, seed=20261017, profiles=None):
                         'design_intensity': profile['intensity'], 'design_target_lufs': profile['target'],
                         'target_lufs': float(report['loudness']['input_i']),
                         'generator_sha256': digest(Path(__file__)),
+                        'loop_method': 'equal_power_cyclic_v1',
                         'review': {'approved': False, 'status': 'pending', 'labels': {},
                                    'notes': 'Listening and repeat-boundary review required; not in the public pool'},
                         'technical_pass': report['technical_pass']})

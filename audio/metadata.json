@@ -3360,5 +3360,212 @@
       }
     },
     "target_lufs": -22.01
+  },
+  {
+    "id": "custom-audio:forest-launch-2026112301-01",
+    "asset_id": "custom-audio:forest-launch-2026112301-01",
+    "filename": "custom/forest-launch-2026112301-01.flac",
+    "title": "Launch forest 01 - Ranger shelter variation",
+    "duration": 90,
+    "source_url": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+    "generator_sha256": "aeeb337efdfb7182bb04f34f48d0aad651c44040cf30ad761b4556abb89cb621",
+    "loop_method": "equal_power_cyclic_v1",
+    "license": "Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)",
+    "components": [
+      {
+        "kind": "procedural",
+        "seed": 2026112301,
+        "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+        "profile": {
+          "rate": 56,
+          "target": -22,
+          "bed_db": -9.64,
+          "lowpass": 8012,
+          "name": "forest-launch-2026112301-01",
+          "source": "651189",
+          "intensity": "heavy",
+          "curve": [
+            0.575,
+            0.722,
+            0.524,
+            0.956,
+            0.784
+          ],
+          "highpass": 500
+        },
+        "event_count": 3685
+      },
+      {
+        "kind": "licensed_recording",
+        "id": "651189",
+        "source_url": "https://freesound.org/s/651189/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+        "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+      }
+    ],
+    "sha256": "e1ba23a50df3cb914600a44636da0ebe6da858fc5aabe31b716f1172db1a2f5f",
+    "review": {
+      "approved": true,
+      "status": "approved",
+      "approval_method": "user_authorized_automatic",
+      "approval_authorization": "User explicitly authorized automatic approval and reuse of source 651189 on 29 October 2026",
+      "reviewed_at": "2026-11-22T21:59:00.749963+00:00",
+      "notes": "Automatically approved at user direction after technical checks; no new listening assessment asserted.",
+      "labels": {},
+      "quality": {
+        "full_playback": false,
+        "loop_checked": false,
+        "technical_checked": true
+      },
+      "user_endorsement": {
+        "status": "approved",
+        "reviewed_at": "2026-11-23T10:14:45.045426+00:00",
+        "source": "explicit_user_chat",
+        "instruction": "approve all and push through to approved pool and push/pull",
+        "scope": "23 November 2026 three paired videos and sounds; asset approval without inferring full-playback or loop-listening checks",
+        "sha256": "e1ba23a50df3cb914600a44636da0ebe6da858fc5aabe31b716f1172db1a2f5f",
+        "approval_method": "explicit_user_endorsement"
+      }
+    },
+    "target_lufs": -22.02
+  },
+  {
+    "id": "custom-audio:forest-launch-2026112301-02",
+    "asset_id": "custom-audio:forest-launch-2026112301-02",
+    "filename": "custom/forest-launch-2026112301-02.flac",
+    "title": "Launch forest 02 - Ranger shelter variation",
+    "duration": 90,
+    "source_url": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+    "generator_sha256": "aeeb337efdfb7182bb04f34f48d0aad651c44040cf30ad761b4556abb89cb621",
+    "loop_method": "equal_power_cyclic_v1",
+    "license": "Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)",
+    "components": [
+      {
+        "kind": "procedural",
+        "seed": 2026112302,
+        "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+        "profile": {
+          "rate": 59,
+          "target": -22,
+          "bed_db": -8.82,
+          "lowpass": 8043,
+          "name": "forest-launch-2026112301-02",
+          "source": "651189",
+          "intensity": "heavy",
+          "curve": [
+            0.607,
+            0.749,
+            0.534,
+            0.979,
+            0.779
+          ],
+          "highpass": 500
+        },
+        "event_count": 4030
+      },
+      {
+        "kind": "licensed_recording",
+        "id": "651189",
+        "source_url": "https://freesound.org/s/651189/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+        "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+      }
+    ],
+    "sha256": "79575bba452b501415db769d3b48dbb9465ed949596e9940b3665921fb33102d",
+    "review": {
+      "approved": true,
+      "status": "approved",
+      "approval_method": "user_authorized_automatic",
+      "approval_authorization": "User explicitly authorized automatic approval and reuse of source 651189 on 29 October 2026",
+      "reviewed_at": "2026-11-22T21:59:00.749963+00:00",
+      "notes": "Automatically approved at user direction after technical checks; no new listening assessment asserted.",
+      "labels": {},
+      "quality": {
+        "full_playback": false,
+        "loop_checked": false,
+        "technical_checked": true
+      },
+      "user_endorsement": {
+        "status": "approved",
+        "reviewed_at": "2026-11-23T10:14:45.045426+00:00",
+        "source": "explicit_user_chat",
+        "instruction": "approve all and push through to approved pool and push/pull",
+        "scope": "23 November 2026 three paired videos and sounds; asset approval without inferring full-playback or loop-listening checks",
+        "sha256": "79575bba452b501415db769d3b48dbb9465ed949596e9940b3665921fb33102d",
+        "approval_method": "explicit_user_endorsement"
+      }
+    },
+    "target_lufs": -22.02
+  },
+  {
+    "id": "custom-audio:forest-launch-2026112301-03",
+    "asset_id": "custom-audio:forest-launch-2026112301-03",
+    "filename": "custom/forest-launch-2026112301-03.flac",
+    "title": "Launch forest 03 - Woodland night variation",
+    "duration": 90,
+    "source_url": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+    "generator_sha256": "aeeb337efdfb7182bb04f34f48d0aad651c44040cf30ad761b4556abb89cb621",
+    "loop_method": "equal_power_cyclic_v1",
+    "license": "Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)",
+    "components": [
+      {
+        "kind": "procedural",
+        "seed": 2026112303,
+        "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+        "profile": {
+          "rate": 57,
+          "target": -22,
+          "bed_db": -8.22,
+          "lowpass": 8175,
+          "name": "forest-launch-2026112301-03",
+          "source": "651189",
+          "intensity": "heavy",
+          "curve": [
+            0.658,
+            0.862,
+            0.76,
+            1,
+            0.849
+          ],
+          "highpass": 500
+        },
+        "event_count": 4407
+      },
+      {
+        "kind": "licensed_recording",
+        "id": "651189",
+        "source_url": "https://freesound.org/s/651189/",
+        "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+        "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+        "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+      }
+    ],
+    "sha256": "0c4ceac8f406bfe6abbe522cf2cac46912620bee61f361eaf626ae8afe684832",
+    "review": {
+      "approved": true,
+      "status": "approved",
+      "approval_method": "user_authorized_automatic",
+      "approval_authorization": "User explicitly authorized automatic approval and reuse of source 651189 on 29 October 2026",
+      "reviewed_at": "2026-11-22T21:59:00.749963+00:00",
+      "notes": "Automatically approved at user direction after technical checks; no new listening assessment asserted.",
+      "labels": {},
+      "quality": {
+        "full_playback": false,
+        "loop_checked": false,
+        "technical_checked": true
+      },
+      "user_endorsement": {
+        "status": "approved",
+        "reviewed_at": "2026-11-23T10:14:45.045426+00:00",
+        "source": "explicit_user_chat",
+        "instruction": "approve all and push through to approved pool and push/pull",
+        "scope": "23 November 2026 three paired videos and sounds; asset approval without inferring full-playback or loop-listening checks",
+        "sha256": "0c4ceac8f406bfe6abbe522cf2cac46912620bee61f361eaf626ae8afe684832",
+        "approval_method": "explicit_user_endorsement"
+      }
+    },
+    "target_lufs": -22.01
   }
 ]

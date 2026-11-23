@@ -127,7 +127,7 @@ def import_batch(root, batch, decisions=None):
         subprocess.run([ffmpeg(), '-y', '-loglevel', 'error', '-ss', str(tail_start), '-i', str(master),
             '-i', str(master), '-filter_complex',
             '[0:a]atrim=duration=6,asetpts=PTS-STARTPTS[t];[1:a]atrim=duration=6,asetpts=PTS-STARTPTS[h];'
-            '[t][h]acrossfade=d=2:c1=tri:c2=tri[out]', '-map', '[out]',
+            '[t][h]concat=n=2:v=0:a=1[out]', '-map', '[out]',
             '-c:a', 'libmp3lame', '-b:a', '192k', str(folder / 'loop.mp3')], check=True)
         intent = record.get('intent', {'heaviness': record.get('design_intensity', 'unknown'),
                                        'environment': 'unlabelled', 'vibes': []})

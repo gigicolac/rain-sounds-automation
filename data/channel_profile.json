@@ -20,7 +20,16 @@
     "custom:24-print-studio",
     "custom:28-garden-reader",
     "custom:29-tea-atelier",
-    "custom:30-woodland-night"
+    "custom:30-woodland-night",
+    "custom:weekly-20261109-attic-rain",
+    "custom:weekly-20261109-cedar-reading",
+    "custom:weekly-20261109-pottery-shelter",
+    "custom:weekly-20261116-forest-music",
+    "custom:weekly-20261116-map-cabin",
+    "custom:weekly-20261116-quilting-room",
+    "custom:weekly-20261123-bookbinding",
+    "custom:weekly-20261123-mountain-tea",
+    "custom:weekly-20261123-river-alcove"
   ],
   "audio_ids": [
     "custom-audio:forest-launch-2026102960-01",
@@ -35,7 +44,10 @@
     "custom-audio:forest-launch-2026102960-10",
     "custom-audio:forest-launch-2026110201-01",
     "custom-audio:forest-launch-2026110201-02",
-    "custom-audio:forest-launch-2026110201-03"
+    "custom-audio:forest-launch-2026110201-03",
+    "custom-audio:forest-launch-2026112301-01",
+    "custom-audio:forest-launch-2026112301-02",
+    "custom-audio:forest-launch-2026112301-03"
   ],
   "audio_selection_note": "Initial ten user-auto-approved mixes use allowed shared base 651189. Claimed source 695619 and all known mixes remain excluded. Finished mixes are single-use.",
   "scope": "New channel launch: 18 unused generated scenes and 10 automatically approved recording-based forest mixes; source 651189 explicitly reusable; individual finished mixes and visuals single-use; owner authorization required before activation.",
