@@ -183,5 +183,35 @@
     "path": "scenes/custom-weekly-20261116-map-cabin.mp4",
     "sha256": "f60028b263f0fb5ca0992f29a9ba1ac48c36d3f393a138d5fd80194b27549804",
     "bytes": 2463172
+  },
+  {
+    "path": "scenes/custom-weekly-20261123-bookbinding.mp4",
+    "sha256": "592e8137dba89d9fec8156224319627a9fed5e952e73c786c4acac1ef3534aad",
+    "bytes": 2187640
+  },
+  {
+    "path": "scenes/custom-weekly-20261123-river-alcove.mp4",
+    "sha256": "687000c5241a5bbc2b27d8797356f3dd2d33293030807fee0e6c8e7e64518af7",
+    "bytes": 2921916
+  },
+  {
+    "path": "scenes/custom-weekly-20261123-mountain-tea.mp4",
+    "sha256": "c8b25585dea654e1a17b90558913ef33dc2a664bdecb6990d64642de6e8354da",
+    "bytes": 2269141
+  },
+  {
+    "path": "audio/custom/forest-launch-2026112301-01.flac",
+    "sha256": "e1ba23a50df3cb914600a44636da0ebe6da858fc5aabe31b716f1172db1a2f5f",
+    "bytes": 18974699
+  },
+  {
+    "path": "audio/custom/forest-launch-2026112301-02.flac",
+    "sha256": "79575bba452b501415db769d3b48dbb9465ed949596e9940b3665921fb33102d",
+    "bytes": 18978559
+  },
+  {
+    "path": "audio/custom/forest-launch-2026112301-03.flac",
+    "sha256": "0c4ceac8f406bfe6abbe522cf2cac46912620bee61f361eaf626ae8afe684832",
+    "bytes": 18981766
   }
 ]

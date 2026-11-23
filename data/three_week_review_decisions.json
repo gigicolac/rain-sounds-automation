@@ -361,6 +361,51 @@
       "approval_source": "explicit_user_chat",
       "full_playback_asserted": false,
       "loop_review_asserted": false
+    },
+    {
+      "scene_id": "weekly-20261123-bookbinding",
+      "preview": "preview-v1.mp4",
+      "preview_sha256": "592e8137dba89d9fec8156224319627a9fed5e952e73c786c4acac1ef3534aad",
+      "master_sha256": "238c6cc84a71b9d54fd06e04fc82c8bde6bf2851663240d2594664788e22414a",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/weekly-paired-20261123/scenes/weekly-20261123-bookbinding",
+      "notes": "User explicitly approved this exact 23 November scene and requested approved-pool staging and push. No full-playback or loop-review check inferred.",
+      "reviewed_at": "2026-11-23T10:14:45.045426+00:00",
+      "batch": "20261123",
+      "approval_source": "explicit_user_chat",
+      "full_playback_asserted": false,
+      "loop_review_asserted": false
+    },
+    {
+      "scene_id": "weekly-20261123-mountain-tea",
+      "preview": "preview-v1.mp4",
+      "preview_sha256": "c8b25585dea654e1a17b90558913ef33dc2a664bdecb6990d64642de6e8354da",
+      "master_sha256": "0dbe82ba9c6dd59b43ded375372a126040b30f1058384fe7ccef5a07289eb1cf",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/weekly-paired-20261123/scenes/weekly-20261123-mountain-tea",
+      "notes": "User explicitly approved this exact 23 November scene and requested approved-pool staging and push. No full-playback or loop-review check inferred.",
+      "reviewed_at": "2026-11-23T10:14:45.045426+00:00",
+      "batch": "20261123",
+      "approval_source": "explicit_user_chat",
+      "full_playback_asserted": false,
+      "loop_review_asserted": false
+    },
+    {
+      "scene_id": "weekly-20261123-river-alcove",
+      "preview": "preview-v1.mp4",
+      "preview_sha256": "687000c5241a5bbc2b27d8797356f3dd2d33293030807fee0e6c8e7e64518af7",
+      "master_sha256": "237fe922d44d5c39c0d1e147595d48c2f08d8d7687186cd5f8510538e382a723",
+      "status": "approve",
+      "package_checked": true,
+      "package": "run/weekly-paired-20261123/scenes/weekly-20261123-river-alcove",
+      "notes": "User explicitly approved this exact 23 November scene and requested approved-pool staging and push. No full-playback or loop-review check inferred.",
+      "reviewed_at": "2026-11-23T10:14:45.045426+00:00",
+      "batch": "20261123",
+      "approval_source": "explicit_user_chat",
+      "full_playback_asserted": false,
+      "loop_review_asserted": false
     }
   ],
   "audio": [
