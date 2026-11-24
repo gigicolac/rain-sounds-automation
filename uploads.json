@@ -6631,5 +6631,253 @@
     "actual_privacy": "public",
     "comment_state": "posted",
     "comment_id": "Ugwg6n7KjAgdt9dCp_d4AaABAg"
+  },
+  "daf64c565cd4f355f457f4d5f8786840f13d58d43a02a47f14cd354f9d381352": {
+    "state": "reserved",
+    "assets": {
+      "date": "2026-11-24",
+      "day_number": 739944,
+      "scene_term": "anime window rain ambience",
+      "video": {
+        "asset_id": "custom:21-music-room",
+        "local_path": "scenes/custom-21-music-room.mp4",
+        "source_url": "https://github.com/shmop/rain-sounds-assets/releases/tag/three-week-approved-2026-10-23",
+        "license_url": "https://openai.com/policies/terms-of-use/",
+        "source_record_origin": "User-created image_gen scene and exact user-approved animation preview",
+        "generator": "built-in image_gen",
+        "sha256": "1b15e3cf75c8960c9677ab09a04305ed9ca17092c8befb6aab0f4f91322efbba",
+        "width": 1920,
+        "height": 1080,
+        "duration": 10.0,
+        "thumbnail_text_side": "right",
+        "review": {
+          "approved": true,
+          "status": "approved",
+          "labels": {},
+          "notes": "User approved the revised video in chat on 23 October 2026.",
+          "approval_scope": "master and exact animation preview; content labels remain unknown"
+        },
+        "custom_scene": {
+          "scene_id": "21-music-room",
+          "preview": "preview-panes-v2.mp4",
+          "master_sha256": "bb06c3ffddb2d88099b6f636d1f12e03b1defa249a8dafbc12d893029f37e66c"
+        },
+        "scene_term": "anime window rain ambience"
+      },
+      "audio": {
+        "asset_id": "custom-audio:forest-launch-2026110201-02",
+        "source_url": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+        "components": [
+          {
+            "kind": "procedural",
+            "seed": 2026110202,
+            "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+            "profile": {
+              "rate": 65,
+              "target": -22,
+              "bed_db": -9.06,
+              "lowpass": 8492,
+              "name": "forest-launch-2026110201-02",
+              "source": "651189",
+              "intensity": "heavy",
+              "curve": [
+                0.537,
+                0.701,
+                0.501,
+                0.986,
+                0.775
+              ],
+              "highpass": 500
+            },
+            "event_count": 4166
+          },
+          {
+            "kind": "licensed_recording",
+            "id": "651189",
+            "source_url": "https://freesound.org/s/651189/",
+            "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+            "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+            "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+          }
+        ],
+        "sha256": "74ee383dc081ae6903a549fffc2e1e3c37cb4b820daaac4b277be71fbe424d52",
+        "target_lufs": -22.02,
+        "generator_sha256": "7dbe91e7a87cb4f99ef2216a50e9420f1af6ed526724b245f750f2c5f9a09119",
+        "filename": "custom/forest-launch-2026110201-02.flac",
+        "path": "audio/custom/forest-launch-2026110201-02.flac",
+        "title": "Launch forest 02 - Ranger shelter variation",
+        "freesound_id": "custom-audio:forest-launch-2026110201-02",
+        "freesound_url": null,
+        "license": "Original procedural sound design; licensed recording components are Creative Commons Zero (see component records)",
+        "review": {
+          "approved": true,
+          "status": "approved",
+          "approval_method": "user_authorized_automatic",
+          "approval_authorization": "User explicitly authorized automatic approval and reuse of source 651189 on 29 October 2026",
+          "reviewed_at": "2026-11-03T00:35:58.136744+00:00",
+          "notes": "Automatically approved at user direction after technical checks; no new listening assessment asserted.",
+          "labels": {},
+          "quality": {
+            "full_playback": false,
+            "loop_checked": false,
+            "technical_checked": true
+          },
+          "user_confirmation": {
+            "confirmed_at": "2026-11-03T11:49:16.155976+11:00",
+            "decision": "approved",
+            "statement": "User explicitly approved all three samples and authorized merge after they were presented inline. No full-playback or loop-completion claim is added."
+          }
+        }
+      },
+      "duration_minutes": 180,
+      "duration_seconds": 10800,
+      "title": "Sleep Deeply Tonight \ud83c\udf27\ufe0f Calming Rain Sounds for Sleeping & Deep Relaxation | 3 Hours",
+      "title_options": [
+        "Sleep Deeply Tonight \ud83c\udf27\ufe0f Calming Rain Sounds for Sleeping & Deep Relaxation | 3 Hours",
+        "Sleep Deeply Tonight \ud83c\udf27\ufe0f Calming Rain Sounds for Sleeping & Restorative Rest | 3 Hours",
+        "Sleep Deeply Tonight \ud83c\udf27\ufe0f Calming Rain Sounds for Sleeping & a Nervous System Reset | 3 Hours"
+      ],
+      "overlay_title": "Sleep Deeply Tonight \u00b7 Calming Rain Sounds for Sleeping",
+      "description": "Rain sounds for deep sleep and quiet minds. 3 hours of steady rainfall to help you sleep deeply through the night.\n\nLet your breathing slow with the rhythm of the rain, and find the stillness you've been waiting for all day.\n\nClose your eyes. Breathe in for four and out for six. Let the rain melt away your worries.\n\nYou've given enough today \u2764\ufe0f\n\nCalming Rain Sounds. Rest. Focus. Reset.\n\n\ud83c\udf19 Sleep: let your thoughts float away and drift into a restful, restorative sleep.\n\ud83d\udcda Focus: wake up your tired brain and settle into flow with the rain. Lock in and improve your focus and productivity.\n\ud83e\udd0d Calm: let the day's worries melt away, calm your nervous system and sink into deep relaxation.\n\nThis is your quiet place, where you don't owe anyone anything.\n\nPress play. Let the rain carry the weight for a while \u2764\ufe0f\n\nNew calming rain videos three times a week. Subscribe so tonight's rain is ready when you are: https://www.youtube.com/channel/UCaMtUdYVy9bIW1xYsWJHjXg\n\nChapters\n0:00 Settle in and breathe\n1:00:00 Drift deeper\n2:00:00 Deep, restorative rest\n\nAbout Calming Rain Sounds\nMade by GUMA.\nVideo: https://github.com/shmop/rain-sounds-assets/releases/tag/three-week-approved-2026-10-23\nVideo license: https://openai.com/policies/terms-of-use/\nAudio: \"Launch forest 02 - Ranger shelter variation\" sourced from https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py, released under Original procedural sound design; licensed recording components are Creative Commons Zero (see component records).\nAudio source: https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py\n\nTip: keep the volume low enough that you could talk over it comfortably.\nThese sounds are for relaxation only and aren't a treatment for sleep problems.\n\n#rainsounds #rainsoundsforsleeping #sleepsounds #rainasmr #rainforstudy #rainforfocus\n\nQuiet the mind, drift to sleep, or focus with our restorative rain sound videos.\n",
+      "thumbnail_headline": "DEEP SLEEP\nRAIN",
+      "thumbnail_style": "pixel",
+      "thumbnail_side": "right",
+      "thumbnail_variants": [
+        {
+          "headline": "DEEP SLEEP\nRAIN",
+          "style": "pixel",
+          "side": "right"
+        },
+        {
+          "headline": "DEEP SLEEP\nRAIN",
+          "style": "soft",
+          "side": "right"
+        },
+        {
+          "headline": "DEEP SLEEP\nRAIN",
+          "style": "stacked",
+          "side": "right"
+        }
+      ],
+      "pinned_comment": "\ud83d\udcac How long did it take you to drift off? Let us know in the morning \u2600\ufe0f",
+      "tags": [
+        "rain sounds for sleeping",
+        "rain sounds for sleep",
+        "rain sounds",
+        "sleep sounds",
+        "calming rain sounds",
+        "rain ambience",
+        "cozy rain",
+        "rain for insomnia",
+        "deep sleep rain",
+        "rain asmr"
+      ],
+      "review_approved": false,
+      "selection_explanation": {
+        "policy": "channel_profile",
+        "strict_review": false,
+        "rotation": "Each generated visual and audio source is single-use across both channels; reservations count; stop when exhausted."
+      },
+      "category_id": "10",
+      "variety": {
+        "scene_id": "custom:21-music-room",
+        "scene_source": "https://github.com/shmop/rain-sounds-assets/releases/tag/three-week-approved-2026-10-23",
+        "audio_id": "custom-audio:forest-launch-2026110201-02",
+        "audio_source": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+        "audio_components": [
+          {
+            "kind": "procedural",
+            "seed": 2026110202,
+            "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+            "profile": {
+              "rate": 65,
+              "target": -22,
+              "bed_db": -9.06,
+              "lowpass": 8492,
+              "name": "forest-launch-2026110201-02",
+              "source": "651189",
+              "intensity": "heavy",
+              "curve": [
+                0.537,
+                0.701,
+                0.501,
+                0.986,
+                0.775
+              ],
+              "highpass": 500
+            },
+            "event_count": 4166
+          },
+          {
+            "kind": "licensed_recording",
+            "id": "651189",
+            "source_url": "https://freesound.org/s/651189/",
+            "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+            "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+            "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+          }
+        ],
+        "duration_seconds": 10800,
+        "title": "Sleep Deeply Tonight \ud83c\udf27\ufe0f Calming Rain Sounds for Sleeping & Deep Relaxation | 3 Hours",
+        "keyword": "Sleep Deeply Tonight \ud83c\udf27\ufe0f Calming Rain Sounds for Sleeping & Deep Relaxation",
+        "thumbnail_headline": "DEEP SLEEP\nRAIN",
+        "thumbnail_style": "pixel",
+        "description_opening": "Rain sounds for deep sleep and quiet minds. 3 hours of steady rainfall to help you sleep deeply through the night.",
+        "verified_video_labels": {},
+        "verified_audio_labels": {}
+      },
+      "channel_id": "UCaMtUdYVy9bIW1xYsWJHjXg"
+    },
+    "channel_id": "UCaMtUdYVy9bIW1xYsWJHjXg",
+    "variety": {
+      "scene_id": "custom:21-music-room",
+      "scene_source": "https://github.com/shmop/rain-sounds-assets/releases/tag/three-week-approved-2026-10-23",
+      "audio_id": "custom-audio:forest-launch-2026110201-02",
+      "audio_source": "https://github.com/gigicolac/rain-sounds-automation/blob/main/scripts/create_custom_audio.py",
+      "audio_components": [
+        {
+          "kind": "procedural",
+          "seed": 2026110202,
+          "method": "sparse unpitched stereo rain transients; no continuous noise generator",
+          "profile": {
+            "rate": 65,
+            "target": -22,
+            "bed_db": -9.06,
+            "lowpass": 8492,
+            "name": "forest-launch-2026110201-02",
+            "source": "651189",
+            "intensity": "heavy",
+            "curve": [
+              0.537,
+              0.701,
+              0.501,
+              0.986,
+              0.775
+            ],
+            "highpass": 500
+          },
+          "event_count": 4166
+        },
+        {
+          "kind": "licensed_recording",
+          "id": "651189",
+          "source_url": "https://freesound.org/s/651189/",
+          "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+          "source_sha256": "035c23de195d1bfd5a44d6b6dac92501fd132c55b68dd26c5d1d78c3fec71d66",
+          "original_title": "Heavy Rain Regen Starkregen Raining Atmosphere Ambient Forest Wald"
+        }
+      ],
+      "duration_seconds": 10800,
+      "title": "Sleep Deeply Tonight \ud83c\udf27\ufe0f Calming Rain Sounds for Sleeping & Deep Relaxation | 3 Hours",
+      "keyword": "Sleep Deeply Tonight \ud83c\udf27\ufe0f Calming Rain Sounds for Sleeping & Deep Relaxation",
+      "thumbnail_headline": "DEEP SLEEP\nRAIN",
+      "thumbnail_style": "pixel",
+      "description_opening": "Rain sounds for deep sleep and quiet minds. 3 hours of steady rainfall to help you sleep deeply through the night.",
+      "verified_video_labels": {},
+      "verified_audio_labels": {}
+    },
+    "requested_privacy": "public",
+    "run_id": "45504551826",
+    "publish_at": "2026-11-25T23:10:46.000Z"
   }
 }
